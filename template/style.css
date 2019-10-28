@@ -1,0 +1,34 @@
+.satus-header__title
+{
+    position: absolute;
+    left: 62px;
+
+    transition: 200ms;
+}
+
+.satus:not([data-path]) .satus-header__title,
+.satus[data-path='main'] .satus-header__title
+{
+    left: 8px;
+
+    transition-delay: 100ms;
+}
+
+.satus-button--back
+{
+    position: absolute;
+
+    visibility: visible;
+
+    transition: 150ms;
+
+    opacity: 1;
+}
+
+.satus:not([data-path]) .satus-button--back,
+.satus[data-path='main'] .satus-button--back
+{
+    visibility: hidden;
+
+    opacity: 0;
+}

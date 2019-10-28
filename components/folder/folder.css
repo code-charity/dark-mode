@@ -1,0 +1,28 @@
+/*-----------------------------------------------------------------------------
+>>> «FOLDER» COMPONENT
+-----------------------------------------------------------------------------*/
+
+.satus-folder
+{
+    display: flex;
+
+    cursor: pointer;
+
+    align-items: center;
+}
+
+.satus-folder:hover
+{
+    background: var(--background-hover-1);
+}
+
+.satus-folder > svg
+{
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+
+    opacity: .75;
+
+    fill: var(--text-1);
+}
