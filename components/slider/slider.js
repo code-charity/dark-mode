@@ -4,7 +4,7 @@
 >>> "SLIDER" COMPONENT:
 ------------------------------------------------------------------------------*/
 
-Satus.slider = function(object) {
+Satus.slider = function(object, key) {
     var component = document.createElement('div'),
         component_label = document.createElement('span'),
         component_track_container = document.createElement('div'),
@@ -13,7 +13,7 @@ Satus.slider = function(object) {
         min = object.min || 0,
         max = object.max || 1,
         step = object.step || 1,
-        value = Satus.get((object.storage || '') + '/' + name) || object.value || 0;
+        value = Satus.get((object.storage || '') + '/' + key) || object.value || 0;
 
     if (Satus.get((object.storage || '') + '/' + name) === 0) {
         value = 0;
@@ -66,7 +66,7 @@ Satus.slider = function(object) {
                 var value = steps * step + min;
 
                 component.dataset.value = value;
-                Satus.set(object.storage, value);
+                Satus.set((object.storage || '') + '/' + key, value);
                 if (object.onchange) {
                     object.onchange(value);
                 }
@@ -107,7 +107,7 @@ Satus.slider = function(object) {
             this.querySelector('.track').style.width = x + '%';
 
             this.dataset.value = value;
-            Satus.set(object.storage, value);
+            Satus.set((object.storage || '') + '/' + key, value);
             if (object.onchange) {
                 object.onchange(value);
             }

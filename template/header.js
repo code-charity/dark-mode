@@ -30,10 +30,6 @@ const Menu = {
             type: 'section',
             class: ['satus-section--align-end'],
 
-            /*search: {
-                type: 'button',
-                icon: '<svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l4.3 4.3a1 1 0 0 0 1.4-1.5L15.5 14zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"></path></svg>'
-            },*/
             mode: {
                 type: 'switch',
                 icons: {
@@ -44,7 +40,8 @@ const Menu = {
                     width: 'auto',
                     padding: '0',
                     background: 'transparent'
-                }
+                },
+                value: true
             }
         }
     }

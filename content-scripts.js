@@ -20,23 +20,23 @@ function getFilters(settings) {
         body_filter += ' invert(1)';
     }
 
-    if (settings.brightness) {
+    if (typeof settings.brightness === 'number') {
         body_filter += ' brightness(' + settings.brightness + '%)';
     }
 
-    if (settings.contrast) {
+    if (typeof settings.contrast === 'number') {
         body_filter += ' contrast(' + settings.contrast + '%)';
     }
 
-    if (settings.grayscale) {
+    if (typeof settings.grayscale === 'number') {
         body_filter += ' grayscale(' + settings.grayscale + '%)';
     }
 
-    if (settings.sepia) {
+    if (typeof settings.sepia === 'number') {
         body_filter += ' sepia(' + settings.sepia + '%)';
     }
 
-    if (settings.saturate) {
+    if (typeof settings.saturate === 'number') {
         body_filter += ' saturate(' + settings.saturate + '%)';
     }
 
@@ -59,15 +59,27 @@ function injectStyle(string, id) {
 }
 
 chrome.storage.local.get(function(object) {
-    if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
-        injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
+    if (object.mode !== false) {
+        if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
+            injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
+        }
+    } else {
+        if (document.querySelector('#night-mode-extension-filters')) {
+            document.querySelector('#night-mode-extension-filters').remove();
+        }
     }
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
     chrome.storage.local.get(function(object) {
-        if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
-            injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
+        if (object.mode !== false) {
+            if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
+                injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
+            }
+        } else {
+            if (document.querySelector('#night-mode-extension-filters')) {
+                document.querySelector('#night-mode-extension-filters').remove();
+            }
         }
     });
 });

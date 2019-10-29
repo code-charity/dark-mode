@@ -1,55 +1,15 @@
 {
-    "nightMode": {
-        "message": "Night mode"
+    "about": {
+        "message": "About"
     },
-    "dayMode": {
-        "message": "Day mode"
+    "accept": {
+        "message": "Accept"
     },
-    "gitHub": {
-        "message": "GitHub"
+    "audioFormats": {
+        "message": "Audio formats"
     },
-    "rateUs": {
-        "message": "Rate us"
-    },
-
-
-
-
-
-
-
-
-
-    "mode": {
-        "message": "Mode"
-    },
-
-
-
-
-
-
-
-
-    "theme": {
-        "message": "Theme"
-    },
-    "primaryColor": {
-        "message": "Primary color"
-    },
-
-
-
-
-
-
-
-
-    "filters": {
-        "message": "Filters"
-    },
-    "invertColors": {
-        "message": "Invert colors"
+    "backupAndReset": {
+        "message": "Backup & reset"
     },
     "bluelight": {
         "message": "Bluelight"
@@ -57,86 +17,95 @@
     "brightness": {
         "message": "Brightness"
     },
+    "browser": {
+        "message": "Browser"
+    },
     "contrast": {
         "message": "Contrast"
     },
-    "grayscale": {
-        "message": "Grayscale"
+    "cores": {
+        "message": "Cores"
     },
-    "sepia": {
-        "message": "Sepia"
+    "dateAndTime": {
+        "message": "Date & time"
     },
-
-
-
-
-
-
-    "schedule": {
-        "message": "Schedule"
+    "dayMode": {
+        "message": "Day mode"
     },
-
-
-
-
-
-
-
-
-
-    "websites": {
-        "message": "Websites"
+    "device": {
+        "message": "Device"
     },
-    "styles": {
-        "message": "Styles"
+    "exportSettings": {
+        "message": "Export settings"
     },
-    "remove": {
-        "message": "Remove"
+    "extension": {
+        "message": "Extension"
     },
-    "ok": {
-        "message": "OK"
+    "filters": {
+        "message": "Filters"
     },
-
-
-
-
-
-
-
-
-
-    "settings": {
-        "message": "Settings"
+    "flash": {
+        "message": "Flash"
     },
     "general": {
         "message": "General"
     },
-    "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+    "gitHub": {
+        "message": "GitHub"
     },
-    "languages": {
-        "message": "Languages"
+    "gpu": {
+        "message": "GPU"
     },
-    "language": {
-        "message": "Language"
-    },
-    "youtubeLanguage": {
-        "message": "YouTube language"
-    },
-    "backupAndReset": {
-        "message": "Backup & reset"
+    "grayscale": {
+        "message": "Grayscale"
     },
     "importSettings": {
         "message": "Import settings"
     },
-    "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+    "invertColors": {
+        "message": "Invert colors"
+    },
+    "language": {
+        "message": "Language"
+    },
+    "languages": {
+        "message": "Languages"
+    },
+    "mode": {
+        "message": "Mode"
+    },
+    "name": {
+        "message": "Name"
+    },
+    "nightMode": {
+        "message": "Night mode"
+    },
+    "ok": {
+        "message": "OK"
+    },
+    "os": {
+        "message": "OS"
     },
     "permissionIsNotGranted": {
         "message": "Permission is not granted"
     },
-    "exportSettings": {
-        "message": "Export settings"
+    "permissions": {
+        "message": "Permissions"
+    },
+    "platform": {
+        "message": "Platform"
+    },
+    "primaryColor": {
+        "message": "Primary color"
+    },
+    "ram": {
+        "message": "RAM"
+    },
+    "rateUs": {
+        "message": "Rate us"
+    },
+    "remove": {
+        "message": "Remove"
     },
     "resetAllSettings": {
         "message": "Reset all settings"
@@ -144,67 +113,52 @@
     "resetSettings": {
         "message": "Reset settings?"
     },
-    "accept": {
-        "message": "Accept"
-    },
-    "dateAndTime": {
-        "message": "Date & time"
-    },
-    "use24HourFormat": {
-        "message": "Use 24-hour format"
-    },
-    "about": {
-        "message": "About"
-    },
     "saveAs": {
         "message": "Save as..."
     },
-    "extension": {
-        "message": "Extension"
-    },
-    "version": {
-        "message": "Version"
-    },
-    "permissions": {
-        "message": "Permissions"
-    },
-    "browser": {
-        "message": "Browser"
-    },
-    "name": {
-        "message": "Name"
-    },
-    "platform": {
-        "message": "Platform"
-    },
-    "videoFormats": {
-        "message": "Video formats"
-    },
-    "audioFormats": {
-        "message": "Audio formats"
-    },
-    "flash": {
-        "message": "Flash"
-    },
-    "os": {
-        "message": "OS"
-    },
-    "type": {
-        "message": "Type"
-    },
-    "device": {
-        "message": "Device"
+    "schedule": {
+        "message": "Schedule"
     },
     "screen": {
         "message": "Screen"
     },
-    "cores": {
-        "message": "Cores"
+    "sepia": {
+        "message": "Sepia"
     },
-    "gpu": {
-        "message": "GPU"
+    "settings": {
+        "message": "Settings"
     },
-    "ram": {
-        "message": "RAM"
+    "styles": {
+        "message": "Styles"
+    },
+    "successfullyImportedSettings": {
+        "message": "Successfully imported settings"
+    },
+    "theme": {
+        "message": "Theme"
+    },
+    "thisWillResetAllSettings": {
+        "message": "This will reset all settings"
+    },
+    "type": {
+        "message": "Type"
+    },
+    "use24HourFormat": {
+        "message": "Use 24-hour format"
+    },
+    "useSettingsForAllWebsites": {
+        "message": "Use settings for all websites"
+    },
+    "version": {
+        "message": "Version"
+    },
+    "videoFormats": {
+        "message": "Video formats"
+    },
+    "websites": {
+        "message": "Websites"
+    },
+    "youtubeLanguage": {
+        "message": "YouTube language"
     }
 }

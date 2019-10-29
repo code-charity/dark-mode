@@ -20,38 +20,38 @@ chrome.tabs.query({
             invert_colors: {
                 label: 'invertColors',
                 type: 'switch',
-                storage: '/websites/' + HOSTNAME + '/filters/invert_colors'
+                storage: '/websites/' + HOSTNAME + '/filters'
             },
             bluelight: {
                 label: 'bluelight',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters/bluelight',
+                storage: '/websites/' + HOSTNAME + '/filters',
                 max: 90
             },
             brightness: {
                 label: 'brightness',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters/brightness',
+                storage: '/websites/' + HOSTNAME + '/filters',
                 max: 100,
                 value: 100
             },
             contrast: {
                 label: 'contrast',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters/contrast',
+                storage: '/websites/' + HOSTNAME + '/filters',
                 max: 100,
                 value: 100
             },
             grayscale: {
                 label: 'grayscale',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters/grayscale',
+                storage: '/websites/' + HOSTNAME + '/filters',
                 max: 100
             },
             sepia: {
                 label: 'sepia',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters/sepia',
+                storage: '/websites/' + HOSTNAME + '/filters',
                 max: 100
             }
         },
@@ -100,7 +100,7 @@ chrome.tabs.query({
                                                         dialog.invert_colors = {
                                                             type: 'switch',
                                                             label: 'invertColors',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/invert_colors'
+                                                            storage: '/websites/' + HOSTNAME + '/filters'
                                                         };
                                                     }
 
@@ -108,7 +108,7 @@ chrome.tabs.query({
                                                         dialog.bluelight = {
                                                             type: 'slider',
                                                             label: 'bluelight',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/bluelight',
+                                                            storage: '/websites/' + HOSTNAME + '/filters',
                                                             max: 90
                                                         };
                                                     }
@@ -117,7 +117,7 @@ chrome.tabs.query({
                                                         dialog.brightness = {
                                                             type: 'slider',
                                                             label: 'brightness',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/brightness',
+                                                            storage: '/websites/' + HOSTNAME + '/filters',
                                                             max: 100,
                                                             value: 100
                                                         };
@@ -127,7 +127,7 @@ chrome.tabs.query({
                                                         dialog.contrast = {
                                                             type: 'slider',
                                                             label: 'contrast',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/contrast',
+                                                            storage: '/websites/' + HOSTNAME + '/filters',
                                                             max: 100,
                                                             value: 100
                                                         };
@@ -137,7 +137,7 @@ chrome.tabs.query({
                                                         dialog.grayscale = {
                                                             type: 'slider',
                                                             label: 'grayscale',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/grayscale',
+                                                            storage: '/websites/' + HOSTNAME + '/filters',
                                                             max: 100
                                                         };
                                                     }
@@ -146,7 +146,7 @@ chrome.tabs.query({
                                                         dialog.sepia = {
                                                             type: 'slider',
                                                             label: 'sepia',
-                                                            storage: '/websites/' + HOSTNAME + '/filters/sepia',
+                                                            storage: '/websites/' + HOSTNAME + '/filters',
                                                             max: 100
                                                         };
                                                     }
@@ -634,7 +634,7 @@ chrome.tabs.query({
                     type: 'button',
                     label: 'resetAllSettings',
                     onclick: function(satus, component) {
-                        satus.components.dialog.create({
+                        Satus.dialog({
                             type: 'dialog',
 
                             message: {
