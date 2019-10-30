@@ -2,10 +2,10 @@
 >>> «HEADER» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.header = function(object) {
+Satus.components.header = function(object) {
     let element = document.createElement('header');
 
-    this.render(element, object);
+    Satus.render(element, object);
 
     return element;
 };

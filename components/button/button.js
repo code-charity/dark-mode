@@ -2,7 +2,7 @@
 >>> «BUTTON» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.button = function(object) {
+Satus.components.button = function(object) {
     var options = object.options || {},
         component = document.createElement('div'),
         component_label = document.createElement('span');
@@ -24,7 +24,7 @@ Satus.button = function(object) {
     }
 
     component_label.classList.add('label');
-    component_label.innerText = this.get('locale/' + object.label) || object.label || '';
+    component_label.innerText = Satus.get('locale/' + object.label) || object.label || '';
     component.appendChild(component_label);
 
     return component;

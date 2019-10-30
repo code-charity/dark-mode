@@ -2,10 +2,10 @@
 >>> «SECTION» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.section = function(object) {
+Satus.components.section = function(object) {
     let component = document.createElement('section'),
         component_label = document.createElement('span'),
-        label = this.get('locale/' + object.label) || object.label;
+        label = Satus.get('locale/' + object.label) || object.label;
 
     if (label) {
         component_label.classList.add('satus-section__label');
@@ -14,7 +14,7 @@ Satus.section = function(object) {
         component.appendChild(component_label);
     }
 
-    this.render(component, object);
+    Satus.render(component, object);
 
     return component;
 };

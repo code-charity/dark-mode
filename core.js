@@ -1,32 +1,41 @@
 /*-----------------------------------------------------------------------------
->>> «SATUS CORE» v2.0
+>>> SATUS CORE
 -----------------------------------------------------------------------------*/
 
-const Satus = {
-    data: {},
-    events: {},
+const Satus = new function() {
+    let data = {},
+        events = {};
 
-    get: function(name, on) {
-        let path = (name || '').split('/').filter(function(value) {
+    this.components = {};
+
+    this.get = function(name, on) {
+        let path,
+            object = data;
+
+        if (typeof name !== 'string') {
+            return false;
+        } else {
+            path = name.split('/').filter(function(value) {
                 return value != '';
-            }),
-            object = this.data;
+            });
+        }
+
         for (let i = 0, l = path.length; i < l; i++) {
             object = (object || {}).hasOwnProperty(path[i]) ? object[path[i]] : false;
         }
 
-        if (on !== false)
-            for (let i = 0, l = (this.events.get || []).length; i < l; i++)
-                this.events.get[i](name);
+        if (on !== false) {
+            Satus.trigger('get');
+        }
 
         return object;
-    },
+    };
 
-    set: function(name, value, on) {
+    this.set = function(name, value, on) {
         let path = (name || '').split('/').filter(function(value) {
                 return value != '';
             }),
-            object = this.data;
+            object = data;
 
         for (let i = 0, l = path.length; i < l; i++) {
             let key = path[i];
@@ -43,30 +52,39 @@ const Satus = {
         }
 
         if (on !== false) {
-            for (let i = 0, l = (this.events.set || []).length; i < l; i++) {
-                this.events.set[i](name, value);
-            }
+            Satus.trigger('set');
         }
-    },
+    };
 
-    remove: function(name, on) {
+    this.remove = function(name, on) {
         let path = (name || '').split('/').filter(function(value) {
                 return value != '';
             }),
-            object = this.data;
+            object = data;
 
         for (let i = 0, l = path.length; i < l; i++)
             object = object[path[i]];
 
-        if (on !== false)
-            for (let i = 0, l = (this.events.remove || []).length; i < l; i++)
-                this.events.remove[i](name);
-    },
+        if (on !== false) {
+            Satus.trigger('remove');
+        }
+    };
 
-    on: function(name, callback) {
-        if (!this.events[name])
-            this.events[name] = [];
+    this.on = function(name, callback) {
+        if (!events.hasOwnProperty(name)) {
+            events[name] = [];
+        }
 
-        this.events[name].push(callback);
-    }
+        events[name].push(callback);
+    };
+
+    this.trigger = function(name, data) {
+        if (events.hasOwnProperty(name)) {
+            for (let i = 0, l = events[name].length; i < l; i++) {
+                events[name][i](data);
+            }
+        }
+    };
 };
+
+console.log(Satus);

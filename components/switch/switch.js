@@ -2,9 +2,9 @@
 >>> «SWITCH» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.switch = function(object, key) {
+Satus.components.switch = function(object, key) {
     let element = document.createElement('div'),
-        label = this.get('locale/' + object.label) || object.label || false,
+        label = Satus.get('locale/' + object.label) || object.label || false,
         value = Satus.get((object.storage || '') + '/' + key);
 
     element.innerHTML = (label ? '<div class=label>' + label + '</div>' : '') +

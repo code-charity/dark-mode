@@ -2,7 +2,7 @@
 >>> «TEXT» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.text = function(object) {
+Satus.components.text = function(object) {
     var component = document.createElement('span'),
         component_label = document.createElement('span'),
         component_value = document.createElement('span');

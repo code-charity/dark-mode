@@ -9,7 +9,7 @@ Satus.storage = (function() {
             }),
             object = {};
 
-        object[path[0]] = Satus.data[path[0]];
+        object[path[0]] = Satus.get('')[path[0]];
 
         chrome.storage.local.set(object);
 

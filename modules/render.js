@@ -9,9 +9,9 @@ Satus.render = function(container, object) {
         if (
             typeof item === 'object' &&
             typeof item.type === 'string' &&
-            typeof this[item.type] === 'function'
+            typeof this.components[item.type] === 'function'
         ) {
-            let element = this[item.type](item, key);
+            let element = this.components[item.type](item, key);
 
             if (element) {
                 element.classList.add('satus-' + item.type);
@@ -75,9 +75,10 @@ Satus.render = function(container, object) {
 
                 container.appendChild(element);
 
-                for (let i = 0, l = (this.events.renderer || {}).length; i < l; i++) {
-                    this.events.renderer[i](element, item);
-                }
+                Satus.trigger('renderer', {
+                    element: element,
+                    item: item
+                })
             }
         }
     }

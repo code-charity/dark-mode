@@ -1,4 +1,4 @@
-Satus.dialog = function(object) {
+Satus.components.dialog = function(object) {
     var self = this,
         dialog = document.createElement('div'),
         dialog_scrim = document.createElement('div'),

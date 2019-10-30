@@ -2,7 +2,7 @@
 >>> «FOLDER» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.folder = function(object, name) {
+Satus.components.folder = function(object, name) {
     let element = document.createElement('div'),
         label = document.createElement('span');
 
@@ -10,7 +10,7 @@ Satus.folder = function(object, name) {
         element.innerHTML = object.icon;
     }
 
-    label.innerText = this.get('locale/' + object.label) || object.label || this.get('locale/' + name) || name;
+    label.innerText = Satus.get('locale/' + object.label) || object.label || Satus.get('locale/' + name) || name;
 
     function create() {
         let container = document.createElement('div');

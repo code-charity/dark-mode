@@ -2,7 +2,7 @@
 >>> «MAIN» COMPONENT
 -----------------------------------------------------------------------------*/
 
-Satus.main = function(object) {
+Satus.components.main = function(object) {
     let element = document.createElement('main'),
         container = document.createElement('div');
 
@@ -10,7 +10,7 @@ Satus.main = function(object) {
 
     element.appendChild(container);
 
-    this.render(container, object);
+    Satus.render(container, object);
 
     return element;
 };

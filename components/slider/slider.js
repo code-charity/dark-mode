@@ -4,7 +4,7 @@
 >>> "SLIDER" COMPONENT:
 ------------------------------------------------------------------------------*/
 
-Satus.slider = function(object, key) {
+Satus.components.slider = function(object, key) {
     var component = document.createElement('div'),
         component_label = document.createElement('span'),
         component_track_container = document.createElement('div'),

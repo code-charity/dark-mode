@@ -22,7 +22,5 @@
     height: 22px;
     margin-right: 10px;
 
-    opacity: .75;
-
-    fill: var(--text-1);
+    fill: var(--icon-1);
 }
