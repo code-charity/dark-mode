@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Night Mode",
-    "version": "0.16",
-    "version_name": "0.16 alpha",
+    "version": "1.0",
+    "version_name": "1.0",
 
     "default_locale": "en",
     
@@ -29,8 +29,15 @@
         "default_popup": "index.html"
     },
 
+    "optional_permissions": [
+        "downloads"
+    ],
+
     "permissions": [
         "storage",
         "tabs"
-    ]
+    ],
+
+    "offline_enabled": true,
+    "update_url": "https://clients2.google.com/service/update2/crx"
 }

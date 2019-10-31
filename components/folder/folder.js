@@ -10,7 +10,7 @@ Satus.components.folder = function(object, name) {
         element.innerHTML = object.icon;
     }
 
-    label.innerText = Satus.get('locale/' + object.label) || object.label || Satus.get('locale/' + name) || name;
+    label.innerText = Satus.memory.get('locale/' + object.label) || object.label || Satus.memory.get('locale/' + name) || name;
 
     function create() {
         let container = document.createElement('div');
@@ -21,14 +21,15 @@ Satus.components.folder = function(object, name) {
             let self = this,
                 container = create(),
                 object = Menu,
+                parent = this.parentNode,
                 path = document.querySelector('.satus').dataset.path.split('/').filter(function(value) {
                     return value != '';
                 });
 
-            if (this.parentNode.classList.contains('changing') || path.length === 1)
+            if (parent.classList.contains('changing') || path.length === 1)
                 return false;
 
-            this.parentNode.classList.add('changing');
+            parent.classList.add('changing');
 
             path.pop();
 
@@ -42,7 +43,7 @@ Satus.components.folder = function(object, name) {
 
             self.dataset.status = 'pre-closing';
             container.dataset.status = 'pre-closing';
-            self.parentNode.appendChild(container);
+            parent.appendChild(container);
 
             if (
                 typeof container.satusItem === 'object' &&
@@ -66,11 +67,19 @@ Satus.components.folder = function(object, name) {
         return container;
     }
 
+    element.addEventListener('mousedown', function(event) {
+        event.preventDefault();
+
+        return false;
+    });
+
     element.addEventListener('click', function() {
-        if (this.parentNode.classList.contains('changing'))
+        let parent = this.parentNode;
+
+        if (parent.classList.contains('changing'))
             return false;
 
-        this.parentNode.classList.add('changing');
+        parent.classList.add('changing');
 
         let container = create();
 

@@ -40,7 +40,7 @@ function getFilters(settings) {
         body_filter += ' saturate(' + settings.saturate + '%)';
     }
 
-    string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + ';}';
+    string += '#night-mode-bluelight{position:absolute;visibility:hidden;pointer-events:none}body{-webkit-filter:' + body_filter + ';filter:' + body_filter + ';}';
 
     return string;
 }
@@ -63,9 +63,17 @@ chrome.storage.local.get(function(object) {
         if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
             injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
         }
+
+        if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {
+            injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles');
+        }
     } else {
         if (document.querySelector('#night-mode-extension-filters')) {
             document.querySelector('#night-mode-extension-filters').remove();
+        }
+
+        if (document.querySelector('#night-mode-extension-styles')) {
+            document.querySelector('#night-mode-extension-styles').remove();
         }
     }
 });
@@ -76,9 +84,17 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
                 injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
             }
+
+            if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {
+                injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles');
+            }
         } else {
             if (document.querySelector('#night-mode-extension-filters')) {
                 document.querySelector('#night-mode-extension-filters').remove();
+            }
+
+            if (document.querySelector('#night-mode-extension-styles')) {
+                document.querySelector('#night-mode-extension-styles').remove();
             }
         }
     });

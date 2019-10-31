@@ -1,0 +1,149 @@
+{
+    "about": {
+        "message": "О Night Mode"
+    },
+    "accept": {
+        "message": "Принять"
+    },
+    "audioFormats": {
+        "message": "Форматы аудио"
+    },
+    "backupAndReset": {
+        "message": "Резервное копирование и сброс"
+    },
+    "bluelight": {
+        "message": "Bluelight"
+    },
+    "brightness": {
+        "message": "Яркость"
+    },
+    "browser": {
+        "message": "Браузер"
+    },
+    "contrast": {
+        "message": "Контраст"
+    },
+    "cores": {
+        "message": "Ядра"
+    },
+    "dateAndTime": {
+        "message": "Дата и время"
+    },
+    "device": {
+        "message": "Устройство"
+    },
+    "exportSettings": {
+        "message": "Экспорт настроек"
+    },
+    "extension": {
+        "message": "Расширение"
+    },
+    "filters": {
+        "message": "Фильтры"
+    },
+    "flash": {
+        "message": "Флеш"
+    },
+    "gitHub": {
+        "message": "GitHub"
+    },
+    "gpu": {
+        "message": "GPU"
+    },
+    "grayscale": {
+        "message": "Насыщенность"
+    },
+    "importSettings": {
+        "message": "Импорт настроек"
+    },
+    "invertColors": {
+        "message": "Инвертировать цвета"
+    },
+    "language": {
+        "message": "Язык"
+    },
+    "languages": {
+        "message": "Языки"
+    },
+    "mode": {
+        "message": "Режим"
+    },
+    "name": {
+        "message": "Имя"
+    },
+    "nightMode": {
+        "message": "Night mode"
+    },
+    "ok": {
+        "message": "OK"
+    },
+    "os": {
+        "message": "ОС"
+    },
+    "permissionIsNotGranted": {
+        "message": "Разрешение не предоставлено"
+    },
+    "permissions": {
+        "message": "Разрешения"
+    },
+    "platform": {
+        "message": "Платформа"
+    },
+    "ram": {
+        "message": "Оперативная память"
+    },
+    "rateUs": {
+        "message": "Оцените нас"
+    },
+    "remove": {
+        "message": "Удалить"
+    },
+    "resetAllSettings": {
+        "message": "Сбросить все настройки"
+    },
+    "resetSettings": {
+        "message": "Сбросить настройки?"
+    },
+    "saveAs": {
+        "message": "Сохранить как..."
+    },
+    "schedule": {
+        "message": "Расписание"
+    },
+    "screen": {
+        "message": "Экран"
+    },
+    "sepia": {
+        "message": "Сепия"
+    },
+    "settings": {
+        "message": "Настройки"
+    },
+    "styles": {
+        "message": "Стили"
+    },
+    "successfullyImportedSettings": {
+        "message": "Successfully imported settings"
+    },
+    "thisWillResetAllSettings": {
+        "message": "This will reset all settings"
+    },
+    "type": {
+        "message": "Тип"
+    },
+    "use24HourFormat": {
+        "message": "24-часовой формат"
+    },
+    "useSettingsForAllWebsites": {
+        "message": "Использовать настройки для всех веб-сайтов"
+    },
+    "version": {
+        "message": "Версия"
+    },
+    "videoFormats": {
+        "message": "Форматы видео"
+    },
+    "websites": {
+        "message": "Веб-сайты"
+    }
+}

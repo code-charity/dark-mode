@@ -28,7 +28,7 @@ Satus.components.dialog = function(object) {
         }
     }
 
-    this.render(dialog_surface, object);
+    Satus.render(dialog_surface, object);
 
     if (typeof object.options === 'object') {
         if (object.options.padding === false) {

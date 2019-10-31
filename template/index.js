@@ -20,39 +20,61 @@ chrome.tabs.query({
             invert_colors: {
                 label: 'invertColors',
                 type: 'switch',
-                storage: '/websites/' + HOSTNAME + '/filters'
+                storage: 'websites/' + HOSTNAME + '/filters'
             },
             bluelight: {
                 label: 'bluelight',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters',
+                storage: 'websites/' + HOSTNAME + '/filters',
                 max: 90
             },
             brightness: {
                 label: 'brightness',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters',
+                storage: 'websites/' + HOSTNAME + '/filters',
                 max: 100,
                 value: 100
             },
             contrast: {
                 label: 'contrast',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters',
+                storage: 'websites/' + HOSTNAME + '/filters',
                 max: 100,
                 value: 100
             },
             grayscale: {
                 label: 'grayscale',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters',
+                storage: 'websites/' + HOSTNAME + '/filters',
                 max: 100
             },
             sepia: {
                 label: 'sepia',
                 type: 'slider',
-                storage: '/websites/' + HOSTNAME + '/filters',
+                storage: 'websites/' + HOSTNAME + '/filters',
                 max: 100
+            }
+        },
+        styles: {
+            type: 'folder',
+            icon: '<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
+
+            styles: {
+                type: 'textarea',
+                placeholder: 'html, body { ... }',
+                style: {
+                    margin: '16px',
+                    height: 'calc(100vh - 96px)',
+                    fontFamily: 'monospace'
+                },
+                on: {
+                    render: function(element) {
+                        element.value = Satus.storage.get('websites/' + HOSTNAME + '/styles') || '';
+                    },
+                    input: function() {
+                        Satus.storage.set('websites/' + HOSTNAME + '/styles', this.value);
+                    }
+                }
             }
         },
         websites: {
@@ -72,7 +94,7 @@ chrome.tabs.query({
                     on: {
                         render: function(component) {
                             let data = {},
-                                websites = Satus.get('websites');
+                                websites = Satus.storage.get('websites');
 
                             if (websites) {
                                 for (let i in websites) {
@@ -86,94 +108,124 @@ chrome.tabs.query({
                                         let website = websites[i];
 
                                         data[i] = {
-                                            type: 'text',
+                                            type: 'folder',
+                                            label: i
+                                        };
+
+                                        if (website.filters.hasOwnProperty('invert_colors')) {
+                                            data[i].invert_colors = {
+                                                type: 'switch',
+                                                label: 'invertColors',
+                                                storage: 'websites/' + i + '/filters'
+                                            };
+                                        }
+
+                                        if (website.filters.hasOwnProperty('bluelight')) {
+                                            data[i].bluelight = {
+                                                type: 'slider',
+                                                label: 'bluelight',
+                                                storage: 'websites/' + i + '/filters',
+                                                max: 90
+                                            };
+                                        }
+
+                                        if (website.filters.hasOwnProperty('brightness')) {
+                                            data[i].brightness = {
+                                                type: 'slider',
+                                                label: 'brightness',
+                                                storage: 'websites/' + i + '/filters',
+                                                max: 100,
+                                                value: 100
+                                            };
+                                        }
+
+                                        if (website.filters.hasOwnProperty('contrast')) {
+                                            data[i].contrast = {
+                                                type: 'slider',
+                                                label: 'contrast',
+                                                storage: 'websites/' + i + '/filters',
+                                                max: 100,
+                                                value: 100
+                                            };
+                                        }
+
+                                        if (website.filters.hasOwnProperty('grayscale')) {
+                                            data[i].grayscale = {
+                                                type: 'slider',
+                                                label: 'grayscale',
+                                                storage: 'websites/' + i + '/filters',
+                                                max: 100
+                                            };
+                                        }
+
+                                        if (website.filters.hasOwnProperty('sepia')) {
+                                            data[i].sepia = {
+                                                type: 'slider',
+                                                label: 'sepia',
+                                                storage: 'websites/' + i + '/filters',
+                                                max: 100
+                                            };
+                                        }
+                                    }
+                                }
+                            } else {
+                                data.empty = {
+                                    type: 'text',
+                                    label: 'empty'
+                                };
+                            }
+
+                            setTimeout(function() {
+                                Satus.render(component.parentNode, data);
+
+                                component.remove();
+                            });
+                        }
+                    }
+                }
+            },
+            styles: {
+                type: 'folder',
+                icon: '<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
+
+                section: {
+                    type: 'section',
+                    style: {
+                        flexDirection: 'column'
+                    },
+                    on: {
+                        render: function(component) {
+                            let data = {},
+                                websites = Satus.storage.get('websites');
+
+                            if (websites) {
+                                for (let i in websites) {
+                                    if (
+                                        websites[i] &&
+                                        typeof websites[i].styles === 'string'
+                                    ) {
+                                        let website = websites[i];
+
+                                        data[i] = {
+                                            type: 'folder',
                                             label: i,
-                                            on: {
-                                                click: function(component) {
-                                                    let dialog = {
-                                                        style: {
-                                                            flexDirection: 'column'
-                                                        }
-                                                    };
 
-                                                    if (website.filters.hasOwnProperty('invert_colors')) {
-                                                        dialog.invert_colors = {
-                                                            type: 'switch',
-                                                            label: 'invertColors',
-                                                            storage: '/websites/' + HOSTNAME + '/filters'
-                                                        };
+                                            styles: {
+                                                type: 'textarea',
+                                                storage: 'websites/' + i + '/styles',
+                                                placeholder: 'html, body { ... }',
+                                                style: {
+                                                    margin: '16px',
+                                                    height: 'calc(100vh - 96px)',
+                                                    fontFamily: 'monospace'
+                                                },
+                                                on: {
+                                                    render: function(element) {
+                                                        element.value = Satus.storage.get(element.storage) || '';
+                                                    },
+                                                    input: function() {
+                                                        Satus.storage.set(this.storage, this.value);
                                                     }
-
-                                                    if (website.filters.hasOwnProperty('bluelight')) {
-                                                        dialog.bluelight = {
-                                                            type: 'slider',
-                                                            label: 'bluelight',
-                                                            storage: '/websites/' + HOSTNAME + '/filters',
-                                                            max: 90
-                                                        };
-                                                    }
-
-                                                    if (website.filters.hasOwnProperty('brightness')) {
-                                                        dialog.brightness = {
-                                                            type: 'slider',
-                                                            label: 'brightness',
-                                                            storage: '/websites/' + HOSTNAME + '/filters',
-                                                            max: 100,
-                                                            value: 100
-                                                        };
-                                                    }
-
-                                                    if (website.filters.hasOwnProperty('contrast')) {
-                                                        dialog.contrast = {
-                                                            type: 'slider',
-                                                            label: 'contrast',
-                                                            storage: '/websites/' + HOSTNAME + '/filters',
-                                                            max: 100,
-                                                            value: 100
-                                                        };
-                                                    }
-
-                                                    if (website.filters.hasOwnProperty('grayscale')) {
-                                                        dialog.grayscale = {
-                                                            type: 'slider',
-                                                            label: 'grayscale',
-                                                            storage: '/websites/' + HOSTNAME + '/filters',
-                                                            max: 100
-                                                        };
-                                                    }
-
-                                                    if (website.filters.hasOwnProperty('sepia')) {
-                                                        dialog.sepia = {
-                                                            type: 'slider',
-                                                            label: 'sepia',
-                                                            storage: '/websites/' + HOSTNAME + '/filters',
-                                                            max: 100
-                                                        };
-                                                    }
-
-                                                    dialog.footer = {
-                                                        type: 'section',
-                                                        class: ['satus-section--align-end'],
-
-                                                        remove: {
-                                                            type: 'button',
-                                                            label: 'remove',
-                                                            onclick: function(component) {
-                                                                Satus.remove('/websites/' + i + '/filters');
-
-                                                                document.querySelector('.satus-dialog__scrim').click();
-                                                            }
-                                                        },
-                                                        ok: {
-                                                            type: 'button',
-                                                            label: 'ok',
-                                                            onclick: function() {
-                                                                document.querySelector('.satus-dialog__scrim').click();
-                                                            }
-                                                        }
-                                                    };
-
-                                                    Satus.dialog(dialog);
                                                 }
                                             }
                                         };
@@ -186,100 +238,11 @@ chrome.tabs.query({
                                 };
                             }
 
-                            Satus.render(component, data);
-                        }
-                    }
-                }
-            },
-            styles: {
-                type: 'folder',
-                icon: '<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
+                            setTimeout(function() {
+                                Satus.render(component.parentNode, data);
 
-                section: {
-                    type: 'section',
-                    on: {
-                        render: function(component) {
-                            let data = {},
-                                websites = Satus.get('websites');
-
-                            if (websites) {
-                                for (let i in websites) {
-                                    if (typeof websites[i].styles === 'object' && Object.keys(websites[i].styles).length !== 0 && websites[i].styles.constructor === Object) {
-                                        let website = websites[i];
-
-                                        data[i] = {
-                                            type: 'text',
-                                            innerText: i,
-                                            onclick: function(self, component) {
-                                                let dialog_container = {},
-                                                    dialog = {
-                                                        type: 'dialog'
-                                                    };
-
-                                                dialog_container.dialog = dialog;
-
-                                                var css = '',
-                                                    fdg = 0;
-
-                                                for (let j in websites[i].styles) {
-                                                    fdg++;
-
-                                                    if (fdg > 1) {
-                                                        css += ',\n\n';
-                                                    }
-
-                                                    css += '"' + j + '": "' + websites[i].styles[j] + '"';
-                                                }
-
-                                                css += '';
-
-                                                dialog.textarea = {
-                                                    type: 'input',
-                                                    id: 'styles-list',
-                                                    value: css
-                                                };
-
-                                                dialog.footer = {
-                                                    type: 'section',
-                                                    class: ['satus-section--align-end'],
-
-                                                    cancel: {
-                                                        type: 'button',
-                                                        onclick: function() {
-                                                            document.querySelector('.satus-dialog__scrim').click();
-                                                        }
-                                                    },
-                                                    remove: {
-                                                        type: 'button',
-                                                        onclick: function() {
-                                                            Satus.remove('/websites/' + i + '/styles');
-
-                                                            document.querySelector('.satus-dialog__scrim').click();
-                                                        }
-                                                    },
-                                                    save: {
-                                                        type: 'button',
-                                                        onclick: function() {
-                                                            Satus.set('/websites/' + i + '/styles', JSON.parse('{' + document.querySelector('#styles-list').value.replace(/\n/g, '') + '}'));
-
-                                                            document.querySelector('.satus-dialog__scrim').click();
-                                                        }
-                                                    }
-                                                };
-
-                                                Satus.render(dialog);
-                                            }
-                                        };
-                                    }
-                                }
-                            } else {
-                                data['empty'] = {
-                                    type: 'text',
-                                    innerText: 'empty'
-                                };
-                            }
-
-                            Satus.render(data);
+                                component.remove();
+                            });
                         }
                     }
                 }
@@ -302,243 +265,21 @@ chrome.tabs.query({
                 language: {
                     label: 'language',
                     type: 'select',
+                    onchange: function(name, value) {
+                        Satus.locale(function() {
+                            let container = document.querySelector('.satus-main__container');
+
+                            container.innerHTML = '';
+
+                            Satus.render(container, Menu.main.settings.languages);
+                        });
+                    },
                     options: [{
                         value: "en",
                         label: "English"
                     }, {
-                        value: "es",
-                        label: "Español (España)"
-                    }, {
-                        value: "es-419",
-                        label: "Español (Latinoamérica)"
-                    }, {
-                        value: "es-US",
-                        label: "Español (US)"
-                    }, {
                         value: "ru",
                         label: "Русский"
-                    }, {
-                        value: "de",
-                        label: "Deutsch"
-                    }, {
-                        value: "pt-PT",
-                        label: "Português"
-                    }, {
-                        value: "pt",
-                        label: "Português (Brasil)"
-                    }, {
-                        value: "fr",
-                        label: "Français"
-                    }, {
-                        value: "pl",
-                        label: "Polski"
-                    }, {
-                        value: "ja",
-                        label: "日本語"
-                    }, {
-                        value: "af",
-                        label: "Afrikaans"
-                    }, {
-                        value: "az",
-                        label: "Azərbaycan"
-                    }, {
-                        value: "id",
-                        label: "Bahasa Indonesia"
-                    }, {
-                        value: "ms",
-                        label: "Bahasa Malaysia"
-                    }, {
-                        value: "bs",
-                        label: "Bosanski"
-                    }, {
-                        value: "ca",
-                        label: "Català"
-                    }, {
-                        value: "cs",
-                        label: "Čeština"
-                    }, {
-                        value: "da",
-                        label: "Dansk"
-                    }, {
-                        value: "et",
-                        label: "Eesti"
-                    }, {
-                        value: "eu",
-                        label: "Euskara"
-                    }, {
-                        value: "fil",
-                        label: "Filipino"
-                    }, {
-                        value: "fr-CA",
-                        label: "Français (Canada)"
-                    }, {
-                        value: "gl",
-                        label: "Galego"
-                    }, {
-                        value: "hr",
-                        label: "Hrvatski"
-                    }, {
-                        value: "zu",
-                        label: "IsiZulu"
-                    }, {
-                        value: "is",
-                        label: "Íslenska"
-                    }, {
-                        value: "it",
-                        label: "Italiano"
-                    }, {
-                        value: "sw",
-                        label: "Kiswahili"
-                    }, {
-                        value: "lv",
-                        label: "Latviešu valoda"
-                    }, {
-                        value: "lt",
-                        label: "Lietuvių"
-                    }, {
-                        value: "hu",
-                        label: "Magyar"
-                    }, {
-                        value: "nl",
-                        label: "Nederlands"
-                    }, {
-                        value: "no",
-                        label: "Norsk"
-                    }, {
-                        value: "uz",
-                        label: "O‘zbek"
-                    }, {
-                        value: "ro",
-                        label: "Română"
-                    }, {
-                        value: "sq",
-                        label: "Shqip"
-                    }, {
-                        value: "sk",
-                        label: "Slovenčina"
-                    }, {
-                        value: "sl",
-                        label: "Slovenščina"
-                    }, {
-                        value: "sr-Latn",
-                        label: "Srpski"
-                    }, {
-                        value: "fi",
-                        label: "Suomi"
-                    }, {
-                        value: "sv",
-                        label: "Svenska"
-                    }, {
-                        value: "vi",
-                        label: "Tiếng Việt"
-                    }, {
-                        value: "tr",
-                        label: "Türkçe"
-                    }, {
-                        value: "be",
-                        label: "Беларуская"
-                    }, {
-                        value: "bg",
-                        label: "Български"
-                    }, {
-                        value: "ky",
-                        label: "Кыргызча"
-                    }, {
-                        value: "kk",
-                        label: "Қазақ Тілі"
-                    }, {
-                        value: "mk",
-                        label: "Македонски"
-                    }, {
-                        value: "mn",
-                        label: "Монгол"
-                    }, {
-                        value: "sr",
-                        label: "Српски"
-                    }, {
-                        value: "uk",
-                        label: "Українська"
-                    }, {
-                        value: "el",
-                        label: "Ελληνικά"
-                    }, {
-                        value: "hy",
-                        label: "Հայերեն"
-                    }, {
-                        value: "iw",
-                        label: "עברית"
-                    }, {
-                        value: "ur",
-                        label: "اردو"
-                    }, {
-                        value: "ar",
-                        label: "العربية"
-                    }, {
-                        value: "fa",
-                        label: "فارسی"
-                    }, {
-                        value: "ne",
-                        label: "नेपाली"
-                    }, {
-                        value: "mr",
-                        label: "मराठी"
-                    }, {
-                        value: "hi",
-                        label: "हिन्दी"
-                    }, {
-                        value: "bn",
-                        label: "বাংলা"
-                    }, {
-                        value: "pa",
-                        label: "ਪੰਜਾਬੀ"
-                    }, {
-                        value: "gu",
-                        label: "ગુજરાતી"
-                    }, {
-                        value: "ta",
-                        label: "தமிழ்"
-                    }, {
-                        value: "te",
-                        label: "తెలుగు"
-                    }, {
-                        value: "kn",
-                        label: "ಕನ್ನಡ"
-                    }, {
-                        value: "ml",
-                        label: "മലയാളം"
-                    }, {
-                        value: "si",
-                        label: "සිංහල"
-                    }, {
-                        value: "th",
-                        label: "ภาษาไทย"
-                    }, {
-                        value: "lo",
-                        label: "ລາວ"
-                    }, {
-                        value: "my",
-                        label: "ဗမာ"
-                    }, {
-                        value: "ka",
-                        label: "ქართული"
-                    }, {
-                        value: "am",
-                        label: "አማርኛ"
-                    }, {
-                        value: "km",
-                        label: "ខ្មែរ"
-                    }, {
-                        value: "zh-CN",
-                        label: "中文 (简体)"
-                    }, {
-                        value: "zh-TW",
-                        label: "中文 (繁體)"
-                    }, {
-                        value: "zh-HK",
-                        label: "中文 (香港)"
-                    }, {
-                        value: "ko",
-                        label: "한국어"
                     }]
                 }
             },
@@ -567,13 +308,12 @@ chrome.tabs.query({
                                         Satus.storage.set(i, data[i]);
                                     }
 
-                                    satus.components.dialog.create({
-                                        type: 'dialog',
-
+                                    Satus.components.dialog({
                                         message: {
                                             type: 'text',
                                             label: 'successfullyImportedSettings',
-                                            styles: {
+                                            style: {
+                                                'padding': '0 16px',
                                                 'width': '100%',
                                                 'opacity': '.8'
                                             }
@@ -581,7 +321,7 @@ chrome.tabs.query({
                                         section: {
                                             type: 'section',
                                             class: 'controls',
-                                            styles: {
+                                            style: {
                                                 'justify-content': 'flex-end'
                                             },
 
@@ -625,8 +365,8 @@ chrome.tabs.query({
                     onclick: function(satus, component) {
                         chrome.runtime.sendMessage({
                             name: 'download',
-                            filename: 'improvedtube-settings',
-                            value: satus.storage.get()
+                            filename: 'night-mode__settings',
+                            value: Satus.storage.get('')
                         });
                     }
                 },
@@ -634,13 +374,12 @@ chrome.tabs.query({
                     type: 'button',
                     label: 'resetAllSettings',
                     onclick: function(satus, component) {
-                        Satus.dialog({
-                            type: 'dialog',
-
+                        Satus.components.dialog({
                             message: {
                                 type: 'text',
                                 label: 'thisWillResetAllSettings',
-                                styles: {
+                                style: {
+                                    'padding': '0 16px',
                                     'width': '100%',
                                     'opacity': '.8'
                                 }
@@ -648,7 +387,7 @@ chrome.tabs.query({
                             section: {
                                 type: 'section',
                                 class: 'controls',
-                                styles: {
+                                style: {
                                     'justify-content': 'flex-end'
                                 },
 
@@ -667,7 +406,7 @@ chrome.tabs.query({
                                     onclick: function() {
                                         let scrim = document.querySelectorAll('.satus-dialog__scrim');
 
-                                        satus.storage.clear();
+                                        Satus.storage.clear();
 
                                         scrim[scrim.length - 1].click();
                                     }
@@ -873,10 +612,21 @@ chrome.tabs.query({
                     }
                 }
             }
+        },
+
+        made_with_love: {
+            type: 'text',
+            class: ['made-with-love'],
+            innerHTML: 'Made with <svg viewBox="0 0 24 24"><path d="M13.35 20.13c-.76.69-1.93.69-2.69-.01l-.11-.1C5.3 15.27 1.87 12.16 2 8.28c.06-1.7.93-3.33 2.34-4.29 2.64-1.8 5.9-.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41.96 2.28 2.59 2.34 4.29.14 3.88-3.3 6.99-8.55 11.76l-.1.09z"></svg> by <span>ImprovedTube</span>',
+            on: {
+                click: function() {
+                    window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
+                }
+            }
         }
     };
 
-    Satus.storage.sync(function() {
+    Satus.chromium_storage.sync(function() {
         Satus.locale(function() {
             let container = document.querySelector('.satus');
 
@@ -885,4 +635,31 @@ chrome.tabs.query({
             Satus.render(container, Menu);
         });
     });
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.name === 'dialog-error') {
+        Satus.components.dialog({
+            options: {
+                scrim_visibility: false,
+                surface_styles: {
+                    position: 'absolute',
+                    bottom: '16px',
+                    boxShadow: 'none',
+                    border: '1px solid rgba(255, 0, 0, .4)',
+                    background: 'rgba(255,0,0,.2)'
+                }
+            },
+
+            message: {
+                type: 'text',
+                label: request.value,
+                style: {
+                    'padding': '0 16px',
+                    'width': '100%',
+                    'opacity': '.8'
+                }
+            }
+        });
+    }
 });

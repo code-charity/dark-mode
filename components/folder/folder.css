@@ -22,5 +22,7 @@
     height: 22px;
     margin-right: 10px;
 
+    opacity: .95;
+
     fill: var(--icon-1);
 }

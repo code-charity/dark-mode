@@ -1,5 +1,5 @@
 Satus.locale = function(callback) {
-    let language = Satus.get('language') || 'en';
+    let language = Satus.storage.get('language') || 'en';
 
     function load(lang) {
         let xhr = new XMLHttpRequest();
@@ -22,7 +22,7 @@ Satus.locale = function(callback) {
                                 locale[i] = data[i].message;
                             }
 
-                            Satus.set('locale', locale);
+                            Satus.memory.set('locale', locale);
 
                             callback();
                         }
@@ -43,7 +43,7 @@ Satus.locale = function(callback) {
                 locale[i] = data[i].message;
             }
 
-            Satus.set('locale', locale);
+            Satus.memory.set('locale', locale);
 
             callback();
         };

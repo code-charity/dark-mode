@@ -1,3 +1,27 @@
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 700;
+
+    src: url(../fonts/OpenSans-Bold.ttf);
+}
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 600;
+
+    src: url(../fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 400;
+
+    src: url(../fonts/OpenSans-Regular.ttf);
+}
+
 .satus-header__title
 {
     position: absolute;
@@ -31,4 +55,37 @@
     visibility: hidden;
 
     opacity: 0;
+}
+
+.made-with-love
+{
+    font-size: 13px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+
+    cursor: pointer;
+    transform: translateX(-50%);
+
+    justify-content: center;
+}
+
+.made-with-love svg
+{
+    width: 16px;
+    height: 16px;
+    margin: 0 4px;
+
+    fill: #d62121;
+}
+
+.made-with-love span
+{
+    margin: 0 0 0 4px;
 }

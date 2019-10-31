@@ -8,11 +8,11 @@ Satus.components.text = function(object) {
         component_value = document.createElement('span');
 
     component_label.classList.add('label');
-    component_label.innerText = Satus.get('locale/' + object.label) || object.label;
+    component_label.innerText = Satus.memory.get('locale/' + object.label) || object.label;
     component.appendChild(component_label);
 
     component.label = function(string) {
-        component_label.innerText = Satus.get('locale/' + string) || string;
+        component_label.innerText = Satus.memory.get('locale/' + string) || string;
     };
 
     if (object.value !== undefined) {

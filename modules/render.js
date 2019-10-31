@@ -75,7 +75,7 @@ Satus.render = function(container, object) {
 
                 container.appendChild(element);
 
-                Satus.trigger('renderer', {
+                Satus.trigger('render', {
                     element: element,
                     item: item
                 })

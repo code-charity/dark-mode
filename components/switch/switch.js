@@ -4,8 +4,8 @@
 
 Satus.components.switch = function(object, key) {
     let element = document.createElement('div'),
-        label = Satus.get('locale/' + object.label) || object.label || false,
-        value = Satus.get((object.storage || '') + '/' + key);
+        label = Satus.memory.get('locale/' + object.label) || object.label || false,
+        value = Satus.storage.get((object.storage || '') + '/' + key);
 
     element.innerHTML = (label ? '<div class=label>' + label + '</div>' : '') +
         '<div class=container>' +
@@ -26,7 +26,7 @@ Satus.components.switch = function(object, key) {
             this.dataset.value = 'true';
         }
 
-        Satus.set((object.storage || '') + '/' + key, this.dataset.value === 'true');
+        Satus.storage.set((object.storage || '') + '/' + key, this.dataset.value === 'true');
     });
 
     return element;

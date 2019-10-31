@@ -29,9 +29,6 @@
     "dateAndTime": {
         "message": "Date & time"
     },
-    "dayMode": {
-        "message": "Day mode"
-    },
     "device": {
         "message": "Device"
     },
@@ -49,9 +46,6 @@
     },
     "general": {
         "message": "General"
-    },
-    "gitHub": {
-        "message": "GitHub"
     },
     "gpu": {
         "message": "GPU"
@@ -71,14 +65,8 @@
     "languages": {
         "message": "Languages"
     },
-    "mode": {
-        "message": "Mode"
-    },
     "name": {
         "message": "Name"
-    },
-    "nightMode": {
-        "message": "Night mode"
     },
     "ok": {
         "message": "OK"
@@ -95,14 +83,8 @@
     "platform": {
         "message": "Platform"
     },
-    "primaryColor": {
-        "message": "Primary color"
-    },
     "ram": {
         "message": "RAM"
-    },
-    "rateUs": {
-        "message": "Rate us"
     },
     "remove": {
         "message": "Remove"
@@ -157,8 +139,5 @@
     },
     "websites": {
         "message": "Websites"
-    },
-    "youtubeLanguage": {
-        "message": "YouTube language"
     }
 }

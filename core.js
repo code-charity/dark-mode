@@ -1,27 +1,30 @@
 /*-----------------------------------------------------------------------------
->>> SATUS CORE
+>>> CORE
 -----------------------------------------------------------------------------*/
 
 const Satus = new function() {
-    let data = {},
+    let memory = {},
+        storage = {},
         events = {};
 
-    this.components = {};
-
-    this.get = function(name, on) {
-        let path,
-            object = data;
+    function get(type, name, on) {
+        let object = type === 'storage' ? storage : memory,
+            path;
 
         if (typeof name !== 'string') {
             return false;
-        } else {
-            path = name.split('/').filter(function(value) {
-                return value != '';
-            });
         }
 
+        path = name.split('/').filter(function(value) {
+            return value != '';
+        });
+
         for (let i = 0, l = path.length; i < l; i++) {
-            object = (object || {}).hasOwnProperty(path[i]) ? object[path[i]] : false;
+            object = object[path[i]];
+
+            if (Satus.isset(object) === false) {
+                break;
+            }
         }
 
         if (on !== false) {
@@ -29,13 +32,19 @@ const Satus = new function() {
         }
 
         return object;
-    };
+    }
 
-    this.set = function(name, value, on) {
-        let path = (name || '').split('/').filter(function(value) {
-                return value != '';
-            }),
-            object = data;
+    function set(type, name, value, on) {
+        let object = type === 'storage' ? storage : memory,
+            path;
+
+        if (typeof name !== 'string') {
+            return false;
+        }
+
+        path = name.split('/').filter(function(value) {
+            return value != '';
+        });
 
         for (let i = 0, l = path.length; i < l; i++) {
             let key = path[i];
@@ -43,7 +52,10 @@ const Satus = new function() {
             if (i === l - 1) {
                 object[key] = value;
             } else {
-                if (!object.hasOwnProperty(key)) {
+                if (
+                    Satus.isset(object) === false ||
+                    Satus.isset(object[key]) === false
+                ) {
                     object[key] = {};
                 }
 
@@ -52,21 +64,46 @@ const Satus = new function() {
         }
 
         if (on !== false) {
-            Satus.trigger('set');
+            Satus.trigger('set', {
+                name: name,
+                value: value
+            });
+        }
+    }
+
+    this.components = {};
+
+    this.isset = function(variable) {
+        if (typeof variable === 'undefined' || variable === null) {
+            return false;
+        }
+
+        return true;
+    };
+
+    this.memory = {
+        get: function(name, on) {
+            return get('memory', name, on);
+        },
+        set: function(name, value, on) {
+            set('memory', name, value, on);
+        },
+        clear: function() {
+            memory = {};
         }
     };
 
-    this.remove = function(name, on) {
-        let path = (name || '').split('/').filter(function(value) {
-                return value != '';
-            }),
-            object = data;
+    this.storage = {
+        get: function(name, on) {
+            return get('storage', name, on);
+        },
+        set: function(name, value, on) {
+            set('storage', name, value, on);
+        },
+        clear: function() {
+            storage = {};
 
-        for (let i = 0, l = path.length; i < l; i++)
-            object = object[path[i]];
-
-        if (on !== false) {
-            Satus.trigger('remove');
+            Satus.trigger('clear');
         }
     };
 
@@ -86,5 +123,3 @@ const Satus = new function() {
         }
     };
 };
-
-console.log(Satus);

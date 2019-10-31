@@ -5,7 +5,7 @@
 Satus.components.section = function(object) {
     let component = document.createElement('section'),
         component_label = document.createElement('span'),
-        label = Satus.get('locale/' + object.label) || object.label;
+        label = Satus.memory.get('locale/' + object.label) || object.label;
 
     if (label) {
         component_label.classList.add('satus-section__label');

@@ -23,8 +23,14 @@ Satus.components.button = function(object) {
         component.innerHTML = object.icon;
     }
 
+    component.addEventListener('mousedown', function(event) {
+        event.preventDefault();
+
+        return false;
+    });
+
     component_label.classList.add('label');
-    component_label.innerText = Satus.get('locale/' + object.label) || object.label || '';
+    component_label.innerText = Satus.memory.get('locale/' + object.label) || object.label || '';
     component.appendChild(component_label);
 
     return component;

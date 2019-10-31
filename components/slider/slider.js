@@ -13,9 +13,9 @@ Satus.components.slider = function(object, key) {
         min = object.min || 0,
         max = object.max || 1,
         step = object.step || 1,
-        value = Satus.get((object.storage || '') + '/' + key) || object.value || 0;
-
-    if (Satus.get((object.storage || '') + '/' + name) === 0) {
+        value = Satus.storage.get((object.storage || '') + '/' + key) || object.value || 0;
+console.log(value);
+    if (Satus.storage.get((object.storage || '') + '/' + key) === 0) {
         value = 0;
     }
 
@@ -24,7 +24,7 @@ Satus.components.slider = function(object, key) {
     component_track.classList.add('track');
     component_thumb.classList.add('thumb');
 
-    component_label.innerText = Satus.get('locale/' + object.label) || object.label || Satus.get('locale/' + name) || name;
+    component_label.innerText = Satus.memory.get('locale/' + object.label) || object.label || Satus.memory.get('locale/' + key) || key;
 
     component.dataset.value = value;
     component_thumb.style.left = value * 100 / (max - min) + '%';
@@ -66,7 +66,8 @@ Satus.components.slider = function(object, key) {
                 var value = steps * step + min;
 
                 component.dataset.value = value;
-                Satus.set((object.storage || '') + '/' + key, value);
+                Satus.storage.set((object.storage || '') + '/' + key, value);
+                
                 if (object.onchange) {
                     object.onchange(value);
                 }
@@ -107,7 +108,7 @@ Satus.components.slider = function(object, key) {
             this.querySelector('.track').style.width = x + '%';
 
             this.dataset.value = value;
-            Satus.set((object.storage || '') + '/' + key, value);
+            Satus.storage.set((object.storage || '') + '/' + key, value);
             if (object.onchange) {
                 object.onchange(value);
             }
