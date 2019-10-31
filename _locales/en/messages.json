@@ -20,6 +20,9 @@
     "browser": {
         "message": "Browser"
     },
+    "cancel": {
+        "message": "Cancel"
+    },
     "contrast": {
         "message": "Contrast"
     },
@@ -31,6 +34,9 @@
     },
     "device": {
         "message": "Device"
+    },
+    "disabled": {
+        "message": "Disabled"
     },
     "exportSettings": {
         "message": "Export settings"
@@ -116,11 +122,23 @@
     "successfullyImportedSettings": {
         "message": "Successfully imported settings"
     },
+    "sunsetToSunrise": {
+        "message": "Sunset to sunrise"
+    },
+    "systemPeference": {
+        "message": "System preference"
+    },
     "theme": {
         "message": "Theme"
     },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
+    },
+    "timeFrom": {
+        "message": "Time from"
+    },
+    "timeTo": {
+        "message": "Time to"
     },
     "type": {
         "message": "Type"

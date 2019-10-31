@@ -6,6 +6,9 @@ function getFilters(settings) {
         let bluelight = document.getElementById('night-mode-bluelight') || document.createElement('div');
 
         bluelight.id = 'night-mode-bluelight';
+        bluelight.style.position = 'absolute';
+        bluelight.style.visibility = 'hidden';
+        bluelight.style.pointerEvents = 'none';
         bluelight.innerHTML = '<svg version=1.1 xmlns=//www.w3.org/2000/svg viewBox="0 0 1 1"><filter id=bluelight-filter><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
 
         document.documentElement.appendChild(bluelight);
@@ -40,15 +43,24 @@ function getFilters(settings) {
         body_filter += ' saturate(' + settings.saturate + '%)';
     }
 
-    string += '#night-mode-bluelight{position:absolute;visibility:hidden;pointer-events:none}body{-webkit-filter:' + body_filter + ';filter:' + body_filter + ';}';
+    string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}';
 
     return string;
 }
 
-function injectStyle(string, id) {
+function injectStyle(string, id, schedule) {
     let element = document.getElementById(id) || document.createElement('style');
 
-    element.textContent = string;
+    if (schedule === 'system_peference') {
+        element.textContent = '@media (prefers-color-scheme:dark){';
+    }
+
+    element.textContent += string;
+
+    if (schedule === 'system_peference') {
+        element.textContent += '}';
+    }
+
     element.className = 'night-mode-extension-inject';
 
     if (id) {
@@ -58,35 +70,31 @@ function injectStyle(string, id) {
     document.documentElement.appendChild(element);
 }
 
-chrome.storage.local.get(function(object) {
-    if (object.mode !== false) {
-        if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
-            injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
-        }
-
-        if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {
-            injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles');
-        }
-    } else {
-        if (document.querySelector('#night-mode-extension-filters')) {
-            document.querySelector('#night-mode-extension-filters').remove();
-        }
-
-        if (document.querySelector('#night-mode-extension-styles')) {
-            document.querySelector('#night-mode-extension-styles').remove();
-        }
-    }
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender) {
+function update() {
     chrome.storage.local.get(function(object) {
-        if (object.mode !== false) {
+        let times = {
+                from: Number((object.time_from || '00:00').substr(0, 2)),
+                to: Number((object.time_to || '00:00').substr(0, 2))
+            },
+            current_time = new Date().getHours();
+
+        if (times.to < times.from && current_time > times.from && current_time < 24) {
+            times.to += 24;
+        } else if (times.to < times.from && current_time < times.to) {
+            times.from = 0;
+        }
+
+        if (
+            object.mode !== false &&
+            current_time >= times.from &&
+            current_time < times.to
+        ) {
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
-                injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters');
+                injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters', object.schedule);
             }
 
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {
-                injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles');
+                injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles', object.schedule);
             }
         } else {
             if (document.querySelector('#night-mode-extension-filters')) {
@@ -98,4 +106,10 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
             }
         }
     });
+}
+
+update();
+
+chrome.runtime.onMessage.addListener(function(request, sender) {
+    update();
 });

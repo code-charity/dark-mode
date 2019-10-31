@@ -33,7 +33,7 @@ Satus.components.select = function(object, name) {
         value = object.options[0].label;
     }
 
-    component_value.innerText = Satus.storage.get('locale/' + value) || value;
+    component_value.innerText = Satus.memory.get('locale/' + value) || value;
 
     component.appendChild(component_label);
     component.appendChild(component_value);

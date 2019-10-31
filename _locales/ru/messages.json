@@ -20,6 +20,9 @@
     "browser": {
         "message": "Браузер"
     },
+    "cancel": {
+        "message": "Отмена"
+    },
     "contrast": {
         "message": "Контраст"
     },
@@ -31,6 +34,9 @@
     },
     "device": {
         "message": "Устройство"
+    },
+    "disabled": {
+        "message": "Отключено"
     },
     "exportSettings": {
         "message": "Экспорт настроек"
@@ -125,8 +131,20 @@
     "successfullyImportedSettings": {
         "message": "Successfully imported settings"
     },
+    "sunsetToSunrise": {
+        "message": "От заката до рассвета"
+    },
+    "systemPeference": {
+        "message": "Определено системой"
+    },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
+    },
+    "timeFrom": {
+        "message": "Время (от)"
+    },
+    "timeTo": {
+        "message": "Время (до)"
     },
     "type": {
         "message": "Тип"
