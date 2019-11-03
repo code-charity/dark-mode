@@ -1,8 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Night Mode",
-    "version": "1.0",
-    "version_name": "1.0",
+    "version": "1.0.4",
 
     "default_locale": "en",
     

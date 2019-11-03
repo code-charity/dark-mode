@@ -20,7 +20,8 @@ chrome.tabs.query({
             invert_colors: {
                 label: 'invertColors',
                 type: 'switch',
-                storage: 'websites/' + HOSTNAME + '/filters'
+                storage: 'websites/' + HOSTNAME + '/filters',
+                value: true
             },
             bluelight: {
                 label: 'bluelight',

@@ -14,7 +14,7 @@ Satus.components.slider = function(object, key) {
         max = object.max || 1,
         step = object.step || 1,
         value = Satus.storage.get((object.storage || '') + '/' + key) || object.value || 0;
-console.log(value);
+
     if (Satus.storage.get((object.storage || '') + '/' + key) === 0) {
         value = 0;
     }

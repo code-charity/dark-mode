@@ -18,7 +18,7 @@ function getFilters(settings) {
         document.getElementById('night-mode-bluelight').remove();
     }
 
-    if (settings.invert_colors === true) {
+    if (settings.invert_colors === true || settings.invert_colors === undefined) {
         string += 'html{background:0 0!important}body{background:#000!important}body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
         body_filter += ' invert(1)';
     }
@@ -86,11 +86,12 @@ function update() {
 
         if (
             object.mode !== false &&
-            current_time >= times.from &&
-            current_time < times.to
+            (object.schedule !== 'sunset_to_sunrise' || current_time >= times.from && current_time < times.to)
         ) {
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
                 injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters', object.schedule);
+            } else {
+                injectStyle(getFilters({}), 'night-mode-extension-filters', object.schedule);
             }
 
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {

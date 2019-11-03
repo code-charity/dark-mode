@@ -5,7 +5,7 @@
 Satus.components.switch = function(object, key) {
     let element = document.createElement('div'),
         label = Satus.memory.get('locale/' + object.label) || object.label || false,
-        value = Satus.storage.get((object.storage || '') + '/' + key);
+        value = Satus.storage.get((object.storage || '') + '/' + key) || object.value;
 
     element.innerHTML = (label ? '<div class=label>' + label + '</div>' : '') +
         '<div class=container>' +
