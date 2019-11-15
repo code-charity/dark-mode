@@ -1,5 +1,7 @@
 # Night Mode
 
+![preview](https://github.com/victor-savinov/night-mode/blob/master/1.png)
+
 ## Installation
 
 ### [Chromium](https://www.chromium.org/) / [Brave](https://brave.com/) / [Vivaldi](https://vivaldi.com/) / Chrome and other
