@@ -1,10 +1,10 @@
 {
     "manifest_version": 2,
     "name": "Night Mode",
-    "version": "1.0.4",
+    "version": "1.1",
 
     "default_locale": "en",
-    
+
     "background": {
         "persistent": false,
         "scripts": [
@@ -34,9 +34,9 @@
 
     "permissions": [
         "storage",
-        "tabs"
+        "http://*/*",
+        "https://*/*"
     ],
 
-    "offline_enabled": true,
     "update_url": "https://clients2.google.com/service/update2/crx"
 }

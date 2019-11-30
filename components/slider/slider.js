@@ -27,6 +27,7 @@ Satus.components.slider = function(object, key) {
     component_label.innerText = Satus.memory.get('locale/' + object.label) || object.label || Satus.memory.get('locale/' + key) || key;
 
     component.dataset.value = value;
+    component_thumb.dataset.value = value;
     component_thumb.style.left = value * 100 / (max - min) + '%';
     component_track.style.width = value * 100 / (max - min) + '%';
 
@@ -36,15 +37,24 @@ Satus.components.slider = function(object, key) {
     component.appendChild(component_track_container);
 
     component.change = function(value) {
-        value = value;
+        value = Number(value);
 
         this.dataset.value = value;
+        component_thumb.dataset.value = value;
         this.querySelector('.thumb').style.left = value * 100 / (max - min) + '%';
         this.querySelector('.track').style.width = value * 100 / (max - min) + '%';
+        Satus.storage.set((object.storage || '') + '/' + key, value);
+        if (object.onchange) {
+            object.onchange(value);
+        }
+
+        if (component.querySelector('.satus-textarea')) {
+            component.querySelector('.satus-textarea').value = value;
+        }
     }
 
     component.addEventListener('mousedown', function(event) {
-        if (event.button == 0) {
+        if (event.button == 0 && event.target.nodeName !== 'INPUT') {
             event.preventDefault();
 
             function move(event) {
@@ -63,11 +73,16 @@ Satus.components.slider = function(object, key) {
 
                 x = steps * 100 / ((max - min) / step);
 
-                var value = steps * step + min;
+                var value = Number((steps * step + min).toFixed(2));
 
                 component.dataset.value = value;
+                component_thumb.dataset.value = value;
                 Satus.storage.set((object.storage || '') + '/' + key, value);
-                
+
+                if (component.querySelector('.satus-textarea')) {
+                    component.querySelector('.satus-textarea').value = value;
+                }
+
                 if (object.onchange) {
                     object.onchange(value);
                 }
@@ -91,7 +106,7 @@ Satus.components.slider = function(object, key) {
     });
 
     component.addEventListener('keydown', function(event) {
-        if (event.keyCode == 37 || event.keyCode == 39) {
+        if ((event.keyCode == 37 || event.keyCode == 39) && event.target.nodeName !== 'INPUT') {
             event.preventDefault();
 
             var value = Number(this.dataset.value);
@@ -114,6 +129,21 @@ Satus.components.slider = function(object, key) {
             }
         }
     });
+
+    if (object.textarea === true) {
+        var component_textarea = document.createElement('input');
+
+        component_textarea.className = 'satus-textarea';
+        component_textarea.value = value;
+
+        component_track_container.style.width = 'calc(100% - 32px)';
+
+        component_textarea.onchange = function() {
+            component.change(Number(this.value));
+        };
+
+        component.appendChild(component_textarea);
+    }
 
     return component;
 };

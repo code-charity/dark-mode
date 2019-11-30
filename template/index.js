@@ -6,7 +6,7 @@ chrome.tabs.query({
     currentWindow: true,
     active: true
 }, function(tabs) {
-    let TAB_URL = new URL(tabs[0].url),
+    let TAB_URL = tabs[0] && tabs[0].url ? new URL(tabs[0].url) : '',
         HOSTNAME = TAB_URL.hostname;
 
     Menu.main = {
@@ -293,131 +293,150 @@ chrome.tabs.query({
                 label: 'backupAndReset',
                 icon: '<svg viewBox="0 0 24 24"><path d="M13.3 3A9 9 0 0 0 4 12H2.2c-.5 0-.7.5-.3.8l2.7 2.8c.2.2.6.2.8 0L8 12.8c.4-.3.1-.8-.3-.8H6a7 7 0 1 1 2.7 5.5 1 1 0 0 0-1.3.1 1 1 0 0 0 0 1.5A9 9 0 0 0 22 11.7C22 7 18 3.1 13.4 3zm-.6 5c-.4 0-.7.3-.7.8v3.6c0 .4.2.7.5.9l3.1 1.8c.4.2.8.1 1-.2.2-.4.1-.8-.2-1l-3-1.8V8.7c0-.4-.2-.7-.7-.7z"></svg>',
 
-                import_settings: {
-                    type: 'button',
-                    label: 'importSettings',
-                    onclick: function(satus, component) {
-                        try {
-                            let input = document.createElement('input');
+                section: {
+                    type: 'section',
+                    import_settings: {
+                        type: 'button',
+                        label: 'importSettings',
+                        style: {
+                            width: '100%'
+                        },
 
-                            input.type = 'file';
-                            input.accept = '.json';
+                        onclick: function() {
+                            try {
+                                let input = document.createElement('input');
 
-                            input.addEventListener('change', function() {
-                                let file_reader = new FileReader();
+                                input.type = 'file';
+                                input.accept = '.json';
 
-                                file_reader.onload = function() {
-                                    let data = JSON.parse(this.result);
+                                input.addEventListener('change', function() {
+                                    let file_reader = new FileReader();
 
-                                    for (var i in data) {
-                                        Satus.storage.set(i, data[i]);
-                                    }
+                                    file_reader.onload = function() {
+                                        let data = JSON.parse(this.result);
 
-                                    Satus.components.dialog({
-                                        message: {
-                                            type: 'text',
-                                            label: 'successfullyImportedSettings',
-                                            style: {
-                                                'padding': '0 16px',
-                                                'width': '100%',
-                                                'opacity': '.8'
-                                            }
-                                        },
-                                        section: {
-                                            type: 'section',
-                                            class: 'controls',
-                                            style: {
-                                                'justify-content': 'flex-end'
-                                            },
-
-                                            cancel: {
-                                                type: 'button',
-                                                label: 'cancel',
-                                                onclick: function() {
-                                                    let scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                    scrim[scrim.length - 1].click();
-                                                }
-                                            },
-                                            ok: {
-                                                type: 'button',
-                                                label: 'OK',
-                                                onclick: function() {
-                                                    let scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                    scrim[scrim.length - 1].click();
-                                                }
-                                            }
+                                        for (var i in data) {
+                                            Satus.storage.set(i, data[i]);
                                         }
-                                    });
-                                };
 
-                                file_reader.readAsText(this.files[0]);
-                            });
+                                        document.querySelector('.satus').appendChild(Satus.components.dialog({
+                                            type: 'dialog',
 
-                            input.click();
-                        } catch (err) {
+                                            message: {
+                                                type: 'text',
+                                                label: 'successfullyImportedSettings',
+                                                style: {
+                                                    'width': '100%',
+                                                    'opacity': '.8'
+                                                }
+                                            },
+                                            section: {
+                                                type: 'section',
+                                                class: 'controls',
+                                                style: {
+                                                    'justify-content': 'flex-end',
+                                                    'display': 'flex'
+                                                },
+
+                                                cancel: {
+                                                    type: 'button',
+                                                    label: 'cancel',
+                                                    onclick: function() {
+                                                        let scrim = document.querySelectorAll('.satus-dialog__scrim');
+
+                                                        scrim[scrim.length - 1].click();
+                                                    }
+                                                },
+                                                ok: {
+                                                    type: 'button',
+                                                    label: 'OK',
+                                                    onclick: function() {
+                                                        let scrim = document.querySelectorAll('.satus-dialog__scrim');
+
+                                                        scrim[scrim.length - 1].click();
+                                                    }
+                                                }
+                                            }
+                                        }));
+                                    };
+
+                                    file_reader.readAsText(this.files[0]);
+                                });
+
+                                input.click();
+                            } catch (err) {
+                                chrome.runtime.sendMessage({
+                                    name: 'dialog-error',
+                                    value: err
+                                });
+                            }
+                        }
+                    },
+                    export_settings: {
+                        type: 'button',
+                        label: 'exportSettings',
+                        style: {
+                            width: '100%'
+                        },
+
+                        onclick: function() {
                             chrome.runtime.sendMessage({
-                                name: 'dialog-error',
-                                value: err
+                                name: 'download',
+                                filename: 'improvedtube-settings.json',
+                                value: Satus.storage.get('')
                             });
                         }
-                    }
-                },
-                export_settings: {
-                    type: 'button',
-                    label: 'exportSettings',
-                    onclick: function(satus, component) {
-                        chrome.runtime.sendMessage({
-                            name: 'download',
-                            filename: 'night-mode__settings',
-                            value: Satus.storage.get('')
-                        });
-                    }
-                },
-                reset_all_settings: {
-                    type: 'button',
-                    label: 'resetAllSettings',
-                    onclick: function(satus, component) {
-                        Satus.components.dialog({
-                            message: {
-                                type: 'text',
-                                label: 'thisWillResetAllSettings',
-                                style: {
-                                    'padding': '0 16px',
-                                    'width': '100%',
-                                    'opacity': '.8'
-                                }
-                            },
-                            section: {
-                                type: 'section',
-                                class: 'controls',
-                                style: {
-                                    'justify-content': 'flex-end'
-                                },
+                    },
+                    reset_all_settings: {
+                        type: 'button',
+                        label: 'resetAllSettings',
+                        style: {
+                            width: '100%'
+                        },
 
-                                cancel: {
-                                    type: 'button',
-                                    label: 'cancel',
-                                    onclick: function() {
-                                        let scrim = document.querySelectorAll('.satus-dialog__scrim');
+                        onclick: function() {
+                            document.querySelector('.satus').appendChild(Satus.components.dialog({
+                                type: 'dialog',
 
-                                        scrim[scrim.length - 1].click();
+                                message: {
+                                    type: 'text',
+                                    label: 'thisWillResetAllSettings',
+                                    style: {
+                                        'width': '100%',
+                                        'opacity': '.8'
                                     }
                                 },
-                                accept: {
-                                    type: 'button',
-                                    label: 'accept',
-                                    onclick: function() {
-                                        let scrim = document.querySelectorAll('.satus-dialog__scrim');
+                                section: {
+                                    type: 'section',
+                                    class: 'controls',
+                                    style: {
+                                        'justify-content': 'flex-end',
+                                        'display': 'flex'
+                                    },
 
-                                        Satus.storage.clear();
+                                    cancel: {
+                                        type: 'button',
+                                        label: 'cancel',
+                                        onclick: function() {
+                                            let scrim = document.querySelectorAll('.satus-dialog__scrim');
 
-                                        scrim[scrim.length - 1].click();
+                                            scrim[scrim.length - 1].click();
+                                        }
+                                    },
+                                    accept: {
+                                        type: 'button',
+                                        label: 'accept',
+                                        onclick: function() {
+                                            let scrim = document.querySelectorAll('.satus-dialog__scrim');
+
+                                            Satus.storage.clear();
+
+                                            scrim[scrim.length - 1].click();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            }));
+                        }
                     }
                 }
             },

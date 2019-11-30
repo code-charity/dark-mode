@@ -1,36 +1,21 @@
-/*------------------------------------------------------------------------------
->>> "DIALOG" COMPONENT:
---------------------------------------------------------------------------------
-1.0 Global
-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------
+>>> «DIALOG» COMPONENT
+-----------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------
-1.0 Global
-------------------------------------------------------------------------------*/
-
-.satus-dialog
+.satus-dialog:not(.satus-button)
 {
-    position: fixed;
-    z-index: 9;
+    position: absolute;
+    z-index: 9999999;
     top: 0;
     left: 0;
 
     display: flex;
-    overflow: hidden;
 
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-
-    animation: fadeOut 150ms linear forwards;
-    animation-delay: 20ms;
 
     justify-content: center;
     align-items: center;
-}
-
-.satus-dialog_open
-{
-    animation: fadeIn 150ms linear forwards;
 }
 
 .satus-dialog__scrim
@@ -45,49 +30,30 @@
     background: rgba(0,0,0,.5);
 }
 
-.satus-dialog__scrim_unvisible
-{
-    opacity: 0;
-}
-
 .satus-dialog__surface
 {
     font-size: 14px;
 
-    position: relative;
-
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
 
+    width: 95%;
     min-width: 240px;
     max-width: 560px;
-    max-height: 90%;
+    max-height: 80%;
     padding: 8px 0;
 
+    transform: scale(.75);
     animation: zoomIn 150ms linear forwards;
     animation-delay: 20ms;
 
     color: var(--text-3);
     border-radius: 4px;
     background: var(--background-3);
-    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
 
-    justify-content: center;
-    align-items: center;
-}
-
-.satus-dialog__scrim_no-padding
-{
-    padding: 0;
-}
-
-@media (max-width: 560px)
-{
-    .satus-dialog__surface
-    {
-        width: 100%;
-        max-width: calc(100% - 16px);
-    }
+    fill: var(--text-3);
 }
 
 @keyframes fadeIn
@@ -124,11 +90,4 @@
     {
         transform: scale(1);
     }
-}
-
-
-
-.satus-dialog__surface > .satus-button
-{
-    width: 100%;
 }

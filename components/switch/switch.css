@@ -11,6 +11,7 @@
     box-sizing: border-box;
     width: 100%;
     height: 48px;
+    min-height: 48px;
     padding: 0 16px;
 
     cursor: pointer;
@@ -25,7 +26,7 @@
 
 .satus-switch:hover
 {
-    background: var(--background-hover-2);
+    background-color: var(--hover-0);
 }
 
 .satus-switch .label

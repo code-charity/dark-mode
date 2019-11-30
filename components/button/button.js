@@ -4,7 +4,7 @@
 
 Satus.components.button = function(object) {
     var options = object.options || {},
-        component = document.createElement('div'),
+        component = document.createElement('button'),
         component_label = document.createElement('span');
 
     if (options.full_width === true) {
@@ -22,12 +22,6 @@ Satus.components.button = function(object) {
     if (typeof object.icon === 'string') {
         component.innerHTML = object.icon;
     }
-
-    component.addEventListener('mousedown', function(event) {
-        event.preventDefault();
-
-        return false;
-    });
 
     component_label.classList.add('label');
     component_label.innerText = Satus.memory.get('locale/' + object.label) || object.label || '';
