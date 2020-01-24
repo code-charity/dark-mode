@@ -2,6 +2,12 @@
     "about": {
         "message": "About"
     },
+    "excludeThisWebsite": {
+        "message": "Exclude this website"
+    },
+    "onlyEnableForThisWebsite": {
+        "message": "Only enable for this website"
+    },
     "accept": {
         "message": "Accept"
     },

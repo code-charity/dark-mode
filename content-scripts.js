@@ -86,7 +86,8 @@ function update() {
 
         if (
             object.mode !== false &&
-            (object.schedule !== 'sunset_to_sunrise' || current_time >= times.from && current_time < times.to)
+            (object.schedule !== 'sunset_to_sunrise' || current_time >= times.from && current_time < times.to) &&
+            ((object.websites || {})[location.hostname] || {}).enabled !== false
         ) {
             if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
                 injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters', object.schedule);

@@ -25,7 +25,7 @@
 .satus-header__title
 {
     position: absolute;
-    left: 62px;
+    left: 36px;
 
     transition: 200ms;
 }
@@ -88,4 +88,38 @@
 .made-with-love span
 {
     margin: 0 0 0 4px;
+}
+
+
+
+
+.satus[data-path='main/websites'] .satus-main .satus-section
+{
+    position: relative;
+
+    padding: 0;
+}
+
+.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
+}
+
+.satus-textarea
+{
+    width: calc(100% - 32px);
+}
+
+.satus-main .satus-button
+{
+    width: 100%;
+}
+
+.satus-main .satus-switch:hover
+{
+    background: var(--background-hover-2);
 }
