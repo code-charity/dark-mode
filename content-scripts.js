@@ -1,9 +1,11 @@
+var settings = {};
+
 function getFilters(settings) {
-    let string = '',
+    var string = '',
         body_filter = '';
 
     if (settings.bluelight > 0) {
-        let bluelight = document.getElementById('night-mode-bluelight') || document.createElement('div');
+        var bluelight = document.getElementById('night-mode-bluelight') || document.createElement('div');
 
         bluelight.id = 'night-mode-bluelight';
         bluelight.style.position = 'absolute';
@@ -49,7 +51,13 @@ function getFilters(settings) {
 }
 
 function injectStyle(string, id, schedule) {
-    let element = document.getElementById(id) || document.createElement('style');
+    var element = document.getElementById(id) || document.createElement('style');
+
+    element.className = 'night-mode-extension-inject';
+
+    if (id) {
+        element.id = id;
+    }
 
     if (schedule === 'system_peference') {
         element.textContent = '@media (prefers-color-scheme:dark){';
@@ -61,57 +69,68 @@ function injectStyle(string, id, schedule) {
         element.textContent += '}';
     }
 
-    element.className = 'night-mode-extension-inject';
-
-    if (id) {
-        element.id = id;
-    }
-
     document.documentElement.appendChild(element);
 }
 
 function update() {
-    chrome.storage.local.get(function(object) {
-        let times = {
-                from: Number((object.time_from || '00:00').substr(0, 2)),
-                to: Number((object.time_to || '00:00').substr(0, 2))
-            },
-            current_time = new Date().getHours();
+    var schedule_time = {
+            from: Number((settings.time_from || '00:00').substr(0, 2)),
+            to: Number((settings.time_to || '00:00').substr(0, 2))
+        },
+        current_time = new Date().getHours();
 
-        if (times.to < times.from && current_time > times.from && current_time < 24) {
-            times.to += 24;
-        } else if (times.to < times.from && current_time < times.to) {
-            times.from = 0;
-        }
+    if (schedule_time.to < schedule_time.from && current_time > schedule_time.from && current_time < 24) {
+        schedule_time.to += 24;
+    } else if (schedule_time.to < schedule_time.from && current_time < schedule_time.to) {
+        schedule_time.from = 0;
+    }
 
-        if (
-            object.mode !== false &&
-            (object.schedule !== 'sunset_to_sunrise' || current_time >= times.from && current_time < times.to) &&
-            ((object.websites || {})[location.hostname] || {}).enabled !== false
-        ) {
-            if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].filters) {
-                injectStyle(getFilters(object.websites[location.hostname].filters), 'night-mode-extension-filters', object.schedule);
-            } else {
-                injectStyle(getFilters({}), 'night-mode-extension-filters', object.schedule);
-            }
-
-            if (object.websites && object.websites[location.hostname] && object.websites[location.hostname].styles) {
-                injectStyle(object.websites[location.hostname].styles, 'night-mode-extension-styles', object.schedule);
-            }
+    if (
+        settings.mode !== false &&
+        (
+            settings.schedule !== 'sunset_to_sunrise' ||
+            current_time >= schedule_time.from && current_time < schedule_time.to
+        ) &&
+        ((settings.websites || {})[location.hostname] || {}).enabled !== false
+    ) {
+        if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
+            injectStyle(getFilters(settings.websites[location.hostname].filters), 'night-mode-extension-filters', settings.schedule);
         } else {
-            if (document.querySelector('#night-mode-extension-filters')) {
-                document.querySelector('#night-mode-extension-filters').remove();
-            }
-
-            if (document.querySelector('#night-mode-extension-styles')) {
-                document.querySelector('#night-mode-extension-styles').remove();
-            }
+            injectStyle(getFilters({}), 'night-mode-extension-filters', settings.schedule);
         }
-    });
+
+        if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].styles) {
+            injectStyle(settings.websites[location.hostname].styles, 'night-mode-extension-styles', settings.schedule);
+        }
+    } else {
+        if (document.querySelector('#night-mode-extension-filters')) {
+            document.querySelector('#night-mode-extension-filters').remove();
+        }
+
+        if (document.querySelector('#night-mode-extension-styles')) {
+            document.querySelector('#night-mode-extension-styles').remove();
+        }
+    }
 }
 
-update();
+chrome.storage.local.get(function(items) {
+    settings = items;
 
-chrome.runtime.onMessage.addListener(function(request, sender) {
+    update();
+});
+
+chrome.storage.onChanged.addListener(function(changes) {
+    if (document.querySelector('#night-mode-extension-filters')) {
+        document.querySelector('#night-mode-extension-filters').remove();
+    }
+
+    if (document.querySelector('#night-mode-extension-styles')) {
+        document.querySelector('#night-mode-extension-styles').remove();
+    }
+
+    for (var key in changes) {
+        settings[key] = changes[key].newValue;
+    }
+
     update();
 });

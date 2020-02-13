@@ -6,7 +6,7 @@ chrome.tabs.query({
     currentWindow: true,
     active: true
 }, function(tabs) {
-    let TAB_URL = tabs[0] && tabs[0].url ? new URL(tabs[0].url) : '',
+    let TAB_URL = tabs[0].url ? new URL(tabs[0].url) : '',
         HOSTNAME = TAB_URL.hostname;
 
     document.querySelector('.satus').addEventListener('satus-navigate', function(event) {
@@ -68,7 +68,6 @@ chrome.tabs.query({
         exclude_this_website: {
             type: 'switch',
             label: 'excludeThisWebsite',
-            value: true,
             storage: 'websites/' + HOSTNAME,
             id: 'exclude',
             onchange: function(key, value) {
