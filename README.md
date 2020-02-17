@@ -9,4 +9,4 @@
 2. Open Extensions (*chrome://extensions/*) page in your browser
 3. Activate "Developer mode"
 4. Click on "Load unpacked" button
-5. Select "chrome" folder
+5. Select extension folder
