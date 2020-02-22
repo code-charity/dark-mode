@@ -134,3 +134,9 @@ chrome.storage.onChanged.addListener(function(changes) {
 
     update();
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (window.self === window.top && request === 'requestTabUrl') {
+        sendResponse(location.href);
+    }
+});
