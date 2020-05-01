@@ -4,76 +4,11 @@
 		<meta charset=utf-8>
 		<meta name=viewport content="width=device-width,initial-scale=1">
 		<title>Night Mode</title>
-		<style>
-			.satus {
-				--primary: #E8BD70;
-				
-				--background-1: #2C2B2C;
-			    --background-hover-1: rgba(0, 0, 0, .1);
-			    --text-1: #B5B5B5;
-			    --icon-1: #E8BD70;
-
-			    --background-2: #343334;
-			    --background-hover-2: rgba(0, 0, 0, .1);
-			    --text-2: #E5E5E5;
-			    --icon-2: #E5E5E5;
-
-			    --background-3: #2C2B2C;
-			    --background-hover-3: rgba(0, 0, 0, .1);
-			    --text-3: #B5B5B5;
-			    --icon-3: #B5B5B5;
-			}
-
-			html, body, .satus {
-			    font-family: 'Open Sans', sans-serif;
-			    overflow: hidden;
-			    width: 320px;
-			    height: 500px;
-			    margin: 0;
-			    background: #2c2b2c
-			}
-		</style>
+		<link rel="stylesheet" href="satus.css">
+        <link rel="stylesheet" href="popup.css">
 	</head>
 	<body>
-		<link rel=stylesheet href=components/button/button.css>
-		<link rel=stylesheet href=components/dialog/dialog.css>
-		<link rel=stylesheet href=components/folder/folder.css>
-		<link rel=stylesheet href=components/header/header.css>
-		<link rel=stylesheet href=components/main/main.css>
-		<link rel=stylesheet href=components/section/section.css>
-		<link rel=stylesheet href=components/select/select.css>
-		<link rel=stylesheet href=components/slider/slider.css>
-		<link rel=stylesheet href=components/switch/switch.css>
-		<link rel=stylesheet href=components/text/text.css>
-		<link rel=stylesheet href=components/textarea/textarea.css>
-
-		<link rel=stylesheet href=template/style.css>
-
-		<div class=satus data-path=main>
-			<header class=satus-header></header>
-			<main class=satus-main></main>
-		</div>
-
-		<script src=core.js></script>
-
-		<script src=modules/render.js></script>
-		<script src=modules/user.js></script>
-		<script src=modules/chromium-storage.js></script>
-		<script src=modules/chromium-locale.js></script>
-
-		<script src=components/button/button.js></script>
-		<script src=components/dialog/dialog.js></script>
-		<script src=components/folder/folder.js></script>
-		<script src=components/header/header.js></script>
-		<script src=components/main/main.js></script>
-		<script src=components/section/section.js></script>
-		<script src=components/select/select.js></script>
-		<script src=components/slider/slider.js></script>
-		<script src=components/switch/switch.js></script>
-		<script src=components/text/text.js></script>
-		<script src=components/textarea/textarea.js></script>
-
-		<script src=template/header.js></script>
-		<script src=template/index.js></script>
+		<script src="satus.js"></script>
+        <script src="popup.js"></script>
 	</body>
 </html>

@@ -1,0 +1,136 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Fonts
+# Basic
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# FONTS
+--------------------------------------------------------------*/
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 400;
+
+    src: url('assets/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 700;
+
+    src: url('assets/fonts/OpenSans-SemiBold.ttf');
+}
+
+
+/*--------------------------------------------------------------
+# BASIC
+--------------------------------------------------------------*/
+
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: .875rem;
+
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+
+    width: 18.75rem;
+    height: 31.25rem;
+    margin: 0;
+}
+
+
+/*--------------------------------------------------------------
+# MADE WITH LOVE
+--------------------------------------------------------------*/
+
+.made-with-love
+{
+    font-size: 13px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+
+    cursor: pointer;
+    transform: translateX(-50%);
+
+    justify-content: center;
+}
+
+.made-with-love svg
+{
+    width: 16px;
+    height: 16px;
+    margin: 0 4px;
+
+    fill: #d62121;
+}
+
+.made-with-love span
+{
+    margin: 0 0 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.satus[data-path='main/websites'] .satus-main .satus-section
+{
+    position: relative;
+
+    padding: 0;
+}
+
+.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
+}
+
+.satus-textarea
+{
+    width: calc(100% - 32px);
+}
+
+.satus-main .satus-button
+{
+    width: 100%;
+}
+
+.satus-main .satus-switch:hover
+{
+    background: var(--background-hover-2);
+}

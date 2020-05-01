@@ -2,17 +2,17 @@
 >>> «HEADER» TEMPLATE
 -----------------------------------------------------------------------------*/
 
-const Menu = {
+var Menu = {
     header: {
         type: 'header',
 
         section_start: {
             type: 'section',
-            class: ['satus-section--align-start'],
+            class: 'satus-section--align-start',
 
             back: {
                 type: 'button',
-                class: ['satus-button--back'],
+                class: 'satus-button--back',
                 icon: '<svg viewBox="0 0 24 24" style=width:20px;height:20px><path d="M16.6 3c-.5-.5-1.3-.5-1.8 0l-8.3 8.3a1 1 0 0 0 0 1.4l8.3 8.3a1.2 1.2 0 1 0 1.8-1.7L9.4 12l7.2-7.3c.5-.4.5-1.2 0-1.7z"></path></svg>',
                 on: {
                     click: function() {
@@ -22,13 +22,13 @@ const Menu = {
             },
             title: {
                 type: 'text',
-                class: ['satus-header__title'],
+                class: 'satus-header__title',
                 innerText: 'Night Mode'
             }
         },
         section_end: {
             type: 'section',
-            class: ['satus-section--align-end'],
+            class: 'satus-section--align-end',
 
             mode: {
                 type: 'switch',
@@ -42,6 +42,47 @@ const Menu = {
                     background: 'transparent'
                 },
                 value: true
+            }
+        }
+    }
+};
+
+
+
+
+
+var Menu = {
+    header: {
+        type: 'header',
+
+        section_start: {
+            type: 'section',
+            class: 'satus-section--align-start',
+
+            button_back: {
+                type: 'button',
+                class: 'satus-button--back',
+                before: '<svg stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
+                onclick: function() {
+                    document.querySelector('.satus-main').back();
+                }
+            },
+            title: {
+                type: 'text',
+                class: 'satus-text--title'
+            }
+        },
+        section_end: {
+            type: 'section',
+            class: 'satus-section--align-end',
+
+            button_vert: {
+                type: 'button',
+                icon: '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5.25" r="0.45"/><circle cx="12" cy="12" r="0.45"/><circle cx="12" cy="18.75" r="0.45"/></svg>',
+                onClickRender: {
+                    type: 'dialog',
+                    class: 'satus-dialog--vertical-menu'
+                }
             }
         }
     }
