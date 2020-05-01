@@ -1,22 +1,184 @@
 
 html {
-    --primary: #E8BD70;
+    --satus-theme-primary: #E8BD70;
     
     --background-1: #2C2B2C;
-    --background-hover-1: rgba(0, 0, 0, .1);
     --text-1: #B5B5B5;
     --icon-1: #E8BD70;
 
     --satus-theme-surface: #343334;
-    --background-hover-2: rgba(0, 0, 0, .1);
     --satus-theme-on-surface: #E5E5E5;
     --satus-theme-on-surface: #E5E5E5;
 
     --background-3: #2C2B2C;
-    --background-hover-3: rgba(0, 0, 0, .1);
     --text-3: #B5B5B5;
     --icon-3: #B5B5B5;
 }
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Fonts
+# Basic
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# FONTS
+--------------------------------------------------------------*/
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 400;
+
+    src: url('assets/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 700;
+
+    src: url('assets/fonts/OpenSans-SemiBold.ttf');
+}
+
+
+/*--------------------------------------------------------------
+# BASIC
+--------------------------------------------------------------*/
+
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: .875rem;
+
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+
+    width: 18.75rem;
+    height: 31.25rem;
+    margin: 0;
+
+    background-color: #2c2b2c;
+}
+
+
+/*--------------------------------------------------------------
+# MADE WITH LOVE
+--------------------------------------------------------------*/
+
+.made-with-love
+{
+    font-size: 13px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+
+    cursor: pointer;
+    transform: translateX(-50%);
+    text-align: center;
+
+    color: var(--satus-theme-on-surface, #d62121);
+
+    justify-content: center;
+}
+
+.made-with-love svg
+{
+    width: 16px;
+    height: 16px;
+
+    fill: #d62121;
+}
+
+.made-with-love span
+{
+    margin: 0 0 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.satus-switch--night-mode
+{
+    width: auto;
+}
+
+.satus-switch__icon
+{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.satus[data-path='main/websites'] .satus-main .satus-section
+{
+    position: relative;
+
+    padding: 0;
+}
+
+.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
+}
+
+.satus-textarea
+{
+    width: calc(100% - 32px);
+}
+
+.satus-main .satus-button
+{
+    width: 100%;
+}
+
+.satus-main .satus-switch:hover
+{
+    background: var(--background-hover-2);
+}
+
 /*--------------------------------------------------------------
 >>> HEADER:
 ----------------------------------------------------------------
@@ -27,6 +189,13 @@ html {
 4.0 Search
 5.0 Vertical menu
 --------------------------------------------------------------*/
+
+.satus-header
+{
+    z-index: 1;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
 
 /*--------------------------------------------------------------
 1.0 BUTTONS
@@ -217,138 +386,80 @@ body[data-appearance='home'] .satus-text--title
 }
 
 /*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
+>>> MAIN:
 ----------------------------------------------------------------
-# Fonts
-# Basic
+1.0 Basic
+2.0 Section
+3.0 Button
+4.0 Folder
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
-# FONTS
+1.0 BASIC
 --------------------------------------------------------------*/
 
-@font-face
+.satus-main
 {
-    font-family: 'Open Sans';
-    font-weight: 400;
-
-    src: url('assets/fonts/OpenSans-Regular.ttf');
+    flex: 1;
 }
 
-@font-face
+.satus-main,
+.satus-main__container
 {
-    font-family: 'Open Sans';
-    font-weight: 700;
-
-    src: url('assets/fonts/OpenSans-SemiBold.ttf');
+    background-color: #2c2b2c;
 }
 
 
 /*--------------------------------------------------------------
-# BASIC
+2.0 SECTION
 --------------------------------------------------------------*/
 
-body
+.satus-main .satus-section
 {
-    font-family: 'Open Sans', sans-serif;
-    font-size: .875rem;
+    display: block;
 
-    display: flex;
-    overflow: hidden;
-    flex-direction: column;
+    width: calc(100% - 16px);
+    max-width: 900px;
+    margin: 8px auto;
+    padding: 8px 0;
 
-    width: 18.75rem;
-    height: 31.25rem;
-    margin: 0;
+    color: var(--satus-theme-on-surface, #777);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 8px;
+    background-color: var(--satus-theme-surface, #fff);
+}
+
+.satus-main .satus-section--message
+{
+    padding-right: 8px;
+    padding-left: 8px;
 }
 
 
 /*--------------------------------------------------------------
-# MADE WITH LOVE
+3.0 BUTTON
 --------------------------------------------------------------*/
-
-.made-with-love
-{
-    font-size: 13px;
-
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    padding: 0;
-
-    cursor: pointer;
-    transform: translateX(-50%);
-
-    justify-content: center;
-}
-
-.made-with-love svg
-{
-    width: 16px;
-    height: 16px;
-    margin: 0 4px;
-
-    fill: #d62121;
-}
-
-.made-with-love span
-{
-    margin: 0 0 0 4px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.satus[data-path='main/websites'] .satus-main .satus-section
-{
-    position: relative;
-
-    padding: 0;
-}
-
-.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    width: auto;
-}
-
-.satus-textarea
-{
-    width: calc(100% - 32px);
-}
 
 .satus-main .satus-button
 {
-    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    padding: 0 16px;
 }
 
-.satus-main .satus-switch:hover
+
+/*--------------------------------------------------------------
+4.0 FOLDER
+--------------------------------------------------------------*/
+
+.satus-main .satus-folder svg
 {
-    background: var(--background-hover-2);
+    width: 20px;
+    height: 20px;
+    margin: 0 14px 0 0;
+
+    opacity: .75;
+
+    stroke: none;
+    fill: #f6b465;
 }

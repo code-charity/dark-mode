@@ -1,12 +1,14 @@
 {
     "popup.js": [
+        "src/js/function.js",
         "src/js/header.js",
         "src/js/main.js",
         "src/js/index.js"
     ],
     "popup.css": [
         "src/css/themes.css",
+        "src/css/basic.css",
         "src/css/header.css",
-        "src/css/basic.css"
+        "src/css/main.css"
     ]
 }

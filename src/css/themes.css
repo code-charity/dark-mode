@@ -1,18 +1,15 @@
 html {
-    --primary: #E8BD70;
+    --satus-theme-primary: #E8BD70;
     
     --background-1: #2C2B2C;
-    --background-hover-1: rgba(0, 0, 0, .1);
     --text-1: #B5B5B5;
     --icon-1: #E8BD70;
 
     --satus-theme-surface: #343334;
-    --background-hover-2: rgba(0, 0, 0, .1);
     --satus-theme-on-surface: #E5E5E5;
     --satus-theme-on-surface: #E5E5E5;
 
     --background-3: #2C2B2C;
-    --background-hover-3: rgba(0, 0, 0, .1);
     --text-3: #B5B5B5;
     --icon-3: #B5B5B5;
 }

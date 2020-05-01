@@ -249,6 +249,16 @@ Satus.render = function(element, container, callback) {
                 }
             }
 
+            if (object.after) {
+                var component_after = document.createElement('span');
+
+                component_after.innerHTML = object.after;
+
+                for (var i = component_after.children.length - 1; i > -1; i--) {
+                    component.appendChild(component_after.children[i]);
+                }
+            }
+
             (container || document.body).appendChild(component);
 
             if (typeof component.onClickRender === 'object') {

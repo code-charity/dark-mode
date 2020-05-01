@@ -1,0 +1,78 @@
+/*--------------------------------------------------------------
+>>> MAIN:
+----------------------------------------------------------------
+1.0 Basic
+2.0 Section
+3.0 Button
+4.0 Folder
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+1.0 BASIC
+--------------------------------------------------------------*/
+
+.satus-main
+{
+    flex: 1;
+}
+
+.satus-main,
+.satus-main__container
+{
+    background-color: #2c2b2c;
+}
+
+
+/*--------------------------------------------------------------
+2.0 SECTION
+--------------------------------------------------------------*/
+
+.satus-main .satus-section
+{
+    display: block;
+
+    width: calc(100% - 16px);
+    max-width: 900px;
+    margin: 8px auto;
+    padding: 8px 0;
+
+    color: var(--satus-theme-on-surface, #777);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 8px;
+    background-color: var(--satus-theme-surface, #fff);
+}
+
+.satus-main .satus-section--message
+{
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+
+/*--------------------------------------------------------------
+3.0 BUTTON
+--------------------------------------------------------------*/
+
+.satus-main .satus-button
+{
+    height: 48px;
+    min-height: 48px;
+    padding: 0 16px;
+}
+
+
+/*--------------------------------------------------------------
+4.0 FOLDER
+--------------------------------------------------------------*/
+
+.satus-main .satus-folder svg
+{
+    width: 20px;
+    height: 20px;
+    margin: 0 14px 0 0;
+
+    opacity: .75;
+
+    stroke: none;
+    fill: #f6b465;
+}

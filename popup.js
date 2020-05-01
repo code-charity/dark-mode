@@ -1,4 +1,7 @@
 
+function update() {
+
+}
 /*-----------------------------------------------------------------------------
 >>> «HEADER» TEMPLATE
 -----------------------------------------------------------------------------*/
@@ -11,56 +14,7 @@ var Menu = {
             type: 'section',
             class: 'satus-section--align-start',
 
-            back: {
-                type: 'button',
-                class: 'satus-button--back',
-                icon: '<svg viewBox="0 0 24 24" style=width:20px;height:20px><path d="M16.6 3c-.5-.5-1.3-.5-1.8 0l-8.3 8.3a1 1 0 0 0 0 1.4l8.3 8.3a1.2 1.2 0 1 0 1.8-1.7L9.4 12l7.2-7.3c.5-.4.5-1.2 0-1.7z"></path></svg>',
-                on: {
-                    click: function() {
-                        document.querySelector('.satus-main__container').close();
-                    }
-                }
-            },
-            title: {
-                type: 'text',
-                class: 'satus-header__title',
-                innerText: 'Night Mode'
-            }
-        },
-        section_end: {
-            type: 'section',
-            class: 'satus-section--align-end',
-
-            mode: {
-                type: 'switch',
-                icons: {
-                    before: '<svg viewBox="0 0 16 16"><path d="M7.49 2a.5.5 0 0 0-.49.5v1a.5.5 0 1 0 1 0v-1a.5.5 0 0 0-.51-.5zM3.6 3.61a.5.5 0 0 0-.34.85l.7.71a.5.5 0 0 0 .86-.35.5.5 0 0 0-.15-.35l-.7-.71a.5.5 0 0 0-.37-.15zm7.77 0a.5.5 0 0 0-.33.15l-.71.7a.5.5 0 1 0 .7.71l.71-.7a.5.5 0 0 0 .15-.36.5.5 0 0 0-.52-.5zM7.46 5a3 3 0 0 0-2.08 5.12 3 3 0 0 0 4.24-4.24A3 3 0 0 0 7.46 5zM2 7.5a.5.5 0 1 0 0 1h1a.5.5 0 1 0 0-1zm10 0a.5.5 0 1 0 0 1h1a.5.5 0 1 0 0-1zm-7.7 3.18a.5.5 0 0 0-.34.15l-.7.7a.5.5 0 1 0 .7.71l.71-.7a.5.5 0 0 0 .15-.36.5.5 0 0 0-.52-.5zm6.38 0a.5.5 0 0 0-.35.86l.7.7a.5.5 0 0 0 .71 0 .5.5 0 0 0 .15-.35.5.5 0 0 0-.15-.35l-.7-.71a.5.5 0 0 0-.36-.15zM7.48 12a.5.5 0 0 0-.48.5v1a.5.5 0 1 0 1 0v-1a.5.5 0 0 0-.51-.5z"/></svg>',
-                    after: '<svg viewBox="0 0 16 16"><path d="M7.5 4A4.5 4.5 0 0 0 3 8.5 4.5 4.5 0 0 0 7.5 13a4.5 4.5 0 0 0 4.201-2.905 3.938 3.938 0 0 1-.826.092A3.938 3.938 0 0 1 6.937 6.25a3.938 3.938 0 0 1 .704-2.243A4.5 4.5 0 0 0 7.5 4z"/></svg>'
-                },
-                style: {
-                    width: 'auto',
-                    padding: '0',
-                    background: 'transparent'
-                },
-                value: true
-            }
-        }
-    }
-};
-
-
-
-
-
-var Menu = {
-    header: {
-        type: 'header',
-
-        section_start: {
-            type: 'section',
-            class: 'satus-section--align-start',
-
-            button_back: {
+            go_back: {
                 type: 'button',
                 class: 'satus-button--back',
                 before: '<svg stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
@@ -70,24 +24,321 @@ var Menu = {
             },
             title: {
                 type: 'text',
-                class: 'satus-text--title'
+                class: 'satus-text--title',
+                label: 'Night Mode'
             }
         },
         section_end: {
             type: 'section',
             class: 'satus-section--align-end',
 
-            button_vert: {
-                type: 'button',
-                icon: '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5.25" r="0.45"/><circle cx="12" cy="12" r="0.45"/><circle cx="12" cy="18.75" r="0.45"/></svg>',
-                onClickRender: {
-                    type: 'dialog',
-                    class: 'satus-dialog--vertical-menu'
-                }
+            mode: {
+                type: 'switch',
+                class: 'satus-switch--night-mode',
+                before: '<svg class="satus-switch__icon" viewBox="0 0 16 16"><path d="M7.49 2a.5.5 0 0 0-.49.5v1a.5.5 0 1 0 1 0v-1a.5.5 0 0 0-.51-.5zM3.6 3.61a.5.5 0 0 0-.34.85l.7.71a.5.5 0 0 0 .86-.35.5.5 0 0 0-.15-.35l-.7-.71a.5.5 0 0 0-.37-.15zm7.77 0a.5.5 0 0 0-.33.15l-.71.7a.5.5 0 1 0 .7.71l.71-.7a.5.5 0 0 0 .15-.36.5.5 0 0 0-.52-.5zM7.46 5a3 3 0 0 0-2.08 5.12 3 3 0 0 0 4.24-4.24A3 3 0 0 0 7.46 5zM2 7.5a.5.5 0 1 0 0 1h1a.5.5 0 1 0 0-1zm10 0a.5.5 0 1 0 0 1h1a.5.5 0 1 0 0-1zm-7.7 3.18a.5.5 0 0 0-.34.15l-.7.7a.5.5 0 1 0 .7.71l.71-.7a.5.5 0 0 0 .15-.36.5.5 0 0 0-.52-.5zm6.38 0a.5.5 0 0 0-.35.86l.7.7a.5.5 0 0 0 .71 0 .5.5 0 0 0 .15-.35.5.5 0 0 0-.15-.35l-.7-.71a.5.5 0 0 0-.36-.15zM7.48 12a.5.5 0 0 0-.48.5v1a.5.5 0 1 0 1 0v-1a.5.5 0 0 0-.51-.5z"/></svg>',
+                after: '<svg class="satus-switch__icon" viewBox="0 0 16 16"><path d="M7.5 4A4.5 4.5 0 0 0 3 8.5 4.5 4.5 0 0 0 7.5 13a4.5 4.5 0 0 0 4.201-2.905 3.938 3.938 0 0 1-.826.092A3.938 3.938 0 0 1 6.937 6.25a3.938 3.938 0 0 1 .704-2.243A4.5 4.5 0 0 0 7.5 4z"/></svg>',
+                value: true
             }
         }
     }
 };
+Menu.main = {
+    type: 'main',
+    appearanceKey: 'home',
+    on: {
+        change: update
+    },
+
+    section: {
+        type: 'section',
+
+        only_on_this_website: {
+            type: 'button',
+            label: 'onlyEnableForThisWebsite',
+            onclick: function() {
+                var websites = Satus.storage.get('websites');
+
+                for (var key in websites) {
+                    if (key != HOSTNAME) {
+                        Satus.storage.set('websites/' + key + '/enabled', false);
+                        Satus.storage.set('websites/' + key + '/exclude_this_website', true);
+                    } else {
+                        Satus.storage.set('websites/' + key + '/enabled', true);
+                        Satus.storage.set('websites/' + key + '/exclude_this_website', false);
+                        document.querySelector('#exclude').dataset.value = false;
+                    }
+                }
+            }
+        },
+        exclude_this_website: {
+            type: 'switch',
+            label: 'excludeThisWebsite',
+            //storage: 'websites/' + HOSTNAME,
+            id: 'exclude',
+            onchange: function(key, value) {
+                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value == 'true' ? false : true);
+            }
+        },
+        filters: {
+            type: 'folder',
+            label: 'filters',
+            before: '<svg viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
+
+            /*invert_colors: {
+                label: 'invertColors',
+                type: 'switch',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                value: true
+            },
+            bluelight: {
+                label: 'bluelight',
+                type: 'slider',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                max: 90
+            },
+            brightness: {
+                label: 'brightness',
+                type: 'slider',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                max: 100,
+                value: 100
+            },
+            contrast: {
+                label: 'contrast',
+                type: 'slider',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                max: 100,
+                value: 100
+            },
+            grayscale: {
+                label: 'grayscale',
+                type: 'slider',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                max: 100
+            },
+            sepia: {
+                label: 'sepia',
+                type: 'slider',
+                storage: 'websites/' + HOSTNAME + '/filters',
+                max: 100
+            }*/
+        },
+        styles: {
+            type: 'folder',
+            label: 'styles',
+            before: '<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
+
+            styles: {
+                type: 'textarea',
+                placeholder: 'html, body { ... }',
+                style: {
+                    margin: '16px',
+                    height: 'calc(100vh - 96px)',
+                    fontFamily: 'monospace'
+                },
+                on: {
+                    render: function(element) {
+                        element.value = Satus.storage.get('websites/' + HOSTNAME + '/styles') || '';
+                    },
+                    input: function() {
+                        Satus.storage.set('websites/' + HOSTNAME + '/styles', this.value);
+                    }
+                }
+            }
+        },
+        websites: {
+            type: 'folder',
+            label: 'websites',
+            before: '<svg viewBox="0 0 24 24"><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"></svg>'
+        },
+        schedule: {
+            type: 'folder',
+            label: 'schedule',
+            before: '<svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path fill="none" d="M0 0h24v24H0z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>',
+
+            schedule: {
+                type: 'select',
+
+                options: [{
+                    label: 'disabled',
+                    value: 'disabled'
+                }, {
+                    label: 'sunsetToSunrise',
+                    value: 'sunset_to_sunrise'
+                }, {
+                    label: 'systemPeference',
+                    value: 'system_peference'
+                }]
+            },
+            time_from: {
+                type: 'select',
+                label: 'timeFrom',
+                options: [{
+                    label: '00:00',
+                    value: '00:00'
+                }, {
+                    label: '01:00',
+                    value: '01:00'
+                }, {
+                    label: '02:00',
+                    value: '02:00'
+                }, {
+                    label: '03:00',
+                    value: '03:00'
+                }, {
+                    label: '04:00',
+                    value: '04:00'
+                }, {
+                    label: '05:00',
+                    value: '05:00'
+                }, {
+                    label: '06:00',
+                    value: '06:00'
+                }, {
+                    label: '07:00',
+                    value: '07:00'
+                }, {
+                    label: '08:00',
+                    value: '08:00'
+                }, {
+                    label: '09:00',
+                    value: '09:00'
+                }, {
+                    label: '10:00',
+                    value: '10:00'
+                }, {
+                    label: '11:00',
+                    value: '11:00'
+                }, {
+                    label: '12:00',
+                    value: '12:00'
+                }, {
+                    label: '13:00',
+                    value: '13:00'
+                }, {
+                    label: '14:00',
+                    value: '14:00'
+                }, {
+                    label: '15:00',
+                    value: '15:00'
+                }, {
+                    label: '16:00',
+                    value: '16:00'
+                }, {
+                    label: '17:00',
+                    value: '17:00'
+                }, {
+                    label: '18:00',
+                    value: '18:00'
+                }, {
+                    label: '19:00',
+                    value: '19:00'
+                }, {
+                    label: '20:00',
+                    value: '20:00'
+                }, {
+                    label: '21:00',
+                    value: '21:00'
+                }, {
+                    label: '22:00',
+                    value: '22:00'
+                }, {
+                    label: '23:00',
+                    value: '23:00'
+                }]
+            },
+            time_to: {
+                type: 'select',
+                label: 'timeTo',
+                options: [{
+                    label: '00:00',
+                    value: '00:00'
+                }, {
+                    label: '01:00',
+                    value: '01:00'
+                }, {
+                    label: '02:00',
+                    value: '02:00'
+                }, {
+                    label: '03:00',
+                    value: '03:00'
+                }, {
+                    label: '04:00',
+                    value: '04:00'
+                }, {
+                    label: '05:00',
+                    value: '05:00'
+                }, {
+                    label: '06:00',
+                    value: '06:00'
+                }, {
+                    label: '07:00',
+                    value: '07:00'
+                }, {
+                    label: '08:00',
+                    value: '08:00'
+                }, {
+                    label: '09:00',
+                    value: '09:00'
+                }, {
+                    label: '10:00',
+                    value: '10:00'
+                }, {
+                    label: '11:00',
+                    value: '11:00'
+                }, {
+                    label: '12:00',
+                    value: '12:00'
+                }, {
+                    label: '13:00',
+                    value: '13:00'
+                }, {
+                    label: '14:00',
+                    value: '14:00'
+                }, {
+                    label: '15:00',
+                    value: '15:00'
+                }, {
+                    label: '16:00',
+                    value: '16:00'
+                }, {
+                    label: '17:00',
+                    value: '17:00'
+                }, {
+                    label: '18:00',
+                    value: '18:00'
+                }, {
+                    label: '19:00',
+                    value: '19:00'
+                }, {
+                    label: '20:00',
+                    value: '20:00'
+                }, {
+                    label: '21:00',
+                    value: '21:00'
+                }, {
+                    label: '22:00',
+                    value: '22:00'
+                }, {
+                    label: '23:00',
+                    value: '23:00'
+                }]
+            }
+        }
+    }
+};
+
+Menu.made_with_love = {
+    type: 'text',
+    class: 'made-with-love',
+    innerHTML: 'Made with <svg viewBox="0 0 24 24"><path d="M13.35 20.13c-.76.69-1.93.69-2.69-.01l-.11-.1C5.3 15.27 1.87 12.16 2 8.28c.06-1.7.93-3.33 2.34-4.29 2.64-1.8 5.9-.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41.96 2.28 2.59 2.34 4.29.14 3.88-3.3 6.99-8.55 11.76l-.1.09z"></svg> by <span>ImprovedTube</span>',
+    on: {
+        click: function() {
+            window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
+        }
+    }
+};
+
 /*Menu.main = {
     type: 'main',
 
@@ -772,7 +1023,6 @@ chrome.tabs.query({
         Satus.storage.import(function() {
             Satus.locale.import('_locales/' + language + '/messages.json', function() {
                 Satus.modules.updateStorageKeys(Menu, function() {
-                    console.log(Menu);
                     Satus.render(Menu, document.body);
                 });
             });

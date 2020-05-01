@@ -42,6 +42,8 @@ body
     width: 18.75rem;
     height: 31.25rem;
     margin: 0;
+
+    background-color: #2c2b2c;
 }
 
 
@@ -64,6 +66,9 @@ body
 
     cursor: pointer;
     transform: translateX(-50%);
+    text-align: center;
+
+    color: var(--satus-theme-on-surface, #d62121);
 
     justify-content: center;
 }
@@ -72,7 +77,6 @@ body
 {
     width: 16px;
     height: 16px;
-    margin: 0 4px;
 
     fill: #d62121;
 }
@@ -80,6 +84,30 @@ body
 .made-with-love span
 {
     margin: 0 0 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.satus-switch--night-mode
+{
+    width: auto;
+}
+
+.satus-switch__icon
+{
+    width: 20px;
+    height: 20px;
 }
 
 

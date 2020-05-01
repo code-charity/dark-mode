@@ -14,7 +14,6 @@ chrome.tabs.query({
         Satus.storage.import(function() {
             Satus.locale.import('_locales/' + language + '/messages.json', function() {
                 Satus.modules.updateStorageKeys(Menu, function() {
-                    console.log(Menu);
                     Satus.render(Menu, document.body);
                 });
             });
