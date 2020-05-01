@@ -71,8 +71,16 @@
     height: 20px;
     margin: 0 14px 0 0;
 
-    opacity: .75;
-
     stroke: none;
-    fill: #f6b465;
+    fill: var(--satus-theme-primary);
+}
+
+
+/*--------------------------------------------------------------
+5.0 SWITCH
+--------------------------------------------------------------*/
+
+.satus-switch:hover
+{
+    background-color: transparent;
 }
