@@ -87,7 +87,21 @@ Satus.storage = {};
 --------------------------------------------------------------*/
 
 Satus.storage.get = function(name) {
-    return Satus.storage[name];
+    var target = Satus.storage;
+
+    name = name.split('/').filter(function(value) {
+        return value != '';
+    });
+
+    for (var i = 0, l = name.length; i < l; i++) {
+        if (target[name[i]]) {
+            target = target[name[i]];
+        } else {
+            return false;
+        }
+    }
+
+    return target;
 };
 
 
@@ -96,9 +110,26 @@ Satus.storage.get = function(name) {
 --------------------------------------------------------------*/
 
 Satus.storage.set = function(name, value) {
-    var items = {};
+    var items = {},
+        target = Satus.storage;
 
-    Satus.storage[name] = value;
+    name = name.split('/');
+
+    console.log(name);
+
+    for (var i = 0, l = name.length; i < l; i++) {
+        var item = name[i];
+
+        if (i + 1 < l) {
+            if (target[item]) {
+                target = target[item];
+            } else {
+                target[item] = {};
+            }
+        } else {
+            target[item] = value;
+        }
+    }
 
     for (var key in Satus.storage) {
         if (typeof items[key] !== 'function') {
