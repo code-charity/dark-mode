@@ -176,12 +176,6 @@ body
 {
     width: 100%;
 }
-
-.satus-main .satus-switch:hover
-{
-    background: var(--background-hover-2);
-}
-
 /*--------------------------------------------------------------
 >>> HEADER:
 ----------------------------------------------------------------
@@ -275,6 +269,11 @@ body[data-appearance='home'] .satus-text--title
 .satus-switch--night-mode
 {
     padding: 0;
+}
+
+.satus-switch--night-mode:hover
+{
+    background-color: transparent;
 }
 
 .satus-switch--night-mode[data-value=false] > svg:last-child
@@ -374,7 +373,8 @@ body[data-appearance='home'] .satus-text--title
 5.0 SWITCH
 --------------------------------------------------------------*/
 
-.satus-switch:hover
+.satus-switch:hover,
+.satus-switch:hover input
 {
-    background-color: transparent;
+    cursor: pointer;
 }

@@ -97,7 +97,7 @@ Satus.storage.get = function(name) {
         if (target[name[i]]) {
             target = target[name[i]];
         } else {
-            return false;
+            return undefined;
         }
     }
 
@@ -113,18 +113,21 @@ Satus.storage.set = function(name, value) {
     var items = {},
         target = Satus.storage;
 
-    name = name.split('/');
-
-    console.log(name);
+    name = name.split('/').filter(function(value) {
+        return value != '';
+    });
 
     for (var i = 0, l = name.length; i < l; i++) {
         var item = name[i];
 
-        if (i + 1 < l) {
+        if (i < l - 1) {
+
             if (target[item]) {
                 target = target[item];
             } else {
                 target[item] = {};
+
+                target = target[item];
             }
         } else {
             target[item] = value;

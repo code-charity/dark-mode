@@ -80,7 +80,8 @@
 5.0 SWITCH
 --------------------------------------------------------------*/
 
-.satus-switch:hover
+.satus-switch:hover,
+.satus-switch:hover input
 {
-    background-color: transparent;
+    cursor: pointer;
 }

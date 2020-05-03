@@ -87,56 +87,49 @@ Menu.main = {
         },
         exclude_this_website: {
             type: 'switch',
-            label: 'excludeThisWebsite',
-            //storage: 'websites/' + HOSTNAME,
-            id: 'exclude',
-            onchange: function(key, value) {
-                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value == 'true' ? false : true);
-            }
+            label: 'excludeThisWebsite'
         },
         filters: {
             type: 'folder',
             label: 'filters',
             before: '<svg viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
-            /*invert_colors: {
-                label: 'invertColors',
-                type: 'switch',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                value: true
-            },
-            bluelight: {
-                label: 'bluelight',
-                type: 'slider',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                max: 90
-            },
-            brightness: {
-                label: 'brightness',
-                type: 'slider',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                max: 100,
-                value: 100
-            },
-            contrast: {
-                label: 'contrast',
-                type: 'slider',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                max: 100,
-                value: 100
-            },
-            grayscale: {
-                label: 'grayscale',
-                type: 'slider',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                max: 100
-            },
-            sepia: {
-                label: 'sepia',
-                type: 'slider',
-                storage: 'websites/' + HOSTNAME + '/filters',
-                max: 100
-            }*/
+            section: {
+                type: 'section',
+
+                invert_colors: {
+                    label: 'invertColors',
+                    type: 'switch',
+                    value: true
+                },
+                bluelight: {
+                    label: 'bluelight',
+                    type: 'slider',
+                    max: 90
+                },
+                brightness: {
+                    label: 'brightness',
+                    type: 'slider',
+                    max: 100,
+                    value: 100
+                },
+                contrast: {
+                    label: 'contrast',
+                    type: 'slider',
+                    max: 100,
+                    value: 100
+                },
+                grayscale: {
+                    label: 'grayscale',
+                    type: 'slider',
+                    max: 100
+                },
+                sepia: {
+                    label: 'sepia',
+                    type: 'slider',
+                    max: 100
+                }
+            }
         },
         styles: {
             type: 'folder',
@@ -341,16 +334,16 @@ Menu.main = {
                 }]
             }
         }
-    }
-};
+    },
 
-Menu.made_with_love = {
-    type: 'text',
-    class: 'made-with-love',
-    innerHTML: 'Made with <svg viewBox="0 0 24 24"><path d="M13.35 20.13c-.76.69-1.93.69-2.69-.01l-.11-.1C5.3 15.27 1.87 12.16 2 8.28c.06-1.7.93-3.33 2.34-4.29 2.64-1.8 5.9-.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41.96 2.28 2.59 2.34 4.29.14 3.88-3.3 6.99-8.55 11.76l-.1.09z"></svg> by <span>ImprovedTube</span>',
-    on: {
-        click: function() {
-            window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
+    made_with_love: {
+        type: 'text',
+        class: 'made-with-love',
+        innerHTML: 'Made with <svg viewBox="0 0 24 24"><path d="M13.35 20.13c-.76.69-1.93.69-2.69-.01l-.11-.1C5.3 15.27 1.87 12.16 2 8.28c.06-1.7.93-3.33 2.34-4.29 2.64-1.8 5.9-.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41.96 2.28 2.59 2.34 4.29.14 3.88-3.3 6.99-8.55 11.76l-.1.09z"></svg> by <span>ImprovedTube</span>',
+        on: {
+            click: function() {
+                window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
+            }
         }
     }
 };
@@ -1039,6 +1032,14 @@ chrome.tabs.query({
         Satus.storage.import(function() {
             Satus.locale.import('_locales/' + language + '/messages.json', function() {
                 Satus.modules.updateStorageKeys(Menu, function() {
+                    Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
+                    Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
+                    Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+                    Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
+                    Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
+                    Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
+                    Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
+
                     Satus.render(Menu, document.body);
                 });
             });

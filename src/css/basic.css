@@ -160,8 +160,3 @@ body
 {
     width: 100%;
 }
-
-.satus-main .satus-switch:hover
-{
-    background: var(--background-hover-2);
-}
