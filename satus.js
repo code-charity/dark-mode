@@ -308,7 +308,7 @@ Satus.render = function(element, container, callback) {
             }
 
             if (typeof component.onrender === 'function') {
-                component.onrender();
+                component.onrender(object);
             }
 
             if (callback) {
@@ -1890,7 +1890,7 @@ Satus.components.text = function(element) {
 --------------------------------------------------------------*/
 
 Satus.components.textField = function(element) {
-    var component = document.createElement('input');
+    var component = element.rows > 1 ? document.createElement('textarea') : document.createElement('input');
 
     component.type = 'text';
 

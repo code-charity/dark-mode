@@ -21,6 +21,8 @@ chrome.tabs.query({
                     Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
                     Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
                     Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
+                    
+                    Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 
                     Satus.render(Menu, document.body);
                 });
