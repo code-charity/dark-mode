@@ -85,3 +85,35 @@
 {
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+.satus-main__container[data-appearance=websites] .satus-section > .satus-section
+{
+    position: relative;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.satus-main__container[data-appearance=websites] .satus-section > .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
+    height: 100%;
+}
