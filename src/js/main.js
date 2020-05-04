@@ -296,76 +296,10 @@ Menu.main = {
             section: {
                 type: 'section',
 
-                developer_options: {
-                    type: 'folder',
-                    before: '<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>',
-                    label: 'developerOptions',
-
-                    custom_js_section_label: {
-                        type: 'text',
-                        class: 'satus-section--label',
-                        label: 'customJs'
-                    },
-
-                    custom_js_section: {
-                        type: 'section',
-                        custom_js: {
-                            type: 'text-field',
-                            onrender: function() {
-                                this.value = Satus.storage.get('custom_js') || '';
-                            },
-                            oninput: function() {
-                                Satus.storage.set('custom_js', this.value);
-                            }
-                        }
-                    },
-
-                    custom_css_section_label: {
-                        type: 'text',
-                        class: 'satus-section--label',
-                        label: 'customCss'
-                    },
-
-                    custom_css_section: {
-                        type: 'section',
-                        custom_css: {
-                            type: 'text-field',
-                            onrender: function() {
-                                this.value = Satus.storage.get('custom_css') || '';
-                            },
-                            oninput: function() {
-                                Satus.storage.set('custom_css', this.value);
-                            }
-                        }
-                    },
-
-                    /*translations_section_label: {
-                        type: 'text',
-                        class: 'satus-section--label',
-                        label: 'translations'
-                    },
-
-                    translations_section: {
-                        type: 'section',
-                        onrender: function() {
-                            Satus.search('language', Menu, function(result) {
-                                var languages = result.language.options;
-
-                                for (var i = 0, l = languages.length; i < l; i++) {
-
-                                }
-                            })
-                        }
-                    }*/
-                },
-            },
-
-            section0: {
-                type: 'section',
-
                 language: {
                     label: 'language',
                     type: 'select',
+                    before: '<svg viewBox="0 0 24 24"><path d="M12.9 15l-2.6-2.4c1.8-2 3-4.2 3.8-6.6H17V4h-7V2H8v2H1v2h11.2c-.7 2-1.8 3.8-3.2 5.3-1-1-1.7-2.1-2.3-3.3h-2c.7 1.6 1.7 3.2 3 4.6l-5.1 5L4 19l5-5 3.1 3.1.8-2zm5.6-5h-2L12 22h2l1.1-3H20l1.1 3h2l-4.5-12zm-2.6 7l1.6-4.3 1.6 4.3H16z" /></svg>',
                     onchange: function(name, value) {
                         Satus.memory.set('locale', {});
 
@@ -597,7 +531,7 @@ Menu.main = {
                     type: 'folder',
                     before: '<svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" /></svg>',
                     label: 'about',
-                    appearanceId: 'about',
+                    appearanceKey: 'about',
 
                     section: {
                         type: 'section',
