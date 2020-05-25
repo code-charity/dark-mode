@@ -19,7 +19,7 @@ You can help us translate ImprovedTube into your language. Please, check the [wi
 4. Click on "Load unpacked" button
 5. Select unzipped folder
 
-Or use one of the [published version](https://chrome.google.com/webstore/detail/night-mode/declgfomkjdohhjbcfemjklfebflhefl).
+Or use the [published version](https://chrome.google.com/webstore/detail/night-mode/declgfomkjdohhjbcfemjklfebflhefl).
 
 #### Firefox / Waterfox / GNUzilla and IceCat and other
 1. Download & unzip [latest release](https://github.com/victor-savinov/night-mode/releases/latest)
