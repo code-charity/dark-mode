@@ -1,177 +1,208 @@
-/*--------------------------------------------------------------
->>> MAIN:
-----------------------------------------------------------------
-1.0 Basic
+/*---------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-----------------------------------------------------------------
+1.0 Main
 2.0 Section
 3.0 Button
 4.0 Folder
---------------------------------------------------------------*/
+5.0 Swith
+6.0 Textarea
+7.0 Websites
+8.0 Language
+9.0 About
+10.0 Made with love
+---------------------------------------------------------------*/
 
-/*--------------------------------------------------------------
-1.0 BASIC
---------------------------------------------------------------*/
+/*---------------------------------------------------------------
+1.0 MAIN
+---------------------------------------------------------------*/
 
-.satus-main
-{
-    flex: 1;
+.satus-main {
+	flex: 1;
 }
 
 .satus-main,
-.satus-main__container
-{
-    background-color: #2c2b2c;
+.satus-main__container {
+	background-color: #2c2b2c;
 }
 
 
-/*--------------------------------------------------------------
+/*---------------------------------------------------------------
 2.0 SECTION
---------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
-.satus-main .satus-section
-{
-    display: block;
-
-    width: calc(100% - 16px);
-    max-width: 900px;
-    margin: 8px auto;
-    padding: 8px 0;
-
-    color: var(--satus-theme-on-surface, #777);
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 8px;
-    background-color: var(--satus-theme-surface, #fff);
+.satus-main .satus-section {
+	display: block;
+	width: calc(100% - 16px);
+	max-width: 900px;
+	margin: 8px auto;
+	padding: 8px 0;
+	color: var(--satus-theme-on-surface, #777);
+	border: 1px solid rgba(0, 0, 0, .1);
+	border-radius: 8px;
+	background-color: var(--satus-theme-surface, #fff);
 }
 
-.satus-main .satus-section--message
-{
-    padding-right: 8px;
-    padding-left: 8px;
+.satus-main .satus-section--message {
+	padding-right: 8px;
+	padding-left: 8px;
 }
 
 
-/*--------------------------------------------------------------
+/*---------------------------------------------------------------
 3.0 BUTTON
---------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
-.satus-main .satus-button
-{
-    height: 48px;
-    min-height: 48px;
-    padding: 0 16px;
+.satus-main .satus-button {
+	width: 100%;
+	height: 48px;
+	min-height: 48px;
+	padding: 0 16px;
 }
 
 
-/*--------------------------------------------------------------
+/*---------------------------------------------------------------
 4.0 FOLDER
---------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
-.satus-main .satus-folder svg
-{
-    width: 20px;
-    height: 20px;
-    margin: 0 14px 0 0;
-
-    stroke: none;
-    fill: var(--satus-theme-primary);
+.satus-main .satus-folder svg {
+	width: 20px;
+	height: 20px;
+	margin: 0 14px 0 0;
+	stroke: none;
+	fill: var(--satus-theme-primary);
 }
 
 
-/*--------------------------------------------------------------
+/*---------------------------------------------------------------
 5.0 SWITCH
---------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
 .satus-switch:hover,
-.satus-switch:hover input
-{
-    cursor: pointer;
+.satus-switch:hover input {
+	cursor: pointer;
+}
+
+.satus-switch--night-mode {
+	width: auto;
+}
+
+.satus-switch__icon {
+	width: 20px;
+	height: 20px;
 }
 
 
+/*---------------------------------------------------------------
+6.0 TEXTAREA
+---------------------------------------------------------------*/
 
-
-
-
-
-
-
-
-.satus-main__container[data-appearance=websites] .satus-section > .satus-section
-{
-    position: relative;
-
-    width: 100%;
-    margin: 0;
-    padding: 0;
-
-    border: none;
-    background: transparent;
-    box-shadow: none;
-}
-
-.satus-main__container[data-appearance=websites] .satus-section > .satus-section .satus-switch
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    width: auto;
-    height: 100%;
+.satus-textarea {
+	width: calc(100% - 32px);
 }
 
 
+/*---------------------------------------------------------------
+7.0 WEBSITES
+---------------------------------------------------------------*/
 
-
-
-
-
-
-
-.satus-select[data-storage-key=language]
-{
-    padding-left: 50px;
+.satus-main__container[data-appearance=websites] .satus-section>.satus-section {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	box-shadow: none;
 }
 
-.satus-select[data-storage-key=language] svg
-{
-    position: absolute;
-    left: 16px;
-
-    width: 20px;
-    height: 20px;
-
-    stroke: none;
-    fill: var(--satus-theme-primary);
+.satus-main__container[data-appearance=websites] .satus-section>.satus-section .satus-switch {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: auto;
+	height: 100%;
 }
 
-
-
-
-
-
-.satus-main__container[data-appearance='about'] .satus-text
-{
-    display: flex;
-
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 48px;
-    padding: 0 8px;
-
-    justify-content: space-between;
-    align-items: center;
+.satus[data-path='main/websites'] .satus-main .satus-section {
+	position: relative;
+	padding: 0;
 }
 
-.satus-main__container[data-appearance='about'] .satus-text__value
-{
-    text-align: right;
-
-    opacity: .7;
+.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: auto;
 }
 
 
+/*---------------------------------------------------------------
+8.0 LANGUAGE
+---------------------------------------------------------------*/
+
+.satus-select[data-storage-key=language] {
+	padding-left: 50px;
+}
+
+.satus-select[data-storage-key=language] svg {
+	position: absolute;
+	left: 16px;
+	width: 20px;
+	height: 20px;
+	stroke: none;
+	fill: var(--satus-theme-primary);
+}
 
 
-.satus-scrollbar__thumb::after
-{
-    background-color: rgba(255,255,255,.2);
+/*---------------------------------------------------------------
+9.0 ABOUT
+---------------------------------------------------------------*/
+
+.satus-main__container[data-appearance='about'] .satus-text {
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 48px;
+	padding: 0 8px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.satus-main__container[data-appearance='about'] .satus-text__value {
+	text-align: right;
+	opacity: .7;
+}
+
+
+/*---------------------------------------------------------------
+10.0 MADE WITH LOVE
+---------------------------------------------------------------*/
+
+.made-with-love {
+	font-size: 13px;
+	position: absolute;
+	bottom: 16px;
+	left: 50%;
+	width: 100%;
+	height: auto;
+	min-height: auto;
+	padding: 0;
+	cursor: pointer;
+	transform: translateX(-50%);
+	text-align: center;
+	color: var(--satus-theme-on-surface, #d62121);
+	justify-content: center;
+}
+
+.made-with-love svg {
+	position: relative;
+	top: 4px;
+	width: 16px;
+	height: 16px;
+	fill: #d62121;
+}
+
+.made-with-love span {
+	margin: 0 0 0 4px;
 }

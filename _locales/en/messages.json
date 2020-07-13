@@ -2,12 +2,6 @@
     "about": {
         "message": "About"
     },
-    "excludeThisWebsite": {
-        "message": "Exclude this website"
-    },
-    "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
-    },
     "accept": {
         "message": "Accept"
     },
@@ -43,6 +37,9 @@
     },
     "disabled": {
         "message": "Disabled"
+    },
+    "excludeThisWebsite": {
+        "message": "Exclude this website"
     },
     "exportSettings": {
         "message": "Export settings"
@@ -82,6 +79,9 @@
     },
     "ok": {
         "message": "OK"
+    },
+    "onlyEnableForThisWebsite": {
+        "message": "Only enable for this website"
     },
     "os": {
         "message": "OS"

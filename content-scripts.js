@@ -77,12 +77,19 @@ function update() {
             from: Number((settings.time_from || '00:00').substr(0, 2)),
             to: Number((settings.time_to || '00:00').substr(0, 2))
         },
-        current_time = new Date().getHours();
+        current_time = new Date().getHours(),
+        enabled = false;
 
     if (schedule_time.to < schedule_time.from && current_time > schedule_time.from && current_time < 24) {
         schedule_time.to += 24;
     } else if (schedule_time.to < schedule_time.from && current_time < schedule_time.to) {
         schedule_time.from = 0;
+    }
+
+    for (var key in settings.websites) {
+        if (settings.websites[key].enabled === true) {
+            enabled = true;
+        }
     }
 
     if (
@@ -91,7 +98,8 @@ function update() {
             settings.schedule !== 'sunset_to_sunrise' ||
             current_time >= schedule_time.from && current_time < schedule_time.to
         ) &&
-        ((settings.websites || {})[location.hostname] || {}).enabled !== false
+        (/*enabled !== true || */((settings.websites || {})[location.hostname] || {}).enabled !== false) &&
+        ((settings.websites || {})[location.hostname] || {}).exclude_this_website !== true
     ) {
         if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
             injectStyle(getFilters(settings.websites[location.hostname].filters), 'night-mode-extension-filters', settings.schedule);

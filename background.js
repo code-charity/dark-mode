@@ -4,11 +4,11 @@
 1.0 Storage change listener
 2.0 Initialization
 3.0 Export
-2.0 Google Analytics
+4.0 Google Analytics
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-5.0 STORAGE CHANGE LISTENER
+1.0 STORAGE CHANGE LISTENER
 -----------------------------------------------------------------------------*/
 
 chrome.storage.onChanged.addListener(function(changes) {
@@ -17,7 +17,7 @@ chrome.storage.onChanged.addListener(function(changes) {
 
 
 /*-----------------------------------------------------------------------------
-6.0 INITIALIZATION
+2.0 INITIALIZATION
 -----------------------------------------------------------------------------*/
 
 chrome.storage.local.get(function(items) {
@@ -62,17 +62,20 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 
 
 /*-----------------------------------------------------------------------------
-2.0 GOOGLE ANALYTICS
+4.0 GOOGLE ANALYTICS
 -----------------------------------------------------------------------------*/
 
-var _gaq = _gaq || [],
-    ga = document.createElement('script'),
-    s = document.getElementsByTagName('script')[0];
+var _gaq = _gaq || [];
 
-_gaq.push(['_setAccount', 'UA-88354155-1']);
-_gaq.push(['_setSessionCookieTimeout', 14400000]);
+(function() {
+    var ga = document.createElement('script'),
+        s = document.getElementsByTagName('script')[0];
 
-ga.type = 'text/javascript';
-ga.async = true;
-ga.src = 'https://ssl.google-analytics.com/ga.js';
-s.parentNode.insertBefore(ga, s);
+    _gaq.push(['_setAccount', 'UA-88354155-1']);
+    _gaq.push(['_setSessionCookieTimeout', 14400000]);
+
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(ga, s);
+})();

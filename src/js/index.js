@@ -1,32 +1,35 @@
-/*-----------------------------------------------------------------------------
->>> «INDEX» TEMPLATE
------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-----------------------------------------------------------------
+1.0 
+---------------------------------------------------------------*/
 
-chrome.tabs.query({
-    currentWindow: true,
-    active: true
-}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, 'requestTabUrl', function(response) {
-        var TAB_URL = response ? new URL(response) : '',
-            HOSTNAME = TAB_URL.hostname,
-            language = Satus.storage.get('language') || 'en';
+/*---------------------------------------------------------------
+1.0 
+---------------------------------------------------------------*/
+    
+function init(response) {
+    var TAB_URL = response ? new URL(response) : '',
+        HOSTNAME = TAB_URL.hostname || 'empty',
+        language = Satus.storage.get('language') || 'en';
 
-        Satus.storage.import(function() {
-            Satus.locale.import('_locales/' + language + '/messages.json', function() {
-                Satus.modules.updateStorageKeys(Menu, function() {
-                    Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
-                    Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
-                    Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
-                    Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
-                    Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
-                    Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
-                    Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
+    Satus.storage.import(function() {
+        Satus.locale.import('_locales/' + language + '/messages.json', function() {
+            Satus.modules.updateStorageKeys(Menu, function() {
+                Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
+                Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
+                Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+                Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
+                Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
+                Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
+                Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
-                    Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
+                Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 
-                    var websites = Satus.storage.get('websites') || {};
+                var websites = Satus.storage.get('websites') || {};
 
-                    for (var key in websites) {
+                for (var key in websites) {
+                    if (key !== 'empty') {
                         Menu.main.section.websites.section[key] = {
                             type: 'section',
 
@@ -43,7 +46,46 @@ chrome.tabs.query({
                                         before: '<svg viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
                                         section: {
-                                            type: 'section'
+                                            type: 'section',
+
+                                            invert_colors: {
+                                                label: 'invertColors',
+                                                type: 'switch',
+                                                value: true,
+                                                storage_key: 'websites/' + key + '/filters/invert_colors'
+                                            },
+                                            bluelight: {
+                                                label: 'bluelight',
+                                                type: 'slider',
+                                                max: 90,
+                                                storage_key: 'websites/' + key + '/filters/bluelight'
+                                            },
+                                            brightness: {
+                                                label: 'brightness',
+                                                type: 'slider',
+                                                max: 100,
+                                                value: 100,
+                                                storage_key: 'websites/' + key + '/filters/brightness'
+                                            },
+                                            contrast: {
+                                                label: 'contrast',
+                                                type: 'slider',
+                                                max: 100,
+                                                value: 100,
+                                                storage_key: 'websites/' + key + '/filters/contrast'
+                                            },
+                                            grayscale: {
+                                                label: 'grayscale',
+                                                type: 'slider',
+                                                max: 100,
+                                                storage_key: 'websites/' + key + '/filters/grayscale'
+                                            },
+                                            sepia: {
+                                                label: 'sepia',
+                                                type: 'slider',
+                                                max: 100,
+                                                storage_key: 'websites/' + key + '/filters/sepia'
+                                            }
                                         }
                                     },
                                     styles: {
@@ -74,70 +116,35 @@ chrome.tabs.query({
                             },
                             enabled: {
                                 type: 'switch',
-                                value: true,
-                                storage_key: 'websites/' + key + '/enabled',
+                                storage_key: 'websites/' + key + '/exclude_this_website',
+                                onrender: function(obj) {
+                                    var item = this.querySelector('input');
+                                    
+                                    item.checked = item.checked ? false : true;
+                                },
+                                onchange: function(obj) {
+                                    var item = this.querySelector('input');
+                                    
+                                    Satus.storage.set(item.dataset.storageKey, item.checked ? false : true);
+                                }
                             }
                         };
-
-                        if (websites[key].filters.hasOwnProperty('invert_colors')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.invert_colors = {
-                                type: 'switch',
-                                label: 'invertColors',
-                                storage_key: 'websites/' + key + '/filters/invert_colors'
-                            };
-                        }
-
-                        if (websites[key].filters.hasOwnProperty('bluelight')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.bluelight = {
-                                type: 'slider',
-                                label: 'bluelight',
-                                storage_key: 'websites/' + key + '/filters/bluelight',
-                                max: 90
-                            };
-                        }
-
-                        if (websites[key].filters.hasOwnProperty('brightness')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.brightness = {
-                                type: 'slider',
-                                label: 'brightness',
-                                storage_key: 'websites/' + key + '/filters/brightness',
-                                max: 100,
-                                value: 100
-                            };
-                        }
-
-                        if (websites[key].filters.hasOwnProperty('contrast')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.contrast = {
-                                type: 'slider',
-                                label: 'contrast',
-                                storage_key: 'websites/' + key + '/filters/contrast',
-                                max: 100,
-                                value: 100
-                            };
-                        }
-
-                        if (websites[key].filters.hasOwnProperty('grayscale')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.grayscale = {
-                                type: 'slider',
-                                label: 'grayscale',
-                                storage_key: 'websites/' + key + '/filters/grayscale',
-                                max: 100
-                            };
-                        }
-
-                        if (websites[key].filters.hasOwnProperty('sepia')) {
-                            Menu.main.section.websites.section[key].folder.section.filters.section.sepia = {
-                                type: 'slider',
-                                label: 'sepia',
-                                storage_key: 'websites/' + key + '/filters/sepia',
-                                max: 100
-                            };
-                        }
                     }
+                }
 
-                    Satus.render(Menu, document.body);
-                });
+                Satus.render(Menu, document.body);
             });
         });
     });
+}
+
+chrome.tabs.query({
+    currentWindow: true,
+    active: true
+}, function(tabs) {
+    if (tabs[0].hasOwnProperty('url')) {
+        chrome.tabs.sendMessage(tabs[0].id, 'requestTabUrl', init);
+    } else {
+        init();
+    }
 });

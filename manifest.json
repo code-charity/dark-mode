@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Night Mode",
-    "version": "1.6",
+    "version": "1.8",
     "description": "Dark Mode, read at night. Blue Light Filter for Every Website. Relax your eyes at night and day.",
 
     "default_locale": "en",
@@ -26,7 +26,8 @@
             "content-scripts.js"
         ],
         "matches": [
-            "<all_urls>"
+            "http://*/*",
+            "https://*/*"
         ],
         "run_at": "document_start"
     }],
@@ -40,7 +41,9 @@
     ],
 
     "permissions": [
-        "storage"
+        "storage",
+        "http://*/*",
+        "https://*/*"
     ],
 
     "update_url": "https://clients2.google.com/service/update2/crx",

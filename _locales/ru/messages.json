@@ -2,12 +2,6 @@
     "about": {
         "message": "О Night Mode"
     },
-    "excludeThisWebsite": {
-        "message": "Исключить веб-сайт"
-    },
-    "onlyEnableForThisWebsite": {
-        "message": "Только этот веб-сайт"
-    },
     "accept": {
         "message": "Принять"
     },
@@ -43,6 +37,9 @@
     },
     "disabled": {
         "message": "Отключено"
+    },
+    "excludeThisWebsite": {
+        "message": "Исключить веб-сайт"
     },
     "exportSettings": {
         "message": "Экспорт настроек"
@@ -88,6 +85,9 @@
     },
     "ok": {
         "message": "OK"
+    },
+    "onlyEnableForThisWebsite": {
+        "message": "Только этот веб-сайт"
     },
     "os": {
         "message": "ОС"

@@ -94,7 +94,7 @@ Satus.storage.get = function(name) {
     });
 
     for (var i = 0, l = name.length; i < l; i++) {
-        if (target[name[i]]) {
+        if (Satus.isset(target[name[i]])) {
             target = target[name[i]];
         } else {
             return undefined;
@@ -174,6 +174,7 @@ Satus.storage.clear = function() {
         }
     }
 };
+
 /*--------------------------------------------------------------
 # LOCALE
 --------------------------------------------------------------*/
@@ -232,6 +233,8 @@ Satus.locale.import = function(src, callback) {
             });
         }
     };
+
+		xhr.onerror = xhr.onload;
 
     xhr.open('GET', src, true);
     xhr.send();
@@ -1709,7 +1712,11 @@ Satus.components.slider = function(element) {
     component_track.appendChild(component_thumb);
 
     if (element.storage_key) {
-        var value = Satus.storage.get(element.storage_key) || element.value;
+        var value = Satus.storage.get(element.storage_key);
+        
+        if (!Satus.isset(value)) {
+            value = element.value;
+        }
 
         component_range.dataset.storageKey = element.storage_key;
 
@@ -1733,6 +1740,7 @@ Satus.components.slider = function(element) {
 
     return component;
 };
+
 /*--------------------------------------------------------------
 >>> SWITCH
 --------------------------------------------------------------*/
