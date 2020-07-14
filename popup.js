@@ -1,4 +1,4 @@
-
+
 function update(container) {
     var self = (this === window ? document.querySelector('.satus-main') : this),
         item = self.history[self.history.length - 1],
@@ -12,10 +12,12 @@ function update(container) {
     container.dataset.appearance = id;
 
     document.querySelector('.satus-text--title').innerText = Satus.locale.getMessage(item.label) || 'Night Mode';
-}
+}
 /*-----------------------------------------------------------------------------
 >>> «HEADER» TEMPLATE
 -----------------------------------------------------------------------------*/
+
+var HOSTNAME;
 
 var Menu = {
     header: {
@@ -50,7 +52,33 @@ var Menu = {
                 after: '<svg class="satus-switch__icon" viewBox="0 0 16 16"><path d="M7.5 4A4.5 4.5 0 0 0 3 8.5 4.5 4.5 0 0 0 7.5 13a4.5 4.5 0 0 0 4.201-2.905 3.938 3.938 0 0 1-.826.092A3.938 3.938 0 0 1 6.937 6.25a3.938 3.938 0 0 1 .704-2.243A4.5 4.5 0 0 0 7.5 4z"/></svg>',
                 value: true,
                 onchange: function() {
+                    var container = document.createElement('div'),
+                        wrapper = document.createElement('div');
+
                     this.dataset.value = this.querySelector('input').checked;
+
+                    container.classList.add('satus');
+                    container.classList.add('loading');
+
+                    wrapper.classList.add('satus__wrapper');
+
+                    if (this.querySelector('input').checked) {
+                        container.classList.add('dark');
+                    }
+
+                    Satus.render(Menu, wrapper);
+
+                    container.appendChild(wrapper);
+
+                    document.body.appendChild(container);
+
+                    setTimeout(function() {
+                        container.classList.remove('loading');
+                    });
+
+                    setTimeout(function() {
+                        container.previousElementSibling.remove();
+                    }, 500);
                 },
                 onrender: function() {
                     this.dataset.value = this.querySelector('input').checked;
@@ -58,7 +86,7 @@ var Menu = {
             }
         }
     }
-};
+};
 Menu.main = {
     type: 'main',
     appearanceKey: 'home',
@@ -73,7 +101,7 @@ Menu.main = {
             type: 'button',
             label: 'onlyEnableForThisWebsite',
             onclick: function() {
-                var websites = Satus.storage.get('websites');
+                var websites = Satus.storage.get('websites') || {};
 
                 for (var key in websites) {
                     if (key != HOSTNAME) {
@@ -350,9 +378,6 @@ Menu.main = {
             before: '<svg viewBox="0 0 24 24"><path d="M19.4 13l.1-1v-1l2-1.6c.2-.2.3-.5.2-.7l-2-3.4c-.2-.3-.4-.3-.6-.3l-2.5 1-1.7-1-.4-2.6c0-.2-.3-.4-.5-.4h-4c-.3 0-.5.2-.5.4l-.4 2.7c-.6.2-1.1.6-1.7 1L5 5c-.2-.1-.4 0-.6.2l-2 3.4c0 .3 0 .5.2.7l2 1.6a8 8 0 0 0 0 2l-2 1.6c-.2.2-.3.5-.2.7l2 3.4c.2.3.4.3.6.3l2.5-1 1.7 1 .4 2.6c0 .2.2.4.5.4h4c.3 0 .5-.2.5-.4l.4-2.7c.6-.2 1.1-.6 1.7-1l2.5 1c.2.1.4 0 .6-.2l2-3.4c0-.2 0-.5-.2-.7l-2-1.6zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"></svg>',
             label: 'settings',
             parent: '.satus-main__container',
-            onclick: function() {
-                document.querySelector('.satus-dialog__scrim').click();
-            },
 
             section: {
                 type: 'section',
@@ -513,62 +538,6 @@ Menu.main = {
                                         }
                                     }
                                 });
-                            }
-                        },
-                        delete_youtube_cookies: {
-                            type: 'button',
-                            label: 'deleteYoutubeCookies',
-
-                            onclick: function() {
-                                document.querySelector('.satus').appendChild(Satus.components.dialog({
-                                    type: 'dialog',
-
-                                    message: {
-                                        type: 'text',
-                                        label: 'thisWillRemoveAllYouTubeCookies',
-                                        style: {
-                                            'width': '100%',
-                                            'opacity': '.8'
-                                        }
-                                    },
-                                    section: {
-                                        type: 'section',
-                                        class: 'controls',
-                                        style: {
-                                            'justify-content': 'flex-end',
-                                            'display': 'flex'
-                                        },
-
-                                        cancel: {
-                                            type: 'button',
-                                            label: 'cancel',
-                                            onclick: function() {
-                                                var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                scrim[scrim.length - 1].click();
-                                            }
-                                        },
-                                        accept: {
-                                            type: 'button',
-                                            label: 'accept',
-                                            onclick: function() {
-                                                var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                chrome.tabs.query({}, function(tabs) {
-                                                    for (var i = 0, l = tabs.length; i < l; i++) {
-                                                        if (tabs[i].hasOwnProperty('url')) {
-                                                            chrome.tabs.sendMessage(tabs[i].id, {
-                                                                name: 'delete_youtube_cookies'
-                                                            });
-                                                        }
-                                                    }
-                                                });
-
-                                                scrim[scrim.length - 1].click();
-                                            }
-                                        }
-                                    }
-                                }));
                             }
                         }
                     }
@@ -731,8 +700,7 @@ Menu.main = {
             window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
         }
     }
-};
-
+};
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -742,13 +710,18 @@ Menu.main = {
 /*---------------------------------------------------------------
 1.0 
 ---------------------------------------------------------------*/
-    
+
 function init(response) {
     var TAB_URL = response ? new URL(response) : '',
-        HOSTNAME = TAB_URL.hostname || 'empty',
         language = Satus.storage.get('language') || 'en';
 
+    HOSTNAME = TAB_URL.hostname || 'empty';
+
     Satus.storage.import(function() {
+        if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
+            document.querySelector('.satus').classList.add('dark');
+        }
+
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
@@ -761,10 +734,13 @@ function init(response) {
 
                 Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 
-                var websites = Satus.storage.get('websites') || {};
+                var websites = Satus.storage.get('websites') || {},
+                    count = 0;
 
                 for (var key in websites) {
                     if (key !== 'empty') {
+                        count++;
+
                         Menu.main.section.websites.section[key] = {
                             type: 'section',
 
@@ -854,12 +830,12 @@ function init(response) {
                                 storage_key: 'websites/' + key + '/exclude_this_website',
                                 onrender: function(obj) {
                                     var item = this.querySelector('input');
-                                    
+
                                     item.checked = item.checked ? false : true;
                                 },
                                 onchange: function(obj) {
                                     var item = this.querySelector('input');
-                                    
+
                                     Satus.storage.set(item.dataset.storageKey, item.checked ? false : true);
                                 }
                             }
@@ -867,7 +843,19 @@ function init(response) {
                     }
                 }
 
-                Satus.render(Menu, document.body);
+                if (count === 0) {
+                    Menu.main.section.websites.section.message = {
+                        type: 'text',
+                        label: 'theListIsEmpty',
+                        style: {
+                            'display': 'block',
+                            'text-align': 'center',
+                            'margin': '32px 0'
+                        }
+                    };
+                }
+
+                Satus.render(Menu, document.querySelector('.satus__wrapper'));
             });
         });
     });

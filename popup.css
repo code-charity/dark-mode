@@ -1,4 +1,4 @@
-
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -10,7 +10,8 @@
 1.0 VARIABLES
 ---------------------------------------------------------------*/
 
-html {
+/*.satus.dark {
+	--satus-theme-ripple: rgba(255, 255, 255, .04);
 	--satus-theme-primary: #e8bd70;
 	--background-1: #2c2b2c;
 	--text-1: #b5b5b5;
@@ -21,6 +22,29 @@ html {
 	--background-3: #2c2b2c;
 	--text-3: #b5b5b5;
 	--icon-3: #b5b5b5;
+}*/
+
+.satus.dark
+{
+	--satus-theme-primary: #f6b465;
+
+	--satus-theme-dialog: #2c2b2c;
+	--satus-theme-dialog-text: #b5b5b5;
+
+	--satus-theme-header: #343334;
+	--satus-theme-header-text: #b5b5b5;
+
+	--satus-theme-main: #2c2b2c;
+	--satus-theme-main-text: #b5b5b5;
+
+	--satus-theme-section: #343334;
+
+	--satus-theme-button: transparent;
+
+	--satus-theme-scrollbar: rgba(255, 255, 255, .2);
+	--satus-theme-scrollbar-focus: rgba(255, 255, 255, .4);
+
+	--satus-theme-ripple: rgba(255, 255, 255, .04);
 }
 
 
@@ -30,28 +54,33 @@ html {
 
 .satus-scrollbar__thumb::after {
 	background-color: rgba(255, 255, 255, .2);
-}
+}
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
 1.0 Fonts
 2.0 Body
+3.0 Button
 ---------------------------------------------------------------*/
 
 /*---------------------------------------------------------------
 1.0 FONTS
 ---------------------------------------------------------------*/
 
-@font-face {
-	font-family: 'Open Sans';
-	font-weight: 400;
-	src: url('assets/fonts/OpenSans-Regular.ttf');
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 400;
+
+    src: url('assets/fonts/OpenSans-Regular.ttf');
 }
 
-@font-face {
-	font-family: 'Open Sans';
-	font-weight: 700;
-	src: url('assets/fonts/OpenSans-SemiBold.ttf');
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 700;
+
+    src: url('assets/fonts/OpenSans-SemiBold.ttf');
 }
 
 
@@ -59,17 +88,84 @@ html {
 2.0 BODY
 ---------------------------------------------------------------*/
 
-body {
-	font-family: 'Open Sans', sans-serif;
-	font-size: .875rem;
-	display: flex;
-	overflow: hidden;
-	flex-direction: column;
-	width: 18.75rem;
-	height: 31.25rem;
-	margin: 0;
-	background-color: #2c2b2c;
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: .875rem;
+
+    width: 300px;
+    height: 500px;
+    margin: 0;
 }
+
+.satus
+{
+    position: absolute;
+    z-index: 1;
+    top: -250px;
+    left: -350px;
+
+    overflow: hidden;
+
+    width: 1000px;
+    height: 1000px;
+
+    transition: all .5s linear, opacity .4s;
+
+    opacity: 1;
+    border-radius: 50%;
+    background-color: var(--satus-theme-main);
+}
+
+.satus__wrapper
+{
+    position: absolute;
+    top: 250px;
+    left: 350px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    height: 500px;
+
+    transition: .5s linear;
+}
+
+
+
+
+.satus.loading
+{
+    top: 14px;
+    left: calc(100% - 64px);
+
+    width: 32px;
+    height: 32px;
+
+    transition: 0s linear;
+
+    opacity: 0;
+}
+
+.satus.loading .satus__wrapper
+{
+    top: -14px;
+    left: -236px;
+
+    transition: 0s linear;
+}
+
+
+/*---------------------------------------------------------------
+3.0 BUTTON
+---------------------------------------------------------------*/
+
+button
+{
+    font-family: 'Open Sans', sans-serif;
+}
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -85,9 +181,11 @@ body {
 1.0 HEADER
 ---------------------------------------------------------------*/
 
-.satus-header {
-	z-index: 1;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+.satus-header
+{
+    z-index: 1;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
 
@@ -95,14 +193,16 @@ body {
 2.0 BUTTONS
 ---------------------------------------------------------------*/
 
-.satus-header .satus-button {
-	width: 36px;
-	height: 36px;
-	padding: 6px;
+.satus-header .satus-button
+{
+    width: 36px;
+    height: 36px;
+    padding: 6px;
 }
 
-.satus-header .satus-button::before {
-	border-radius: 50%;
+.satus-header .satus-button::before
+{
+    border-radius: 50%;
 }
 
 
@@ -110,17 +210,20 @@ body {
 3.0 BACK BUTTON
 ---------------------------------------------------------------*/
 
-.satus-button--back {
-	position: absolute;
+.satus-button--back
+{
+    position: absolute;
 }
 
-.satus-button--back svg {
-	fill: none;
-	stroke: currentColor;
+.satus-button--back svg
+{
+    fill: none;
+    stroke: currentColor;
 }
 
-body[data-appearance='home'] .satus-button--back {
-	visibility: hidden;
+body[data-appearance='home'] .satus-button--back
+{
+    visibility: hidden;
 }
 
 
@@ -128,16 +231,15 @@ body[data-appearance='home'] .satus-button--back {
 4.0 TITLE
 ---------------------------------------------------------------*/
 
-.satus-text--title {
-	font-size: .9375rem;
-	font-weight: 600;
-	position: absolute;
-	left: 56px;
-	letter-spacing: .0125em;
+.satus-text--title
+{
+    position: absolute;
+    left: 56px;
 }
 
-body[data-appearance='home'] .satus-text--title {
-	left: 14px;
+body[data-appearance='home'] .satus-text--title
+{
+    left: 14px;
 }
 
 
@@ -145,8 +247,9 @@ body[data-appearance='home'] .satus-text--title {
 5.0 RIGHT SECTION
 ---------------------------------------------------------------*/
 
-.satus-section--align-end {
-	justify-content: flex-end;
+.satus-section--align-end
+{
+    justify-content: flex-end;
 }
 
 
@@ -154,25 +257,31 @@ body[data-appearance='home'] .satus-text--title {
 6.0 SWITCH
 ---------------------------------------------------------------*/
 
-.satus-switch--night-mode {
-	padding: 0;
+.satus-switch--night-mode
+{
+    padding: 0;
 }
 
-.satus-switch--night-mode:hover {
-	background-color: transparent;
+.satus-switch--night-mode:hover
+{
+    background-color: transparent;
 }
 
-.satus-switch--night-mode[data-value=false]>svg:last-child {
-	opacity: .5;
+.satus-switch--night-mode[data-value=false] > svg:last-child
+{
+    opacity: .5;
 }
 
-.satus-switch--night-mode[data-value=true]>svg:first-child {
-	opacity: .5;
+.satus-switch--night-mode[data-value=true] > svg:first-child
+{
+    opacity: .5;
 }
 
-.satus-switch--night-mode .satus-switch__track {
-	margin: 0 4px;
+.satus-switch--night-mode .satus-switch__track
+{
+    margin: 0 4px;
 }
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -192,13 +301,9 @@ body[data-appearance='home'] .satus-text--title {
 1.0 MAIN
 ---------------------------------------------------------------*/
 
-.satus-main {
-	flex: 1;
-}
-
-.satus-main,
-.satus-main__container {
-	background-color: #2c2b2c;
+.satus-main
+{
+    flex: 1;
 }
 
 
@@ -206,21 +311,23 @@ body[data-appearance='home'] .satus-text--title {
 2.0 SECTION
 ---------------------------------------------------------------*/
 
-.satus-main .satus-section {
-	display: block;
-	width: calc(100% - 16px);
-	max-width: 900px;
-	margin: 8px auto;
-	padding: 8px 0;
-	color: var(--satus-theme-on-surface, #777);
-	border: 1px solid rgba(0, 0, 0, .1);
-	border-radius: 8px;
-	background-color: var(--satus-theme-surface, #fff);
+.satus-main .satus-section
+{
+    display: block;
+
+    width: calc(100% - 16px);
+    max-width: 900px;
+    margin: 8px auto;
+    padding: 8px 0;
+
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 8px;
 }
 
-.satus-main .satus-section--message {
-	padding-right: 8px;
-	padding-left: 8px;
+.satus-main .satus-section--message
+{
+    padding-right: 8px;
+    padding-left: 8px;
 }
 
 
@@ -228,11 +335,12 @@ body[data-appearance='home'] .satus-text--title {
 3.0 BUTTON
 ---------------------------------------------------------------*/
 
-.satus-main .satus-button {
-	width: 100%;
-	height: 48px;
-	min-height: 48px;
-	padding: 0 16px;
+.satus-main .satus-button
+{
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    padding: 0 16px;
 }
 
 
@@ -240,12 +348,13 @@ body[data-appearance='home'] .satus-text--title {
 4.0 FOLDER
 ---------------------------------------------------------------*/
 
-.satus-main .satus-folder svg {
-	width: 20px;
-	height: 20px;
-	margin: 0 14px 0 0;
-	stroke: none;
-	fill: var(--satus-theme-primary);
+.satus-main .satus-folder svg
+{
+    width: 20px;
+    height: 20px;
+    margin: 0 14px 0 0;
+
+    stroke: none;
 }
 
 
@@ -254,17 +363,20 @@ body[data-appearance='home'] .satus-text--title {
 ---------------------------------------------------------------*/
 
 .satus-switch:hover,
-.satus-switch:hover input {
-	cursor: pointer;
+.satus-switch:hover input
+{
+    cursor: pointer;
 }
 
-.satus-switch--night-mode {
-	width: auto;
+.satus-switch--night-mode
+{
+    width: auto;
 }
 
-.satus-switch__icon {
-	width: 20px;
-	height: 20px;
+.satus-switch__icon
+{
+    width: 20px;
+    height: 20px;
 }
 
 
@@ -272,8 +384,9 @@ body[data-appearance='home'] .satus-text--title {
 6.0 TEXTAREA
 ---------------------------------------------------------------*/
 
-.satus-textarea {
-	width: calc(100% - 32px);
+.satus-textarea
+{
+    width: calc(100% - 32px);
 }
 
 
@@ -281,34 +394,43 @@ body[data-appearance='home'] .satus-text--title {
 7.0 WEBSITES
 ---------------------------------------------------------------*/
 
-.satus-main__container[data-appearance=websites] .satus-section>.satus-section {
-	position: relative;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	border: none;
-	background: transparent;
-	box-shadow: none;
+.satus-main__container[data-appearance=websites] .satus-section > .satus-section
+{
+    position: relative;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+    box-shadow: none;
 }
 
-.satus-main__container[data-appearance=websites] .satus-section>.satus-section .satus-switch {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: auto;
-	height: 100%;
+.satus-main__container[data-appearance=websites] .satus-section > .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
+    height: 100%;
 }
 
-.satus[data-path='main/websites'] .satus-main .satus-section {
-	position: relative;
-	padding: 0;
+.satus[data-path='main/websites'] .satus-main .satus-section
+{
+    position: relative;
+
+    padding: 0;
 }
 
-.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: auto;
+.satus[data-path='main/websites'] .satus-main .satus-section .satus-switch
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: auto;
 }
 
 
@@ -316,17 +438,20 @@ body[data-appearance='home'] .satus-text--title {
 8.0 LANGUAGE
 ---------------------------------------------------------------*/
 
-.satus-select[data-storage-key=language] {
-	padding-left: 50px;
+.satus-select[data-storage-key=language]
+{
+    padding-left: 50px;
 }
 
-.satus-select[data-storage-key=language] svg {
-	position: absolute;
-	left: 16px;
-	width: 20px;
-	height: 20px;
-	stroke: none;
-	fill: var(--satus-theme-primary);
+.satus-select[data-storage-key=language] svg
+{
+    position: absolute;
+    left: 16px;
+
+    width: 20px;
+    height: 20px;
+
+    stroke: none;
 }
 
 
@@ -334,19 +459,24 @@ body[data-appearance='home'] .satus-text--title {
 9.0 ABOUT
 ---------------------------------------------------------------*/
 
-.satus-main__container[data-appearance='about'] .satus-text {
-	display: flex;
-	box-sizing: border-box;
-	width: 100%;
-	min-height: 48px;
-	padding: 0 8px;
-	justify-content: space-between;
-	align-items: center;
+.satus-main__container[data-appearance='about'] .satus-text
+{
+    display: flex;
+
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 8px;
+
+    justify-content: space-between;
+    align-items: center;
 }
 
-.satus-main__container[data-appearance='about'] .satus-text__value {
-	text-align: right;
-	opacity: .7;
+.satus-main__container[data-appearance='about'] .satus-text__value
+{
+    text-align: right;
+
+    opacity: .7;
 }
 
 
@@ -354,30 +484,38 @@ body[data-appearance='home'] .satus-text--title {
 10.0 MADE WITH LOVE
 ---------------------------------------------------------------*/
 
-.made-with-love {
-	font-size: 13px;
-	position: absolute;
-	bottom: 16px;
-	left: 50%;
-	width: 100%;
-	height: auto;
-	min-height: auto;
-	padding: 0;
-	cursor: pointer;
-	transform: translateX(-50%);
-	text-align: center;
-	color: var(--satus-theme-on-surface, #d62121);
-	justify-content: center;
+.made-with-love
+{
+    font-size: 13px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+
+    cursor: pointer;
+    transform: translateX(-50%);
+    text-align: center;
+
+    justify-content: center;
 }
 
-.made-with-love svg {
-	position: relative;
-	top: 4px;
-	width: 16px;
-	height: 16px;
-	fill: #d62121;
+.made-with-love svg
+{
+    position: relative;
+    top: 4px;
+
+    width: 16px;
+    height: 16px;
+
+    fill: #d62121;
 }
 
-.made-with-love span {
-	margin: 0 0 0 4px;
+.made-with-love span
+{
+    margin: 0 0 0 4px;
 }

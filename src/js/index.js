@@ -7,13 +7,18 @@
 /*---------------------------------------------------------------
 1.0 
 ---------------------------------------------------------------*/
-    
+
 function init(response) {
     var TAB_URL = response ? new URL(response) : '',
-        HOSTNAME = TAB_URL.hostname || 'empty',
         language = Satus.storage.get('language') || 'en';
 
+    HOSTNAME = TAB_URL.hostname || 'empty';
+
     Satus.storage.import(function() {
+        if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
+            document.querySelector('.satus').classList.add('dark');
+        }
+
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
@@ -26,10 +31,13 @@ function init(response) {
 
                 Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 
-                var websites = Satus.storage.get('websites') || {};
+                var websites = Satus.storage.get('websites') || {},
+                    count = 0;
 
                 for (var key in websites) {
                     if (key !== 'empty') {
+                        count++;
+
                         Menu.main.section.websites.section[key] = {
                             type: 'section',
 
@@ -119,12 +127,12 @@ function init(response) {
                                 storage_key: 'websites/' + key + '/exclude_this_website',
                                 onrender: function(obj) {
                                     var item = this.querySelector('input');
-                                    
+
                                     item.checked = item.checked ? false : true;
                                 },
                                 onchange: function(obj) {
                                     var item = this.querySelector('input');
-                                    
+
                                     Satus.storage.set(item.dataset.storageKey, item.checked ? false : true);
                                 }
                             }
@@ -132,7 +140,19 @@ function init(response) {
                     }
                 }
 
-                Satus.render(Menu, document.body);
+                if (count === 0) {
+                    Menu.main.section.websites.section.message = {
+                        type: 'text',
+                        label: 'theListIsEmpty',
+                        style: {
+                            'display': 'block',
+                            'text-align': 'center',
+                            'margin': '32px 0'
+                        }
+                    };
+                }
+
+                Satus.render(Menu, document.querySelector('.satus__wrapper'));
             });
         });
     });

@@ -143,6 +143,9 @@
     "systemPeference": {
         "message": "Определено системой"
     },
+    "theListIsEmpty": {
+        "message": "Список пуст"
+    },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
     },

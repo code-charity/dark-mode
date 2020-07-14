@@ -3,22 +3,27 @@
 -----------------------------------------------------------------
 1.0 Fonts
 2.0 Body
+3.0 Button
 ---------------------------------------------------------------*/
 
 /*---------------------------------------------------------------
 1.0 FONTS
 ---------------------------------------------------------------*/
 
-@font-face {
-	font-family: 'Open Sans';
-	font-weight: 400;
-	src: url('assets/fonts/OpenSans-Regular.ttf');
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 400;
+
+    src: url('assets/fonts/OpenSans-Regular.ttf');
 }
 
-@font-face {
-	font-family: 'Open Sans';
-	font-weight: 700;
-	src: url('assets/fonts/OpenSans-SemiBold.ttf');
+@font-face
+{
+    font-family: 'Open Sans';
+    font-weight: 700;
+
+    src: url('assets/fonts/OpenSans-SemiBold.ttf');
 }
 
 
@@ -26,14 +31,80 @@
 2.0 BODY
 ---------------------------------------------------------------*/
 
-body {
-	font-family: 'Open Sans', sans-serif;
-	font-size: .875rem;
-	display: flex;
-	overflow: hidden;
-	flex-direction: column;
-	width: 18.75rem;
-	height: 31.25rem;
-	margin: 0;
-	background-color: #2c2b2c;
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: .875rem;
+
+    width: 300px;
+    height: 500px;
+    margin: 0;
+}
+
+.satus
+{
+    position: absolute;
+    z-index: 1;
+    top: -250px;
+    left: -350px;
+
+    overflow: hidden;
+
+    width: 1000px;
+    height: 1000px;
+
+    transition: all .5s linear, opacity .4s;
+
+    opacity: 1;
+    border-radius: 50%;
+    background-color: var(--satus-theme-main);
+}
+
+.satus__wrapper
+{
+    position: absolute;
+    top: 250px;
+    left: 350px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    height: 500px;
+
+    transition: .5s linear;
+}
+
+
+
+
+.satus.loading
+{
+    top: 14px;
+    left: calc(100% - 64px);
+
+    width: 32px;
+    height: 32px;
+
+    transition: 0s linear;
+
+    opacity: 0;
+}
+
+.satus.loading .satus__wrapper
+{
+    top: -14px;
+    left: -236px;
+
+    transition: 0s linear;
+}
+
+
+/*---------------------------------------------------------------
+3.0 BUTTON
+---------------------------------------------------------------*/
+
+button
+{
+    font-family: 'Open Sans', sans-serif;
 }

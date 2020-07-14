@@ -134,6 +134,9 @@
     "systemPeference": {
         "message": "System preference"
     },
+    "theListIsEmpty": {
+        "message": "The list is empty"
+    },
     "theme": {
         "message": "Theme"
     },

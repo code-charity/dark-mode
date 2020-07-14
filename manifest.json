@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Night Mode",
-    "version": "1.8",
+    "version": "1.9",
     "description": "Dark Mode, read at night. Blue Light Filter for Every Website. Relax your eyes at night and day.",
 
     "default_locale": "en",
@@ -47,6 +47,5 @@
     ],
 
     "update_url": "https://clients2.google.com/service/update2/crx",
-    
     "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

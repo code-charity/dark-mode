@@ -2,6 +2,8 @@
 >>> «HEADER» TEMPLATE
 -----------------------------------------------------------------------------*/
 
+var HOSTNAME;
+
 var Menu = {
     header: {
         type: 'header',
@@ -35,7 +37,33 @@ var Menu = {
                 after: '<svg class="satus-switch__icon" viewBox="0 0 16 16"><path d="M7.5 4A4.5 4.5 0 0 0 3 8.5 4.5 4.5 0 0 0 7.5 13a4.5 4.5 0 0 0 4.201-2.905 3.938 3.938 0 0 1-.826.092A3.938 3.938 0 0 1 6.937 6.25a3.938 3.938 0 0 1 .704-2.243A4.5 4.5 0 0 0 7.5 4z"/></svg>',
                 value: true,
                 onchange: function() {
+                    var container = document.createElement('div'),
+                        wrapper = document.createElement('div');
+
                     this.dataset.value = this.querySelector('input').checked;
+
+                    container.classList.add('satus');
+                    container.classList.add('loading');
+
+                    wrapper.classList.add('satus__wrapper');
+
+                    if (this.querySelector('input').checked) {
+                        container.classList.add('dark');
+                    }
+
+                    Satus.render(Menu, wrapper);
+
+                    container.appendChild(wrapper);
+
+                    document.body.appendChild(container);
+
+                    setTimeout(function() {
+                        container.classList.remove('loading');
+                    });
+
+                    setTimeout(function() {
+                        container.previousElementSibling.remove();
+                    }, 500);
                 },
                 onrender: function() {
                     this.dataset.value = this.querySelector('input').checked;

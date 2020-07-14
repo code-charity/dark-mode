@@ -9,7 +9,8 @@
 1.0 VARIABLES
 ---------------------------------------------------------------*/
 
-html {
+/*.satus.dark {
+	--satus-theme-ripple: rgba(255, 255, 255, .04);
 	--satus-theme-primary: #e8bd70;
 	--background-1: #2c2b2c;
 	--text-1: #b5b5b5;
@@ -20,6 +21,29 @@ html {
 	--background-3: #2c2b2c;
 	--text-3: #b5b5b5;
 	--icon-3: #b5b5b5;
+}*/
+
+.satus.dark
+{
+	--satus-theme-primary: #f6b465;
+
+	--satus-theme-dialog: #2c2b2c;
+	--satus-theme-dialog-text: #b5b5b5;
+
+	--satus-theme-header: #343334;
+	--satus-theme-header-text: #b5b5b5;
+
+	--satus-theme-main: #2c2b2c;
+	--satus-theme-main-text: #b5b5b5;
+
+	--satus-theme-section: #343334;
+
+	--satus-theme-button: transparent;
+
+	--satus-theme-scrollbar: rgba(255, 255, 255, .2);
+	--satus-theme-scrollbar-focus: rgba(255, 255, 255, .4);
+
+	--satus-theme-ripple: rgba(255, 255, 255, .04);
 }
 
 

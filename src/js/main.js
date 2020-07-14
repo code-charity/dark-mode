@@ -12,7 +12,7 @@ Menu.main = {
             type: 'button',
             label: 'onlyEnableForThisWebsite',
             onclick: function() {
-                var websites = Satus.storage.get('websites');
+                var websites = Satus.storage.get('websites') || {};
 
                 for (var key in websites) {
                     if (key != HOSTNAME) {
@@ -289,9 +289,6 @@ Menu.main = {
             before: '<svg viewBox="0 0 24 24"><path d="M19.4 13l.1-1v-1l2-1.6c.2-.2.3-.5.2-.7l-2-3.4c-.2-.3-.4-.3-.6-.3l-2.5 1-1.7-1-.4-2.6c0-.2-.3-.4-.5-.4h-4c-.3 0-.5.2-.5.4l-.4 2.7c-.6.2-1.1.6-1.7 1L5 5c-.2-.1-.4 0-.6.2l-2 3.4c0 .3 0 .5.2.7l2 1.6a8 8 0 0 0 0 2l-2 1.6c-.2.2-.3.5-.2.7l2 3.4c.2.3.4.3.6.3l2.5-1 1.7 1 .4 2.6c0 .2.2.4.5.4h4c.3 0 .5-.2.5-.4l.4-2.7c.6-.2 1.1-.6 1.7-1l2.5 1c.2.1.4 0 .6-.2l2-3.4c0-.2 0-.5-.2-.7l-2-1.6zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"></svg>',
             label: 'settings',
             parent: '.satus-main__container',
-            onclick: function() {
-                document.querySelector('.satus-dialog__scrim').click();
-            },
 
             section: {
                 type: 'section',
@@ -452,62 +449,6 @@ Menu.main = {
                                         }
                                     }
                                 });
-                            }
-                        },
-                        delete_youtube_cookies: {
-                            type: 'button',
-                            label: 'deleteYoutubeCookies',
-
-                            onclick: function() {
-                                document.querySelector('.satus').appendChild(Satus.components.dialog({
-                                    type: 'dialog',
-
-                                    message: {
-                                        type: 'text',
-                                        label: 'thisWillRemoveAllYouTubeCookies',
-                                        style: {
-                                            'width': '100%',
-                                            'opacity': '.8'
-                                        }
-                                    },
-                                    section: {
-                                        type: 'section',
-                                        class: 'controls',
-                                        style: {
-                                            'justify-content': 'flex-end',
-                                            'display': 'flex'
-                                        },
-
-                                        cancel: {
-                                            type: 'button',
-                                            label: 'cancel',
-                                            onclick: function() {
-                                                var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                scrim[scrim.length - 1].click();
-                                            }
-                                        },
-                                        accept: {
-                                            type: 'button',
-                                            label: 'accept',
-                                            onclick: function() {
-                                                var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                chrome.tabs.query({}, function(tabs) {
-                                                    for (var i = 0, l = tabs.length; i < l; i++) {
-                                                        if (tabs[i].hasOwnProperty('url')) {
-                                                            chrome.tabs.sendMessage(tabs[i].id, {
-                                                                name: 'delete_youtube_cookies'
-                                                            });
-                                                        }
-                                                    }
-                                                });
-
-                                                scrim[scrim.length - 1].click();
-                                            }
-                                        }
-                                    }
-                                }));
                             }
                         }
                     }
