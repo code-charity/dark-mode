@@ -77,6 +77,9 @@
     "name": {
         "message": "Name"
     },
+    "notAllowedtoAccessThisPage": {
+        "message": "Not allowed to access this page."
+    },
     "ok": {
         "message": "OK"
     },
@@ -148,6 +151,12 @@
     },
     "timeTo": {
         "message": "Time to"
+    },
+    "turnOffForThisWebsite": {
+        "message": "Turn off for this website"
+    },
+    "turnOnForThisWebsite": {
+        "message": "Turn on for this website"
     },
     "type": {
         "message": "Type"

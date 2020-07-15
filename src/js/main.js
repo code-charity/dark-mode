@@ -5,10 +5,30 @@ Menu.main = {
         change: update
     },
 
-    section: {
+    tooltip: {
         type: 'section',
 
-        only_on_this_website: {
+        enable: {
+            type: 'button',
+            value: true,
+            onrender: function() {
+                this.innerText = Satus.locale.getMessage(Satus.storage.get('websites/' + HOSTNAME + '/enabled') === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
+            },
+            onclick: function() {
+                var value = Satus.storage.get('websites/' + HOSTNAME + '/enabled');
+
+                if (value === false) {
+                    value = true;
+                } else {
+                    value = false;
+                }
+
+                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value);
+
+                this.innerText = Satus.locale.getMessage(value === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
+            }
+        },
+        /*only_on_this_website: {
             type: 'button',
             label: 'onlyEnableForThisWebsite',
             onclick: function() {
@@ -25,11 +45,11 @@ Menu.main = {
                     }
                 }
             }
-        },
-        exclude_this_website: {
-            type: 'switch',
-            label: 'excludeThisWebsite'
-        },
+        }*/
+    },
+    section: {
+        type: 'section',
+
         filters: {
             type: 'folder',
             label: 'filters',
@@ -401,7 +421,7 @@ Menu.main = {
                             onclick: function() {
                                 chrome.runtime.sendMessage({
                                     name: 'download',
-                                    filename: 'improvedtube-settings.json',
+                                    filename: 'night-mode-settings',
                                     value: Satus.storage
                                 });
                             }

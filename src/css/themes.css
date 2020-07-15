@@ -23,7 +23,8 @@
 	--icon-3: #b5b5b5;
 }*/
 
-.satus.dark
+.satus.dark,
+.satus.dark + *
 {
 	--satus-theme-primary: #f6b465;
 

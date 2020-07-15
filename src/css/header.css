@@ -20,6 +20,11 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
+.satus-header .satus-section
+{
+    background-color: transparent;
+}
+
 
 /*---------------------------------------------------------------
 2.0 BUTTONS
@@ -112,4 +117,9 @@ body[data-appearance='home'] .satus-text--title
 .satus-switch--night-mode .satus-switch__track
 {
     margin: 0 4px;
+}
+
+.satus-switch--night-mode  .satus-switch__input:checked + .satus-switch__track
+{
+    background: #777;
 }

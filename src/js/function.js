@@ -9,6 +9,4 @@ function update(container) {
 
     document.body.dataset.appearance = id;
     container.dataset.appearance = id;
-
-    document.querySelector('.satus-text--title').innerText = Satus.locale.getMessage(item.label) || 'Night Mode';
 }

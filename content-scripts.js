@@ -98,8 +98,7 @@ function update() {
             settings.schedule !== 'sunset_to_sunrise' ||
             current_time >= schedule_time.from && current_time < schedule_time.to
         ) &&
-        (/*enabled !== true || */((settings.websites || {})[location.hostname] || {}).enabled !== false) &&
-        ((settings.websites || {})[location.hostname] || {}).exclude_this_website !== true
+        (/*enabled !== true || */((settings.websites || {})[location.hostname] || {}).enabled !== false)
     ) {
         if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
             injectStyle(getFilters(settings.websites[location.hostname].filters), 'night-mode-extension-filters', settings.schedule);

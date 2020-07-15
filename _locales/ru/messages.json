@@ -80,6 +80,9 @@
     "name": {
         "message": "Имя"
     },
+    "notAllowedtoAccessThisPage": {
+        "message": "Нет доступа к этой странице."
+    },
     "nightMode": {
         "message": "Night mode"
     },
@@ -154,6 +157,12 @@
     },
     "timeTo": {
         "message": "Время (до)"
+    },
+    "turnOffForThisWebsite": {
+        "message": "Включить для текущего веб-сайта"
+    },
+    "turnOnForThisWebsite": {
+        "message": "Выключить для текущего веб-сайта"
     },
     "type": {
         "message": "Тип"

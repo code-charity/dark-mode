@@ -10,8 +10,6 @@ function update(container) {
 
     document.body.dataset.appearance = id;
     container.dataset.appearance = id;
-
-    document.querySelector('.satus-text--title').innerText = Satus.locale.getMessage(item.label) || 'Night Mode';
 }
 /*-----------------------------------------------------------------------------
 >>> «HEADER» TEMPLATE
@@ -38,7 +36,7 @@ var Menu = {
             title: {
                 type: 'text',
                 class: 'satus-text--title',
-                label: 'Night Mode'
+                label: 'Dark Mode'
             }
         },
         section_end: {
@@ -94,10 +92,30 @@ Menu.main = {
         change: update
     },
 
-    section: {
+    tooltip: {
         type: 'section',
 
-        only_on_this_website: {
+        enable: {
+            type: 'button',
+            value: true,
+            onrender: function() {
+                this.innerText = Satus.locale.getMessage(Satus.storage.get('websites/' + HOSTNAME + '/enabled') === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
+            },
+            onclick: function() {
+                var value = Satus.storage.get('websites/' + HOSTNAME + '/enabled');
+
+                if (value === false) {
+                    value = true;
+                } else {
+                    value = false;
+                }
+
+                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value);
+
+                this.innerText = Satus.locale.getMessage(value === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
+            }
+        },
+        /*only_on_this_website: {
             type: 'button',
             label: 'onlyEnableForThisWebsite',
             onclick: function() {
@@ -114,11 +132,11 @@ Menu.main = {
                     }
                 }
             }
-        },
-        exclude_this_website: {
-            type: 'switch',
-            label: 'excludeThisWebsite'
-        },
+        }*/
+    },
+    section: {
+        type: 'section',
+
         filters: {
             type: 'folder',
             label: 'filters',
@@ -490,7 +508,7 @@ Menu.main = {
                             onclick: function() {
                                 chrome.runtime.sendMessage({
                                     name: 'download',
-                                    filename: 'improvedtube-settings.json',
+                                    filename: 'night-mode-settings',
                                     value: Satus.storage
                                 });
                             }
@@ -715,7 +733,7 @@ function init(response) {
     var TAB_URL = response ? new URL(response) : '',
         language = Satus.storage.get('language') || 'en';
 
-    HOSTNAME = TAB_URL.hostname || 'empty';
+    HOSTNAME = TAB_URL.hostname || '';
 
     Satus.storage.import(function() {
         if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
@@ -724,7 +742,25 @@ function init(response) {
 
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
-                Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
+                if (HOSTNAME === '') {
+                    Menu.main.tooltip.style = {
+                        padding: 0
+                    };
+
+                    Menu.main.tooltip.enable.type = 'text';
+                    delete Menu.main.tooltip.enable.onrender;
+                    delete Menu.main.tooltip.enable.onclick;
+                    Menu.main.tooltip.enable.label = 'notAllowedtoAccessThisPage';
+                    Menu.main.tooltip.enable.value = '';
+                    Menu.main.tooltip.enable.style = {
+                        'display': 'block',
+                        'padding': '8px 16px',
+                        'border': '1px solid rgba(255,0,0,.3)',
+                        'borderRadius': '8px',
+                        'backgroundColor': 'rgba(255,0,0,.1)'
+                    };
+                }
+
                 Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
                 Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
                 Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
@@ -738,7 +774,7 @@ function init(response) {
                     count = 0;
 
                 for (var key in websites) {
-                    if (key !== 'empty') {
+                    if (key !== '') {
                         count++;
 
                         Menu.main.section.websites.section[key] = {

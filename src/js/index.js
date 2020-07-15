@@ -12,7 +12,7 @@ function init(response) {
     var TAB_URL = response ? new URL(response) : '',
         language = Satus.storage.get('language') || 'en';
 
-    HOSTNAME = TAB_URL.hostname || 'empty';
+    HOSTNAME = TAB_URL.hostname || '';
 
     Satus.storage.import(function() {
         if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
@@ -21,7 +21,25 @@ function init(response) {
 
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
-                Menu.main.section.exclude_this_website.storage_key = 'websites/' + HOSTNAME + '/exclude_this_website';
+                if (HOSTNAME === '') {
+                    Menu.main.tooltip.style = {
+                        padding: 0
+                    };
+
+                    Menu.main.tooltip.enable.type = 'text';
+                    delete Menu.main.tooltip.enable.onrender;
+                    delete Menu.main.tooltip.enable.onclick;
+                    Menu.main.tooltip.enable.label = 'notAllowedtoAccessThisPage';
+                    Menu.main.tooltip.enable.value = '';
+                    Menu.main.tooltip.enable.style = {
+                        'display': 'block',
+                        'padding': '8px 16px',
+                        'border': '1px solid rgba(255,0,0,.3)',
+                        'borderRadius': '8px',
+                        'backgroundColor': 'rgba(255,0,0,.1)'
+                    };
+                }
+
                 Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
                 Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
                 Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
@@ -35,7 +53,7 @@ function init(response) {
                     count = 0;
 
                 for (var key in websites) {
-                    if (key !== 'empty') {
+                    if (key !== '') {
                         count++;
 
                         Menu.main.section.websites.section[key] = {

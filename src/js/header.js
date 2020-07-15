@@ -23,7 +23,7 @@ var Menu = {
             title: {
                 type: 'text',
                 class: 'satus-text--title',
-                label: 'Night Mode'
+                label: 'Dark Mode'
             }
         },
         section_end: {

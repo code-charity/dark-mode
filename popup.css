@@ -24,7 +24,8 @@
 	--icon-3: #b5b5b5;
 }*/
 
-.satus.dark
+.satus.dark,
+.satus.dark + *
 {
 	--satus-theme-primary: #f6b465;
 
@@ -188,6 +189,11 @@ button
     box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
+.satus-header .satus-section
+{
+    background-color: transparent;
+}
+
 
 /*---------------------------------------------------------------
 2.0 BUTTONS
@@ -280,6 +286,11 @@ body[data-appearance='home'] .satus-text--title
 .satus-switch--night-mode .satus-switch__track
 {
     margin: 0 4px;
+}
+
+.satus-switch--night-mode  .satus-switch__input:checked + .satus-switch__track
+{
+    background: #777;
 }
 
 /*---------------------------------------------------------------
@@ -518,4 +529,95 @@ body[data-appearance='home'] .satus-text--title
 .made-with-love span
 {
     margin: 0 0 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.satus-switch--enable .satus-switch__label
+{
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}*/
+
+
+
+
+
+
+
+.satus-switch--checkbox .satus-switch__track
+{
+    width: 19px;
+    min-width: 19px;
+    max-width: 19px;
+    height: 19px;
+    min-height: 19px;
+    max-height: 19px;
+
+    opacity: .7;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--satus-theme-main-text);
+}
+
+.satus-switch--checkbox .satus-switch__input:checked + .satus-switch__track
+{
+    background: transparent;
+}
+
+.satus-switch--checkbox .satus-switch__track::before
+{
+    position: absolute;
+
+    visibility: hidden;
+
+    width: 7px;
+    height: 4px;
+
+    transition: unset;
+    transform: rotate(-45deg);
+
+    opacity: 0;
+    border: 2px solid var(--satus-theme-main-text);
+    border-top: none;
+    border-right: none;
+    border-radius: unset;
+    background-color: transparent;
+}
+
+.satus-switch--checkbox .satus-switch__input:checked + .satus-switch__track::before
+{
+    top: 6px;
+    left: 5px;
+
+    visibility: visible;
+
+    transform: rotate(-45deg);
+
+    opacity: 1;
+    background: transparent;
+}
+
+.satus-switch--checkbox .satus-switch__track::after
+{
+    content: none;
 }
