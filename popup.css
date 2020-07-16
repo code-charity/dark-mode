@@ -45,6 +45,8 @@
 	--satus-theme-scrollbar: rgba(255, 255, 255, .2);
 	--satus-theme-scrollbar-focus: rgba(255, 255, 255, .4);
 
+	--satus-theme-tooltip: rgba(10, 10, 10, .7);
+
 	--satus-theme-ripple: rgba(255, 255, 255, .04);
 }
 

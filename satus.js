@@ -1162,13 +1162,17 @@ Satus.components.main = function(object) {
         }, Satus.getAnimationDuration(container));
     };
 
-    component.open = function(element, callback) {
+    component.open = function(element, callback, animated) {
         var container = this.querySelector('.satus-main__container'),
             component_container = document.createElement('div'),
             component_scrollbar = Satus.components.scrollbar(component_container);
 
-        container.classList.add('satus-main__container--fade-out-left');
-        component_container.className = 'satus-main__container satus-main__container--fade-in-right';
+        if (animated !== false) {
+            container.classList.add('satus-main__container--fade-out-left');
+            component_container.className = 'satus-main__container satus-main__container--fade-in-right';
+        } else {
+            component_container.className = 'satus-main__container';
+        }
 
         this.history.push(element);
 

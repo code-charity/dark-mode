@@ -68,9 +68,23 @@ var Menu = {
 
                     container.appendChild(wrapper);
 
+                    container.querySelector('main').history = Object.assign(document.querySelector('main').history);
+
+                    container.querySelector('main').open(container.querySelector('main').history[container.querySelector('main').history.length - 1], function() {}, false);
+
+                    /*container.querySelector('main .satus-scrollbar__content').innerHTML = '';
+
+                    var a = Object.assign(container.querySelector('main').history[container.querySelector('main').history.length - 1]);
+
+                    delete a.type;
+
+                    Satus.render(a, container.querySelector('main .satus-scrollbar__content'));*/
+
                     document.body.appendChild(container);
 
                     setTimeout(function() {
+                        container.querySelector('main').history.pop();
+
                         container.classList.remove('loading');
                     });
 

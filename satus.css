@@ -966,7 +966,7 @@
 
     color: #fff;
     border-radius: 4px;
-    background: var(--satus-theme-ripple);
+    background: var(--satus-theme-tooltip);
 }
 
 .satus-slider:hover .satus-slider__thumb::before,
@@ -1364,6 +1364,8 @@ html
 
 	--satus-theme-scrollbar: rgba(0, 0, 0, .2);
 	--satus-theme-scrollbar-focus: rgba(0, 0, 0, .4);
+
+	--satus-theme-tooltip: rgba(0, 0, 0, .4);
 
 	--satus-theme-ripple: rgba(0, 0, 0, .04);
 }
