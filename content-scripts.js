@@ -15,7 +15,8 @@ function getFilters(settings) {
 
         document.documentElement.appendChild(bluelight);
 
-        body_filter += 'url(#bluelight-filter)';
+        document.documentElement.style.webkitFilter = 'url(#bluelight-filter)';
+        document.documentElement.style.filter = 'url(#bluelight-filter)';
     } else if (document.getElementById('night-mode-bluelight')) {
         document.getElementById('night-mode-bluelight').remove();
     }

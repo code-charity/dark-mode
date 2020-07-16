@@ -24,7 +24,7 @@
 }*/
 
 .satus.dark,
-.satus.dark + *
+.satus.dark + .satus-dialog
 {
 	--satus-theme-primary: #f6b465;
 
