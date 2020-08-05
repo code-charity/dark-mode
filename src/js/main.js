@@ -7,26 +7,11 @@ Menu.main = {
 
     tooltip: {
         type: 'section',
+        class: 'satus-section--tooltip',
 
         enable: {
-            type: 'button',
-            value: true,
-            onrender: function() {
-                this.innerText = Satus.locale.getMessage(Satus.storage.get('websites/' + HOSTNAME + '/enabled') === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
-            },
-            onclick: function() {
-                var value = Satus.storage.get('websites/' + HOSTNAME + '/enabled');
-
-                if (value === false) {
-                    value = true;
-                } else {
-                    value = false;
-                }
-
-                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value);
-
-                this.innerText = Satus.locale.getMessage(value === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
-            }
+            type: 'switch',
+            value: true
         },
         /*only_on_this_website: {
             type: 'button',

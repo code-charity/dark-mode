@@ -1,4 +1,4 @@
-
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -57,7 +57,7 @@
 
 .satus-scrollbar__thumb::after {
 	background-color: rgba(255, 255, 255, .2);
-}
+}
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -168,7 +168,7 @@ button
 {
     font-family: 'Open Sans', sans-serif;
 }
-
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -294,7 +294,7 @@ body[data-appearance='home'] .satus-text--title
 {
     background: #777;
 }
-
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -335,6 +335,38 @@ body[data-appearance='home'] .satus-text--title
 
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 8px;
+}
+
+.satus-main .satus-section.satus-section--tooltip
+{
+    background-color: rgba(246, 180, 101, .5);
+    border: 1px solid rgba(246, 180, 101, .6);
+    color: #fff;
+    --satus-theme-ripple: rgba(0, 0, 0, .1);
+}
+
+.satus-section--tooltip .satus-switch
+{
+    height: 40px;
+}
+
+.satus-section--tooltip  .satus-switch__label
+{
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, .5);
+}
+
+.satus-section--tooltip .satus-switch__track
+{
+    background-color: rgba(0, 0, 0, .1)
+}
+
+.satus-section--tooltip .satus-switch__track::after
+{
+    background-color: rgba(255, 255, 255, .7)
+}
+
+.satus-section--tooltip .satus-switch__input:checked + .satus-switch__track {
+    background: rgba(246, 180, 101, .8);
 }
 
 .satus-main .satus-section--message

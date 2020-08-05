@@ -1,4 +1,4 @@
-
+
 function update(container) {
     var self = (this === window ? document.querySelector('.satus-main') : this),
         item = self.history[self.history.length - 1],
@@ -10,7 +10,7 @@ function update(container) {
 
     document.body.dataset.appearance = id;
     container.dataset.appearance = id;
-}
+}
 /*-----------------------------------------------------------------------------
 >>> «HEADER» TEMPLATE
 -----------------------------------------------------------------------------*/
@@ -98,7 +98,7 @@ var Menu = {
             }
         }
     }
-};
+};
 Menu.main = {
     type: 'main',
     appearanceKey: 'home',
@@ -108,26 +108,11 @@ Menu.main = {
 
     tooltip: {
         type: 'section',
+        class: 'satus-section--tooltip',
 
         enable: {
-            type: 'button',
-            value: true,
-            onrender: function() {
-                this.innerText = Satus.locale.getMessage(Satus.storage.get('websites/' + HOSTNAME + '/enabled') === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
-            },
-            onclick: function() {
-                var value = Satus.storage.get('websites/' + HOSTNAME + '/enabled');
-
-                if (value === false) {
-                    value = true;
-                } else {
-                    value = false;
-                }
-
-                Satus.storage.set('websites/' + HOSTNAME + '/enabled', value);
-
-                this.innerText = Satus.locale.getMessage(value === false ? 'turnOnForThisWebsite' : 'turnOffForThisWebsite');
-            }
+            type: 'switch',
+            value: true
         },
         /*only_on_this_website: {
             type: 'button',
@@ -732,7 +717,8 @@ Menu.main = {
             window.open('https://chrome.google.com/webstore/detail/improve-youtube-open-sour/bnomihfieiccainjcjblhegjgglakjdd');
         }
     }
-};
+};
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -757,6 +743,8 @@ function init(response) {
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 if (HOSTNAME === '') {
+                    Menu.main.tooltip.class = '';
+                    
                     Menu.main.tooltip.style = {
                         padding: 0
                     };
@@ -773,6 +761,9 @@ function init(response) {
                         'borderRadius': '8px',
                         'backgroundColor': 'rgba(255,0,0,.1)'
                     };
+                } else {
+                    Menu.main.tooltip.enable.label = HOSTNAME;
+                    Menu.main.tooltip.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
                 }
 
                 Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';

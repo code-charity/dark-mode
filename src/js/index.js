@@ -22,6 +22,8 @@ function init(response) {
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 if (HOSTNAME === '') {
+                    Menu.main.tooltip.class = '';
+                    
                     Menu.main.tooltip.style = {
                         padding: 0
                     };
@@ -38,6 +40,9 @@ function init(response) {
                         'borderRadius': '8px',
                         'backgroundColor': 'rgba(255,0,0,.1)'
                     };
+                } else {
+                    Menu.main.tooltip.enable.label = HOSTNAME;
+                    Menu.main.tooltip.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
                 }
 
                 Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
