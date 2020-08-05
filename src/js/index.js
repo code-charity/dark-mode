@@ -9,12 +9,13 @@
 ---------------------------------------------------------------*/
 
 function init(response) {
-    var TAB_URL = response ? new URL(response) : '',
-        language = Satus.storage.get('language') || 'en';
+    var TAB_URL = response ? new URL(response) : '';
 
     HOSTNAME = TAB_URL.hostname || '';
 
     Satus.storage.import(function() {
+        var language = Satus.storage.get('language') || 'en';
+        
         if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
             document.querySelector('.satus').classList.add('dark');
         }
