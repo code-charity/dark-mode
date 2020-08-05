@@ -12,25 +12,7 @@ Menu.main = {
         enable: {
             type: 'switch',
             value: true
-        },
-        /*only_on_this_website: {
-            type: 'button',
-            label: 'onlyEnableForThisWebsite',
-            onclick: function() {
-                var websites = Satus.storage.get('websites') || {};
-
-                for (var key in websites) {
-                    if (key != HOSTNAME) {
-                        Satus.storage.set('websites/' + key + '/enabled', false);
-                        Satus.storage.set('websites/' + key + '/exclude_this_website', true);
-                    } else {
-                        Satus.storage.set('websites/' + key + '/enabled', true);
-                        Satus.storage.set('websites/' + key + '/exclude_this_website', false);
-                        document.querySelector('#exclude').dataset.value = false;
-                    }
-                }
-            }
-        }*/
+        }
     },
     section: {
         type: 'section',

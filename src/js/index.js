@@ -147,17 +147,7 @@ function init(response) {
                             },
                             enabled: {
                                 type: 'switch',
-                                storage_key: 'websites/' + key + '/exclude_this_website',
-                                onrender: function(obj) {
-                                    var item = this.querySelector('input');
-
-                                    item.checked = item.checked ? false : true;
-                                },
-                                onchange: function(obj) {
-                                    var item = this.querySelector('input');
-
-                                    Satus.storage.set(item.dataset.storageKey, item.checked ? false : true);
-                                }
+                                storage_key: 'websites/' + key + '/enabled'
                             }
                         };
                     }

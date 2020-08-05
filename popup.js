@@ -113,25 +113,7 @@ Menu.main = {
         enable: {
             type: 'switch',
             value: true
-        },
-        /*only_on_this_website: {
-            type: 'button',
-            label: 'onlyEnableForThisWebsite',
-            onclick: function() {
-                var websites = Satus.storage.get('websites') || {};
-
-                for (var key in websites) {
-                    if (key != HOSTNAME) {
-                        Satus.storage.set('websites/' + key + '/enabled', false);
-                        Satus.storage.set('websites/' + key + '/exclude_this_website', true);
-                    } else {
-                        Satus.storage.set('websites/' + key + '/enabled', true);
-                        Satus.storage.set('websites/' + key + '/exclude_this_website', false);
-                        document.querySelector('#exclude').dataset.value = false;
-                    }
-                }
-            }
-        }*/
+        }
     },
     section: {
         type: 'section',
@@ -868,17 +850,7 @@ function init(response) {
                             },
                             enabled: {
                                 type: 'switch',
-                                storage_key: 'websites/' + key + '/exclude_this_website',
-                                onrender: function(obj) {
-                                    var item = this.querySelector('input');
-
-                                    item.checked = item.checked ? false : true;
-                                },
-                                onchange: function(obj) {
-                                    var item = this.querySelector('input');
-
-                                    Satus.storage.set(item.dataset.storageKey, item.checked ? false : true);
-                                }
+                                storage_key: 'websites/' + key + '/enabled'
                             }
                         };
                     }
