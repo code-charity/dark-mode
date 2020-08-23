@@ -22,6 +22,7 @@ function getFilters(settings) {
     }
 
     if (settings.invert_colors === true || settings.invert_colors === undefined) {
+        string += 'html,body{background:#000 0 0}';
         string += 'body > *,body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
     }
 
