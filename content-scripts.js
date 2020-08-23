@@ -12,7 +12,7 @@ function getFilters(settings) {
         bluelight.style.position = 'absolute';
         bluelight.style.visibility = 'hidden';
         bluelight.style.pointerEvents = 'none';
-        bluelight.innerHTML = '<svg version=1.1 xmlns=//www.w3.org/2000/svg viewBox="0 0 1 1"><filter id="bluelight-filter"><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
+        bluelight.innerHTML = '<svg version=1.1 xmlns=//www.w3.org/2000/svg viewBox="0 0 1 1"><filter id="bluelight-filter"  color-interpolation-filters="sRGB"><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
 
         document.documentElement.appendChild(bluelight);
 
