@@ -42,20 +42,57 @@
 
 .satus-main .satus-section.satus-section--tooltip
 {
-    background-color: rgba(246, 180, 101, .5);
-    border: 1px solid rgba(246, 180, 101, .6);
-    color: #fff;
-    --satus-theme-ripple: rgba(0, 0, 0, .1);
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.satus-section--tooltip .satus-text
+{
+    display: block;
+    padding: 16px;
+    line-height: 14px;
+    color: #ad5f5f;
+    border: 1px solid #ecd7d7;
+    border-radius: 8px;
+    background: #fde6e6;
+}
+
+.satus.dark .satus-section--tooltip .satus-text
+{
+    color: rgba(255, 127, 127, .7);
+    border: 1px solid rgba(255, 0, 0, .15);
+    background: rgba(255, 0, 0, .1);
 }
 
 .satus-section--tooltip .satus-switch
 {
-    height: 40px;
+    height: 48px;
+    border: 1px solid #f9e0b8;
+    border-radius: 8px;
+    background: #ffefd5;
+}
+
+.satus-section--tooltip .satus-switch:hover
+{
+    background: #ffe7c1
+}
+
+.satus.dark .satus-section--tooltip .satus-switch
+{
+    border: 1px solid rgba(255, 157, 0, .15);
+    background: rgba(255, 158, 0, .1);
+}
+
+.satus.dark .satus-section--tooltip .satus-switch:hover
+{
+    background: rgba(255, 158, 0, .2);
 }
 
 .satus-section--tooltip  .satus-switch__label
 {
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, .5);
+    color: #ad7622;
 }
 
 .satus-section--tooltip .satus-switch__track
@@ -68,14 +105,13 @@
     background-color: rgba(255, 255, 255, .7)
 }
 
-.satus-section--tooltip .satus-switch__input:checked + .satus-switch__track {
-    background: rgba(246, 180, 101, .8);
+.satus-section--tooltip .satus-switch__input
+{
+    cursor: pointer;
 }
 
-.satus-main .satus-section--message
-{
-    padding-right: 8px;
-    padding-left: 8px;
+.satus-section--tooltip .satus-switch__input:checked + .satus-switch__track {
+    background: rgba(246, 180, 101, .9);
 }
 
 

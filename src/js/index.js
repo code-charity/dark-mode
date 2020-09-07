@@ -23,24 +23,11 @@ function init(response) {
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 if (HOSTNAME === '') {
-                    Menu.main.tooltip.class = '';
-                    
-                    Menu.main.tooltip.style = {
-                        padding: 0
-                    };
-
                     Menu.main.tooltip.enable.type = 'text';
                     delete Menu.main.tooltip.enable.onrender;
                     delete Menu.main.tooltip.enable.onclick;
                     Menu.main.tooltip.enable.label = 'notAllowedtoAccessThisPage';
                     Menu.main.tooltip.enable.value = '';
-                    Menu.main.tooltip.enable.style = {
-                        'display': 'block',
-                        'padding': '8px 16px',
-                        'border': '1px solid rgba(255,0,0,.3)',
-                        'borderRadius': '8px',
-                        'backgroundColor': 'rgba(255,0,0,.1)'
-                    };
                 } else {
                     Menu.main.tooltip.enable.label = HOSTNAME;
                     Menu.main.tooltip.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
