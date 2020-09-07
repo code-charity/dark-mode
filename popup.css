@@ -337,7 +337,7 @@ body[data-appearance='home'] .satus-text--title
     border-radius: 8px;
 }
 
-.satus-main .satus-section.satus-section--tooltip
+.satus-main .satus-section.satus-section--toolbar
 {
     box-shadow: none;
     border: none;
@@ -345,7 +345,7 @@ body[data-appearance='home'] .satus-text--title
     background: none;
 }
 
-.satus-section--tooltip .satus-text
+.satus-section--toolbar .satus-text
 {
     display: block;
     padding: 16px;
@@ -356,14 +356,14 @@ body[data-appearance='home'] .satus-text--title
     background: #fde6e6;
 }
 
-.satus.dark .satus-section--tooltip .satus-text
+.satus.dark .satus-section--toolbar .satus-text
 {
     color: rgba(255, 127, 127, .7);
     border: 1px solid rgba(255, 0, 0, .15);
     background: rgba(255, 0, 0, .1);
 }
 
-.satus-section--tooltip .satus-switch
+.satus-section--toolbar .satus-switch
 {
     height: 48px;
     border: 1px solid #f9e0b8;
@@ -371,43 +371,43 @@ body[data-appearance='home'] .satus-text--title
     background: #ffefd5;
 }
 
-.satus-section--tooltip .satus-switch:hover
+.satus-section--toolbar .satus-switch:hover
 {
     background: #ffe7c1
 }
 
-.satus.dark .satus-section--tooltip .satus-switch
+.satus.dark .satus-section--toolbar .satus-switch
 {
     border: 1px solid rgba(255, 157, 0, .15);
     background: rgba(255, 158, 0, .1);
 }
 
-.satus.dark .satus-section--tooltip .satus-switch:hover
+.satus.dark .satus-section--toolbar .satus-switch:hover
 {
     background: rgba(255, 158, 0, .2);
 }
 
-.satus-section--tooltip  .satus-switch__label
+.satus-section--toolbar  .satus-switch__label
 {
     color: #ad7622;
 }
 
-.satus-section--tooltip .satus-switch__track
+.satus-section--toolbar .satus-switch__track
 {
     background-color: rgba(0, 0, 0, .1)
 }
 
-.satus-section--tooltip .satus-switch__track::after
+.satus-section--toolbar .satus-switch__track::after
 {
     background-color: rgba(255, 255, 255, .7)
 }
 
-.satus-section--tooltip .satus-switch__input
+.satus-section--toolbar .satus-switch__input
 {
     cursor: pointer;
 }
 
-.satus-section--tooltip .satus-switch__input:checked + .satus-switch__track {
+.satus-section--toolbar .satus-switch__input:checked + .satus-switch__track {
     background: rgba(246, 180, 101, .9);
 }
 

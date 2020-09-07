@@ -23,14 +23,14 @@ function init(response) {
         Satus.locale.import('_locales/' + language + '/messages.json', function() {
             Satus.modules.updateStorageKeys(Menu, function() {
                 if (HOSTNAME === '') {
-                    Menu.main.tooltip.enable.type = 'text';
-                    delete Menu.main.tooltip.enable.onrender;
-                    delete Menu.main.tooltip.enable.onclick;
-                    Menu.main.tooltip.enable.label = 'notAllowedtoAccessThisPage';
-                    Menu.main.tooltip.enable.value = '';
+                    Menu.main.toolbar.enable.type = 'text';
+                    delete Menu.main.toolbar.enable.onrender;
+                    delete Menu.main.toolbar.enable.onclick;
+                    Menu.main.toolbar.enable.label = 'notAllowedtoAccessThisPage';
+                    Menu.main.toolbar.enable.value = '';
                 } else {
-                    Menu.main.tooltip.enable.label = HOSTNAME;
-                    Menu.main.tooltip.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
+                    Menu.main.toolbar.enable.label = HOSTNAME;
+                    Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
                 }
 
                 Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';

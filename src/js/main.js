@@ -5,9 +5,9 @@ Menu.main = {
         change: update
     },
 
-    tooltip: {
+    toolbar: {
         type: 'section',
-        class: 'satus-section--tooltip',
+        class: 'satus-section--toolbar',
 
         enable: {
             type: 'switch',
