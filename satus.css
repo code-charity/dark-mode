@@ -554,23 +554,58 @@ body[data-appearance='home'] .satus-text--title
 >>> TABS
 --------------------------------------------------------------*/
 
-.satus-tabs
+.satus-tabs__bar
 {
     position: relative;
+
+    display: flex;
+    overflow: hidden;
+
+    box-sizing: border-box;
+    width: calc(100% - 16px);
+    margin: 16px 8px;
+
+    color: var(--satus-theme-on-surface);
+    border: 1px solid #dfdfdf;
+    border-radius: 18px;
+    background-color: #efefef;
+}
+
+.satus-tabs__bar > div
+{
     z-index: 1;
 
     display: flex;
 
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 58px;
-    padding: 0 8px;
+    height: 32px;
 
-    color: var(--satus-theme-on-surface);
-    background-color: var(--satus-theme-surface, #fff);
-    box-shadow: 0 0 3px rgba(0,0,0,.1);
+    cursor: pointer;
 
-    fill: var(--satus-theme-on-surface);
+    color: var(--satus-theme-main-text);
+
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.satus-tabs__bar > div.active
+{
+    color: var(--satus-theme-header-text);
+}
+
+.satus-tabs__bar--select
+{
+    position: absolute;
+    z-index: 0;
+    left: 0;
+
+    width: 50%;
+
+    transition: left .2s;
+
+    border-radius: 18px;
+    background: var(--satus-theme-header);
+    box-shadow: 1px 0 4px rgba(0,0,0,.075);
 }
 
 .satus-shortcut2

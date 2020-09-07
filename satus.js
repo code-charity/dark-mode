@@ -1251,12 +1251,50 @@ Satus.components.switch = function(element) {
 --------------------------------------------------------------*/
 
 Satus.components.tabs = function(object) {
-    var component = document.createElement('div');
+    var component = document.createElement('div'),
+        tabbar = document.createElement('div'),
+        tabbar_select = document.createElement('div'),
+        main = document.createElement('div'),
+        i = 0;
 
-	
+    tabbar.className = 'satus-tabs__bar';
+    tabbar_select.className = 'satus-tabs__bar--select';
+        
+    tabbar.appendChild(tabbar_select);
+    
+    function update() {
+        tabbar_select.style.left = this.offsetLeft + 'px';
+        
+        main.innerHTML = '';
+        
+        satus.render(this.menu, main);
+    }
+    
+	for (var key in object) {
+        if (object[key].type === 'tab') {
+            var tab = document.createElement('div');
+
+            tab.innerText = object[key].label;
+            tab.dataset.key = i;
+            tab.onclick = update;
+            tab.menu = Object.assign({}, object[key]);
+            
+            delete tab.menu.type;
+            
+            tabbar.appendChild(tab);
+            
+            i++;
+        }
+    }
+    
+    tabbar.children[1].click();
+
+    component.appendChild(tabbar);
+    component.appendChild(main);
 
     return component;
 };
+
 /*------------------------------------------------------------------------------
 >>> SHORTCUT
 ------------------------------------------------------------------------------*/

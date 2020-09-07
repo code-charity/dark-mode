@@ -126,40 +126,90 @@ Menu.main = {
             label: 'filters',
             before: '<svg viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
-            section: {
-                type: 'section',
+            tabs: {
+                type: 'tabs',
+                
+                global: {
+                    type: 'tab',
+                    label: 'Global',
+                    
+                    section: {
+                        type: 'section',
 
-                invert_colors: {
-                    label: 'invertColors',
-                    type: 'switch',
-                    value: true
+                        invert_colors: {
+                            label: 'invertColors',
+                            type: 'switch',
+                            value: true
+                        },
+                        bluelight: {
+                            label: 'bluelight',
+                            type: 'slider',
+                            max: 90
+                        },
+                        brightness: {
+                            label: 'brightness',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        contrast: {
+                            label: 'contrast',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        grayscale: {
+                            label: 'grayscale',
+                            type: 'slider',
+                            max: 100
+                        },
+                        sepia: {
+                            label: 'sepia',
+                            type: 'slider',
+                            max: 100
+                        }
+                    }
                 },
-                bluelight: {
-                    label: 'bluelight',
-                    type: 'slider',
-                    max: 90
-                },
-                brightness: {
-                    label: 'brightness',
-                    type: 'slider',
-                    max: 100,
-                    value: 100
-                },
-                contrast: {
-                    label: 'contrast',
-                    type: 'slider',
-                    max: 100,
-                    value: 100
-                },
-                grayscale: {
-                    label: 'grayscale',
-                    type: 'slider',
-                    max: 100
-                },
-                sepia: {
-                    label: 'sepia',
-                    type: 'slider',
-                    max: 100
+                current: {
+                    type: 'tab',
+                    label: 'Current',
+                    
+                    section: {
+                        type: 'section',
+
+                        invert_colors: {
+                            label: 'invertColors',
+                            type: 'switch',
+                            value: true
+                        },
+                        bluelight: {
+                            label: 'bluelight',
+                            type: 'slider',
+                            max: 90
+                        },
+                        brightness: {
+                            label: 'brightness',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        contrast: {
+                            label: 'contrast',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        grayscale: {
+                            label: 'grayscale',
+                            type: 'slider',
+                            max: 100
+                        },
+                        sepia: {
+                            label: 'sepia',
+                            type: 'slider',
+                            max: 100
+                        }
+                    }
                 }
             }
         },
@@ -739,12 +789,12 @@ function init(response) {
                     Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
                 }
 
-                Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
-                Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
-                Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
-                Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
-                Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
-                Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
+                Menu.main.section.filters.tabs.current.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
+                Menu.main.section.filters.tabs.current.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+                Menu.main.section.filters.tabs.current.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
+                Menu.main.section.filters.tabs.current.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
+                Menu.main.section.filters.tabs.current.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
+                Menu.main.section.filters.tabs.current.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
                 Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 

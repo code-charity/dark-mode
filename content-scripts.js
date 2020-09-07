@@ -93,6 +93,38 @@ function update() {
             enabled = true;
         }
     }
+    
+    
+    var sett = {};
+    
+    if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
+        sett = settings.websites[location.hostname].filters;
+    }
+    
+    if (sett.invert_colors === undefined) {
+        sett.invert_colors = settings.invert_colors;
+    }
+    
+    if (sett.bluelight === undefined) {
+        sett.bluelight = settings.bluelight;
+    }
+    
+    if (sett.brightness === undefined) {
+        sett.brightness = settings.brightness;
+    }
+    
+    if (sett.contrast === undefined) {
+        sett.contrast = settings.contrast;
+    }
+    
+    if (sett.grayscale === undefined) {
+        sett.grayscale = settings.grayscale;
+    }
+    
+    if (sett.sepia === undefined) {
+        sett.sepia = settings.sepia;
+    }
+    
 
     if (
         settings.mode !== false &&
@@ -102,11 +134,7 @@ function update() {
         ) &&
         (/*enabled !== true || */((settings.websites || {})[location.hostname] || {}).enabled !== false)
     ) {
-        if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
-            injectStyle(getFilters(settings.websites[location.hostname].filters), 'night-mode-extension-filters', settings.schedule);
-        } else {
-            injectStyle(getFilters({}), 'night-mode-extension-filters', settings.schedule);
-        }
+        injectStyle(getFilters(sett), 'night-mode-extension-filters', settings.schedule);
 
         if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].styles) {
             injectStyle(settings.websites[location.hostname].styles, 'night-mode-extension-styles', settings.schedule);

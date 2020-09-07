@@ -22,40 +22,90 @@ Menu.main = {
             label: 'filters',
             before: '<svg viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
-            section: {
-                type: 'section',
+            tabs: {
+                type: 'tabs',
+                
+                global: {
+                    type: 'tab',
+                    label: 'Global',
+                    
+                    section: {
+                        type: 'section',
 
-                invert_colors: {
-                    label: 'invertColors',
-                    type: 'switch',
-                    value: true
+                        invert_colors: {
+                            label: 'invertColors',
+                            type: 'switch',
+                            value: true
+                        },
+                        bluelight: {
+                            label: 'bluelight',
+                            type: 'slider',
+                            max: 90
+                        },
+                        brightness: {
+                            label: 'brightness',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        contrast: {
+                            label: 'contrast',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        grayscale: {
+                            label: 'grayscale',
+                            type: 'slider',
+                            max: 100
+                        },
+                        sepia: {
+                            label: 'sepia',
+                            type: 'slider',
+                            max: 100
+                        }
+                    }
                 },
-                bluelight: {
-                    label: 'bluelight',
-                    type: 'slider',
-                    max: 90
-                },
-                brightness: {
-                    label: 'brightness',
-                    type: 'slider',
-                    max: 100,
-                    value: 100
-                },
-                contrast: {
-                    label: 'contrast',
-                    type: 'slider',
-                    max: 100,
-                    value: 100
-                },
-                grayscale: {
-                    label: 'grayscale',
-                    type: 'slider',
-                    max: 100
-                },
-                sepia: {
-                    label: 'sepia',
-                    type: 'slider',
-                    max: 100
+                current: {
+                    type: 'tab',
+                    label: 'Current',
+                    
+                    section: {
+                        type: 'section',
+
+                        invert_colors: {
+                            label: 'invertColors',
+                            type: 'switch',
+                            value: true
+                        },
+                        bluelight: {
+                            label: 'bluelight',
+                            type: 'slider',
+                            max: 90
+                        },
+                        brightness: {
+                            label: 'brightness',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        contrast: {
+                            label: 'contrast',
+                            type: 'slider',
+                            max: 100,
+                            value: 100
+                        },
+                        grayscale: {
+                            label: 'grayscale',
+                            type: 'slider',
+                            max: 100
+                        },
+                        sepia: {
+                            label: 'sepia',
+                            type: 'slider',
+                            max: 100
+                        }
+                    }
                 }
             }
         },

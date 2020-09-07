@@ -33,12 +33,12 @@ function init(response) {
                     Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
                 }
 
-                Menu.main.section.filters.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
-                Menu.main.section.filters.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
-                Menu.main.section.filters.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
-                Menu.main.section.filters.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
-                Menu.main.section.filters.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
-                Menu.main.section.filters.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
+                Menu.main.section.filters.tabs.current.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
+                Menu.main.section.filters.tabs.current.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+                Menu.main.section.filters.tabs.current.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
+                Menu.main.section.filters.tabs.current.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
+                Menu.main.section.filters.tabs.current.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
+                Menu.main.section.filters.tabs.current.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
                 Menu.main.section.styles.textfield.storage_key = 'websites/' + HOSTNAME + '/styles';
 
