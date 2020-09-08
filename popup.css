@@ -10,20 +10,6 @@
 1.0 VARIABLES
 ---------------------------------------------------------------*/
 
-/*.satus.dark {
-	--satus-theme-ripple: rgba(255, 255, 255, .04);
-	--satus-theme-primary: #e8bd70;
-	--background-1: #2c2b2c;
-	--text-1: #b5b5b5;
-	--icon-1: #e8bd70;
-	--satus-theme-surface: #343334;
-	--satus-theme-on-surface: #e5e5e5;
-	--satus-theme-on-surface: #e5e5e5;
-	--background-3: #2c2b2c;
-	--text-3: #b5b5b5;
-	--icon-3: #b5b5b5;
-}*/
-
 .satus.dark,
 .satus.dark + .satus-dialog
 {
@@ -48,6 +34,10 @@
 	--satus-theme-tooltip: rgba(10, 10, 10, .7);
 
 	--satus-theme-ripple: rgba(255, 255, 255, .04);
+    
+    
+    --satus-theme-tabs-background: #292929;
+    --satus-theme-tabs-border: #333;
 }
 
 
@@ -58,6 +48,7 @@
 .satus-scrollbar__thumb::after {
 	background-color: rgba(255, 255, 255, .2);
 }
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------

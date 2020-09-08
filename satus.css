@@ -1,5 +1,131 @@
 
 /*-----------------------------------------------------------------------------
+>>> ANIMATIONS
+-----------------------------------------------------------------------------*/
+
+.satus-animation--fade-in
+{
+    animation: fadeIn 250ms;
+}
+
+.satus-animation--fade-out
+{
+    animation: fadeOut 250ms;
+}
+
+.satus-animation--fade-in-left
+{
+    animation: fadeInLeft 250ms;
+}
+
+.satus-animation--fade-in-right
+{
+    animation: fadeInRight 250ms;
+}
+
+.satus-animation--fade-out-left
+{
+    animation: fadeOutLeft 250ms;
+}
+
+.satus-animation--fade-out-right
+{
+    animation: fadeOutRight 250ms;
+}
+
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        transform: translateX(0%);
+
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        transform: translateX(0%);
+
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInLeft
+{
+    from
+    {
+        transform: translateX(-10%);
+
+        opacity: 0;
+    }
+    to
+    {
+        transform: translateX(0%);
+
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight
+{
+    from
+    {
+        transform: translateX(10%);
+
+        opacity: 0;
+    }
+    to
+    {
+        transform: translateX(0%);
+
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutLeft
+{
+    from
+    {
+        transform: translateX(0%);
+
+        opacity: 1;
+    }
+    to
+    {
+        transform: translateX(-10%);
+
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOutRight
+{
+    from
+    {
+        transform: translateX(0%);
+
+        opacity: 1;
+    }
+    to
+    {
+        transform: translateX(10%);
+
+        opacity: 0;
+    }
+}
+
+/*-----------------------------------------------------------------------------
 >>> THEMES
 -------------------------------------------------------------------------------
 1.0 Default
@@ -28,7 +154,14 @@ html
 	--satus-theme-tooltip: rgba(0, 0, 0, .4);
 
 	--satus-theme-ripple: rgba(0, 0, 0, .04);
+    
+    
+    
+    
+    --satus-theme-tabs-background: #efefef;
+    --satus-theme-tabs-border: #dfdfdf;
 }
+
 /*--------------------------------------------------------------
 >>> TABLE
 --------------------------------------------------------------*/
@@ -565,13 +698,12 @@ body[data-appearance='home'] .satus-text--title
     width: calc(100% - 16px);
     margin: 16px 8px;
 
-    color: var(--satus-theme-on-surface);
-    border: 1px solid #dfdfdf;
+    border: 1px solid var(--satus-theme-tabs-border);
     border-radius: 18px;
-    background-color: #efefef;
+    background-color: var(--satus-theme-tabs-background);
 }
 
-.satus-tabs__bar > div
+.satus-tabs__bar > div:not(.satus-tabs__bar--select)
 {
     z-index: 1;
 
@@ -580,8 +712,9 @@ body[data-appearance='home'] .satus-text--title
     height: 32px;
 
     cursor: pointer;
+    transition: opacity .25s;
 
-    color: var(--satus-theme-main-text);
+    opacity: .5;
 
     flex: 1;
     align-items: center;
@@ -590,7 +723,7 @@ body[data-appearance='home'] .satus-text--title
 
 .satus-tabs__bar > div.active
 {
-    color: var(--satus-theme-header-text);
+    opacity: 1;
 }
 
 .satus-tabs__bar--select
@@ -600,12 +733,31 @@ body[data-appearance='home'] .satus-text--title
     left: 0;
 
     width: 50%;
+    height: 32px;
 
-    transition: left .2s;
+    transition: left .25s;
 
     border-radius: 18px;
     background: var(--satus-theme-header);
     box-shadow: 1px 0 4px rgba(0,0,0,.075);
+}
+
+.satus-tabs__main
+{
+    position: relative
+}
+
+.satus-tabs__main > div
+{
+    display: inline-block;
+    width: 100%;
+}
+
+.satus-tabs__main > .old
+{
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .satus-shortcut2
@@ -852,9 +1004,6 @@ position: absolute;
 >>> MAIN
 -------------------------------------------------------------------------------
 1.0 General
-2.0 Animations
-    2.1 Opening
-    2.2 Closing
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
@@ -893,95 +1042,6 @@ position: absolute;
     background-color: var(--satus-theme-main);
 
     will-change: transform;
-}
-
-
-/*-----------------------------------------------------------------------------
-2.0 Animations
------------------------------------------------------------------------------*/
-
-.satus-main__container--fade-in-left
-{
-    animation: fadeInLeft 250ms;
-}
-
-.satus-main__container--fade-in-right
-{
-    animation: fadeInRight 250ms;
-}
-
-.satus-main__container--fade-out-left
-{
-    animation: fadeOutLeft 250ms;
-}
-
-.satus-main__container--fade-out-right
-{
-    animation: fadeOutRight 250ms;
-}
-
-@keyframes fadeInLeft
-{
-    from
-    {
-        transform: translateX(-10%);
-
-        opacity: 0;
-    }
-    to
-    {
-        transform: translateX(0%);
-
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInRight
-{
-    from
-    {
-        transform: translateX(10%);
-
-        opacity: 0;
-    }
-    to
-    {
-        transform: translateX(0%);
-
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOutLeft
-{
-    from
-    {
-        transform: translateX(0%);
-
-        opacity: 1;
-    }
-    to
-    {
-        transform: translateX(-10%);
-
-        opacity: 0;
-    }
-}
-
-@keyframes fadeOutRight
-{
-    from
-    {
-        transform: translateX(0%);
-
-        opacity: 1;
-    }
-    to
-    {
-        transform: translateX(10%);
-
-        opacity: 0;
-    }
 }
 
 /*--------------------------------------------------------------

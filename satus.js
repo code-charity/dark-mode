@@ -1258,16 +1258,44 @@ Satus.components.tabs = function(object) {
         i = 0;
 
     tabbar.className = 'satus-tabs__bar';
+    main.className = 'satus-tabs__main';
     tabbar_select.className = 'satus-tabs__bar--select';
         
     tabbar.appendChild(tabbar_select);
     
     function update() {
+        var index = Number(this.dataset.key);
+        
         tabbar_select.style.left = this.offsetLeft + 'px';
         
-        main.innerHTML = '';
+        if (this.parentNode.querySelector('.active')) {
+            var prev_index = Number(this.parentNode.querySelector('.active').dataset.key);
+            
+            this.parentNode.querySelector('.active').classList.remove('active');
+        }
         
-        satus.render(this.menu, main);
+        this.classList.add('active');
+        
+        var container = document.createElement('div');
+        
+        container.className = 'satus-tabs__tab';
+        
+        satus.render(this.menu, container);
+        
+        main.appendChild(container);
+        
+        if (main.children.length > 1) {
+            container.classList.add(index > prev_index ? 'satus-animation--fade-out-left' : 'satus-animation--fade-out-right');
+            
+            main.children[0].classList.add('old');
+            main.children[0].classList.add(index > prev_index ? 'satus-animation--fade-in-right' : 'satus-animation--fade-in-left');
+        
+            setTimeout(function() {
+                main.children[0].remove();
+
+                container.classList.remove(index > prev_index ? 'satus-animation--fade-out-left' : 'satus-animation--fade-out-right');
+            }, 250);
+        }
     }
     
 	for (var key in object) {
@@ -1561,8 +1589,8 @@ Satus.components.main = function(object) {
             component_container = document.createElement('div'),
             component_scrollbar = Satus.components.scrollbar(component_container);
 
-        container.classList.add('satus-main__container--fade-out-right');
-        component_container.className = 'satus-main__container satus-main__container--fade-in-left';
+        container.classList.add('satus-animation--fade-out-right');
+        component_container.className = 'satus-main__container satus-animation--fade-in-left';
 
         this.history.pop();
 
@@ -1598,8 +1626,8 @@ Satus.components.main = function(object) {
             component_scrollbar = Satus.components.scrollbar(component_container);
 
         if (animated !== false) {
-            container.classList.add('satus-main__container--fade-out-left');
-            component_container.className = 'satus-main__container satus-main__container--fade-in-right';
+            container.classList.add('satus-animation--fade-out-left');
+            component_container.className = 'satus-main__container satus-animation--fade-in-right';
         } else {
             component_container.className = 'satus-main__container';
         }
