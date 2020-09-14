@@ -82,6 +82,24 @@ var Menu = {
                 onrender: function() {
                     this.dataset.value = this.querySelector('input').checked;
                 }
+            },
+            
+            button_vert: {
+                type: 'button',
+                class: 'satus-dialog--vertical-menu-button',
+                icon: '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="5.25" r="0.45"/><circle cx="12" cy="12" r="0.45"/><circle cx="12" cy="18.75" r="0.45"/></svg>',
+                onClickRender: {
+                    type: 'dialog',
+                    class: 'satus-dialog--vertical-menu',
+                    
+                    websiteTextEditor: {
+                        type: 'switch',
+                        label: 'textEditorMode',
+                        onclick: function() {
+                            document.body.dataset.websiteTextEditor = this.querySelector('input').checked;
+                        }
+                    }
+                }
             }
         }
     }

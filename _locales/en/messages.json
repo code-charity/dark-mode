@@ -175,5 +175,14 @@
     },
     "websites": {
         "message": "Websites"
+    },
+    "global": {
+        "message": "Global"
+    },
+    "current": {
+        "message": "Current"
+    },
+    "textEditorMode": {
+        "message": "Text editor mode"
     }
 }

@@ -169,6 +169,7 @@ button
 4.0 Title
 5.0 Right section
 6.0 Switch
+7.0 Vertical menu
 ---------------------------------------------------------------*/
 
 /*---------------------------------------------------------------
@@ -258,7 +259,13 @@ body[data-appearance='home'] .satus-text--title
 
 .satus-switch--night-mode
 {
+    display: none;
     padding: 0;
+}
+
+body[data-appearance='home'] .satus-switch--night-mode
+{
+    display: flex;
 }
 
 .satus-switch--night-mode:hover
@@ -286,6 +293,21 @@ body[data-appearance='home'] .satus-text--title
     background: #777;
 }
 
+
+/*---------------------------------------------------------------
+7.0 VERTICAL MENU
+---------------------------------------------------------------*/
+
+.satus-dialog--vertical-menu-button
+{
+    display: none
+}
+
+body[data-appearance='websites'] .satus-dialog--vertical-menu-button
+{
+    display: block
+}
+
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -308,6 +330,21 @@ body[data-appearance='home'] .satus-text--title
 .satus-main
 {
     flex: 1;
+}
+
+.websites-textfield
+{
+    display: none
+}
+
+body[data-website-text-editor="true"] .websites-list
+{
+    display: none
+}
+
+body[data-website-text-editor="true"] .websites-textfield
+{
+    display: block
 }
 
 

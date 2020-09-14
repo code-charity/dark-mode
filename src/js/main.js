@@ -114,21 +114,54 @@ Menu.main = {
             label: 'styles',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
 
-            textfield: {
-                type: 'text-field',
-                placeholder: 'html, body { ... }',
-                style: {
-                    margin: '16px',
-                    height: 'calc(100vh - 96px)',
-                    fontFamily: 'monospace'
+            tabs: {
+                type: 'tabs',
+                
+                global: {
+                    type: 'tab',
+                    label: 'Global',
+                    
+                    textfield: {
+                        type: 'text-field',
+                        placeholder: 'html, body { ... }',
+                        style: {
+                            margin: '16px',
+                            height: 'calc(100vh - 96px)',
+                            fontFamily: 'monospace'
+                        },
+                        rows: 6,
+                        onrender: function(object) {
+                            object.storage_key = 'styles';
+                            this.dataset.storageKey = object.storage_key;
+                            this.value = Satus.storage.get(object.storage_key) || '';
+                        },
+                        oninput: function() {
+                            Satus.storage.set(this.dataset.storageKey, this.value);
+                        }
+                    }
                 },
-                rows: 6,
-                onrender: function(object) {
-                    this.dataset.storageKey = object.storage_key;
-                    this.value = Satus.storage.get(object.storage_key) || '';
-                },
-                oninput: function() {
-                    Satus.storage.set(this.dataset.storageKey, this.value);
+                current: {
+                    type: 'tab',
+                    label: 'Current',
+                    
+                    textfield: {
+                        type: 'text-field',
+                        placeholder: 'html, body { ... }',
+                        style: {
+                            margin: '16px',
+                            height: 'calc(100vh - 96px)',
+                            fontFamily: 'monospace'
+                        },
+                        rows: 6,
+                        onrender: function(object) {
+                            object.storage_key = 'websites/' + HOSTNAME + '/styles';
+                            this.dataset.storageKey = object.storage_key;
+                            this.value = Satus.storage.get(object.storage_key) || '';
+                        },
+                        oninput: function() {
+                            Satus.storage.set(this.dataset.storageKey, this.value);
+                        }
+                    }
                 }
             }
         },
@@ -138,8 +171,39 @@ Menu.main = {
             appearanceKey: 'websites',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"></svg>',
 
-            section: {
-                type: 'section'
+            section: {},
+            
+            textfield: {
+                type: 'text-field',
+                class: 'websites-textfield',
+                style: {
+                    margin: '16px',
+                    height: 'calc(100vh - 96px)',
+                    fontFamily: 'monospace'
+                },
+                rows: 6,
+                spellcheck: false,
+                oninput: function() {
+                    var websites = {},
+                        regex = /^\s*(\S+).*:\s*(\S+)[\s\n]*$/gm,
+                        match,
+                        url;
+                        
+                    while (match = regex.exec(this.value)) {
+                        if (/invert_colors|bluelight|brightness|contrast|grayscale|sepia/.test(match[1]) === true) {
+                            websites[url].filters[match[1]] = match[1] === 'invert_colors' ? match[2] === 'false' ? false : true : Number(match[2]);
+                        } else {
+                            url = match[1];
+                            
+                            websites[url] = {
+                                enabled: match[2] === 'false' ? false : true,
+                                filters: {}
+                            };
+                        }
+                    }
+                    
+                    satus.storage.set('websites', websites);
+                }
             }
         },
         schedule: {

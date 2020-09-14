@@ -1,4 +1,5 @@
-var settings = {};
+var settings = {},
+    current_website;
 
 function getFilters(settings) {
     var string = '',
@@ -12,7 +13,7 @@ function getFilters(settings) {
         bluelight.style.position = 'absolute';
         bluelight.style.visibility = 'hidden';
         bluelight.style.pointerEvents = 'none';
-        bluelight.innerHTML = '<svg version=1.1 xmlns=//www.w3.org/2000/svg viewBox="0 0 1 1"><filter id="bluelight-filter"  color-interpolation-filters="sRGB"><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
+        bluelight.innerHTML = '<svg version=1.1 viewBox="0 0 1 1"><filter id="bluelight-filter"  color-interpolation-filters="sRGB"><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
 
         document.documentElement.appendChild(bluelight);
 
@@ -22,7 +23,7 @@ function getFilters(settings) {
     }
 
     if (settings.invert_colors === true || settings.invert_colors === undefined) {
-        string += 'html,body{background:#000 0 0}';
+        string += 'html,body{background:#000 0 0 !important}';
         string += 'body > *,body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
     }
 
@@ -87,6 +88,16 @@ function update() {
     } else if (schedule_time.to < schedule_time.from && current_time < schedule_time.to) {
         schedule_time.from = 0;
     }
+    
+    if (settings.websites) {
+        for (var key in settings.websites) {
+            try {
+                if (location.hostname.indexOf(key) !== -1 || new RegExp(key).test(location.href)) {
+                    current_website = settings.websites[key];
+                }
+            } catch (err) {}
+        }
+    }
 
     for (var key in settings.websites) {
         if (settings.websites[key].enabled === true) {
@@ -97,8 +108,8 @@ function update() {
     
     var sett = {};
     
-    if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].filters) {
-        sett = settings.websites[location.hostname].filters;
+    if (settings.websites && current_website && current_website.filters) {
+        sett = current_website.filters;
     }
     
     if (sett.invert_colors === undefined) {
@@ -136,12 +147,18 @@ function update() {
     ) {
         injectStyle(getFilters(sett), 'night-mode-extension-filters', settings.schedule);
 
-        if (settings.websites && settings.websites[location.hostname] && settings.websites[location.hostname].styles) {
-            injectStyle(settings.websites[location.hostname].styles, 'night-mode-extension-styles', settings.schedule);
+        injectStyle(settings.styles, 'night-mode-extension-global-styles', settings.schedule);
+        
+        if (settings.websites && current_website && current_website.styles) {
+            injectStyle(current_website.styles, 'night-mode-extension-styles', settings.schedule);
         }
     } else {
         if (document.querySelector('#night-mode-extension-filters')) {
             document.querySelector('#night-mode-extension-filters').remove();
+        }
+
+        if (document.querySelector('#night-mode-extension-global-styles')) {
+            document.querySelector('#night-mode-extension-global-styles').remove();
         }
 
         if (document.querySelector('#night-mode-extension-styles')) {
@@ -159,6 +176,10 @@ chrome.storage.local.get(function(items) {
 chrome.storage.onChanged.addListener(function(changes) {
     if (document.querySelector('#night-mode-extension-filters')) {
         document.querySelector('#night-mode-extension-filters').remove();
+    }
+
+    if (document.querySelector('#night-mode-extension-global-styles')) {
+        document.querySelector('#night-mode-extension-global-styles').remove();
     }
 
     if (document.querySelector('#night-mode-extension-styles')) {

@@ -22,6 +22,21 @@
     flex: 1;
 }
 
+.websites-textfield
+{
+    display: none
+}
+
+body[data-website-text-editor="true"] .websites-list
+{
+    display: none
+}
+
+body[data-website-text-editor="true"] .websites-textfield
+{
+    display: block
+}
+
 
 /*---------------------------------------------------------------
 2.0 SECTION
