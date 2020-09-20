@@ -20,17 +20,17 @@ function getFilters(settings) {
         html_filter += 'url(#bluelight-filter)';
         
         if (settings.invert_colors === true || settings.invert_colors === undefined) {
-            string += 'body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+            string += 'html,body{background:#000 0 0 !important}body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
         }
     } else if (document.getElementById('night-mode-bluelight')) {
         document.getElementById('night-mode-bluelight').remove();
     }
 
     if (settings.invert_colors === true || settings.invert_colors === undefined) {
-        string += 'html,body{background:#000 0 0 !important}';
         string += 'body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
         
         if (!(settings.bluelight > 0) && (settings.invert_colors === true || settings.invert_colors === undefined)) {
+            string += 'html,body{background:#fff 0 0 !important}';
             html_filter += ' invert(1)';
         }
     }
