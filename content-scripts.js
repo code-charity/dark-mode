@@ -19,9 +19,13 @@ function getFilters(settings) {
 
         html_filter += 'url(#bluelight-filter)';
         
-        string += 'body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        if (settings.invert_colors === true || settings.invert_colors === undefined) {
+            string += 'body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        }
     } else if (document.getElementById('night-mode-bluelight')) {
-        string += 'html{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        if (settings.invert_colors === true || settings.invert_colors === undefined) {
+            string += 'html{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        }
         
         document.getElementById('night-mode-bluelight').remove();
     }
