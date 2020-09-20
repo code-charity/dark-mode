@@ -18,13 +18,17 @@ function getFilters(settings) {
         document.documentElement.appendChild(bluelight);
 
         html_filter += 'url(#bluelight-filter)';
+        
+        string += 'body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
     } else if (document.getElementById('night-mode-bluelight')) {
+        string += 'html{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        
         document.getElementById('night-mode-bluelight').remove();
     }
 
     if (settings.invert_colors === true || settings.invert_colors === undefined) {
         string += 'html,body{background:#000 0 0 !important}';
-        string += 'body > *,body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+        string += 'body [style*="url("],body [style*=background-position],body canvas,body iframe,body img:not([src*="/ic_"]):not([src*=_ic_]):not([class*=icon]),body pre,body video{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
     }
 
     if (typeof settings.brightness === 'number') {
