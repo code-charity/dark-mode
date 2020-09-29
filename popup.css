@@ -454,20 +454,6 @@ body[data-website-text-editor="true"] .websites-textfield
 
 
 /*---------------------------------------------------------------
-4.0 FOLDER
----------------------------------------------------------------*/
-
-.satus-main .satus-folder svg
-{
-    width: 20px;
-    height: 20px;
-    margin: 0 14px 0 0;
-
-    stroke: none;
-}
-
-
-/*---------------------------------------------------------------
 5.0 SWITCH
 ---------------------------------------------------------------*/
 
@@ -540,27 +526,6 @@ body[data-website-text-editor="true"] .websites-textfield
     right: 0;
 
     width: auto;
-}
-
-
-/*---------------------------------------------------------------
-8.0 LANGUAGE
----------------------------------------------------------------*/
-
-.satus-select[data-storage-key=language]
-{
-    padding-left: 50px;
-}
-
-.satus-select[data-storage-key=language] svg
-{
-    position: absolute;
-    left: 16px;
-
-    width: 20px;
-    height: 20px;
-
-    stroke: none;
 }
 
 
