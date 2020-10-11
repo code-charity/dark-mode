@@ -1,6 +1,6 @@
 {
     "about": {
-        "message": "О Night Mode"
+        "message": "О Dark Mode"
     },
     "accept": {
         "message": "Принять"
@@ -29,6 +29,9 @@
     "cores": {
         "message": "Ядра"
     },
+    "current": {
+        "message": "Текущий"
+    },
     "dateAndTime": {
         "message": "Дата и время"
     },
@@ -56,6 +59,9 @@
     "gitHub": {
         "message": "GitHub"
     },
+    "global": {
+        "message": "Общие"
+    },
     "gpu": {
         "message": "GPU"
     },
@@ -79,9 +85,6 @@
     },
     "name": {
         "message": "Имя"
-    },
-    "notAllowedtoAccessThisPage": {
-        "message": "Нет доступа к этой странице."
     },
     "nightMode": {
         "message": "Night mode"
@@ -133,6 +136,9 @@
     },
     "settings": {
         "message": "Настройки"
+    },
+    "somethingWentWrongPleaseTryReloadTheWebsite": {
+        "message": "Что-то пошло не так. Попробуйте перезагрузить веб-сайт."
     },
     "styles": {
         "message": "Стили"

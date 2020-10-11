@@ -29,6 +29,9 @@
     "cores": {
         "message": "Cores"
     },
+    "current": {
+        "message": "Current"
+    },
     "dateAndTime": {
         "message": "Date & time"
     },
@@ -56,6 +59,9 @@
     "general": {
         "message": "General"
     },
+    "global": {
+        "message": "Global"
+    },
     "gpu": {
         "message": "GPU"
     },
@@ -76,9 +82,6 @@
     },
     "name": {
         "message": "Name"
-    },
-    "notAllowedtoAccessThisPage": {
-        "message": "Not allowed to access this page."
     },
     "ok": {
         "message": "OK"
@@ -125,6 +128,9 @@
     "settings": {
         "message": "Settings"
     },
+    "somethingWentWrongPleaseTryReloadTheWebsite": {
+        "message": "Something went wrong. Please try reload the website."
+    },
     "styles": {
         "message": "Styles"
     },
@@ -136,6 +142,9 @@
     },
     "systemPeference": {
         "message": "System preference"
+    },
+    "textEditorMode": {
+        "message": "Text editor mode"
     },
     "theListIsEmpty": {
         "message": "The list is empty"
@@ -175,14 +184,5 @@
     },
     "websites": {
         "message": "Websites"
-    },
-    "global": {
-        "message": "Global"
-    },
-    "current": {
-        "message": "Current"
-    },
-    "textEditorMode": {
-        "message": "Text editor mode"
     }
 }

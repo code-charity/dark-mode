@@ -27,7 +27,7 @@ Menu.main = {
                 
                 global: {
                     type: 'tab',
-                    label: 'Global',
+                    label: 'global',
                     
                     section: {
                         type: 'section',
@@ -68,7 +68,7 @@ Menu.main = {
                 },
                 current: {
                     type: 'tab',
-                    label: 'Current',
+                    label: 'current',
                     
                     section: {
                         type: 'section',
@@ -119,7 +119,7 @@ Menu.main = {
                 
                 global: {
                     type: 'tab',
-                    label: 'Global',
+                    label: 'global',
                     
                     textfield: {
                         type: 'text-field',
@@ -133,16 +133,16 @@ Menu.main = {
                         onrender: function(object) {
                             object.storage_key = 'styles';
                             this.dataset.storageKey = object.storage_key;
-                            this.value = Satus.storage.get(object.storage_key) || '';
+                            this.value = satus.storage.get(object.storage_key) || '';
                         },
                         oninput: function() {
-                            Satus.storage.set(this.dataset.storageKey, this.value);
+                            satus.storage.set(this.dataset.storageKey, this.value);
                         }
                     }
                 },
                 current: {
                     type: 'tab',
-                    label: 'Current',
+                    label: 'current',
                     
                     textfield: {
                         type: 'text-field',
@@ -156,10 +156,10 @@ Menu.main = {
                         onrender: function(object) {
                             object.storage_key = 'websites/' + HOSTNAME + '/styles';
                             this.dataset.storageKey = object.storage_key;
-                            this.value = Satus.storage.get(object.storage_key) || '';
+                            this.value = satus.storage.get(object.storage_key) || '';
                         },
                         oninput: function() {
-                            Satus.storage.set(this.dataset.storageKey, this.value);
+                            satus.storage.set(this.dataset.storageKey, this.value);
                         }
                     }
                 }
@@ -398,16 +398,14 @@ Menu.main = {
                     label: 'language',
                     type: 'select',
                     before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M12.9 15l-2.6-2.4c1.8-2 3-4.2 3.8-6.6H17V4h-7V2H8v2H1v2h11.2c-.7 2-1.8 3.8-3.2 5.3-1-1-1.7-2.1-2.3-3.3h-2c.7 1.6 1.7 3.2 3 4.6l-5.1 5L4 19l5-5 3.1 3.1.8-2zm5.6-5h-2L12 22h2l1.1-3H20l1.1 3h2l-4.5-12zm-2.6 7l1.6-4.3 1.6 4.3H16z" /></svg>',
-                    onchange: function(name, value) {
-                        Satus.memory.set('locale', {});
+                    onchange: function() {
+                        setTimeout(function() {
+                            satus.locale.import(satus.storage.get('language'), function() {
+                                document.querySelector('.satus-main__container .satus-scrollbar__content').innerHTML = '';
 
-                        Satus.locale(function() {
-                            document.querySelector('.satus-main__container').innerHTML = '';
-
-                            document.querySelector('.satus-header__title').innerText = Satus.locale.getMessage('languages');
-                            document.querySelector('#search').placeholder = Satus.locale.getMessage('search');
-
-                            Satus.render(document.querySelector('.satus-main__container'), Menu.main.section.settings.section.languages);
+                                document.querySelector('.satus-text--title').innerText = satus.locale.getMessage('languages');
+                                satus.render(Menu.main.section.settings.section, document.querySelector('.satus-main__container .satus-scrollbar__content'));
+                            });
                         });
                     },
                     options: [{
@@ -442,10 +440,10 @@ Menu.main = {
                                             var data = JSON.parse(this.result);
 
                                             for (var i in data) {
-                                                Satus.storage.set(i, data[i]);
+                                                satus.storage.set(i, data[i]);
                                             }
 
-                                            Satus.render({
+                                            satus.render({
                                                 type: 'dialog',
                                                 class: 'satus-dialog--confirm',
 
@@ -503,7 +501,7 @@ Menu.main = {
                                 chrome.runtime.sendMessage({
                                     name: 'download',
                                     filename: 'night-mode-settings',
-                                    value: Satus.storage
+                                    value: satus.storage
                                 });
                             }
                         },
@@ -512,7 +510,7 @@ Menu.main = {
                             label: 'resetAllSettings',
 
                             onclick: function() {
-                                Satus.render({
+                                satus.render({
                                     type: 'dialog',
                                     class: 'satus-dialog--confirm',
 
@@ -543,7 +541,7 @@ Menu.main = {
                                             onclick: function() {
                                                 var scrim = document.querySelectorAll('.satus-dialog__scrim');
 
-                                                Satus.storage.clear();
+                                                satus.storage.clear();
 
                                                 scrim[scrim.length - 1].click();
                                             }
@@ -581,7 +579,7 @@ Menu.main = {
                         onrender: function() {
                             var component = this,
                                 manifest = chrome.runtime.getManifest(),
-                                user = Satus.modules.user(),
+                                user = satus.modules.user(),
                                 object = {
                                     extension_section: {
                                         type: 'section',
@@ -693,7 +691,7 @@ Menu.main = {
                                 };
 
                             setTimeout(function() {
-                                Satus.render(object, component.parentNode);
+                                satus.render(object, component.parentNode);
 
                                 component.remove();
                             });

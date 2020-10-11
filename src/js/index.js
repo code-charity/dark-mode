@@ -20,7 +20,7 @@ function updateWebsites() {
 
     document.body.dataset.websiteTextEditor = satus.storage.get('websiteTextEditor');
     
-    var websites = Satus.storage.get('websites') || {},
+    var websites = satus.storage.get('websites') || {},
         text = '',
         count = 0;
         
@@ -116,10 +116,10 @@ function updateWebsites() {
                                 storage_key: 'websites/' + key + '/styles',
                                 onrender: function(object) {
                                     this.dataset.storageKey = object.storage_key;
-                                    this.value = Satus.storage.get(object.storage_key) || '';
+                                    this.value = satus.storage.get(object.storage_key) || '';
                                 },
                                 oninput: function() {
-                                    Satus.storage.set(this.dataset.storageKey, this.value);
+                                    satus.storage.set(this.dataset.storageKey, this.value);
                                 }
                             }
                         }
@@ -147,7 +147,7 @@ function updateWebsites() {
         Menu.main.section.websites.textfield.value = text;
     }
 
-    Satus.render(Menu, document.querySelector('.satus__wrapper'));
+    satus.render(Menu, document.querySelector('.satus__wrapper'));
 }
 
 function init(response) {
@@ -155,21 +155,24 @@ function init(response) {
 
     HOSTNAME = TAB_URL.hostname || '';
 
-    Satus.storage.import(function() {
-        var language = Satus.storage.get('language') || 'en';
+    satus.storage.import(function() {
+        var language = satus.storage.get('language') || 'en';
         
-        if (!Satus.isset(Satus.storage.get('mode')) || Satus.storage.get('mode') === true) {
+        if (!satus.isset(satus.storage.get('mode')) || satus.storage.get('mode') === true) {
             document.querySelector('.satus').classList.add('dark');
         }
 
-        Satus.locale.import('_locales/' + language + '/messages.json', function() {
-            Satus.modules.updateStorageKeys(Menu, function() {
+        satus.locale.import(language, function() {
+            satus.modules.updateStorageKeys(Menu, function() {
                 if (HOSTNAME === '') {
                     Menu.main.toolbar.enable.type = 'text';
                     delete Menu.main.toolbar.enable.onrender;
                     delete Menu.main.toolbar.enable.onclick;
-                    Menu.main.toolbar.enable.label = 'notAllowedtoAccessThisPage';
+                    Menu.main.toolbar.enable.label = 'somethingWentWrongPleaseTryReloadTheWebsite';
                     Menu.main.toolbar.enable.value = '';
+                    Menu.main.toolbar.enable.style = {
+                        lineHeight: '20px'
+                    };
                 } else {
                     Menu.main.toolbar.enable.label = HOSTNAME;
                     Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
