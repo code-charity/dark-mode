@@ -169,6 +169,11 @@
 1.0 Default
 ---------------------------------------------------------------*/
 
+html, body
+{
+    margin: 0
+}
+
 html
 {
 	--satus-theme-primary: #f6b465;
@@ -1138,8 +1143,6 @@ body[data-appearance='home'] .satus-text--title
 .satus-scrollbar__content
 {
     display: inline-block;
-    
-    min-height: 100%;
 }
 
 .satus-scrollbar__thumb

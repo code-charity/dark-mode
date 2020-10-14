@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/victor-savinov/dark-mode">
-        <img src="https://github.com/victor-savinov/dark-mode/blob/master/assets/icons/128.png">
+        <img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png">
     </a>
 </p>
 

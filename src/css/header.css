@@ -126,9 +126,9 @@ body[data-appearance='home'] .satus-switch--night-mode
     margin: 0 4px;
 }
 
-.satus-switch--night-mode  .satus-switch__input:checked + .satus-switch__track
+.satus-switch--night-mode .satus-switch__track
 {
-    background: #777;
+    background: #777 !important;
 }
 
 
