@@ -1,7 +1,6 @@
 /*-----------------------------------------------------------------------------
->>> «HEADER» TEMPLATE
+>>> HEADER
 -----------------------------------------------------------------------------*/
-
 var HOSTNAME;
 
 var Menu = {
@@ -75,7 +74,7 @@ var Menu = {
                     this.dataset.value = this.querySelector('input').checked;
                 }
             },
-            
+
             button_vert: {
                 type: 'button',
                 class: 'satus-dialog--vertical-menu-button',
@@ -83,7 +82,7 @@ var Menu = {
                 onclick: {
                     type: 'dialog',
                     class: 'satus-dialog--vertical-menu',
-                    
+
                     websiteTextEditor: {
                         type: 'switch',
                         label: 'textEditorMode',

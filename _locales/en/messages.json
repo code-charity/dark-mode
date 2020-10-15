@@ -29,9 +29,6 @@
     "cores": {
         "message": "Cores"
     },
-    "current": {
-        "message": "Current"
-    },
     "dateAndTime": {
         "message": "Date & time"
     },
@@ -67,6 +64,9 @@
     },
     "grayscale": {
         "message": "Grayscale"
+    },
+    "hideMadeWithLove": {
+        "message": "Hide \"Made with ❤...\""
     },
     "importSettings": {
         "message": "Import settings"
@@ -128,9 +128,6 @@
     "settings": {
         "message": "Settings"
     },
-    "somethingWentWrongPleaseTryReloadTheWebsite": {
-        "message": "Something went wrong. Please try reload the website."
-    },
     "styles": {
         "message": "Styles"
     },
@@ -151,6 +148,9 @@
     },
     "theme": {
         "message": "Theme"
+    },
+    "thePageHOSTNAMEisProtectedByBrowser": {
+        "message": "The page HOSTNAME is protected by browser."
     },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"

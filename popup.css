@@ -564,6 +564,11 @@ body[data-website-text-editor="true"] .websites-textfield
     justify-content: center;
 }
 
+html[data-hide-made-with-love=true] .made-with-love
+{
+    display: none
+}
+
 .made-with-love svg
 {
     position: relative;

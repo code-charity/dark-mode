@@ -4,7 +4,8 @@ var settings = {},
 function getFilters(settings) {
     var string = '',
         html_filter = '',
-        body_filter = '';
+        body_filter = '',
+        body_child_filter = '';
 
     if (settings.bluelight > 0) {
         var bluelight = document.getElementById('night-mode-bluelight') || document.createElement('div');
@@ -13,14 +14,32 @@ function getFilters(settings) {
         bluelight.style.position = 'absolute';
         bluelight.style.visibility = 'hidden';
         bluelight.style.pointerEvents = 'none';
-        bluelight.innerHTML = '<svg version=1.1 viewBox="0 0 1 1"><filter id="bluelight-filter"  color-interpolation-filters="sRGB"><feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
+        bluelight.innerHTML = '<svg version="1.1" viewBox="0 0 1 1"><filter id="bluelight-filter" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
 
         document.documentElement.appendChild(bluelight);
 
         html_filter += 'url(#bluelight-filter)';
         
         if (settings.invert_colors === true || settings.invert_colors === undefined) {
-            string += 'html,body{background:#000 0 0 !important}body > *{-webkit-filter:invert(1)!important;filter:invert(1)!important}';
+            string += 'html,body{background:#000 0 0 !important}';
+            
+            body_child_filter += 'invert(1)';
+        }
+        
+        if (typeof settings.brightness === 'number' && settings.brightness < 100) {
+            body_child_filter += ' brightness(' + settings.brightness + '%)';
+        }
+
+        if (typeof settings.contrast === 'number' && settings.contrast < 100) {
+            body_child_filter += ' contrast(' + settings.contrast + '%)';
+        }
+
+        if (typeof settings.grayscale === 'number' && settings.grayscale > 0) {
+            body_child_filter += ' grayscale(' + settings.grayscale + '%)';
+        }
+
+        if (typeof settings.sepia === 'number' && settings.sepia > 0) {
+            body_child_filter += ' sepia(' + settings.sepia + '%)';
         }
     } else if (document.getElementById('night-mode-bluelight')) {
         document.getElementById('night-mode-bluelight').remove();
@@ -34,29 +53,36 @@ function getFilters(settings) {
             html_filter += ' invert(1)';
         }
     }
+    
+    if (!(settings.bluelight > 0)) {
+        if (typeof settings.brightness === 'number' && settings.brightness < 100) {
+            html_filter += ' brightness(' + settings.brightness + '%)';
+        }
 
-    if (typeof settings.brightness === 'number') {
-        body_filter += ' brightness(' + settings.brightness + '%)';
+        if (typeof settings.contrast === 'number' && settings.contrast < 100) {
+            html_filter += ' contrast(' + settings.contrast + '%)';
+        }
+
+        if (typeof settings.grayscale === 'number' && settings.grayscale > 0) {
+            html_filter += ' grayscale(' + settings.grayscale + '%)';
+        }
+
+        if (typeof settings.sepia === 'number' && settings.sepia > 0) {
+            html_filter += ' sepia(' + settings.sepia + '%)';
+        }
     }
-
-    if (typeof settings.contrast === 'number') {
-        body_filter += ' contrast(' + settings.contrast + '%)';
+    
+    if (html_filter.length > 0) {
+        string += 'html{-webkit-filter:' + html_filter + ';filter:' + html_filter + '}';
     }
-
-    if (typeof settings.grayscale === 'number') {
-        body_filter += ' grayscale(' + settings.grayscale + '%)';
+    
+    if (body_filter.length > 0) {
+        string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}';
     }
-
-    if (typeof settings.sepia === 'number') {
-        body_filter += ' sepia(' + settings.sepia + '%)';
+    
+    if (body_child_filter.length > 0) {
+        string += 'body > *{-webkit-filter:' + body_child_filter + ';filter:' + body_child_filter + '}';
     }
-
-    if (typeof settings.saturate === 'number') {
-        body_filter += ' saturate(' + settings.saturate + '%)';
-    }
-
-    string += 'html{-webkit-filter:' + html_filter + ';filter:' + html_filter + '}';
-    string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}';
 
     return string;
 }
@@ -199,10 +225,4 @@ chrome.storage.onChanged.addListener(function(changes) {
     }
 
     update();
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (window.self === window.top && request === 'requestTabUrl') {
-        sendResponse(location.href);
-    }
 });

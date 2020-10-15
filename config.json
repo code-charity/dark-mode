@@ -1,6 +1,5 @@
 {
     "popup.js": [
-        "src/js/function.js",
         "src/js/header.js",
         "src/js/main.js",
         "src/js/index.js"

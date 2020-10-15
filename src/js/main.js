@@ -2,7 +2,20 @@ Menu.main = {
     type: 'main',
     appearanceKey: 'home',
     on: {
-        change: update
+        change: function(container) {
+            var self = (this === window ? document.querySelector('.satus-main') : this),
+                item = self.history[self.history.length - 1],
+                id = item.appearanceKey;
+
+            if (!Satus.isset(container)) {
+                container = document.querySelector('.satus-main__container');
+            }
+
+            document.querySelector('.satus-text--title').innerText = Satus.locale.getMessage(this.history[this.history.length - 1].label) || 'Dark Mode';
+
+            document.body.dataset.appearance = id;
+            container.dataset.appearance = id;
+        }
     },
 
     toolbar: {
@@ -24,11 +37,11 @@ Menu.main = {
 
             tabs: {
                 type: 'tabs',
-                
+
                 global: {
                     type: 'tab',
                     label: 'global',
-                    
+
                     section: {
                         type: 'section',
 
@@ -68,8 +81,8 @@ Menu.main = {
                 },
                 current: {
                     type: 'tab',
-                    label: 'current',
-                    
+                    label: '',
+
                     section: {
                         type: 'section',
 
@@ -116,11 +129,11 @@ Menu.main = {
 
             tabs: {
                 type: 'tabs',
-                
+
                 global: {
                     type: 'tab',
                     label: 'global',
-                    
+
                     textfield: {
                         type: 'text-field',
                         placeholder: 'html, body { ... }',
@@ -142,8 +155,8 @@ Menu.main = {
                 },
                 current: {
                     type: 'tab',
-                    label: 'current',
-                    
+                    label: '',
+
                     textfield: {
                         type: 'text-field',
                         placeholder: 'html, body { ... }',
@@ -172,7 +185,7 @@ Menu.main = {
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"></svg>',
 
             section: {},
-            
+
             textfield: {
                 type: 'text-field',
                 class: 'websites-textfield',
@@ -188,20 +201,20 @@ Menu.main = {
                         regex = /^\s*(\S+).*:\s*(\S+)[\s\n]*$/gm,
                         match,
                         url;
-                        
+
                     while (match = regex.exec(this.value)) {
                         if (/invert_colors|bluelight|brightness|contrast|grayscale|sepia/.test(match[1]) === true) {
                             websites[url].filters[match[1]] = match[1] === 'invert_colors' ? match[2] === 'false' ? false : true : Number(match[2]);
                         } else {
                             url = match[1];
-                            
+
                             websites[url] = {
                                 enabled: match[2] === 'false' ? false : true,
                                 filters: {}
                             };
                         }
                     }
-                    
+
                     satus.storage.set('websites', websites);
                 }
             }
@@ -390,6 +403,18 @@ Menu.main = {
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M19.4 13l.1-1v-1l2-1.6c.2-.2.3-.5.2-.7l-2-3.4c-.2-.3-.4-.3-.6-.3l-2.5 1-1.7-1-.4-2.6c0-.2-.3-.4-.5-.4h-4c-.3 0-.5.2-.5.4l-.4 2.7c-.6.2-1.1.6-1.7 1L5 5c-.2-.1-.4 0-.6.2l-2 3.4c0 .3 0 .5.2.7l2 1.6a8 8 0 0 0 0 2l-2 1.6c-.2.2-.3.5-.2.7l2 3.4c.2.3.4.3.6.3l2.5-1 1.7 1 .4 2.6c0 .2.2.4.5.4h4c.3 0 .5-.2.5-.4l.4-2.7c.6-.2 1.1-.6 1.7-1l2.5 1c.2.1.4 0 .6-.2l2-3.4c0-.2 0-.5-.2-.7l-2-1.6zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"></svg>',
             label: 'settings',
             parent: '.satus-main__container',
+            
+            section_01: {
+                type: 'section',
+                
+                hide_made_with_love: {
+                    type: 'switch',
+                    label: 'hideMadeWithLove',
+                    onchange: function() {
+                        document.documentElement.dataset.hideMadeWithLove = satus.storage.get('hide_made_with_love');
+                    }
+                }
+            },
 
             section: {
                 type: 'section',

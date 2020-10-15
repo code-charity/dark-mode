@@ -7,10 +7,10 @@
 /*---------------------------------------------------------------
 1.0 
 ---------------------------------------------------------------*/
-
 var HOSTNAME;
 
 function updateWebsites() {
+    Menu.main.section.filters.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
     Menu.main.section.filters.tabs.current.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
     Menu.main.section.filters.tabs.current.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
     Menu.main.section.filters.tabs.current.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
@@ -18,12 +18,14 @@ function updateWebsites() {
     Menu.main.section.filters.tabs.current.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
     Menu.main.section.filters.tabs.current.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
-    document.body.dataset.websiteTextEditor = satus.storage.get('websiteTextEditor');
+    Menu.main.section.styles.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
     
+    document.body.dataset.websiteTextEditor = satus.storage.get('websiteTextEditor');
+
     var websites = satus.storage.get('websites') || {},
         text = '',
         count = 0;
-        
+
     Menu.main.section.websites.section = {
         type: 'section',
         class: 'websites-list'
@@ -32,14 +34,14 @@ function updateWebsites() {
     for (var key in websites) {
         if (key !== '') {
             count++;
-            
+
             text += key + ': ' + (satus.storage.get('websites/' + key + '/enabled') || true) +
-                    '\n    invert_colors: ' + (satus.storage.get('websites/' + key + '/filters/invert_colors') || true) +
-                    '\n    bluelight: ' + (satus.storage.get('websites/' + key + '/filters/bluelight') || 0) +
-                    '\n    brightness: ' + (satus.storage.get('websites/' + key + '/filters/brightness') || 100) +
-                    '\n    contrast: ' + (satus.storage.get('websites/' + key + '/filters/contrast') || 100) +
-                    '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) +
-                    '\n    sepia: ' + (satus.storage.get('websites/' + key + '/filters/sepia') || 0) + '\n\n';
+                '\n    invert_colors: ' + (satus.storage.get('websites/' + key + '/filters/invert_colors') || true) +
+                '\n    bluelight: ' + (satus.storage.get('websites/' + key + '/filters/bluelight') || 0) +
+                '\n    brightness: ' + (satus.storage.get('websites/' + key + '/filters/brightness') || 100) +
+                '\n    contrast: ' + (satus.storage.get('websites/' + key + '/filters/contrast') || 100) +
+                '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) +
+                '\n    sepia: ' + (satus.storage.get('websites/' + key + '/filters/sepia') || 0) + '\n\n';
 
             Menu.main.section.websites.section[key] = {
                 type: 'section',
@@ -150,25 +152,27 @@ function updateWebsites() {
     satus.render(Menu, document.querySelector('.satus__wrapper'));
 }
 
-function init(response) {
-    var TAB_URL = response ? new URL(response) : '';
+function init(url, access) {
+    url = new URL(url);
 
-    HOSTNAME = TAB_URL.hostname || '';
+    HOSTNAME = url.hostname;
 
     satus.storage.import(function() {
         var language = satus.storage.get('language') || 'en';
-        
+
         if (!satus.isset(satus.storage.get('mode')) || satus.storage.get('mode') === true) {
             document.querySelector('.satus').classList.add('dark');
         }
+        
+        document.documentElement.dataset.hideMadeWithLove = satus.storage.get('hide_made_with_love');
 
         satus.locale.import(language, function() {
             satus.modules.updateStorageKeys(Menu, function() {
-                if (HOSTNAME === '') {
+                if (access === false) {
                     Menu.main.toolbar.enable.type = 'text';
                     delete Menu.main.toolbar.enable.onrender;
                     delete Menu.main.toolbar.enable.onclick;
-                    Menu.main.toolbar.enable.label = 'somethingWentWrongPleaseTryReloadTheWebsite';
+                    Menu.main.toolbar.enable.label = satus.locale.getMessage('thePageHOSTNAMEisProtectedByBrowser').replace('HOSTNAME', '"' + HOSTNAME + '"');
                     Menu.main.toolbar.enable.value = '';
                     Menu.main.toolbar.enable.style = {
                         lineHeight: '20px'
@@ -188,9 +192,29 @@ chrome.tabs.query({
     currentWindow: true,
     active: true
 }, function(tabs) {
-    if (tabs[0].hasOwnProperty('url')) {
-        chrome.tabs.sendMessage(tabs[0].id, 'requestTabUrl', init);
+    var tab = tabs[0],
+        url = tab.url;
+
+    if (url.includes('?')) {
+        url = url.substring(0, url.lastIndexOf('?'));
+    }
+    if (url.includes('#')) {
+        url = url.substring(0, url.lastIndexOf('#'));
+    }
+
+    if (
+        !url.startsWith('about:') &&
+        !url.startsWith('chrome') &&
+        !url.startsWith('edge') &&
+        !url.startsWith('https://addons.mozilla.org') &&
+        !url.startsWith('https://chrome.google.com/webstore') &&
+        !url.startsWith('https://microsoftedge.microsoft.com/addons') &&
+        !url.startsWith('moz') &&
+        !url.startsWith('view-source:') &&
+        !url.endsWith('.pdf')
+    ) {
+        init(url, true);
     } else {
-        init();
+        init(url, false);
     }
 });

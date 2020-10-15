@@ -29,9 +29,6 @@
     "cores": {
         "message": "Ядра"
     },
-    "current": {
-        "message": "Текущий"
-    },
     "dateAndTime": {
         "message": "Дата и время"
     },
@@ -67,6 +64,9 @@
     },
     "grayscale": {
         "message": "Насыщенность"
+    },
+    "hideMadeWithLove": {
+        "message": "Скрыть \"Made with ❤...\""
     },
     "importSettings": {
         "message": "Импорт настроек"
@@ -137,9 +137,6 @@
     "settings": {
         "message": "Настройки"
     },
-    "somethingWentWrongPleaseTryReloadTheWebsite": {
-        "message": "Что-то пошло не так. Попробуйте перезагрузить веб-сайт."
-    },
     "styles": {
         "message": "Стили"
     },
@@ -154,6 +151,9 @@
     },
     "theListIsEmpty": {
         "message": "Список пуст"
+    },
+    "thePageHOSTNAMEisProtectedByBrowser": {
+        "message": "Страница HOSTNAME защищна браузером."
     },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
