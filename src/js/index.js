@@ -11,15 +11,15 @@ var HOSTNAME;
 
 function updateWebsites() {
     Menu.main.section.filters.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
+    Menu.main.section.filters.tabs.current.section.use_global.storage_key = 'websites/' + HOSTNAME + '/filters/use_global';
     Menu.main.section.filters.tabs.current.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
-    Menu.main.section.filters.tabs.current.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+    Menu.main.section.filters.tabs.current.section.bluelight.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
     Menu.main.section.filters.tabs.current.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
     Menu.main.section.filters.tabs.current.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
     Menu.main.section.filters.tabs.current.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
-    Menu.main.section.filters.tabs.current.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
     Menu.main.section.styles.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
-    
+
     document.body.dataset.websiteTextEditor = satus.storage.get('websiteTextEditor');
 
     var websites = satus.storage.get('websites') || {},
@@ -28,6 +28,7 @@ function updateWebsites() {
 
     Menu.main.section.websites.section = {
         type: 'section',
+        variant: 'card',
         class: 'websites-list'
     };
 
@@ -40,26 +41,27 @@ function updateWebsites() {
                 '\n    bluelight: ' + (satus.storage.get('websites/' + key + '/filters/bluelight') || 0) +
                 '\n    brightness: ' + (satus.storage.get('websites/' + key + '/filters/brightness') || 100) +
                 '\n    contrast: ' + (satus.storage.get('websites/' + key + '/filters/contrast') || 100) +
-                '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) +
-                '\n    sepia: ' + (satus.storage.get('websites/' + key + '/filters/sepia') || 0) + '\n\n';
+                '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) + '\n\n';
 
             Menu.main.section.websites.section[key] = {
                 type: 'section',
 
-                folder: {
-                    type: 'folder',
+                button: {
+                    type: 'button',
                     label: key,
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
                         filters: {
-                            type: 'folder',
+                            type: 'button',
                             label: 'filters',
                             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
                             section: {
                                 type: 'section',
+                                variant: 'card',
 
                                 invert_colors: {
                                     label: 'invertColors',
@@ -68,10 +70,20 @@ function updateWebsites() {
                                     storage_key: 'websites/' + key + '/filters/invert_colors'
                                 },
                                 bluelight: {
+                                    type: 'button',
                                     label: 'bluelight',
-                                    type: 'slider',
-                                    max: 90,
-                                    storage_key: 'websites/' + key + '/filters/bluelight'
+
+                                    section: {
+                                        type: 'section',
+                                        variant: 'card',
+
+                                        bluelight: {
+                                            type: 'slider',
+                                            label: 'colorTemperature',
+                                            max: 90,
+                                            storage_key: 'websites/' + key + '/filters/bluelight'
+                                        }
+                                    }
                                 },
                                 brightness: {
                                     label: 'brightness',
@@ -92,17 +104,11 @@ function updateWebsites() {
                                     type: 'slider',
                                     max: 100,
                                     storage_key: 'websites/' + key + '/filters/grayscale'
-                                },
-                                sepia: {
-                                    label: 'sepia',
-                                    type: 'slider',
-                                    max: 100,
-                                    storage_key: 'websites/' + key + '/filters/sepia'
                                 }
                             }
                         },
                         styles: {
-                            type: 'folder',
+                            type: 'button',
                             label: 'styles',
                             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
 
@@ -163,26 +169,32 @@ function init(url, access) {
         if (!satus.isset(satus.storage.get('mode')) || satus.storage.get('mode') === true) {
             document.querySelector('.satus').classList.add('dark');
         }
-        
+
         document.documentElement.dataset.hideMadeWithLove = satus.storage.get('hide_made_with_love');
 
         satus.locale.import(language, function() {
-            satus.modules.updateStorageKeys(Menu, function() {
-                if (access === false) {
-                    Menu.main.toolbar.enable.type = 'text';
-                    delete Menu.main.toolbar.enable.onrender;
-                    delete Menu.main.toolbar.enable.onclick;
-                    Menu.main.toolbar.enable.label = satus.locale.getMessage('thePageHOSTNAMEisProtectedByBrowser').replace('HOSTNAME', '"' + HOSTNAME + '"');
-                    Menu.main.toolbar.enable.value = '';
-                    Menu.main.toolbar.enable.style = {
-                        lineHeight: '20px'
-                    };
+            satus.updateStorageKeys(Menu, function() {
+                if (location.href.indexOf('action=import') !== -1) {
+                    importData();
+                } else if (location.href.indexOf('action=export') !== -1) {
+                    exportData();
                 } else {
-                    Menu.main.toolbar.enable.label = HOSTNAME;
-                    Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
-                }
+                    if (access === false) {
+                        Menu.main.toolbar.enable.type = 'text';
+                        delete Menu.main.toolbar.enable.onrender;
+                        delete Menu.main.toolbar.enable.onclick;
+                        Menu.main.toolbar.enable.label = satus.locale.getMessage('thePageHOSTNAMEisProtectedByBrowser').replace('HOSTNAME', '"' + HOSTNAME + '"');
+                        Menu.main.toolbar.enable.value = '';
+                        Menu.main.toolbar.enable.style = {
+                            lineHeight: '20px'
+                        };
+                    } else {
+                        Menu.main.toolbar.enable.label = HOSTNAME;
+                        Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
+                    }
 
-                updateWebsites();
+                    updateWebsites();
+                }
             });
         });
     });
@@ -202,8 +214,7 @@ chrome.tabs.query({
         url = url.substring(0, url.lastIndexOf('#'));
     }
 
-    if (
-        !url.startsWith('about:') &&
+    if (!url.startsWith('about:') &&
         !url.startsWith('chrome') &&
         !url.startsWith('edge') &&
         !url.startsWith('https://addons.mozilla.org') &&
@@ -218,3 +229,120 @@ chrome.tabs.query({
         init(url, false);
     }
 });
+
+
+function importData() {
+    satus.render({
+        type: 'dialog',
+
+        select_file: {
+            type: 'button',
+            label: 'selectFile',
+            onclick: function() {
+                var input = document.createElement('input');
+
+                input.type = 'file';
+
+                input.addEventListener('change', function() {
+                    var file_reader = new FileReader();
+
+                    file_reader.onload = function() {
+                        var data = JSON.parse(this.result);
+
+                        for (var key in data) {
+                            satus.storage.set(key, data[key]);
+                        }
+
+                        if (location.href.indexOf('action=import') !== -1) {
+                            window.close();
+                        } else {
+                            document.querySelector('.satus-dialog__scrim').click();
+
+                            satus.render({
+                                type: 'dialog',
+
+                                message: {
+                                    type: 'text',
+                                    label: 'dataImportedSuccessfully'
+                                },
+                                section: {
+                                    type: 'section',
+                                    class: 'controls',
+
+                                    ok: {
+                                        type: 'button',
+                                        label: 'ok',
+                                        onclick: function() {
+                                            document.querySelector('.satus-dialog__scrim').click();
+                                        }
+                                    }
+                                }
+                            }, document.body);
+                        }
+                    };
+
+                    file_reader.readAsText(this.files[0]);
+                });
+
+                input.click();
+            }
+        }
+    });
+}
+
+function exportData() {
+    var blob = new Blob([JSON.stringify(satus.storage.data)], {
+        type: 'application/json;charset=utf-8'
+    });
+
+    satus.render({
+        type: 'dialog',
+
+        export: {
+            type: 'button',
+            label: 'export',
+            onclick: function() {
+                chrome.permissions.request({
+                    permissions: ['downloads']
+                }, function(granted) {
+                    if (granted) {
+                        chrome.downloads.download({
+                            url: URL.createObjectURL(blob),
+                            filename: 'night-mode.json',
+                            saveAs: true
+                        }, function() {
+                            setTimeout(function() {
+                                if (location.href.indexOf('action=export') !== -1) {
+                                    window.close();
+                                } else {
+                                    document.querySelector('.satus-dialog__scrim').click();
+
+                                    satus.render({
+                                        type: 'dialog',
+
+                                        message: {
+                                            type: 'text',
+                                            label: 'dataExportedSuccessfully'
+                                        },
+                                        section: {
+                                            type: 'section',
+                                            class: 'controls',
+
+                                            ok: {
+                                                type: 'button',
+                                                label: 'ok',
+                                                onclick: function() {
+                                                    document.querySelector('.satus-dialog__scrim').click();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }, 100);
+                        });
+                    }
+                });
+            }
+        }
+    }, document.body);
+}

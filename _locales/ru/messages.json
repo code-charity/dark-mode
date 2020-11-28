@@ -5,8 +5,14 @@
     "accept": {
         "message": "Принять"
     },
+    "useGlobal": {
+        "message": "Use global"
+    },
     "audioFormats": {
         "message": "Форматы аудио"
+    },
+    "colorTemperature": {
+        "message": "Color temperature"
     },
     "backupAndReset": {
         "message": "Резервное копирование и сброс"

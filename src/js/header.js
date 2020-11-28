@@ -13,8 +13,9 @@ var Menu = {
 
             go_back: {
                 type: 'button',
+                variant: 'text',
                 class: 'satus-button--back',
-                before: '<svg stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
+                before: '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
                 onclick: function() {
                     document.querySelector('.satus-main').back();
                 }

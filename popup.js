@@ -14,8 +14,9 @@ var Menu = {
 
             go_back: {
                 type: 'button',
+                variant: 'text',
                 class: 'satus-button--back',
-                before: '<svg stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
+                before: '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 18l-6-6 6-6"/></svg>',
                 onclick: function() {
                     document.querySelector('.satus-main').back();
                 }
@@ -106,11 +107,11 @@ Menu.main = {
                 item = self.history[self.history.length - 1],
                 id = item.appearanceKey;
 
-            if (!Satus.isset(container)) {
+            if (!satus.isset(container)) {
                 container = document.querySelector('.satus-main__container');
             }
 
-            document.querySelector('.satus-text--title').innerText = Satus.locale.getMessage(this.history[this.history.length - 1].label) || 'Dark Mode';
+            document.querySelector('.satus-text--title').innerText = satus.locale.getMessage(this.history[this.history.length - 1].label) || 'Dark Mode';
 
             document.body.dataset.appearance = id;
             container.dataset.appearance = id;
@@ -128,9 +129,11 @@ Menu.main = {
     },
     section: {
         type: 'section',
+        variant: 'card',
 
         filters: {
-            type: 'folder',
+            type: 'button',
+
             label: 'filters',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
@@ -143,37 +146,43 @@ Menu.main = {
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
                         invert_colors: {
-                            label: 'invertColors',
                             type: 'switch',
+                            label: 'invertColors',
                             value: true
                         },
                         bluelight: {
+                            type: 'button',
                             label: 'bluelight',
-                            type: 'slider',
-                            max: 90
+
+                            section: {
+                                type: 'section',
+                                variant: 'card',
+
+                                bluelight: {
+                                    type: 'slider',
+                                    label: 'colorTemperature',
+                                    max: 90
+                                }
+                            }
                         },
                         brightness: {
-                            label: 'brightness',
                             type: 'slider',
+                            label: 'brightness',
                             max: 100,
                             value: 100
                         },
                         contrast: {
-                            label: 'contrast',
                             type: 'slider',
+                            label: 'contrast',
                             max: 100,
                             value: 100
                         },
                         grayscale: {
+                            type: 'slider',
                             label: 'grayscale',
-                            type: 'slider',
-                            max: 100
-                        },
-                        sepia: {
-                            label: 'sepia',
-                            type: 'slider',
                             max: 100
                         }
                     }
@@ -184,16 +193,38 @@ Menu.main = {
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
-                        invert_colors: {
-                            label: 'invertColors',
+                        use_global: {
                             type: 'switch',
+                            label: 'useGlobal',
+                            value: true,
+                            onrender: function() {
+                                this.dataset.value = this.querySelector('input').checked;
+                            },
+                            onchange: function() {
+                                this.dataset.value = this.querySelector('input').checked;
+                            }
+                        },
+                        invert_colors: {
+                            type: 'switch',
+                            label: 'invertColors',
                             value: true
                         },
                         bluelight: {
+                            type: 'button',
                             label: 'bluelight',
-                            type: 'slider',
-                            max: 90
+
+                            section: {
+                                type: 'section',
+                                variant: 'card',
+
+                                bluelight: {
+                                    type: 'slider',
+                                    label: 'colorTemperature',
+                                    max: 90
+                                }
+                            }
                         },
                         brightness: {
                             label: 'brightness',
@@ -211,18 +242,14 @@ Menu.main = {
                             label: 'grayscale',
                             type: 'slider',
                             max: 100
-                        },
-                        sepia: {
-                            label: 'sepia',
-                            type: 'slider',
-                            max: 100
                         }
                     }
                 }
             }
         },
         styles: {
-            type: 'folder',
+            type: 'button',
+
             label: 'styles',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
 
@@ -278,7 +305,8 @@ Menu.main = {
             }
         },
         websites: {
-            type: 'folder',
+            type: 'button',
+
             label: 'websites',
             appearanceKey: 'websites',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"></svg>',
@@ -302,7 +330,7 @@ Menu.main = {
                         url;
 
                     while (match = regex.exec(this.value)) {
-                        if (/invert_colors|bluelight|brightness|contrast|grayscale|sepia/.test(match[1]) === true) {
+                        if (/invert_colors|bluelight|brightness|contrast|grayscale/.test(match[1]) === true) {
                             websites[url].filters[match[1]] = match[1] === 'invert_colors' ? match[2] === 'false' ? false : true : Number(match[2]);
                         } else {
                             url = match[1];
@@ -319,12 +347,14 @@ Menu.main = {
             }
         },
         schedule: {
-            type: 'folder',
+            type: 'button',
+
             label: 'schedule',
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path fill="none" d="M0 0h24v24H0z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>',
 
             ection: {
                 type: 'section',
+                variant: 'card',
 
                 schedule: {
                     type: 'select',
@@ -498,14 +528,16 @@ Menu.main = {
             }
         },
         settings: {
-            type: 'folder',
+            type: 'button',
+
             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M19.4 13l.1-1v-1l2-1.6c.2-.2.3-.5.2-.7l-2-3.4c-.2-.3-.4-.3-.6-.3l-2.5 1-1.7-1-.4-2.6c0-.2-.3-.4-.5-.4h-4c-.3 0-.5.2-.5.4l-.4 2.7c-.6.2-1.1.6-1.7 1L5 5c-.2-.1-.4 0-.6.2l-2 3.4c0 .3 0 .5.2.7l2 1.6a8 8 0 0 0 0 2l-2 1.6c-.2.2-.3.5-.2.7l2 3.4c.2.3.4.3.6.3l2.5-1 1.7 1 .4 2.6c0 .2.2.4.5.4h4c.3 0 .5-.2.5-.4l.4-2.7c.6-.2 1.1-.6 1.7-1l2.5 1c.2.1.4 0 .6-.2l2-3.4c0-.2 0-.5-.2-.7l-2-1.6zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"></svg>',
             label: 'settings',
             parent: '.satus-main__container',
-            
+
             section_01: {
                 type: 'section',
-                
+                variant: 'card',
+
                 hide_made_with_love: {
                     type: 'switch',
                     label: 'hideMadeWithLove',
@@ -517,6 +549,7 @@ Menu.main = {
 
             section: {
                 type: 'section',
+                variant: 'card',
 
                 language: {
                     label: 'language',
@@ -541,78 +574,23 @@ Menu.main = {
                     }]
                 },
                 backup_and_reset: {
-                    type: 'folder',
+                    type: 'button',
                     label: 'backupAndReset',
                     before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M13.3 3A9 9 0 0 0 4 12H2.2c-.5 0-.7.5-.3.8l2.7 2.8c.2.2.6.2.8 0L8 12.8c.4-.3.1-.8-.3-.8H6a7 7 0 1 1 2.7 5.5 1 1 0 0 0-1.3.1 1 1 0 0 0 0 1.5A9 9 0 0 0 22 11.7C22 7 18 3.1 13.4 3zm-.6 5c-.4 0-.7.3-.7.8v3.6c0 .4.2.7.5.9l3.1 1.8c.4.2.8.1 1-.2.2-.4.1-.8-.2-1l-3-1.8V8.7c0-.4-.2-.7-.7-.7z" /></svg>',
 
                     section: {
                         type: 'section',
+                        variant: 'card',
+
                         import_settings: {
                             type: 'button',
                             label: 'importSettings',
-
                             onclick: function() {
-                                try {
-                                    var input = document.createElement('input');
-
-                                    input.type = 'file';
-
-                                    input.addEventListener('change', function() {
-                                        var file_reader = new FileReader();
-
-                                        file_reader.onload = function() {
-                                            var data = JSON.parse(this.result);
-
-                                            for (var i in data) {
-                                                satus.storage.set(i, data[i]);
-                                            }
-
-                                            satus.render({
-                                                type: 'dialog',
-                                                class: 'satus-dialog--confirm',
-
-                                                message: {
-                                                    type: 'text',
-                                                    label: 'successfullyImportedSettings'
-                                                },
-                                                section: {
-                                                    type: 'section',
-                                                    class: 'controls',
-                                                    style: {
-                                                        'justify-content': 'flex-end',
-                                                        'display': 'flex'
-                                                    },
-
-                                                    cancel: {
-                                                        type: 'button',
-                                                        label: 'cancel',
-                                                        onclick: function() {
-                                                            var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                            scrim[scrim.length - 1].click();
-                                                        }
-                                                    },
-                                                    ok: {
-                                                        type: 'button',
-                                                        label: 'OK',
-                                                        onclick: function() {
-                                                            var scrim = document.querySelectorAll('.satus-dialog__scrim');
-
-                                                            scrim[scrim.length - 1].click();
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        };
-
-                                        file_reader.readAsText(this.files[0]);
-                                    });
-
-                                    input.click();
-                                } catch (err) {
-                                    chrome.runtime.sendMessage({
-                                        name: 'dialog-error',
-                                        value: err
+                                if (location.href.indexOf('/options.html') !== -1) {
+                                    importData();
+                                } else {
+                                    chrome.tabs.create({
+                                        url: 'options.html?action=import'
                                     });
                                 }
                             }
@@ -620,13 +598,14 @@ Menu.main = {
                         export_settings: {
                             type: 'button',
                             label: 'exportSettings',
-
                             onclick: function() {
-                                chrome.runtime.sendMessage({
-                                    name: 'download',
-                                    filename: 'night-mode-settings',
-                                    value: satus.storage
-                                });
+                                if (location.href.indexOf('/options.html') !== -1) {
+                                    exportData();
+                                } else {
+                                    chrome.tabs.create({
+                                        url: 'options.html?action=export'
+                                    });
+                                }
                             }
                         },
                         reset_all_settings: {
@@ -677,12 +656,13 @@ Menu.main = {
                     }
                 },
                 date_and_time: {
-                    type: 'folder',
+                    type: 'button',
                     label: 'dateAndTime',
                     before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-.2-13c-.5 0-.8.3-.8.7v4.7c0 .4.2.7.5.9l4.1 2.5c.4.2.8 0 1-.3.2-.3.1-.7-.2-1l-3.9-2.2V7.7c0-.4-.3-.7-.7-.7z" /></svg>',
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
                         use_24_hour_format: {
                             type: 'switch',
@@ -692,21 +672,23 @@ Menu.main = {
                     }
                 },
                 about: {
-                    type: 'folder',
+                    type: 'button',
                     before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" /></svg>',
                     label: 'about',
                     appearanceKey: 'about',
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
                         onrender: function() {
                             var component = this,
                                 manifest = chrome.runtime.getManifest(),
-                                user = satus.modules.user(),
+                                user = satus.user(),
                                 object = {
                                     extension_section: {
                                         type: 'section',
+                                        variant: 'card',
                                         label: 'extension',
                                         style: {
                                             'flex-direction': 'column',
@@ -726,6 +708,7 @@ Menu.main = {
                                     },
                                     browser_section: {
                                         type: 'section',
+                                        variant: 'card',
                                         label: 'browser',
                                         style: {
                                             'flex-direction': 'column',
@@ -765,6 +748,7 @@ Menu.main = {
                                     },
                                     os_section: {
                                         type: 'section',
+                                        variant: 'card',
                                         label: 'os',
                                         style: {
                                             'flex-direction': 'column',
@@ -785,6 +769,7 @@ Menu.main = {
                                     },
                                     device_section: {
                                         type: 'section',
+                                        variant: 'card',
                                         label: 'device',
                                         style: {
                                             'flex-direction': 'column',
@@ -835,7 +820,6 @@ Menu.main = {
         }
     }
 };
-
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
@@ -849,15 +833,15 @@ var HOSTNAME;
 
 function updateWebsites() {
     Menu.main.section.filters.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
+    Menu.main.section.filters.tabs.current.section.use_global.storage_key = 'websites/' + HOSTNAME + '/filters/use_global';
     Menu.main.section.filters.tabs.current.section.invert_colors.storage_key = 'websites/' + HOSTNAME + '/filters/invert_colors';
-    Menu.main.section.filters.tabs.current.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
+    Menu.main.section.filters.tabs.current.section.bluelight.section.bluelight.storage_key = 'websites/' + HOSTNAME + '/filters/bluelight';
     Menu.main.section.filters.tabs.current.section.brightness.storage_key = 'websites/' + HOSTNAME + '/filters/brightness';
     Menu.main.section.filters.tabs.current.section.contrast.storage_key = 'websites/' + HOSTNAME + '/filters/contrast';
     Menu.main.section.filters.tabs.current.section.grayscale.storage_key = 'websites/' + HOSTNAME + '/filters/grayscale';
-    Menu.main.section.filters.tabs.current.section.sepia.storage_key = 'websites/' + HOSTNAME + '/filters/sepia';
 
     Menu.main.section.styles.tabs.current.label = HOSTNAME.length > 12 ? HOSTNAME.substring(0, 12) + '...' : HOSTNAME;
-    
+
     document.body.dataset.websiteTextEditor = satus.storage.get('websiteTextEditor');
 
     var websites = satus.storage.get('websites') || {},
@@ -866,6 +850,7 @@ function updateWebsites() {
 
     Menu.main.section.websites.section = {
         type: 'section',
+        variant: 'card',
         class: 'websites-list'
     };
 
@@ -878,26 +863,27 @@ function updateWebsites() {
                 '\n    bluelight: ' + (satus.storage.get('websites/' + key + '/filters/bluelight') || 0) +
                 '\n    brightness: ' + (satus.storage.get('websites/' + key + '/filters/brightness') || 100) +
                 '\n    contrast: ' + (satus.storage.get('websites/' + key + '/filters/contrast') || 100) +
-                '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) +
-                '\n    sepia: ' + (satus.storage.get('websites/' + key + '/filters/sepia') || 0) + '\n\n';
+                '\n    grayscale: ' + (satus.storage.get('websites/' + key + '/filters/grayscale') || 0) + '\n\n';
 
             Menu.main.section.websites.section[key] = {
                 type: 'section',
 
-                folder: {
-                    type: 'folder',
+                button: {
+                    type: 'button',
                     label: key,
 
                     section: {
                         type: 'section',
+                        variant: 'card',
 
                         filters: {
-                            type: 'folder',
+                            type: 'button',
                             label: 'filters',
                             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93a8 8 0 1 0 11.32 0zM12 19.59c-1.6 0-3.11-.62-4.24-1.76a5.95 5.95 0 0 1 0-8.48L12 5.1v14.49z"></svg>',
 
                             section: {
                                 type: 'section',
+                                variant: 'card',
 
                                 invert_colors: {
                                     label: 'invertColors',
@@ -906,10 +892,20 @@ function updateWebsites() {
                                     storage_key: 'websites/' + key + '/filters/invert_colors'
                                 },
                                 bluelight: {
+                                    type: 'button',
                                     label: 'bluelight',
-                                    type: 'slider',
-                                    max: 90,
-                                    storage_key: 'websites/' + key + '/filters/bluelight'
+
+                                    section: {
+                                        type: 'section',
+                                        variant: 'card',
+
+                                        bluelight: {
+                                            type: 'slider',
+                                            label: 'colorTemperature',
+                                            max: 90,
+                                            storage_key: 'websites/' + key + '/filters/bluelight'
+                                        }
+                                    }
                                 },
                                 brightness: {
                                     label: 'brightness',
@@ -930,17 +926,11 @@ function updateWebsites() {
                                     type: 'slider',
                                     max: 100,
                                     storage_key: 'websites/' + key + '/filters/grayscale'
-                                },
-                                sepia: {
-                                    label: 'sepia',
-                                    type: 'slider',
-                                    max: 100,
-                                    storage_key: 'websites/' + key + '/filters/sepia'
                                 }
                             }
                         },
                         styles: {
-                            type: 'folder',
+                            type: 'button',
                             label: 'styles',
                             before: '<svg fill="var(--satus-theme-primary)" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></svg>',
 
@@ -1001,26 +991,32 @@ function init(url, access) {
         if (!satus.isset(satus.storage.get('mode')) || satus.storage.get('mode') === true) {
             document.querySelector('.satus').classList.add('dark');
         }
-        
+
         document.documentElement.dataset.hideMadeWithLove = satus.storage.get('hide_made_with_love');
 
         satus.locale.import(language, function() {
-            satus.modules.updateStorageKeys(Menu, function() {
-                if (access === false) {
-                    Menu.main.toolbar.enable.type = 'text';
-                    delete Menu.main.toolbar.enable.onrender;
-                    delete Menu.main.toolbar.enable.onclick;
-                    Menu.main.toolbar.enable.label = satus.locale.getMessage('thePageHOSTNAMEisProtectedByBrowser').replace('HOSTNAME', '"' + HOSTNAME + '"');
-                    Menu.main.toolbar.enable.value = '';
-                    Menu.main.toolbar.enable.style = {
-                        lineHeight: '20px'
-                    };
+            satus.updateStorageKeys(Menu, function() {
+                if (location.href.indexOf('action=import') !== -1) {
+                    importData();
+                } else if (location.href.indexOf('action=export') !== -1) {
+                    exportData();
                 } else {
-                    Menu.main.toolbar.enable.label = HOSTNAME;
-                    Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
-                }
+                    if (access === false) {
+                        Menu.main.toolbar.enable.type = 'text';
+                        delete Menu.main.toolbar.enable.onrender;
+                        delete Menu.main.toolbar.enable.onclick;
+                        Menu.main.toolbar.enable.label = satus.locale.getMessage('thePageHOSTNAMEisProtectedByBrowser').replace('HOSTNAME', '"' + HOSTNAME + '"');
+                        Menu.main.toolbar.enable.value = '';
+                        Menu.main.toolbar.enable.style = {
+                            lineHeight: '20px'
+                        };
+                    } else {
+                        Menu.main.toolbar.enable.label = HOSTNAME;
+                        Menu.main.toolbar.enable.storage_key = 'websites/' + HOSTNAME + '/enabled';
+                    }
 
-                updateWebsites();
+                    updateWebsites();
+                }
             });
         });
     });
@@ -1040,8 +1036,7 @@ chrome.tabs.query({
         url = url.substring(0, url.lastIndexOf('#'));
     }
 
-    if (
-        !url.startsWith('about:') &&
+    if (!url.startsWith('about:') &&
         !url.startsWith('chrome') &&
         !url.startsWith('edge') &&
         !url.startsWith('https://addons.mozilla.org') &&
@@ -1056,3 +1051,120 @@ chrome.tabs.query({
         init(url, false);
     }
 });
+
+
+function importData() {
+    satus.render({
+        type: 'dialog',
+
+        select_file: {
+            type: 'button',
+            label: 'selectFile',
+            onclick: function() {
+                var input = document.createElement('input');
+
+                input.type = 'file';
+
+                input.addEventListener('change', function() {
+                    var file_reader = new FileReader();
+
+                    file_reader.onload = function() {
+                        var data = JSON.parse(this.result);
+
+                        for (var key in data) {
+                            satus.storage.set(key, data[key]);
+                        }
+
+                        if (location.href.indexOf('action=import') !== -1) {
+                            window.close();
+                        } else {
+                            document.querySelector('.satus-dialog__scrim').click();
+
+                            satus.render({
+                                type: 'dialog',
+
+                                message: {
+                                    type: 'text',
+                                    label: 'dataImportedSuccessfully'
+                                },
+                                section: {
+                                    type: 'section',
+                                    class: 'controls',
+
+                                    ok: {
+                                        type: 'button',
+                                        label: 'ok',
+                                        onclick: function() {
+                                            document.querySelector('.satus-dialog__scrim').click();
+                                        }
+                                    }
+                                }
+                            }, document.body);
+                        }
+                    };
+
+                    file_reader.readAsText(this.files[0]);
+                });
+
+                input.click();
+            }
+        }
+    });
+}
+
+function exportData() {
+    var blob = new Blob([JSON.stringify(satus.storage.data)], {
+        type: 'application/json;charset=utf-8'
+    });
+
+    satus.render({
+        type: 'dialog',
+
+        export: {
+            type: 'button',
+            label: 'export',
+            onclick: function() {
+                chrome.permissions.request({
+                    permissions: ['downloads']
+                }, function(granted) {
+                    if (granted) {
+                        chrome.downloads.download({
+                            url: URL.createObjectURL(blob),
+                            filename: 'night-mode.json',
+                            saveAs: true
+                        }, function() {
+                            setTimeout(function() {
+                                if (location.href.indexOf('action=export') !== -1) {
+                                    window.close();
+                                } else {
+                                    document.querySelector('.satus-dialog__scrim').click();
+
+                                    satus.render({
+                                        type: 'dialog',
+
+                                        message: {
+                                            type: 'text',
+                                            label: 'dataExportedSuccessfully'
+                                        },
+                                        section: {
+                                            type: 'section',
+                                            class: 'controls',
+
+                                            ok: {
+                                                type: 'button',
+                                                label: 'ok',
+                                                onclick: function() {
+                                                    document.querySelector('.satus-dialog__scrim').click();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }, 100);
+                        });
+                    }
+                });
+            }
+        }
+    }, document.body);
+}

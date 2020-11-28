@@ -1,103 +1,23 @@
 /*---------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 -----------------------------------------------------------------
-1.0 Header
-2.0 Buttons
-3.0 Back button
-4.0 Title
-5.0 Right section
-6.0 Switch
-7.0 Vertical menu
+# Header
+# Buttons
+# Back button
+# Title
+# Right section
+# Switch
+# Vertical menu
 ---------------------------------------------------------------*/
 
 /*---------------------------------------------------------------
-1.0 HEADER
----------------------------------------------------------------*/
-
-.satus-header
-{
-    z-index: 1;
-
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
-}
-
-.satus-header .satus-section
-{
-    background-color: transparent;
-}
-
-
-/*---------------------------------------------------------------
-2.0 BUTTONS
----------------------------------------------------------------*/
-
-.satus-header .satus-button
-{
-    width: 36px;
-    height: 36px;
-    padding: 6px;
-}
-
-.satus-header .satus-button::before
-{
-    border-radius: 50%;
-}
-
-
-/*---------------------------------------------------------------
-3.0 BACK BUTTON
----------------------------------------------------------------*/
-
-.satus-button--back
-{
-    position: absolute;
-}
-
-.satus-button--back svg
-{
-    fill: none;
-    stroke: currentColor;
-}
-
-body[data-appearance='home'] .satus-button--back
-{
-    visibility: hidden;
-}
-
-
-/*---------------------------------------------------------------
-4.0 TITLE
----------------------------------------------------------------*/
-
-.satus-text--title
-{
-    position: absolute;
-    left: 56px;
-}
-
-body[data-appearance='home'] .satus-text--title
-{
-    left: 14px;
-}
-
-
-/*---------------------------------------------------------------
-5.0 RIGHT SECTION
----------------------------------------------------------------*/
-
-.satus-section--align-end
-{
-    justify-content: flex-end;
-}
-
-
-/*---------------------------------------------------------------
-6.0 SWITCH
+# SWITCH
 ---------------------------------------------------------------*/
 
 .satus-switch--night-mode
 {
     display: none;
+
     padding: 0;
 }
 
@@ -133,15 +53,15 @@ body[data-appearance='home'] .satus-switch--night-mode
 
 
 /*---------------------------------------------------------------
-7.0 VERTICAL MENU
+# VERTICAL MENU
 ---------------------------------------------------------------*/
 
 .satus-dialog--vertical-menu-button
 {
-    display: none
+    display: none;
 }
 
 body[data-appearance='websites'] .satus-dialog--vertical-menu-button
 {
-    display: block
+    display: block;
 }

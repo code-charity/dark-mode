@@ -5,6 +5,12 @@
     "accept": {
         "message": "Accept"
     },
+    "useGlobal": {
+        "message": "Use global"
+    },
+    "colorTemperature": {
+        "message": "Color temperature"
+    },
     "audioFormats": {
         "message": "Audio formats"
     },
