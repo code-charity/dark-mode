@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Dark Mode",
     "version": "1.90",
-    "description": "Dark Mode, read at night. Blue Light Filter for Every Website. Relax your eyes at night and day.",
+    "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
 
     "default_locale": "en",
 
@@ -31,6 +31,12 @@
     }],
 
     "browser_action": {
+        "default_icon": {
+            "16": "assets/icons/16g.png",
+            "32": "assets/icons/32g.png",
+            "48": "assets/icons/48g.png",
+            "128": "assets/icons/128g.png"
+        },
         "default_popup": "index.html"
     },
 

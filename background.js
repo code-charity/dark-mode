@@ -1,11 +1,12 @@
 /*---------------------------------------------------------------
 >>> BACKGROUND
 -----------------------------------------------------------------
-1.0 On installed
+# On installed
+# Message listener
 ---------------------------------------------------------------*/
 
 /*---------------------------------------------------------------
-1.0 ON INSTALLED
+# ON INSTALLED
 ---------------------------------------------------------------*/
 
 chrome.runtime.onInstalled.addListener(function() {
@@ -21,8 +22,7 @@ chrome.runtime.onInstalled.addListener(function() {
                 url = url.substring(0, url.lastIndexOf('#'));
             }
 
-            if (
-                !url.startsWith('about:') &&
+            if (!url.startsWith('about:') &&
                 !url.startsWith('chrome') &&
                 !url.startsWith('edge') &&
                 !url.startsWith('https://addons.mozilla.org') &&
@@ -38,4 +38,18 @@ chrome.runtime.onInstalled.addListener(function() {
             }
         }
     });
+});
+
+
+/*---------------------------------------------------------------
+# MESSAGE LISTENER
+---------------------------------------------------------------*/
+
+chrome.runtime.onMessage.addListener(function(message, sender) {
+    if (message === 'night-mode') {
+        chrome.browserAction.setIcon({
+            path: 'assets/icons/48.png',
+            tabId: sender.tab.id
+        });
+    }
 });
