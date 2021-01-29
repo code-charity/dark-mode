@@ -9,7 +9,7 @@
 # ON INSTALLED
 ---------------------------------------------------------------*/
 
-chrome.runtime.onInstalled.addListener(function() {
+/*chrome.runtime.onInstalled.addListener(function() {
     chrome.tabs.query({}, function(tabs) {
         for (var i = 0, l = tabs.length; i < l; i++) {
             var tab = tabs[i],
@@ -38,7 +38,7 @@ chrome.runtime.onInstalled.addListener(function() {
             }
         }
     });
-});
+});*/
 
 
 /*---------------------------------------------------------------
@@ -46,7 +46,7 @@ chrome.runtime.onInstalled.addListener(function() {
 ---------------------------------------------------------------*/
 
 chrome.runtime.onMessage.addListener(function(message, sender) {
-    if (message === 'night-mode') {
+    if (message === 'dark-mode') {
         chrome.browserAction.setIcon({
             path: 'assets/icons/48.png',
             tabId: sender.tab.id

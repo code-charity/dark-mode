@@ -1,0 +1,221 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Document
+# System
+# Link
+# Table
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# DOCUMENT
+--------------------------------------------------------------*/
+
+body,
+html
+{
+    color: #eee;
+    background-color: #000;
+}
+
+
+/*--------------------------------------------------------------
+# SYSTEM
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# SCROLLBAR
+--------------------------------------------------------------*/
+
+::-webkit-scrollbar
+{
+    background-color: #2b2b2b;
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-right: 2px solid #2b2b2b;
+    border-left: 2px solid #2b2b2b;
+    background-color: #4d4d4d;
+}
+
+::-webkit-scrollbar-button
+{
+    background-color: #2b2b2b;
+}
+
+
+/*--------------------------------------------------------------
+# LINK
+--------------------------------------------------------------*/
+
+a
+{
+    color: #678fff;
+}
+
+
+/*--------------------------------------------------------------
+# BACKGROUND
+--------------------------------------------------------------*/
+
+button,
+input,
+select,
+textarea
+{
+    color: #eee;
+    border: 2px solid #333;
+    background-color: #333;
+}
+
+button[disabled],
+input[disabled],
+select[disabled],
+textarea[disabled]
+{
+    opacity: .5;
+}
+
+
+/*--------------------------------------------------------------
+# BORDER
+--------------------------------------------------------------*/
+
+fieldset,
+hr,
+iframe
+{
+    border-style: solid;
+    border-color: #333;
+}
+
+table
+{
+    border-color: #333;
+}
+
+
+
+
+
+
+
+
+/*html:not(.dark-mode--loaded) *:not(a)
+{
+    color: #eee !important;
+    background-color: #262422 !important;
+}
+
+html:not(.dark-mode--loaded) a
+{
+    color: #678fff !important;
+}*/
+
+/*
+
+hr
+{
+    border-color: #767676;
+}
+
+iframe
+{
+    border-color: #767676;
+}
+
+input,
+select,
+textarea
+{
+    color: #eee;
+    background-color: #312e2b;
+}
+
+button,
+input[type=button],
+input[type=reset],
+input[type=submit]
+{
+    color: #eee;
+    background-color: #312e2b;
+}
+
+button[disabled],
+input[type=button][disabled],
+input[type=reset][disabled],
+input[type=submit][disabled]
+{
+    color: rgba(238, 238, 238, .3);
+    border: 1px solid rgba(118, 118, 118, .3);
+    background-color: rgba(49, 46, 43, .3);
+}
+
+fieldset
+{
+    border-color: #767676;
+}
+
+button,
+input,
+input[type=button],
+input[type=reset],
+input[type=submit],
+textarea
+{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #767676;
+    border-radius: 2px;
+}
+
+::placeholder
+{
+    color: #b2aba1;
+}
+
+input:-webkit-autofill,
+select:-webkit-autofill,
+textarea:-webkit-autofill
+{
+    color: #e8e6e3;
+    background-color: #555b00;
+}
+
+::-webkit-scrollbar
+{
+    color: #312e2b;
+    background-color: #312e2b;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #45403b;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background-color: #534d46;
+}
+
+::-webkit-scrollbar-thumb:active
+{
+    background-color: #534d46;
+}
+
+::-webkit-scrollbar-corner
+{
+    background-color: #45403b;
+}
+
+*
+{
+    scrollbar-color: #312e2b #45403b;
+}
+
+::selection
+{
+    color: #e8e6e3;
+    background-color: #004daa;
+}*/

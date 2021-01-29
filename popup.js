@@ -571,9 +571,6 @@ Menu.main = {
                     }, {
                         value: "ru",
                         label: "Русский"
-                    }, {
-                        value: "ar",
-                        label: "العربية"
                     }]
                 },
                 backup_and_reset: {
