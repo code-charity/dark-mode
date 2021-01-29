@@ -232,6 +232,7 @@ function update() {
 
 var settings = {},
     current_website,
+    variables = {},
     regex_rgb = /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(\b[a-z]+)/g,
     regex_numbers = /[0-9.]+/g,
     color_keywords = {
@@ -549,10 +550,8 @@ function modifyBackgroundColor(value) {
         saturation = value[1],
         lightness = value[2];
 
-    if (lightness > .85) {
-        value = [hue, saturation, .125 + 1 - lightness];
-    } else if (saturation > .5 && lightness < .7 && lightness > .4) {
-        value[2] = .4;
+    if (lightness > .5) {
+        value[2] = .1 + 1 - lightness;
     }
 
     return hslToStyle(value);
@@ -591,8 +590,8 @@ function modifyBorderColor(value) {
         saturation = value[1],
         lightness = value[2];
 
-    if (saturation < .2 && lightness > .3) {
-        value = [0, 0, 1 - lightness];
+    if (lightness > .5) {
+        value[2] = .1 + 1 - lightness;
     }
 
     return hslToStyle(value);
@@ -621,19 +620,10 @@ function attributeStyle(node) {
 --------------------------------------------------------------*/
 
 async function elementLink(node) {
-    var response = await (await fetch(node.href, {
-        cache: 'force-cache',
-        credentials: 'omit'
-    })).text();
-
-    node.classList.add('dark-mode--stylesheet');
-
-    var element = createStyle(response),
-        rules = element.sheet.cssRules;
-
-    createStyle(parseRules(rules));
-
-    element.remove();
+    chrome.runtime.sendMessage({
+        action: 'dark-mode--fetch',
+        url: node.href
+    });
 }
 
 
@@ -790,6 +780,7 @@ function parseProperties(properties, is_inline) {
             property === 'border-right-color' ||
             property === 'border-bottom-color' ||
             property === 'border-left-color' ||
+            property === 'outline-color' ||
             property === 'box-shadow'
         ) {
             var value = properties.getPropertyValue(property);
@@ -827,6 +818,17 @@ function parseProperties(properties, is_inline) {
                     }
 
                     string += property + ':' + value + ' !important;';
+
+                    if (!variables[property]) {
+                        variables[property] = {
+                            parent: '',
+                            value: value
+                        };
+                    } else {
+                        variables[property].value = value;
+                    }
+
+                    variables[property]
                 }
             }
         } else if (is_inline) {
@@ -1044,4 +1046,22 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-chrome.runtime.sendMessage('dark-mode');
+chrome.runtime.sendMessage({
+    action: 'dark-mode--active'
+});
+
+
+chrome.runtime.onMessage.addListener(async function(message, sender) {
+    if (typeof message !== 'object') {
+        return false;
+    }
+
+    if (message.action === 'dark-mode--fetch-response') {
+        var element = createStyle(message.response),
+            rules = element.sheet.cssRules;
+
+        createStyle(parseRules(rules));
+
+        element.remove();
+    }
+});

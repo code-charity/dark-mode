@@ -45,11 +45,25 @@
 # MESSAGE LISTENER
 ---------------------------------------------------------------*/
 
-chrome.runtime.onMessage.addListener(function(message, sender) {
-    if (message === 'dark-mode') {
+chrome.runtime.onMessage.addListener(async function(message, sender) {
+    if (typeof message !== 'object') {
+        return false;
+    }
+
+    if (message.action === 'dark-mode--active') {
         chrome.browserAction.setIcon({
             path: 'assets/icons/48.png',
             tabId: sender.tab.id
+        });
+    } else if (message.action === 'dark-mode--fetch') {
+        var response = await (await fetch(message.url, {
+            cache: 'force-cache',
+            credentials: 'omit'
+        })).text();
+
+        chrome.tabs.sendMessage(sender.tab.id, {
+            action: 'dark-mode--fetch-response',
+            response: response
         });
     }
 });
