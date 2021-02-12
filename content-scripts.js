@@ -233,6 +233,8 @@ function update() {
 var settings = {},
     current_website,
     variables = {},
+    variables_string = '',
+    variables_element = document.createElement('style'),
     regex_rgb = /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(\b[a-z]+)/g,
     regex_numbers = /[0-9.]+/g,
     color_keywords = {
@@ -386,6 +388,7 @@ var settings = {},
         yellowgreen: [0.22150537634408604, 0.607843137254902, 0.5]
     };
 
+variables_element.className = 'dark-mode--stylesheet';
 
 /*--------------------------------------------------------------
 # CREATE STYLE
@@ -398,6 +401,8 @@ function createStyle(content) {
     element.textContent = content;
 
     document.head.appendChild(element);
+
+    variables_element.textContent = 'html{' + variables_string + '}';
 
     return element;
 }
@@ -751,10 +756,11 @@ function parseProperties(properties, is_inline) {
             if (
                 value !== 'none' &&
                 value !== 'initial' &&
+                value !== 'inherit' &&
                 value !== 'currentcolor' &&
                 value !== 'transparent'
             ) {
-                var modified_value = parseBackgroundColor(value);
+                var modified_value = parseBackgroundColor(value, property);
 
                 if (modified_value) {
                     string += property + ':' + modified_value + ' !important;';
@@ -766,10 +772,11 @@ function parseProperties(properties, is_inline) {
             if (
                 value !== 'none' &&
                 value !== 'initial' &&
+                value !== 'inherit' &&
                 value !== 'currentcolor' &&
                 value !== 'transparent'
             ) {
-                var modified_value = parseTextColor(value);
+                var modified_value = parseTextColor(value, property);
 
                 if (modified_value) {
                     string += property + ':' + modified_value + ' !important;';
@@ -788,10 +795,11 @@ function parseProperties(properties, is_inline) {
             if (
                 value !== 'none' &&
                 value !== 'initial' &&
+                value !== 'inherit' &&
                 value !== 'currentcolor' &&
                 value !== 'transparent'
             ) {
-                var modified_value = parseBorderColor(value);
+                var modified_value = parseBorderColor(value, property);
 
                 if (modified_value) {
                     string += property + ':' + modified_value + ' !important;';
@@ -803,33 +811,22 @@ function parseProperties(properties, is_inline) {
             if (
                 value !== 'none' &&
                 value !== 'initial' &&
+                value !== 'inherit' &&
                 value !== 'currentcolor' &&
                 value !== 'transparent'
             ) {
                 var match = value.match(regex_rgb);
 
-                if (match) {
-                    for (var j = 0, k = match.length; j < k; j++) {
-                        var color = parseColor(match[j]);
-
-                        if (color) {
-                            value = value.replace(match[j], modifyColor(color));
-                        }
-                    }
-
-                    string += property + ':' + value + ' !important;';
-
-                    if (!variables[property]) {
-                        variables[property] = {
-                            parent: '',
-                            value: value
-                        };
-                    } else {
-                        variables[property].value = value;
-                    }
-
-                    variables[property]
+                if (!variables[property]) {
+                    variables[property] = {
+                        parent: '',
+                        value: value
+                    };
+                } else {
+                    variables[property].value = value;
                 }
+
+                modifyVariable(property);
             }
         } else if (is_inline) {
             string += property + ':' + properties.getPropertyValue(property) + ';';
@@ -844,7 +841,7 @@ function parseProperties(properties, is_inline) {
 # COLORS
 --------------------------------------------------------------*/
 
-function parseColor(value) {
+function parseColor(value, property) {
     if (value.indexOf('rgb') === 0) {
         var array = styleToRgb(value);
 
@@ -855,6 +852,89 @@ function parseColor(value) {
         return rgbToHsl(hexToRgb(value));
     } else if (color_keywords[value]) {
         return color_keywords[value];
+    } else if (value.indexOf('var(') === 0) {
+        var match = value.match(/--[^ ,.)]+/);
+
+        if (match) {
+            if (!variables[match[0]]) {
+                variables[match[0]] = {
+                    parent: property
+                };
+            } else {
+                variables[match[0]].parent = property;
+            }
+
+            modifyVariable(match[0]);
+        }
+    }
+}
+
+function modifyVariable(name) {
+    var variable = variables[name],
+        property = variable.parent;
+
+    if (variable && variable.parent !== '' && variable.value) {
+        if (
+            property === 'background-color' ||
+            property === 'background-image'
+        ) {
+            var value = variable.value;
+
+            if (
+                value !== 'none' &&
+                value !== 'initial' &&
+                value !== 'inherit' &&
+                value !== 'currentcolor' &&
+                value !== 'transparent'
+            ) {
+                var modified_value = parseBackgroundColor(value, property);
+
+                if (modified_value) {
+                    variables_string += name + ':' + modified_value + ' !important;';
+                }
+            }
+        } else if (property === 'color') {
+            var value = variable.value;
+
+            if (
+                value !== 'none' &&
+                value !== 'initial' &&
+                value !== 'inherit' &&
+                value !== 'currentcolor' &&
+                value !== 'transparent'
+            ) {
+                var modified_value = parseTextColor(value, property);
+
+                if (modified_value) {
+                    variables_string += name + ':' + modified_value + ' !important;';
+                }
+            }
+        } else if (
+            property === 'border-top-color' ||
+            property === 'border-right-color' ||
+            property === 'border-bottom-color' ||
+            property === 'border-left-color' ||
+            property === 'outline-color' ||
+            property === 'box-shadow'
+        ) {
+            var value = variable.value;
+
+            if (
+                value !== 'none' &&
+                value !== 'initial' &&
+                value !== 'inherit' &&
+                value !== 'currentcolor' &&
+                value !== 'transparent'
+            ) {
+                var modified_value = parseBorderColor(value, property);
+
+                if (modified_value) {
+                    variables_string += name + ':' + modified_value + ' !important;';
+                }
+            }
+        }
+
+        //variables_element.textContent = 'html{' + variables_string + '}';
     }
 }
 
@@ -863,8 +943,8 @@ function parseColor(value) {
 # BACKGROUND COLOR
 --------------------------------------------------------------*/
 
-function parseBackgroundColor(value) {
-    var parsed_value = parseColor(value);
+function parseBackgroundColor(value, property) {
+    var parsed_value = parseColor(value, property);
 
     if (parsed_value) {
         return modifyBackgroundColor(parsed_value);
@@ -873,7 +953,7 @@ function parseBackgroundColor(value) {
 
         if (match) {
             for (var i = 0, l = match.length; i < l; i++) {
-                var color = parseColor(match[i]);
+                var color = parseColor(match[i], property);
 
                 if (color) {
                     value = value.replace(match[i], modifyBackgroundColor(color));
@@ -890,8 +970,8 @@ function parseBackgroundColor(value) {
 # TEXT COLOR
 --------------------------------------------------------------*/
 
-function parseTextColor(value) {
-    var parsed_value = parseColor(value);
+function parseTextColor(value, property) {
+    var parsed_value = parseColor(value, property);
 
     if (parsed_value) {
         return modifyTextColor(parsed_value);
@@ -900,7 +980,7 @@ function parseTextColor(value) {
 
         if (match) {
             for (var i = 0, l = match.length; i < l; i++) {
-                var color = parseColor(match[i]);
+                var color = parseColor(match[i], property);
 
                 if (color) {
                     value = value.replace(match[i], modifyTextColor(color));
@@ -917,8 +997,8 @@ function parseTextColor(value) {
 # BORDER COLOR
 --------------------------------------------------------------*/
 
-function parseBorderColor(value) {
-    var parsed_value = parseColor(value);
+function parseBorderColor(value, property) {
+    var parsed_value = parseColor(value, property);
 
     if (parsed_value) {
         return modifyBorderColor(parsed_value);
@@ -927,7 +1007,7 @@ function parseBorderColor(value) {
 
         if (match) {
             for (var i = 0, l = match.length; i < l; i++) {
-                var color = parseColor(match[i]);
+                var color = parseColor(match[i], property);
 
                 if (color) {
                     value = value.replace(match[i], modifyBorderColor(color));
@@ -1014,6 +1094,8 @@ chrome.storage.onChanged.addListener(function(changes) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.head.appendChild(variables_element);
+
     queryLinks();
     queryStyles();
     queryInlines();

@@ -11,8 +11,8 @@
 # DOCUMENT
 --------------------------------------------------------------*/
 
-html.dark-mode body,
-html.dark-mode
+body,
+html
 {
     color: #eee;
     background-color: #000;
@@ -27,19 +27,19 @@ html.dark-mode
 # SCROLLBAR
 --------------------------------------------------------------*/
 
-html.dark-mode ::-webkit-scrollbar
+::-webkit-scrollbar
 {
     background-color: #2b2b2b;
 }
 
-html.dark-mode ::-webkit-scrollbar-thumb
+::-webkit-scrollbar-thumb
 {
     border-right: 2px solid #2b2b2b;
     border-left: 2px solid #2b2b2b;
     background-color: #4d4d4d;
 }
 
-html.dark-mode ::-webkit-scrollbar-button
+::-webkit-scrollbar-button
 {
     background-color: #2b2b2b;
 }
@@ -49,7 +49,7 @@ html.dark-mode ::-webkit-scrollbar-button
 # LINK
 --------------------------------------------------------------*/
 
-html.dark-mode a
+a
 {
     color: #678fff;
 }
@@ -59,26 +59,26 @@ html.dark-mode a
 # BACKGROUND
 --------------------------------------------------------------*/
 
-html.dark-mode button,
-html.dark-mode input,
-html.dark-mode select,
-html.dark-mode textarea
+button,
+input,
+select,
+textarea
 {
     color: #eee;
     border-color: #333;
     background-color: #000;
 }
 
-html.dark-mode button[disabled],
-html.dark-mode input[disabled],
-html.dark-mode select[disabled],
-html.dark-mode textarea[disabled]
+button[disabled],
+input[disabled],
+select[disabled],
+textarea[disabled]
 {
     opacity: .5;
 }
 
-html.dark-mode input[type=text],
-html.dark-mode textarea
+input[type=text],
+textarea
 {
     background-color: transparent;
 }
@@ -88,14 +88,14 @@ html.dark-mode textarea
 # BORDER
 --------------------------------------------------------------*/
 
-html.dark-mode fieldset,
-html.dark-mode hr,
-html.dark-mode iframe
+fieldset,
+hr,
+iframe
 {
     border-color: #333;
 }
 
-html.dark-mode table
+table
 {
     border-color: #333;
 }
