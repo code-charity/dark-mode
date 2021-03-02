@@ -12,6 +12,9 @@
     <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl">Get Started »</a>
 </p>
 
+<br>
+<br>
+
 ## :earth_americas: Translations
 - [x] [Arabic](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ar) `/ar/`
 - [ ] [Amharic](https://github.com/victor-savinov/dark-mode/tree/master/_locales/am) `/am/`
