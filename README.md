@@ -13,7 +13,6 @@
 </p>
 
 <br>
-<br>
 
 ## :earth_americas: Translations
 - [x] [Arabic](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ar/messages.json) `/ar/`
