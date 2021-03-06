@@ -316,8 +316,13 @@ body[data-website-text-editor='true'] .websites-textfield
     background: rgb(25 27 31 / 50%);
 }
 
-.satus-section--toolbar  .satus-switch__label
+.satus-section--toolbar .satus-switch__label
 {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
     color: #505562;
 }
 
