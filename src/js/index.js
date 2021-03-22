@@ -308,7 +308,7 @@ function exportData() {
                     if (granted) {
                         chrome.downloads.download({
                             url: URL.createObjectURL(blob),
-                            filename: 'night-mode.json',
+                            filename: 'dark-mode.json',
                             saveAs: true
                         }, function() {
                             setTimeout(function() {

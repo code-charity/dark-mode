@@ -1,0 +1,7 @@
+html.dark-mode--loading *
+{
+    color: #fff !important;
+    border-color: #000 !important;
+    background: #000 !important;
+    box-shadow: none !important;
+}

@@ -63,7 +63,8 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
 
         chrome.tabs.sendMessage(sender.tab.id, {
             action: 'dark-mode--fetch-response',
-            response: response
+            response: response,
+            parent: message.parent
         });
     }
 });

@@ -152,39 +152,39 @@ body
 # SWITCH
 ---------------------------------------------------------------*/
 
-.satus-switch--night-mode
+.satus-switch--dark-mode
 {
     display: none;
 
     padding: 0;
 }
 
-body[data-appearance='home'] .satus-switch--night-mode
+body[data-appearance='home'] .satus-switch--dark-mode
 {
     display: flex;
 }
 
-.satus-switch--night-mode:hover
+.satus-switch--dark-mode:hover
 {
     background-color: transparent;
 }
 
-.satus-switch--night-mode[data-value=false] > svg:last-child
+.satus-switch--dark-mode[data-value=false] > svg:last-child
 {
     opacity: .5;
 }
 
-.satus-switch--night-mode[data-value=true] > svg:first-child
+.satus-switch--dark-mode[data-value=true] > svg:first-child
 {
     opacity: .5;
 }
 
-.satus-switch--night-mode .satus-switch__track
+.satus-switch--dark-mode .satus-switch__track
 {
     margin: 0 4px;
 }
 
-.satus-switch--night-mode .satus-switch__track
+.satus-switch--dark-mode .satus-switch__track
 {
     background: #777 !important;
 }
@@ -370,7 +370,7 @@ body[data-website-text-editor='true'] .websites-textfield
     cursor: pointer;
 }
 
-.satus-switch--night-mode
+.satus-switch--dark-mode
 {
     width: auto;
 }

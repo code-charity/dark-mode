@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Dark Mode",
     "version": "2.0",
-    "version_name": "2.0-testing.3",
+    "version_name": "2.0-testing.4",
     "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
 
     "default_locale": "en",
@@ -24,7 +24,8 @@
         "all_frames": true,
         "match_about_blank": true,
         "css": [
-            "user-agent-stylesheet.css"
+            "user-agent-stylesheet.css",
+            "content-styles.css"
         ],
         "js": [
             "content-scripts.js"

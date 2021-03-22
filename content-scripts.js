@@ -5,9 +5,9 @@ function getFilters(settings) {
         body_child_filter = '';
 
     if (settings.bluelight > 0) {
-        var bluelight = document.getElementById('night-mode-bluelight') || document.createElement('div');
+        var bluelight = document.getElementById('dark-mode-bluelight') || document.createElement('div');
 
-        bluelight.id = 'night-mode-bluelight';
+        bluelight.id = 'dark-mode-bluelight';
         bluelight.style.position = 'absolute';
         bluelight.style.visibility = 'hidden';
         bluelight.style.pointerEvents = 'none';
@@ -20,8 +20,8 @@ function getFilters(settings) {
         if (typeof settings.grayscale === 'number' && settings.grayscale > 0) {
             body_child_filter += ' grayscale(' + settings.grayscale + '%)';
         }
-    } else if (document.getElementById('night-mode-bluelight')) {
-        document.getElementById('night-mode-bluelight').remove();
+    } else if (document.getElementById('dark-mode-bluelight')) {
+        document.getElementById('dark-mode-bluelight').remove();
     }
 
     if (!(settings.bluelight > 0)) {
@@ -31,15 +31,15 @@ function getFilters(settings) {
     }
 
     if (html_filter.length > 0) {
-        string += 'html{-webkit-filter:' + html_filter + ';filter:' + html_filter + '}#night-mode-extension-brightness{filter:invert(1)}';
+        string += 'html{-webkit-filter:' + html_filter + ';filter:' + html_filter + '}#dark-mode-extension-brightness{filter:invert(1)}';
     }
 
     if (body_filter.length > 0) {
-        string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}#night-mode-extension-brightness{filter:invert(1)}';
+        string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}#dark-mode-extension-brightness{filter:invert(1)}';
     }
 
     if (body_child_filter.length > 0) {
-        string += 'body > *:not(#night-mode-extension-brightness){-webkit-filter:' + body_child_filter + ';filter:' + body_child_filter + '}';
+        string += 'body > *:not(#dark-mode-extension-brightness){-webkit-filter:' + body_child_filter + ';filter:' + body_child_filter + '}';
     }
 
     return string;
@@ -48,7 +48,7 @@ function getFilters(settings) {
 function injectStyle(string, id, schedule) {
     var element = document.getElementById(id) || document.createElement('style');
 
-    element.className = 'night-mode-extension-inject';
+    element.className = 'dark-mode-extension-inject';
 
     if (id) {
         element.id = id;
@@ -68,26 +68,24 @@ function injectStyle(string, id, schedule) {
 }
 
 function removeAll() {
-    document.documentElement.classList.remove('dark-mode');
-
-    if (document.querySelector('#night-mode-extension-filters')) {
-        document.querySelector('#night-mode-extension-filters').remove();
+    if (document.querySelector('#dark-mode-extension-filters')) {
+        document.querySelector('#dark-mode-extension-filters').remove();
     }
 
-    if (document.querySelector('#night-mode-extension-global-styles')) {
-        document.querySelector('#night-mode-extension-global-styles').remove();
+    if (document.querySelector('#dark-mode-extension-global-styles')) {
+        document.querySelector('#dark-mode-extension-global-styles').remove();
     }
 
-    if (document.querySelector('#night-mode-extension-styles')) {
-        document.querySelector('#night-mode-extension-styles').remove();
+    if (document.querySelector('#dark-mode-extension-styles')) {
+        document.querySelector('#dark-mode-extension-styles').remove();
     }
 
-    if (document.querySelector('#night-mode-extension-brightness-styles')) {
-        document.querySelector('#night-mode-extension-brightness-styles').remove();
+    if (document.querySelector('#dark-mode-extension-brightness-styles')) {
+        document.querySelector('#dark-mode-extension-brightness-styles').remove();
     }
 
-    if (document.querySelector('#night-mode-extension-contrast-styles')) {
-        document.querySelector('#night-mode-extension-contrast-styles').remove();
+    if (document.querySelector('#dark-mode-extension-contrast-styles')) {
+        document.querySelector('#dark-mode-extension-contrast-styles').remove();
     }
 }
 
@@ -157,20 +155,16 @@ function update() {
         ) &&
         ( /*enabled !== true || */ ((settings.websites || {})[location.hostname] || {}).enabled !== false)
     ) {
-        injectStyle(getFilters(sett), 'night-mode-extension-filters', settings.schedule);
+        injectStyle(getFilters(sett), 'dark-mode-extension-filters', settings.schedule);
 
-        injectStyle(settings.styles, 'night-mode-extension-global-styles', settings.schedule);
+        injectStyle(settings.styles, 'dark-mode-extension-global-styles', settings.schedule);
 
         if (settings.websites && current_website && current_website.styles) {
-            injectStyle(current_website.styles, 'night-mode-extension-styles', settings.schedule);
-        }
-
-        if (settings.invert_colors !== false) {
-            document.documentElement.classList.add('dark-mode');
+            injectStyle(current_website.styles, 'dark-mode-extension-styles', settings.schedule);
         }
 
         injectStyle(`
-            #night-mode-extension-brightness {
+            #dark-mode-extension-brightness {
                 position: fixed;
                 left: 0;
                 top: 0;
@@ -180,10 +174,10 @@ function update() {
                 pointer-events: none;
                 z-index: 9999999999
             }`,
-            'night-mode-extension-brightness-styles');
+            'dark-mode-extension-brightness-styles');
 
         injectStyle(`
-            #night-mode-extension-contrast {
+            #dark-mode-extension-contrast {
                 position: fixed;
                 left: 0;
                 top: 0;
@@ -193,10 +187,42 @@ function update() {
                 pointer-events: none;
                 z-index: 999999999
             }`,
-            'night-mode-extension-contrast-styles');
+            'dark-mode-extension-contrast-styles');
     } else {
         removeAll();
     }
+}
+
+function isActive() {
+    if (settings.mode === false) {
+        return false;
+    }
+
+    if (
+        settings.websites &&
+        settings.websites[location.hostname] &&
+        settings.websites[location.hostname].enabled === false
+    ) {
+        return false;
+    }
+
+    if (settings.schedule !== 'sunset_to_sunrise') {
+        var schedule_from = Number((settings.time_from || '00:00').substr(0, 2)),
+            schedule_to = Number((settings.time_to || '00:00').substr(0, 2)),
+            current = new Date().getHours();
+
+        if (schedule_to < schedule_from && current > schedule_from && current < 24) {
+            schedule_to += 24;
+        } else if (schedule_to < schedule_from && current < schedule_to) {
+            schedule_from = 0;
+        }
+
+        if (current >= schedule_from && current < schedule_to) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 
@@ -210,8 +236,10 @@ function update() {
 # Create style
 # Converters
     # Style to RGB
+    # Hue to RGB
     # Hex to RGB
     # RGB to HSL
+    # HSL to RGB
     # HSL to style
 # Modifiers
     # 
@@ -233,9 +261,11 @@ function update() {
 var settings = {},
     current_website,
     variables = {},
+    variables_parents = {},
     variables_string = '',
     variables_element = document.createElement('style'),
     regex_rgb = /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(-?-?\b[a-z-]+)/g,
+    regex_hex = /[A-Za-z0-9]{3,6}/g,
     regex_numbers = /[0-9.]+/g,
     color_keywords = {
         aliceblue: [0.5777777777777778, 1, 0.9705882352941176],
@@ -386,23 +416,26 @@ var settings = {},
         whitesmoke: [0, 0, 0.9607843137254902],
         yellow: [0.16666666666666666, 1, 0.5],
         yellowgreen: [0.22150537634408604, 0.607843137254902, 0.5]
-    };
+    },
+    loading_threads = 0;
 
-variables_element.className = 'dark-mode--stylesheet';
+variables_element.className = 'dark-mode--stylesheet dark-mode--variables';
+
+document.documentElement.classList.add('dark-mode--loading');
 
 /*--------------------------------------------------------------
 # CREATE STYLE
 --------------------------------------------------------------*/
 
-function createStyle(content) {
+function createStyle(content, parent) {
     var element = document.createElement('style');
 
     element.className = 'dark-mode--stylesheet';
     element.textContent = content;
 
-    document.head.appendChild(element);
+    parent.appendChild(element);
 
-    variables_element.textContent = 'html{' + variables_string + '}';
+    variables_element.textContent = variables_string;
 
     return element;
 }
@@ -411,6 +444,30 @@ function createStyle(content) {
 /*--------------------------------------------------------------
 # CONVERTERS
 --------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# HUE TO RGB
+--------------------------------------------------------------*/
+
+function hueToRgb(t1, t2, hue) {
+    if (hue < 0) {
+        hue += 6;
+    }
+
+    if (hue >= 6) {
+        hue -= 6;
+    }
+
+    if (hue < 1) {
+        return (t2 - t1) * hue + t1;
+    } else if (hue < 3) {
+        return t2;
+    } else if (hue < 4) {
+        return (t2 - t1) * (4 - hue) + t1;
+    } else {
+        return t1;
+    }
+}
 
 /*--------------------------------------------------------------
 # STYLE TO RGB
@@ -536,6 +593,32 @@ function hslToStyle(array) {
 
 
 /*--------------------------------------------------------------
+# HSL TO RGB
+--------------------------------------------------------------*/
+
+function hslToRgb(array) {
+    var hue = array[0] * 360,
+        saturation = array[1],
+        lightness = array[2],
+        t1,
+        t2;
+
+    if (lightness <= .5) {
+        t2 = lightness * (saturation + 1);
+    } else {
+        t2 = lightness + saturation - (lightness * saturation);
+    }
+
+    t1 = lightness * 2 - t2;
+    r = hueToRgb(t1, t2, hue + 2) * 255;
+    g = hueToRgb(t1, t2, hue) * 255;
+    b = hueToRgb(t1, t2, hue - 2) * 255;
+
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
+
+/*--------------------------------------------------------------
 # MODIFIERS
 --------------------------------------------------------------*/
 
@@ -550,13 +633,66 @@ function modifyColor(hsl) {
 # BACKGROUND COLOR
 --------------------------------------------------------------*/
 
-function modifyBackgroundColor(value) {
+function modifyBackgroundColor(value, convert = true) {
     var hue = value[0],
         saturation = value[1],
         lightness = value[2];
 
-    if (lightness > .5) {
-        value[2] = .1 + 1 - lightness;
+    if (saturation > .2 && (hue < 0.08 || hue > 0.722222222)) {
+        if (lightness > .4) {
+            value[2] = .4;
+        } else {
+            value[2] = .3;
+        }
+    } else if (lightness < .2 && hue > 0.555555556 && hue < 0.722222222) {
+        value[1] = 0;
+        value[2] = .075;
+    } else if (lightness > .5) {
+        value[2] = 1 - value[2];
+    }
+
+    if (convert === true) {
+        return hslToStyle(value);
+    } else {
+        return value;
+    }
+}
+
+
+/*--------------------------------------------------------------
+# BORDER COLOR
+--------------------------------------------------------------*/
+
+function modifyBorderColor(value) {
+    var hue = value[0];
+
+    if (hue > 0.555555556 && hue < 0.722222222) {
+        value[0] = 0;
+        value[1] = 0;
+    }
+
+    value[2] = .25;
+
+    return hslToStyle(value);
+}
+
+
+/*--------------------------------------------------------------
+# SHADOW COLOR
+--------------------------------------------------------------*/
+
+function modifyShadowColor(value) {
+    var hue = value[0];
+
+    if (hue > 0.555555556 && hue < 0.722222222) {
+        value[0] = 0;
+        value[1] = 0;
+    }
+
+    value[2] = 1 - value[2];
+
+    if (value[2] < .5) {
+        value[2] = .5;
     }
 
     return hslToStyle(value);
@@ -579,24 +715,7 @@ function modifyTextColor(value) {
 
     // Colored
     else if (lightness < .5) {
-        value[2] = .75;
-    }
-
-    return hslToStyle(value);
-}
-
-
-/*--------------------------------------------------------------
-# BORDER COLOR
---------------------------------------------------------------*/
-
-function modifyBorderColor(value) {
-    var hue = value[0],
-        saturation = value[1],
-        lightness = value[2];
-
-    if (lightness > .5) {
-        value[2] = .1 + 1 - lightness;
+        value[2] = .7;
     }
 
     return hslToStyle(value);
@@ -619,15 +738,80 @@ function attributeStyle(node) {
     }
 }
 
+/*--------------------------------------------------------------
+# ATTRIBUTE <* BGCOLOR="..."></*>
+--------------------------------------------------------------*/
+
+function attributeBgcolor(node) {
+    if (typeof node.className === 'string' && node.className.indexOf('dark-mode--bgcolor') === -1) {
+        var value = node.getAttribute('bgcolor'),
+            match = value.match(regex_rgb);
+
+        node.className += ' dark-mode--bgcolor';
+
+        if (match) {
+            for (var i = 0, l = match.length; i < l; i++) {
+                var color = parseColor(match[i]);
+
+                if (color) {
+                    value = value.replace(match[i], modifyBackgroundColor(color));
+                }
+            }
+        } else {
+            var match = value.match(regex_hex);
+
+            if (match) {
+                value = hslToRgb(modifyBackgroundColor(rgbToHsl(hexToRgb('#' + match[0])), false));
+            }
+        }
+
+        node.setAttribute('bgcolor', value);
+    }
+}
+
+/*--------------------------------------------------------------
+# ATTRIBUTE <* COLOR="..."></*>
+--------------------------------------------------------------*/
+
+function attributeColor(node) {
+    if (typeof node.className === 'string' && node.className.indexOf('dark-mode--color') === -1) {
+        var value = node.getAttribute('color'),
+            match = value.match(regex_rgb);
+
+        node.className += ' dark-mode--color';
+
+        if (match) {
+            for (var i = 0, l = match.length; i < l; i++) {
+                var color = parseColor(match[i]);
+
+                if (color) {
+                    value = value.replace(match[i], modifyTextColor(color));
+                }
+            }
+        } else {
+            var match = value.match(regex_hex);
+
+            if (match) {
+                value = hslToRgb(modifyTextColor(rgbToHsl(hexToRgb('#' + match[0])), false));
+            }
+        }
+
+        node.setAttribute('color', value);
+    }
+}
+
 
 /*--------------------------------------------------------------
 # ELEMENT <LINK REL=STYLESHEET HREF="...">
 --------------------------------------------------------------*/
 
 async function elementLink(node) {
+    loading_threads++;
+
     chrome.runtime.sendMessage({
         action: 'dark-mode--fetch',
-        url: node.href
+        url: node.href,
+        parent: node.parentNode.localName
     });
 }
 
@@ -639,7 +823,7 @@ async function elementLink(node) {
 function elementStyle(node) {
     if (node.className.indexOf('dark-mode--stylesheet') === -1) {
         if (node.sheet) {
-            createStyle(parseRules(node.sheet.cssRules));
+            createStyle(parseRules(node.sheet.cssRules), node.parentNode);
         }
     }
 }
@@ -660,6 +844,10 @@ function parseMutations(mutationList) {
         if (mutation.type === 'attributes') {
             if (mutation.attributeName === 'style') {
                 attributeStyle(mutation.target);
+            } else if (mutation.attributeName === 'bgcolor') {
+                attributeBgcolor(mutation.target);
+            } else if (mutation.attributeName === 'color') {
+                attributeColor(mutation.target);
             }
         } else if (mutation.type === 'childList') {
             for (var j = 0, k = mutation.addedNodes.length; j < k; j++) {
@@ -682,7 +870,7 @@ function parseMutations(mutationList) {
 # RULES
 --------------------------------------------------------------*/
 
-function parseRules(rules) {
+function parseRules(rules, parent) {
     var string = '';
 
     for (var i = 0, l = rules.length; i < l; i++) {
@@ -699,7 +887,7 @@ function parseRules(rules) {
                     media.includes('speech')
                 )
             ) {
-                var result = parseRules(rule.cssRules);
+                var result = parseRules(rule.cssRules, '@media ' + rule.media.mediaText);
 
                 if (result.length > 0) {
                     string += '@media ' + rule.media.mediaText + '{' + result + '}';
@@ -717,10 +905,10 @@ function parseRules(rules) {
                 }
             }
         } else if (rule instanceof CSSStyleRule) {
-            var properties = parseProperties(rule.style);
+            var properties = parseProperties(rule.style, false, [parent, rule.selectorText]);
 
             if (properties.length > 0) {
-                string += 'html.dark-mode ' + rule.selectorText + '{' + properties + '}';
+                string += rule.selectorText + '{' + properties + '}';
             }
         } else if (rule instanceof CSSSupportsRule) {
             if (CSS.supports(rule.conditionText)) {
@@ -733,6 +921,14 @@ function parseRules(rules) {
         }
     }
 
+    loading_threads--;
+
+    if (loading_threads <= 0) {
+        setTimeout(function() {
+            document.documentElement.classList.remove('dark-mode--loading');
+        }, 500);
+    }
+
     return string;
 }
 
@@ -741,7 +937,7 @@ function parseRules(rules) {
 # PROPERTIES
 --------------------------------------------------------------*/
 
-function parseProperties(properties, is_inline) {
+function parseProperties(properties, is_inline, parent) {
     var string = '';
 
     for (var i = 0, l = properties.length; i < l; i++) {
@@ -753,37 +949,57 @@ function parseProperties(properties, is_inline) {
         ) {
             var value = properties.getPropertyValue(property);
 
-            string += property + ':' + parseBackgroundColor(value, property) + ' !important;';
-        } else if (property === 'color') {
+            string += property + ':' + parseBackgroundColor(value, property) + ';';
+        } else if (
+            property === 'color' ||
+            property === 'fill' ||
+            property === 'stroke' ||
+            property === 'stop-color'
+        ) {
             var value = properties.getPropertyValue(property);
 
-            string += property + ':' + parseTextColor(value, property) + ' !important;';
+            string += property + ':' + parseTextColor(value, property) + ';';
         } else if (
             property === 'border-top-color' ||
             property === 'border-right-color' ||
             property === 'border-bottom-color' ||
             property === 'border-left-color' ||
-            property === 'outline-color' ||
-            property === 'box-shadow'
+            property === 'outline-color'
         ) {
             var value = properties.getPropertyValue(property);
 
-            string += property + ':' + parseBorderColor(value, property) + ' !important;';
+            string += property + ':' + parseBorderColor(value, property) + ';';
+        } else if (property === 'box-shadow') {
+            var value = properties.getPropertyValue(property);
+
+            string += property + ':' + parseShadowColor(value, property) + ';';
         } else if (property.indexOf('--') === 0) {
             var value = properties.getPropertyValue(property);
 
-            var match = value.match(regex_rgb);
+            var match = value.match(regex_rgb),
+                variable = variables;
 
-            if (!variables[property]) {
-                variables[property] = {
-                    parent: '',
-                    value: value
-                };
-            } else {
-                variables[property].value = value;
+            if (parent) {
+                for (var j = 0, k = parent.length; j < k; j++) {
+                    var p = parent[j];
+
+                    if (p) {
+                        if (!variable[p]) {
+                            variable[p] = {};
+                        }
+
+                        variable = variable[p];
+                    }
+                }
             }
 
-            modifyVariable(property);
+            if (!variable[property]) {
+                variable[property] = {
+                    value: value
+                };
+            }
+
+            modifyVariable(variable, parent, property);
         } else if (is_inline) {
             string += property + ':' + properties.getPropertyValue(property) + ';';
         }
@@ -809,62 +1025,91 @@ function parseColor(value, property) {
     } else if (color_keywords[value]) {
         return color_keywords[value];
     } else if (value.indexOf('--') === 0) {
-        if (!variables[value]) {
-            variables[value] = {
-                parent: property
-            };
-        } else {
-            variables[value].parent = property;
+        if (!variables_parents[value]) {
+            variables_parents[value] = property;
         }
 
-        modifyVariable(value);
+        var variable = variables;
+
+        function searchVariable(string, object, handler, query, level) {
+            for (var key in object) {
+                if (key === string) {
+                    handler(string, object[key].value, query, level);
+                } else if (
+                    typeof object[key] === 'object' &&
+                    key !== 'value' &&
+                    key.indexOf('--') !== 0
+
+                ) {
+                    searchVariable(string, object[key], handler, query + key + '{', level + 1);
+                }
+            }
+        }
+
+        searchVariable(value, variables, function(name, value, query, level) {
+            modifyVariable(name, value, query, level);
+        }, '', 0);
     } else if (value.indexOf('var(') === 0) {
         var match = value.match(/--[^ ,.)]+/);
 
         if (match) {
-            if (!variables[match[0]]) {
-                variables[match[0]] = {
-                    parent: property
-                };
-            } else {
-                variables[match[0]].parent = property;
+            if (!variables_parents[match[0]]) {
+                variables_parents[match[0]] = property;
             }
 
-            modifyVariable(match[0]);
+            var variable = variables;
+
+            function searchVariable(string, object, handler, query, level) {
+                for (var key in object) {
+                    if (key === string) {
+                        handler(string, object[key].value, query, level);
+                    } else if (
+                        typeof object[key] === 'object' &&
+                        key !== 'value' &&
+                        key.indexOf('--') !== 0
+
+                    ) {
+                        searchVariable(string, object[key], handler, query + key + '{', level + 1);
+                    }
+                }
+            }
+
+            searchVariable(match[0], variables, function(name, value, query, level) {
+                modifyVariable(name, value, query, level);
+            }, '', 0);
         }
     }
 }
 
-function modifyVariable(name) {
-    var variable = variables[name],
-        property = variable.parent;
+function modifyVariable(name, value, query, level) {
+    var property = variables_parents[name];
 
-    if (variable && variable.parent !== '' && variable.value) {
+    if (value && property) {
         if (
             property === 'background-color' ||
             property === 'background-image'
         ) {
-            var value = variable.value;
-
-            variables_string += name + ':' + parseBackgroundColor(value, property) + ' !important;';
-        } else if (property === 'color') {
-            var value = variable.value;
-
-            variables_string += name + ':' + parseTextColor(value, property) + ' !important;';
+            value = parseBackgroundColor(value, property);
+        } else if (
+            property === 'color' ||
+            property === 'fill' ||
+            property === 'stroke' ||
+            property === 'stop-color'
+        ) {
+            value = parseTextColor(value, property);
         } else if (
             property === 'border-top-color' ||
             property === 'border-right-color' ||
             property === 'border-bottom-color' ||
             property === 'border-left-color' ||
-            property === 'outline-color' ||
-            property === 'box-shadow'
+            property === 'outline-color'
         ) {
-            var value = variable.value;
-
-            variables_string += name + ':' + parseBorderColor(value, property) + ' !important;';
+            value = parseBorderColor(value, property);
+        } else if (property === 'box-shadow') {
+            value = parseShadowColor(value, property);
         }
 
-        //variables_element.textContent = 'html{' + variables_string + '}';
+        variables_string += query + name + ':' + value + ';' + (level === 2 ? '}}' : '}');
     }
 }
 
@@ -933,6 +1178,27 @@ function parseBorderColor(value, property) {
 
 
 /*--------------------------------------------------------------
+# SHADOW COLOR
+--------------------------------------------------------------*/
+
+function parseShadowColor(value, property) {
+    var match = value.match(regex_rgb);
+
+    if (match) {
+        for (var i = 0, l = match.length; i < l; i++) {
+            var color = parseColor(match[i], property);
+
+            if (color) {
+                value = value.replace(match[i], modifyShadowColor(color));
+            }
+        }
+    }
+
+    return value;
+}
+
+
+/*--------------------------------------------------------------
 # SELECTORS
 --------------------------------------------------------------*/
 
@@ -951,7 +1217,7 @@ function queryStyles() {
         var style = styles[i];
 
         if (style.sheet) {
-            createStyle(parseRules(style.sheet.cssRules));
+            createStyle(parseRules(style.sheet.cssRules), style.parentNode);
         }
     }
 }
@@ -961,6 +1227,18 @@ function queryInlines() {
 
     for (var i = 0, l = elements.length; i < l; i++) {
         attributeStyle(elements[i]);
+    }
+
+    var elements = document.querySelectorAll('*[bgcolor]:not(.dark-mode--bgcolor)');
+
+    for (var i = 0, l = elements.length; i < l; i++) {
+        attributeBgcolor(elements[i]);
+    }
+
+    var elements = document.querySelectorAll('*[color]:not(.dark-mode--color)');
+
+    for (var i = 0, l = elements.length; i < l; i++) {
+        attributeColor(elements[i]);
     }
 }
 
@@ -975,22 +1253,19 @@ function queryInlines() {
 
 var observer = new MutationObserver(parseMutations);
 
-observer.observe(document, {
-    attributes: true,
-    attributeFilter: [
-        'style'
-    ],
-    childList: true,
-    subtree: true
-});
-
-
-/*--------------------------------------------------------------
-# OBSERVER
---------------------------------------------------------------*/
-
 chrome.storage.local.get(function(items) {
     settings = items;
+
+    if (isActive() === true && settings.invert_colors !== false) {
+        observer.observe(document, {
+            attributes: true,
+            attributeFilter: [
+                'style'
+            ],
+            childList: true,
+            subtree: true
+        });
+    }
 
     update();
 });
@@ -1002,21 +1277,41 @@ chrome.storage.onChanged.addListener(function(changes) {
         settings[key] = changes[key].newValue;
     }
 
+    if (
+        changes.hasOwnProperty('mode') ||
+        changes.hasOwnProperty('websites') ||
+        changes.hasOwnProperty('invert_colors')
+    ) {
+        if (isActive() === true && settings.invert_colors !== false) {
+            queryLinks();
+            queryStyles();
+            queryInlines();
+        } else {
+            var elements = document.querySelectorAll('.dark-mode--stylesheet');
+
+            for (var i = elements.length - 1; i > -1; i--) {
+                elements[i].remove();
+            }
+        }
+    }
+
     update();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.head.appendChild(variables_element);
+    if (isActive() === true && settings.invert_colors !== false) {
+        document.head.appendChild(variables_element);
 
-    queryLinks();
-    queryStyles();
-    queryInlines();
+        queryLinks();
+        queryStyles();
+        queryInlines();
+    }
 
     var brightness = document.createElement('div'),
         contrast = document.createElement('div');
 
-    brightness.id = 'night-mode-extension-brightness';
-    contrast.id = 'night-mode-extension-contrast';
+    brightness.id = 'dark-mode-extension-brightness';
+    contrast.id = 'dark-mode-extension-contrast';
 
     document.body.appendChild(brightness);
     document.body.appendChild(contrast);
@@ -1025,18 +1320,22 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     observer.disconnect();
 
-    queryLinks();
-    queryStyles();
-    queryInlines();
+    if (isActive() === true && settings.invert_colors !== false) {
+        queryLinks();
+        queryStyles();
+        queryInlines();
+    }
 });
 
 var page_url = location.href;
 
 document.addEventListener('visibilitychange', function() {
-    if (page_url !== location.href) {
-        queryLinks();
-        queryStyles();
-        queryInlines();
+    if (isActive() === true && settings.invert_colors !== false) {
+        if (page_url !== location.href) {
+            queryLinks();
+            queryStyles();
+            queryInlines();
+        }
     }
 });
 
@@ -1051,10 +1350,11 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
     }
 
     if (message.action === 'dark-mode--fetch-response') {
-        var element = createStyle(message.response),
+        var parent = message.parent === 'head' ? document.head : document.body,
+            element = createStyle(message.response, parent),
             rules = element.sheet.cssRules;
 
-        createStyle(parseRules(rules));
+        createStyle(parseRules(rules), parent);
 
         element.remove();
     }
