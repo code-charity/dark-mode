@@ -20,7 +20,7 @@
 - [ ] [Catalan](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ca/messages.json) `/ca/`
 - [ ] [Czech](https://github.com/victor-savinov/dark-mode/tree/master/_locales/cs/messages.json) `/cs/`
 - [ ] [Danish](https://github.com/victor-savinov/dark-mode/tree/master/_locales/da/messages.json) `/da/`
-- [ ] [German](https://github.com/victor-savinov/dark-mode/tree/master/_locales/de/messages.json) `/de/`
+- [x] [German](https://github.com/victor-savinov/dark-mode/tree/master/_locales/de/messages.json) `/de/`
 - [ ] [Greek](https://github.com/victor-savinov/dark-mode/tree/master/_locales/el/messages.json) `/el/`
 - [x] [English](https://github.com/victor-savinov/dark-mode/tree/master/_locales/en/messages.json) `/en/`
 - [ ] [Spanish](https://github.com/victor-savinov/dark-mode/tree/master/_locales/es/messages.json) `/es/`
