@@ -974,32 +974,35 @@ function parseProperties(properties, is_inline, parent) {
 
             string += property + ':' + parseShadowColor(value, property) + ';';
         } else if (property.indexOf('--') === 0) {
-            var value = properties.getPropertyValue(property);
+            var value = properties.getPropertyValue(property),
+                match = value.match(regex_rgb);
 
-            var match = value.match(regex_rgb),
-                variable = variables;
+            if (match) {
+                var query = property;
 
-            if (parent) {
-                for (var j = 0, k = parent.length; j < k; j++) {
-                    var p = parent[j];
-
-                    if (p) {
-                        if (!variable[p]) {
-                            variable[p] = {};
+                if (parent) {
+                    for (var j = 0, k = parent.length; j < k; j++) {
+                        if (parent[j]) {
+                            query = parent[j] + '{' + query;
                         }
-
-                        variable = variable[p];
                     }
                 }
-            }
 
-            if (!variable[property]) {
-                variable[property] = {
-                    value: value
-                };
-            }
+                if (!variables[property]) {
+                    variables[property] = {
+                        queries: [query],
+                        value: value,
+                        property: false
+                    };
+                } else {
+                    variables[property].value = value;
+                    variables[property].queries.push(query);
+                }
 
-            modifyVariable(variable, parent, property);
+                if (variables[property].property && variables[property].value) {
+                    modifyVariable(property, variables[property].value, variables[property].property, variables[property].queries[0]);
+                }
+            }
         } else if (is_inline) {
             string += property + ':' + properties.getPropertyValue(property) + ';';
         }
@@ -1025,91 +1028,74 @@ function parseColor(value, property) {
     } else if (color_keywords[value]) {
         return color_keywords[value];
     } else if (value.indexOf('--') === 0) {
-        if (!variables_parents[value]) {
-            variables_parents[value] = property;
+        if (!variables[value]) {
+            variables[value] = {
+                queries: [],
+                value: false,
+                property: property
+            };
+        } else {
+            variables[value].property = property;
         }
 
-        var variable = variables;
-
-        function searchVariable(string, object, handler, query, level) {
-            for (var key in object) {
-                if (key === string) {
-                    handler(string, object[key].value, query, level);
-                } else if (
-                    typeof object[key] === 'object' &&
-                    key !== 'value' &&
-                    key.indexOf('--') !== 0
-
-                ) {
-                    searchVariable(string, object[key], handler, query + key + '{', level + 1);
-                }
-            }
+        if (variables[value].property && variables[value].value) {
+            modifyVariable(value, variables[value].value, variables[value].property, variables[value].queries[0]);
         }
-
-        searchVariable(value, variables, function(name, value, query, level) {
-            modifyVariable(name, value, query, level);
-        }, '', 0);
     } else if (value.indexOf('var(') === 0) {
         var match = value.match(/--[^ ,.)]+/);
 
         if (match) {
-            if (!variables_parents[match[0]]) {
-                variables_parents[match[0]] = property;
+            var value2 = match;
+
+            if (!variables[value2]) {
+                variables[value2] = {
+                    queries: [],
+                    value: false,
+                    property: property
+                };
+            } else {
+                variables[value2].property = property;
             }
 
-            var variable = variables;
-
-            function searchVariable(string, object, handler, query, level) {
-                for (var key in object) {
-                    if (key === string) {
-                        handler(string, object[key].value, query, level);
-                    } else if (
-                        typeof object[key] === 'object' &&
-                        key !== 'value' &&
-                        key.indexOf('--') !== 0
-
-                    ) {
-                        searchVariable(string, object[key], handler, query + key + '{', level + 1);
-                    }
-                }
+            if (variables[value2].property && variables[value2].value) {
+                modifyVariable(value2, variables[value2].value, variables[value2].property, variables[value2].queries[0]);
             }
 
-            searchVariable(match[0], variables, function(name, value, query, level) {
-                modifyVariable(name, value, query, level);
-            }, '', 0);
         }
     }
 }
 
-function modifyVariable(name, value, query, level) {
-    var property = variables_parents[name];
+function modifyVariable(name, value, property, query) {
+    if (
+        property === 'background-color' ||
+        property === 'background-image'
+    ) {
+        value = parseBackgroundColor(value, property);
 
-    if (value && property) {
-        if (
-            property === 'background-color' ||
-            property === 'background-image'
-        ) {
-            value = parseBackgroundColor(value, property);
-        } else if (
-            property === 'color' ||
-            property === 'fill' ||
-            property === 'stroke' ||
-            property === 'stop-color'
-        ) {
-            value = parseTextColor(value, property);
-        } else if (
-            property === 'border-top-color' ||
-            property === 'border-right-color' ||
-            property === 'border-bottom-color' ||
-            property === 'border-left-color' ||
-            property === 'outline-color'
-        ) {
-            value = parseBorderColor(value, property);
-        } else if (property === 'box-shadow') {
-            value = parseShadowColor(value, property);
-        }
+        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
+    } else if (
+        property === 'color' ||
+        property === 'fill' ||
+        property === 'stroke' ||
+        property === 'stop-color'
+    ) {
+        value = parseTextColor(value, property);
 
-        variables_string += query + name + ':' + value + ';' + (level === 2 ? '}}' : '}');
+        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
+    } else if (
+        property === 'border-top-color' ||
+        property === 'border-right-color' ||
+        property === 'border-bottom-color' ||
+        property === 'border-left-color' ||
+        property === 'outline-color'
+    ) {
+        value = parseBorderColor(value, property);
+
+        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
+    } else if (property === 'box-shadow') {
+        value = parseShadowColor(value, property);
+
+        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
     }
 }
 
