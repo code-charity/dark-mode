@@ -1,66 +1,66 @@
 {
     "about": {
-        "message": "About"
+        "message": "Über"
     },
     "accept": {
-        "message": "Accept"
+        "message": "Akzeptieren"
     },
     "useGlobal": {
-        "message": "Use global"
+        "message": "Globale benutzen"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Farbtemperatur"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "Audioformate"
     },
     "backupAndReset": {
-        "message": "Backup & reset"
+        "message": "Backup & zurücksetzen"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "Blaues Licht"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "Helligkeit"
     },
     "browser": {
         "message": "Browser"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "Abbrechen"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "Kontrast"
     },
     "cores": {
-        "message": "Cores"
+        "message": "Kerne"
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "Datum & Zeit"
     },
     "device": {
-        "message": "Device"
+        "message": "Gerät"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "Deaktiviert"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "Diese Website ausschließen"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "Einstellungen exportieren"
     },
     "extension": {
-        "message": "Extension"
+        "message": "Erweiterung"
     },
     "filters": {
-        "message": "Filters"
+        "message": "Filter"
     },
     "flash": {
-        "message": "Flash"
+        "message": "Blitz"
     },
     "general": {
-        "message": "General"
+        "message": "Generell"
     },
     "global": {
         "message": "Global"
@@ -69,22 +69,22 @@
         "message": "GPU"
     },
     "grayscale": {
-        "message": "Grayscale"
+        "message": "Graustufe"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "\"Made with ❤...\" nicht mehr anzeigen"
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "Einstellungen importieren"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "Farben invertieren"
     },
     "language": {
-        "message": "Language"
+        "message": "Sprache"
     },
     "languages": {
-        "message": "Languages"
+        "message": "Sprachen"
     },
     "name": {
         "message": "Name"
@@ -93,100 +93,100 @@
         "message": "OK"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "Nur für diese Website aktivieren"
     },
     "os": {
-        "message": "OS"
+        "message": "Betriebssystem"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "Berechtigung nicht erteilt"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "Berechtigungen"
     },
     "platform": {
-        "message": "Platform"
+        "message": "Plattform"
     },
     "ram": {
         "message": "RAM"
     },
     "remove": {
-        "message": "Remove"
+        "message": "Entfernen"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "Alle Einstellungen zurücksetzen"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "Wirklich alle Einstellungen zurücksetzen?"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "Speichern als..."
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "Plan"
     },
     "screen": {
-        "message": "Screen"
+        "message": "Bildschirm"
     },
     "sepia": {
         "message": "Sepia"
     },
     "settings": {
-        "message": "Settings"
+        "message": "Einstellungen"
     },
     "styles": {
-        "message": "Styles"
+        "message": "Stile"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Einstellungen erfolgreich importiert"
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "Sonnenaufgang bis Sonnenuntergang"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "Systemeinstellung"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "Texteditor-Mode"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "Die Liste ist leer"
     },
     "theme": {
-        "message": "Theme"
+        "message": "Thema"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "Die Seite HOSTNAME ist vom Browser geschützt."
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Das wird alle Einstellungen zurücksetzen"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "Zeit ab"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "Zeit bis"
     },
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "Für diese Website deaktivieren"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+        "message": "Für diese Website aktivieren"
     },
     "type": {
-        "message": "Type"
+        "message": "Typ"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+        "message": "24-Stunden Format benutzen"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+        "message": "Einstellungen für alle Websites benutzen"
     },
     "version": {
         "message": "Version"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "Videoformate"
     },
     "websites": {
         "message": "Websites"
