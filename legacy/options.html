@@ -1,0 +1,59 @@
+<!doctype html>
+<html options>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Dark Mode</title>
+		<link rel="stylesheet" href="satus.css">
+        <link rel="stylesheet" href="popup.css">
+        <style>
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden
+            }
+            
+            .satus {
+                width: 200vw;
+                height: 200vw;
+                left: -50vw;
+                top: -50vw
+            }
+            
+            .satus__wrapper {
+                width: 100vw;
+                height: 100vh;
+                left: 50vw;
+                top: 50vw
+            }
+            
+            .satus.loading .satus__wrapper {
+                left: calc(-100vw + 64px)
+            }
+            
+            @media screen and (orientation:portrait) {
+                .satus {
+                    width: 200vh;
+                    height: 200vh;
+                    left: -50vh;
+                    top: -50vh
+                }
+                
+                .satus__wrapper {
+                    width: 100vw;
+                    height: 100vh;
+                    left: 50vh;
+                    top: 50vh
+                }
+            }
+        </style>
+	</head>
+	<body>
+		<script src="satus.js"></script>
+        <script src="popup.js"></script>
+        
+		<div class="satus">
+			<div class="satus__wrapper"></div>
+		</div>
+	</body>
+</html>

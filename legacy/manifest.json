@@ -1,0 +1,56 @@
+{
+    "manifest_version": 2,
+    "name": "Dark Mode",
+    "version": "1.94",
+    "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
+
+    "default_locale": "en",
+
+    "icons": {
+        "16": "assets/icons/16.png",
+        "32": "assets/icons/32.png",
+        "48": "assets/icons/48.png",
+        "128": "assets/icons/128.png"
+    },
+
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+
+    "content_scripts": [{
+        "all_frames": true,
+        "js": [
+            "content-scripts.js"
+        ],
+        "matches": [
+            "<all_urls>"
+        ],
+        "run_at": "document_start"
+    }],
+
+    "browser_action": {
+        "default_icon": {
+            "16": "assets/icons/16g.png",
+            "32": "assets/icons/32g.png",
+            "48": "assets/icons/48g.png",
+            "128": "assets/icons/128g.png"
+        },
+        "default_popup": "index.html"
+    },
+
+    "options_page": "options.html",
+
+    "optional_permissions": [
+        "downloads"
+    ],
+
+    "permissions": [
+        "storage",
+        "tabs",
+        "<all_urls>"
+    ],
+
+    "update_url": "https://clients2.google.com/service/update2/crx"
+}

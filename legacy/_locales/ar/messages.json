@@ -1,0 +1,194 @@
+{
+    "about": {
+        "message": "حول"
+    },
+    "accept": {
+        "message": "قبول"
+    },
+    "useGlobal": {
+        "message": "استخدام التخصيص العام"
+    },
+    "colorTemperature": {
+        "message": "درجة حرارة اللون"
+    },
+    "audioFormats": {
+        "message": "تنسيقات الصوت"
+    },
+    "backupAndReset": {
+        "message": "نسج احتياطي وإعادة التعيين"
+    },
+    "bluelight": {
+        "message": "الضوء الأزرق"
+    },
+    "brightness": {
+        "message": "السطوع"
+    },
+    "browser": {
+        "message": "المتصفح"
+    },
+    "cancel": {
+        "message": "إلغاء"
+    },
+    "contrast": {
+        "message": "التباين"
+    },
+    "cores": {
+        "message": "الأنويه"
+    },
+    "dateAndTime": {
+        "message": "التاريخ والوقت"
+    },
+    "device": {
+        "message": "الجهاز"
+    },
+    "disabled": {
+        "message": "معطل"
+    },
+    "excludeThisWebsite": {
+        "message": "استثناء هذا الموقع"
+    },
+    "exportSettings": {
+        "message": "تصدير الإعدادات"
+    },
+    "extension": {
+        "message": "الإضافة"
+    },
+    "filters": {
+        "message": "مرشحات"
+    },
+    "flash": {
+        "message": "فلاش"
+    },
+    "general": {
+        "message": "عام"
+    },
+    "global": {
+        "message": "عام"
+    },
+    "gpu": {
+        "message": "كرت الشاشة"
+    },
+    "grayscale": {
+        "message": "التدرج الرمادي"
+    },
+    "hideMadeWithLove": {
+        "message": "\"Made with ❤...\" إخفاء"
+    },
+    "importSettings": {
+        "message": "استيراد الإعدادات"
+    },
+    "invertColors": {
+        "message": "عكس الألوان"
+    },
+    "language": {
+        "message": "اللغة"
+    },
+    "languages": {
+        "message": "اللغات"
+    },
+    "name": {
+        "message": "الإسم"
+    },
+    "ok": {
+        "message": "حسنا"
+    },
+    "onlyEnableForThisWebsite": {
+        "message": "تفعيل لهذا الموقع فقط"
+    },
+    "os": {
+        "message": "نظام التشغيل"
+    },
+    "permissionIsNotGranted": {
+        "message": "لم يتم منح الصلاحيات"
+    },
+    "permissions": {
+        "message": "الصلاحيات"
+    },
+    "platform": {
+        "message": "المنصة"
+    },
+    "ram": {
+        "message": "الذاكرة العشوائية"
+    },
+    "remove": {
+        "message": "حذف"
+    },
+    "resetAllSettings": {
+        "message": "إعادة تعين كل الإعدادت"
+    },
+    "resetSettings": {
+        "message": "إعادة تعيين الإعدادات؟"
+    },
+    "saveAs": {
+        "message": "...حفظ بإسم"
+    },
+    "schedule": {
+        "message": "جدولة"
+    },
+    "screen": {
+        "message": "الشاشة"
+    },
+    "sepia": {
+        "message": "Sepia"
+    },
+    "settings": {
+        "message": "الإعدادت"
+    },
+    "styles": {
+        "message": "المظاهر"
+    },
+    "successfullyImportedSettings": {
+        "message": "تم إستيراد الإعدادات بنجاح"
+    },
+    "sunsetToSunrise": {
+        "message": "من غروب الشمس إلى شروقها"
+    },
+    "systemPeference": {
+        "message": "مظهر الجهاز"
+    },
+    "textEditorMode": {
+        "message": "وضع المحرر النصي"
+    },
+    "theListIsEmpty": {
+        "message": "القائمة فارغة"
+    },
+    "theme": {
+        "message": "المظهر"
+    },
+    "thePageHOSTNAMEisProtectedByBrowser": {
+        "message": "محمية من قبل المتصفح HOSTNAME هذه الصفحة"
+    },
+    "thisWillResetAllSettings": {
+        "message": "هذا سيعيد تعيين كل الإعدادات"
+    },
+    "timeFrom": {
+        "message": "من"
+    },
+    "timeTo": {
+        "message": "إلى"
+    },
+    "turnOffForThisWebsite": {
+        "message": "تعطيل لهذا الموقع"
+    },
+    "turnOnForThisWebsite": {
+        "message": "تفعيل لهذا الموقع"
+    },
+    "type": {
+        "message": "النوع"
+    },
+    "use24HourFormat": {
+        "message": "إستخدام نمد 24 ساعة"
+    },
+    "useSettingsForAllWebsites": {
+        "message": "إستخدام الإعدادات لكل المواقع"
+    },
+    "version": {
+        "message": "الإصدار"
+    },
+    "videoFormats": {
+        "message": "تنسيقات الفيديو"
+    },
+    "websites": {
+        "message": "المواقع"
+    }
+}
