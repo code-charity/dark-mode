@@ -1,16 +1,24 @@
-<p align="center">
-    <a href="https://github.com/victor-savinov/dark-mode">
-        <img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png">
-    </a>
-</p>
+<p align="center"><a href="https://github.com/victor-savinov/dark-mode"><img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png"></a></p>
+<h3 align="center">Night Mode</h3>
+<p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website with (Epic reviews ☆☆☆☆☆):   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
+Adding any CSS anywhere - or everywhere - or removing anything anywhere. 
 
-<h3 align="center">Dark Mode</h3>
 
-<p align="center">
-    Relax your eyes at night and day.
-    <br>
-    <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl">Get Started »</a>
-</p>
+----
+
+- **Sister-project: [Hid-Control](https://github.com/victor-savinov/hid-control-prevention) -** Deny any site to overwrite Any Key (/Mouse/Clipboard).  
+
+- a big **Idea:  "UserTweaks"** Crowd-Sourcing / The web as a CSS Collaboration Wiki:  
+  -  Everybody gets every tweak, as long as it is voted >80%  "yes". Every user is asked twice. 
+  -  This would result in unexpected help & wonderful creativitiy: Deleting useless things, enlarging tiny inputs, correcting fake news in place,...  "We renew/remake/reimagine the web!" - "Experience the Art of changing your view"
+
+### ToDo:
+
+- [ ] (Upwards-compatible builder script:) 'Blue light filter'-Extension:  1. Only default setting: Blue light filter (40%?) & 2. Deep Blue Popup Color/Logo    
+- [ ] Blue light filter & greyscale combined are incompatible (with facebook.com or position:absolute).  Lets label/block this. 
+- [ ] inversion exclusion rule: Background Color _or average color_ is already > 45% dark  ( + reduce brightness intead by a few % if darkness < 60%)
+   -  Color Weight needn't be exactly the same. Green > Red > blue. Further reading: https://en.wikipedia.org/wiki/CIELAB_color_space  https://en.wikipedia.org/wiki/Chromostereopsis https://en.wikipedia.org/wiki/Helmholtz%E2%80%93Kohlrausch_effect  <br>
+- [ ] Finish Theme Engine:  **Our Dark-Mode is based on color inversion for now (So dark sites need to be excluded & emojis are inverted too)**. However we prepared a smart Theme engine, to exceed the results & consistency you get from other extensions <br> ( "Dark Reader" depends on slowly crowdsourcing styles next and experimental engine too) 
 
 ## :earth_americas: Translations
 - [x] [Arabic](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ar/messages.json) `/ar/`
