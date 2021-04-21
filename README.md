@@ -3,12 +3,11 @@
 <p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website :   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
 Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic reviews ☆☆☆☆☆)
 
-
 ----
 
-- **Sister-project: [Hid-Control](https://github.com/victor-savinov/hid-control-prevention) -** Deny any site to overwrite Any Key (/Mouse/Clipboard).  
+<p align="center"> <b> Sister-project:</b> <a href="https://github.com/victor-savinov/hid-control-prevention">HID-Control</a> - Deny any site to overwrite Any Key (/Mouse/Clipboard).  
 
-- a big **Idea: 'UserTweaks'**   https://github.com/code4charity/UserTweaks-vs-UserScripts-vs-UserStyles/
+----
 
 ### ToDo:
 
