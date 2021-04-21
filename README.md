@@ -8,9 +8,7 @@ Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic 
 
 - **Sister-project: [Hid-Control](https://github.com/victor-savinov/hid-control-prevention) -** Deny any site to overwrite Any Key (/Mouse/Clipboard).  
 
-- a big **Idea: 'UserTweaks'** Crowd-Sourcing / The web as a CSS Collaboration Wiki. (while userstyles.org is more of userthemes)  
-  -  Everybody gets every tweak, as long as it is voted >80%  "yes, global". Every user is asked twice. Disabling overwrites vote to no 
-  -  This would result in unexpected help & wonderful creativitiy: Deleting useless things, enlarging tiny inputs, correcting fake news in place,...  "We renew/remake/reimagine the web!" - "Experience the Art of changing your view"
+- a big **Idea: 'UserTweaks'**   https://github.com/code4charity/UserTweaks-vs-UserScripts-vs-UserStyles/
 
 ### ToDo:
 
