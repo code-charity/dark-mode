@@ -10,11 +10,12 @@ Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic 
 ----
 
 ### ToDo:
-
 - [ ] (Upwards-compatible builder script:) 'Blue light filter'-Extension:  1. Only default setting: Blue light filter (40%?) & 2. Deep Blue Popup Color/Logo    
-- [ ] Blue light filter & greyscale combined are incompatible (with facebook.com or position:absolute).  Lets label/block this. 
-- [ ] inversion exclusion rule: Background Color _or average color_ is already > 45% dark  ( + reduce brightness intead by a few % if darkness < 60%)
-   -  Color Weight needn't be exactly the same. Green > Red > blue. Further reading: https://en.wikipedia.org/wiki/CIELAB_color_space  https://en.wikipedia.org/wiki/Chromostereopsis https://en.wikipedia.org/wiki/Helmholtz%E2%80%93Kohlrausch_effect  <br>
+- [ ] Blue light filter & greyscale combined are incompatible (with facebook.com or position:absolute).  Lets label/block this.
+
+ - [ ] inversion exclusion rule: Background Color _or average color_ is already > 45% dark  ( + reduce brightness intead by a few % if darkness < 60%)
+   -  Color Weight needn't be exactly the same. Green > Red > blue. _Further reading: https://en.wikipedia.org/wiki/CIELAB_color_space  https://en.wikipedia.org/wiki/Chromostereopsis https://en.wikipedia.org/wiki/Helmholtz%E2%80%93Kohlrausch_effect_  <br>
+   
 - [ ] Finish Theme Engine:  **Our Dark-Mode is based on color inversion for now (So dark sites need to be excluded & emojis are inverted too)**. However we prepared a smart Theme engine, to exceed the results & consistency you get from other extensions <br> ( "Dark Reader" depends on slowly crowdsourcing styles next and experimental engine too) 
 
 ## :earth_americas: Translations
