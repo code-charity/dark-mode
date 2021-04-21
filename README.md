@@ -1,7 +1,7 @@
 <p align="center"><a href="https://github.com/victor-savinov/dark-mode"><img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png"></a></p>
 <h3 align="center">Night Mode</h3>
-<p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website with (Epic reviews ☆☆☆☆☆):   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
-Adding any CSS anywhere - or everywhere - or removing anything anywhere. 
+<p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website :   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
+Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic reviews ☆☆☆☆☆)
 
 
 ----
