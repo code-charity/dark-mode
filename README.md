@@ -34,7 +34,7 @@
 - [ ] [Hindi](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hi/messages.json) `/hi/`
 - [ ] [Croatian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hr/messages.json) `/hr/`
 - [ ] [Hungarian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hu/messages.json) `/hu/`
-- [ ] [Indonesian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/id/messages.json) `/id/`
+- [x] [Indonesian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/id/messages.json) `/id/`
 - [ ] [Italian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/it/messages.json) `/it/`
 - [ ] [Japanese](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ja/messages.json) `/ja/`
 - [ ] [Kannada](https://github.com/victor-savinov/dark-mode/tree/master/_locales/kn/messages.json) `/kn/`
