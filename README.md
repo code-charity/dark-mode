@@ -3,12 +3,6 @@
 <p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website :   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
 Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic reviews ☆☆☆☆☆)
 
-----
-
-<p align="center"> <b> Sister-project:</b> <a href="https://github.com/victor-savinov/hid-control-prevention">HID-Control</a> - Deny any site to overwrite Any Key (/Mouse/Clipboard).  
-
-----
-
 ### ToDo:
 - [ ] (Upwards-compatible builder script:) 'Blue light filter'-Extension:  1. Only default setting: Blue light filter (40%?) & 2. Deep Blue Popup Color/Logo    
 - [ ] Blue light filter & greyscale combined are incompatible (with facebook.com or position:absolute).  Lets label/block this.
