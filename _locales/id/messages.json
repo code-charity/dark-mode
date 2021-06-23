@@ -1,66 +1,66 @@
 {
     "about": {
-        "message": "About"
+        "message": "Tentang"
     },
     "accept": {
-        "message": "Accept"
+        "message": "Terima"
     },
     "useGlobal": {
-        "message": "Use global"
+        "message": "Gunakan global"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Temperatur warna"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "Format suara"
     },
     "backupAndReset": {
         "message": "Backup & reset"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "Cahaya biru"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "Kecerahan"
     },
     "browser": {
-        "message": "Browser"
+        "message": "Peramban"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "Batal"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "Kontras"
     },
     "cores": {
-        "message": "Cores"
+        "message": "Core"
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "Tanggal & waktu"
     },
     "device": {
-        "message": "Device"
+        "message": "Perangkat"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "Nonaktifkan"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "Kecualikan situs ini"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "Ekspor pengaturan"
     },
     "extension": {
-        "message": "Extension"
+        "message": "Ekstensi"
     },
     "filters": {
-        "message": "Filters"
+        "message": "Filter"
     },
     "flash": {
         "message": "Flash"
     },
     "general": {
-        "message": "General"
+        "message": "Umum"
     },
     "global": {
         "message": "Global"
@@ -72,37 +72,37 @@
         "message": "Grayscale"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "Sembunyikan \"Made with ❤...\""
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "Impor pengaturan"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "Balikkan warna"
     },
     "language": {
-        "message": "Language"
+        "message": "Bahasa"
     },
     "languages": {
-        "message": "Languages"
+        "message": "Bahasa"
     },
     "name": {
-        "message": "Name"
+        "message": "Nama"
     },
     "ok": {
         "message": "OK"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "Aktifkan untuk situs ini"
     },
     "os": {
         "message": "OS"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "Izin tidak diberikan"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "Perizinan"
     },
     "platform": {
         "message": "Platform"
@@ -111,84 +111,84 @@
         "message": "RAM"
     },
     "remove": {
-        "message": "Remove"
+        "message": "Hapus"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "Setel ulang semua pengaturan"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "Setel ulang pengaturan?"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "Simpan sebagai..."
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "Jadwal"
     },
     "screen": {
-        "message": "Screen"
+        "message": "Layar"
     },
     "sepia": {
         "message": "Sepia"
     },
     "settings": {
-        "message": "Settings"
+        "message": "Pengaturan"
     },
     "styles": {
         "message": "Styles"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Impor pengaturan sukses"
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "Matahari terbenam hingga terbit"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "Preferensi sistem"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "Mode teks editor"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "Daftar kosong"
     },
     "theme": {
-        "message": "Theme"
+        "message": "Tema"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "Halaman HOSTNAME dilindungi oleh peramban."
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Ini akan menyetel ulang semua pengaturan"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "Waktu dari"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "Waktu hingga"
     },
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "Nonaktifkan untuk situs ini"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+        "message": "Aktifkan untuk situs ini"
     },
     "type": {
-        "message": "Type"
+        "message": "Tipe"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+        "message": "Gunakan format 24 jam"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+        "message": "Gunakan pengaturan untuk semua situs"
     },
     "version": {
-        "message": "Version"
+        "message": "Versi"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "Format video"
     },
     "websites": {
-        "message": "Websites"
+        "message": "Situs"
     }
 }
