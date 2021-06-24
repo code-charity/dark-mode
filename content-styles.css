@@ -1,7 +1,73 @@
-html.dark-mode--loading *
-{
-    color: #fff !important;
-    border-color: #000 !important;
-    background: #000 !important;
-    box-shadow: none !important;
+/*--------------------------------------------------------------
+>>> CONTENT STYLES:
+----------------------------------------------------------------
+1.0 <html>...</html>
+2.0 <body>...</body>
+3.0 Elements
+4.0 Pseudo-elements
+--------------------------------------------------------------*/
+
+@media screen {
+    /*----------------------------------------------------------
+    1.0 <HTML>...</HTML>
+    ----------------------------------------------------------*/
+
+    html {
+        position: unset !important;
+        display: block !important;
+        visibility: visible !important;
+        transform: unset !important;
+        opacity: 1 !important;
+        color: #94969e !important;
+        border-color: transparent !important;
+        background-color: #121316 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+
+
+    /*----------------------------------------------------------
+    2.0 <BODY>...</BODY>
+    ----------------------------------------------------------*/
+
+    body {
+        color: #94969e !important;
+        border-color: transparent !important;
+        background-color: #121316 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+
+
+    /*----------------------------------------------------------
+    3.0 ELEMENTS
+    ----------------------------------------------------------*/
+
+    body :not(iframe) {
+        color: #94969e !important;
+        border-color: transparent !important;
+        outline: none !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+
+
+    /*----------------------------------------------------------
+    4.0 PSEUDO-ELEMENTS
+    ----------------------------------------------------------*/
+
+    body ::before,
+    body ::after {
+        color: #94969e !important;
+        border-color: transparent !important;
+        outline: none !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+
+    body ::placeholder {
+        color: #94969e !important;
+    }
 }
