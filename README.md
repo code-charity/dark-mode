@@ -1,16 +1,16 @@
-<p align="center">
-    <a href="https://github.com/victor-savinov/dark-mode">
-        <img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png">
-    </a>
-</p>
+<p align="center"><a href="https://github.com/victor-savinov/dark-mode"><img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png"></a></p>
+<h3 align="center">Night Mode</h3>
+<p align="center">  Relax your eyes at night and day.  <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl"><br>Get Started »</a><br> <br> <br> A powerful extension to filter anything on any website :   Blue light filter, Brightness, Contrast, Grayscale/Saturation. 
+Adding any CSS anywhere - or everywhere - or removing anything anywhere.  (Epic reviews ☆☆☆☆☆)
 
-<h3 align="center">Dark Mode</h3>
+### ToDo:
+- [ ] (Upwards-compatible builder script:) 'Blue light filter'-Extension:  1. Only default setting: Blue light filter (40%?) & 2. Deep Blue Popup Color/Logo    
+- [ ] Blue light filter & greyscale combined are incompatible (with facebook.com or position:absolute).  Lets label/block this.
 
-<p align="center">
-    Relax your eyes at night and day.
-    <br>
-    <a href="https://chrome.google.com/webstore/detail/dark-mode/declgfomkjdohhjbcfemjklfebflhefl">Get Started »</a>
-</p>
+ - [ ] inversion exclusion rule: Background Color _or average color_ is already > 45% dark  ( + reduce brightness intead by a few % if darkness < 60%)
+   -  Color Weight needn't be exactly the same. Green > Red > blue. _Further reading: https://en.wikipedia.org/wiki/CIELAB_color_space  https://en.wikipedia.org/wiki/Chromostereopsis https://en.wikipedia.org/wiki/Helmholtz%E2%80%93Kohlrausch_effect_  <br>
+   
+- [ ] Finish Theme Engine:  **Our Dark-Mode is based on color inversion for now (So dark sites need to be excluded & emojis are inverted too)**. However we prepared a smart Theme engine, to exceed the results & consistency you get from other extensions <br> ( "Dark Reader" depends on slowly crowdsourcing styles next and experimental engine too) 
 
 ## :earth_americas: Translations
 - [x] [Arabic](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ar/messages.json) `/ar/`
@@ -34,7 +34,7 @@
 - [ ] [Hindi](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hi/messages.json) `/hi/`
 - [ ] [Croatian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hr/messages.json) `/hr/`
 - [ ] [Hungarian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/hu/messages.json) `/hu/`
-- [ ] [Indonesian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/id/messages.json) `/id/`
+- [x] [Indonesian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/id/messages.json) `/id/`
 - [ ] [Italian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/it/messages.json) `/it/`
 - [ ] [Japanese](https://github.com/victor-savinov/dark-mode/tree/master/_locales/ja/messages.json) `/ja/`
 - [ ] [Kannada](https://github.com/victor-savinov/dark-mode/tree/master/_locales/kn/messages.json) `/kn/`

@@ -1109,7 +1109,7 @@ function importData() {
                 input.click();
             }
         }
-    });
+    }, document.body);
 }
 
 function exportData() {
