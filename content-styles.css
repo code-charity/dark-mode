@@ -12,7 +12,7 @@
     1.0 <HTML>...</HTML>
     ----------------------------------------------------------*/
 
-    html {
+    html:not(.dark-mode--ready) {
         position: unset !important;
         display: block !important;
         visibility: visible !important;
@@ -30,7 +30,7 @@
     2.0 <BODY>...</BODY>
     ----------------------------------------------------------*/
 
-    body {
+    html:not(.dark-mode--ready) body {
         color: #94969e !important;
         border-color: transparent !important;
         background-color: #121316 !important;
@@ -43,7 +43,7 @@
     3.0 ELEMENTS
     ----------------------------------------------------------*/
 
-    body :not(iframe) {
+    html:not(.dark-mode--ready) body :not(iframe) {
         color: #94969e !important;
         border-color: transparent !important;
         outline: none !important;
@@ -57,8 +57,8 @@
     4.0 PSEUDO-ELEMENTS
     ----------------------------------------------------------*/
 
-    body ::before,
-    body ::after {
+    html:not(.dark-mode--ready) body ::before,
+    html:not(.dark-mode--ready) body ::after {
         color: #94969e !important;
         border-color: transparent !important;
         outline: none !important;
@@ -67,7 +67,7 @@
         box-shadow: none !important;
     }
 
-    body ::placeholder {
+    html:not(.dark-mode--ready) body ::placeholder {
         color: #94969e !important;
     }
 }

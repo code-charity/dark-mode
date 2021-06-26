@@ -1,273 +1,48 @@
-function getFilters(settings) {
-    var string = '',
-        html_filter = '',
-        body_filter = '',
-        body_child_filter = '';
-
-    if (settings.bluelight > 0) {
-        var bluelight = document.getElementById('dark-mode-bluelight') || document.createElement('div');
-
-        bluelight.id = 'dark-mode-bluelight';
-        bluelight.style.position = 'absolute';
-        bluelight.style.visibility = 'hidden';
-        bluelight.style.pointerEvents = 'none';
-        bluelight.innerHTML = '<svg version="1.1" viewBox="0 0 1 1"><filter id="bluelight-filter" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 ' + (1 - parseFloat(settings.bluelight) / 100) + ' 0 0 0 0 0 1 0"></feColorMatrix></filter></svg>';
-
-        document.documentElement.appendChild(bluelight);
-
-        html_filter += 'url(#bluelight-filter)';
-
-        if (typeof settings.grayscale === 'number' && settings.grayscale > 0) {
-            body_child_filter += ' grayscale(' + settings.grayscale + '%)';
-        }
-    } else if (document.getElementById('dark-mode-bluelight')) {
-        document.getElementById('dark-mode-bluelight').remove();
-    }
-
-    if (!(settings.bluelight > 0)) {
-        if (typeof settings.grayscale === 'number' && settings.grayscale > 0) {
-            html_filter += ' grayscale(' + settings.grayscale + '%)';
-        }
-    }
-
-    if (html_filter.length > 0) {
-        string += 'html{-webkit-filter:' + html_filter + ';filter:' + html_filter + '}#dark-mode-extension-brightness{filter:invert(1)}';
-    }
-
-    if (body_filter.length > 0) {
-        string += 'body{-webkit-filter:' + body_filter + ';filter:' + body_filter + '}#dark-mode-extension-brightness{filter:invert(1)}';
-    }
-
-    if (body_child_filter.length > 0) {
-        string += 'body > *:not(#dark-mode-extension-brightness){-webkit-filter:' + body_child_filter + ';filter:' + body_child_filter + '}';
-    }
-
-    return string;
-}
-
-function injectStyle(string, id, schedule) {
-    var element = document.getElementById(id) || document.createElement('style');
-
-    element.className = 'dark-mode-extension-inject';
-
-    if (id) {
-        element.id = id;
-    }
-
-    if (schedule === 'system_peference') {
-        element.textContent = '@media (prefers-color-scheme:dark){';
-    }
-
-    element.textContent += string;
-
-    if (schedule === 'system_peference') {
-        element.textContent += '}';
-    }
-
-    document.documentElement.appendChild(element);
-}
-
-function removeAll() {
-    if (document.querySelector('#dark-mode-extension-filters')) {
-        document.querySelector('#dark-mode-extension-filters').remove();
-    }
-
-    if (document.querySelector('#dark-mode-extension-global-styles')) {
-        document.querySelector('#dark-mode-extension-global-styles').remove();
-    }
-
-    if (document.querySelector('#dark-mode-extension-styles')) {
-        document.querySelector('#dark-mode-extension-styles').remove();
-    }
-
-    if (document.querySelector('#dark-mode-extension-brightness-styles')) {
-        document.querySelector('#dark-mode-extension-brightness-styles').remove();
-    }
-
-    if (document.querySelector('#dark-mode-extension-contrast-styles')) {
-        document.querySelector('#dark-mode-extension-contrast-styles').remove();
-    }
-}
-
-function update() {
-    var schedule_time = {
-            from: Number((settings.time_from || '00:00').substr(0, 2)),
-            to: Number((settings.time_to || '00:00').substr(0, 2))
-        },
-        current_time = new Date().getHours(),
-        enabled = false;
-
-    if (schedule_time.to < schedule_time.from && current_time > schedule_time.from && current_time < 24) {
-        schedule_time.to += 24;
-    } else if (schedule_time.to < schedule_time.from && current_time < schedule_time.to) {
-        schedule_time.from = 0;
-    }
-
-    if (settings.websites) {
-        for (var key in settings.websites) {
-            try {
-                if (location.hostname.indexOf(key) !== -1 || new RegExp(key).test(location.href)) {
-                    current_website = settings.websites[key];
-                }
-            } catch (err) {}
-        }
-    }
-
-    for (var key in settings.websites) {
-        if (settings.websites[key].enabled === true) {
-            enabled = true;
-        }
-    }
-
-
-    var sett = {};
-
-    if (settings.websites && current_website && current_website.filters && (current_website.filters || {}).use_global === false) {
-        sett = current_website.filters;
-    }
-
-    if (sett.invert_colors === undefined) {
-        sett.invert_colors = settings.invert_colors;
-    }
-
-    if (sett.bluelight === undefined) {
-        sett.bluelight = settings.bluelight;
-    }
-
-    if (sett.brightness === undefined) {
-        sett.brightness = settings.brightness;
-    }
-
-    if (sett.contrast === undefined) {
-        sett.contrast = settings.contrast;
-    }
-
-    if (sett.grayscale === undefined) {
-        sett.grayscale = settings.grayscale;
-    }
-
-
-    if (
-        settings.mode !== false &&
-        (
-            settings.schedule !== 'sunset_to_sunrise' ||
-            current_time >= schedule_time.from && current_time < schedule_time.to
-        ) &&
-        ( /*enabled !== true || */ ((settings.websites || {})[location.hostname] || {}).enabled !== false)
-    ) {
-        injectStyle(getFilters(sett), 'dark-mode-extension-filters', settings.schedule);
-
-        injectStyle(settings.styles, 'dark-mode-extension-global-styles', settings.schedule);
-
-        if (settings.websites && current_website && current_website.styles) {
-            injectStyle(current_website.styles, 'dark-mode-extension-styles', settings.schedule);
-        }
-
-        injectStyle(`
-            #dark-mode-extension-brightness {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(0,0,0,` + (100 - settings.brightness) / 100 + `);
-                pointer-events: none;
-                z-index: 9999999999
-            }`,
-            'dark-mode-extension-brightness-styles');
-
-        injectStyle(`
-            #dark-mode-extension-contrast {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(125,125,125,` + (100 - settings.contrast) / 100 + `);
-                pointer-events: none;
-                z-index: 999999999
-            }`,
-            'dark-mode-extension-contrast-styles');
-    } else {
-        removeAll();
-    }
-}
-
-function isActive() {
-    if (settings.mode === false) {
-        return false;
-    }
-
-    if (
-        settings.websites &&
-        settings.websites[location.hostname] &&
-        settings.websites[location.hostname].enabled === false
-    ) {
-        return false;
-    }
-
-    if (settings.schedule !== 'sunset_to_sunrise') {
-        var schedule_from = Number((settings.time_from || '00:00').substr(0, 2)),
-            schedule_to = Number((settings.time_to || '00:00').substr(0, 2)),
-            current = new Date().getHours();
-
-        if (schedule_to < schedule_from && current > schedule_from && current < 24) {
-            schedule_to += 24;
-        } else if (schedule_to < schedule_from && current < schedule_to) {
-            schedule_from = 0;
-        }
-
-        if (current >= schedule_from && current < schedule_to) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-
-
-
-
 /*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
+>>> CONTENT SCRIPTS:
 ----------------------------------------------------------------
-# Global variables
-# Create style
-# Converters
+# Global variable
+# Color converters
     # Style to RGB
     # Hue to RGB
     # Hex to RGB
     # RGB to HSL
     # HSL to RGB
     # HSL to style
-# Modifiers
-    # 
-# Handlers
+# Color modifiers
+	# Background
+	# Border
+	# Shadow
+	# Text
+# Parsers
+	# Mutations
+	# Rules
+	# Properties
+	# Color
+	# Background
+	# Text
+	# Border
+	# Shadow
+# Attribute handlers
     # Attribute <* style="..."></*>
+    # Attribute <* bgcolor="..."></*>
+    # Attribute <* color="..."></*>
+# Element handlers
     # Element <link rel=stylesheet href="...">
     # Element <style>...</style>
-# Parsers
-    # Mutations
-    # Rules
-    # Properties
-    # Colors
-        # Background color
-# Selectors
+# Other functions
 # Initialization
-    # Observer
+	# Observer
 --------------------------------------------------------------*/
 
-var settings = {},
-    current_website,
-    variables = {},
-    variables_parents = {},
-    variables_string = '',
-    variables_element = document.createElement('style'),
-    regex_rgb = /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(-?-?\b[a-z-]+)/g,
-    regex_hex = /[A-Za-z0-9]{3,6}/g,
-    regex_numbers = /[0-9.]+/g,
-    color_keywords = {
+/*--------------------------------------------------------------
+# GLOBAL VARIABLE
+--------------------------------------------------------------*/
+
+var EXT = {
+	ready: false,
+	threads: 0,
+	color_keywords: {
         aliceblue: [0.5777777777777778, 1, 0.9705882352941176],
         antiquewhite: [0.09523809523809519, 0.7777777777777779, 0.9117647058823529],
         aqua: [0.5, 1, 0.5],
@@ -325,7 +100,7 @@ var settings = {},
         green: [0.3333333333333333, 1, 0.25098039215686274],
         greenyellow: [0.23237179487179485, 1, 0.592156862745098],
         grey: [0, 0, 0.5019607843137255],
-        honeydew: [null],
+        honeydew: [0.33, 1, 0.97],
         hotpink: [0.9166666666666666, 1, 0.7058823529411764],
         indianred: [0, 0.5305164319248827, 0.5823529411764706],
         indigo: [0.7628205128205128, 1, 0.2549019607843137],
@@ -417,32 +192,20 @@ var settings = {},
         yellow: [0.16666666666666666, 1, 0.5],
         yellowgreen: [0.22150537634408604, 0.607843137254902, 0.5]
     },
-    loading_threads = 0;
+    regex: {
+        url: /url\((('.+?')|(".+?")|([^\)]*?))\)/g,
+    	rgb: /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(-?-?\b[a-z-]+)/g,
+    	hex: /[A-Za-z0-9]{3,6}/g,
+    	num: /[0-9.]+/g
+    }
+};
 
-variables_element.className = 'dark-mode--stylesheet dark-mode--variables';
 
-document.documentElement.classList.add('dark-mode--loading');
 
-/*--------------------------------------------------------------
-# CREATE STYLE
---------------------------------------------------------------*/
-
-function createStyle(content, parent) {
-    var element = document.createElement('style');
-
-    element.className = 'dark-mode--stylesheet';
-    element.textContent = content;
-
-    parent.appendChild(element);
-
-    variables_element.textContent = variables_string;
-
-    return element;
-}
 
 
 /*--------------------------------------------------------------
-# CONVERTERS
+# COLOR CONVERTERS
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -474,7 +237,7 @@ function hueToRgb(t1, t2, hue) {
 --------------------------------------------------------------*/
 
 function styleToRgb(string) {
-    var match = string.match(regex_numbers);
+    var match = string.match(EXT.regex.num);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
@@ -484,7 +247,6 @@ function styleToRgb(string) {
 
     return match;
 }
-
 
 /*--------------------------------------------------------------
 # HEX TO RGB
@@ -537,7 +299,6 @@ function hexToRgb(string) {
     return rgb;
 }
 
-
 /*--------------------------------------------------------------
 # RGB TO HSL
 --------------------------------------------------------------*/
@@ -578,19 +339,17 @@ function rgbToHsl(array) {
     }
 }
 
-
 /*--------------------------------------------------------------
 # HSL TO STYLE
 --------------------------------------------------------------*/
 
 function hslToStyle(array) {
     if (array.length === 3) {
-        return 'hsl(' + array[0] * 360 + 'deg,' + array[1] * 100 + '%,' + array[2] * 100 + '%)';
+        return 'hsl(' + (array[0] * 360).toFixed(0) + 'deg,' + (array[1] * 100).toFixed(0) + '%,' + (array[2] * 100).toFixed(0) + '%)';
     } else {
-        return 'hsla(' + array[0] * 360 + 'deg,' + array[1] * 100 + '%,' + array[2] * 100 + '%,' + array[3] + ')';
+        return 'hsla(' + (array[0] * 360).toFixed(0) + 'deg,' + (array[1] * 100).toFixed(0) + '%,' + (array[2] * 100).toFixed(0) + '%,' + array[3] + ')';
     }
 }
-
 
 /*--------------------------------------------------------------
 # HSL TO RGB
@@ -618,19 +377,15 @@ function hslToRgb(array) {
 }
 
 
+
+
+
 /*--------------------------------------------------------------
-# MODIFIERS
+# COLOR MODIFIERS
 --------------------------------------------------------------*/
 
-function modifyColor(hsl) {
-    hsl[2] = 1 - hsl[2];
-
-    return hslToStyle(hsl);
-}
-
-
 /*--------------------------------------------------------------
-# BACKGROUND COLOR
+# BACKGROUND
 --------------------------------------------------------------*/
 
 function modifyBackgroundColor(value, convert = true) {
@@ -638,17 +393,28 @@ function modifyBackgroundColor(value, convert = true) {
         saturation = value[1],
         lightness = value[2];
 
-    if (saturation > .2 && (hue < 0.08 || hue > 0.722222222)) {
-        if (lightness > .4) {
-            value[2] = .4;
+    if (lightness < .5) {
+        if (saturation < .12 || (lightness > .8 && hue > .55 && hue < .77)) {
+            value[0] = .61;
+            value[1] = .1;
+            value[2] = scale(lightness, 0, .5, 0, .4);
         } else {
-            value[2] = .3;
+            value[2] = scale(lightness, 0, .5, 0, .4);
         }
-    } else if (lightness < .2 && hue > 0.555555556 && hue < 0.722222222) {
-        value[1] = 0;
-        value[2] = .075;
-    } else if (lightness > .5) {
-        value[2] = 1 - value[2];
+    } else if (saturation < .12 || (lightness > .8 && hue > .55 && hue < .77)) {
+        value[0] = .61;
+        value[1] = .1;
+        value[2] = scale(lightness, .5, 1, .4, .1);
+    } else {
+        if (hue > .16 && hue < .5) {
+            if (hue > .33) {
+                value[0] = scale(hue, .33, .5, .37, .5);
+            } else {
+                value[0] = scale(hue, .16, .33, .16, .29);
+            }
+        }
+
+        value[2] = scale(lightness, .5, 1, .4, .1);
     }
 
     if (convert === true) {
@@ -658,49 +424,42 @@ function modifyBackgroundColor(value, convert = true) {
     }
 }
 
-
 /*--------------------------------------------------------------
-# BORDER COLOR
+# BORDER
 --------------------------------------------------------------*/
 
 function modifyBorderColor(value) {
-    var hue = value[0];
+    var hue = value[0],
+        saturation = value[1],
+        lightness = value[2];
 
-    if (hue > 0.555555556 && hue < 0.722222222) {
-        value[0] = 0;
-        value[1] = 0;
+    if (lightness < .2 || saturation < .24) {
+        if (lightness < .5) {
+            value[0] = .61;
+            value[1] = .1;
+        } else {
+            value[0] = .61;
+            value[1] = .1;
+        }
     }
 
-    value[2] = .25;
+    value[2] = scale(lightness, 0, 1, .5, .2);
 
     return hslToStyle(value);
 }
 
-
 /*--------------------------------------------------------------
-# SHADOW COLOR
+# SHADOW
 --------------------------------------------------------------*/
 
 function modifyShadowColor(value) {
-    var hue = value[0];
-
-    if (hue > 0.555555556 && hue < 0.722222222) {
-        value[0] = 0;
-        value[1] = 0;
-    }
-
-    value[2] = 1 - value[2];
-
-    if (value[2] < .5) {
-        value[2] = .5;
-    }
+    value = modifyBackgroundColor(value);
 
     return hslToStyle(value);
 }
 
-
 /*--------------------------------------------------------------
-# TEXT COLOR
+# TEXT
 --------------------------------------------------------------*/
 
 function modifyTextColor(value) {
@@ -708,22 +467,37 @@ function modifyTextColor(value) {
         saturation = value[1],
         lightness = value[2];
 
-    // Black & White
-    if (saturation < .2 && lightness < .5 || hue > 0.555555556 && hue < 0.722222222 && lightness < .2) {
-        value = [0, 0, 1 - lightness];
-    }
-
-    // Colored
-    else if (lightness < .5) {
-        value[2] = .7;
+    if (lightness > 0.5) {
+        if (lightness < 0.2 || saturation < 0.24) {
+            value[0] = 0;
+            value[1] = 0;
+            value[2] = scale(lightness, 0.5, 1, 0.55, 0.75);
+        } else if ((lightness >= 0.2 || saturation >= 0.24) && hue > 0.56 && hue < 0.68) {
+            value[0] = scale(hue, 0.56, 0.68, 0.56, 0.62);
+            value[2] = scale(lightness, 0.5, 1, 0.55, 0.75);
+        } else {
+            value[2] = scale(lightness, 0.5, 1, 0.55, 0.75);
+        }
+    } else if (lightness < 0.2 || saturation < 0.24) {
+        value[0] = 0;
+        value[1] = 0;
+        value[2] = scale(lightness, 0, 0.5, 0.75, 0.55);
+    } else if ((lightness >= 0.2 || saturation >= 0.24) && hue > 0.56 && hue < 0.68) {
+        value[0] = scale(hue, 0.56, 0.68, 0.56, 0.62);
+        value[2] = scale(lightness, 0, 0.5, 0.75, Math.min(1, 0.55 + 0.05));
+    } else {
+        value[2] = scale(lightness, 0, 0.5, 0.75, 0.55);
     }
 
     return hslToStyle(value);
 }
 
 
+
+
+
 /*--------------------------------------------------------------
-# HANDLERS
+# ATTRIBUTE HANDLERS
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -742,10 +516,10 @@ function attributeStyle(node) {
 # ATTRIBUTE <* BGCOLOR="..."></*>
 --------------------------------------------------------------*/
 
-function attributeBgcolor(node) {
+function attributeBgColor(node) {
     if (typeof node.className === 'string' && node.className.indexOf('dark-mode--bgcolor') === -1) {
         var value = node.getAttribute('bgcolor'),
-            match = value.match(regex_rgb);
+            match = value.match(EXT.regex.rgb);
 
         node.className += ' dark-mode--bgcolor';
 
@@ -758,7 +532,7 @@ function attributeBgcolor(node) {
                 }
             }
         } else {
-            var match = value.match(regex_hex);
+            var match = value.match(EXT.regex.hex);
 
             if (match) {
                 value = hslToRgb(modifyBackgroundColor(rgbToHsl(hexToRgb('#' + match[0])), false));
@@ -776,7 +550,7 @@ function attributeBgcolor(node) {
 function attributeColor(node) {
     if (typeof node.className === 'string' && node.className.indexOf('dark-mode--color') === -1) {
         var value = node.getAttribute('color'),
-            match = value.match(regex_rgb);
+            match = value.match(EXT.regex.rgb);
 
         node.className += ' dark-mode--color';
 
@@ -789,7 +563,7 @@ function attributeColor(node) {
                 }
             }
         } else {
-            var match = value.match(regex_hex);
+            var match = value.match(EXT.regex.hex);
 
             if (match) {
                 value = hslToRgb(modifyTextColor(rgbToHsl(hexToRgb('#' + match[0])), false));
@@ -801,12 +575,19 @@ function attributeColor(node) {
 }
 
 
+
+
+
+/*--------------------------------------------------------------
+# ELEMENT HANDLERS
+--------------------------------------------------------------*/
+
 /*--------------------------------------------------------------
 # ELEMENT <LINK REL=STYLESHEET HREF="...">
 --------------------------------------------------------------*/
 
-async function elementLink(node) {
-    loading_threads++;
+function elementLink(node) {
+    EXT.threads++;
 
     chrome.runtime.sendMessage({
         action: 'dark-mode--fetch',
@@ -815,18 +596,22 @@ async function elementLink(node) {
     });
 }
 
-
 /*--------------------------------------------------------------
 # ELEMENT <STYLE>...</STYLE>
 --------------------------------------------------------------*/
 
 function elementStyle(node) {
-    if (node.className.indexOf('dark-mode--stylesheet') === -1) {
+    if (node.className.indexOf('dark-mode--stylesheet') === -1) {        
         if (node.sheet) {
+			EXT.threads++;
+
             createStyle(parseRules(node.sheet.cssRules), node.parentNode);
         }
     }
 }
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -841,15 +626,7 @@ function parseMutations(mutationList) {
     for (var i = 0, l = mutationList.length; i < l; i++) {
         var mutation = mutationList[i];
 
-        if (mutation.type === 'attributes') {
-            if (mutation.attributeName === 'style') {
-                attributeStyle(mutation.target);
-            } else if (mutation.attributeName === 'bgcolor') {
-                attributeBgcolor(mutation.target);
-            } else if (mutation.attributeName === 'color') {
-                attributeColor(mutation.target);
-            }
-        } else if (mutation.type === 'childList') {
+        if (mutation.type === 'childList') {
             for (var j = 0, k = mutation.addedNodes.length; j < k; j++) {
                 var node = mutation.addedNodes[j];
 
@@ -861,16 +638,23 @@ function parseMutations(mutationList) {
                     elementStyle(node);
                 }
             }
+        } else if (mutation.type === 'attributes') {
+            if (mutation.attributeName === 'style') {
+                attributeStyle(mutation.target);
+            } else if (mutation.attributeName === 'bgcolor') {
+                attributeBgColor(mutation.target);
+            } else if (mutation.attributeName === 'color') {
+                attributeColor(mutation.target);
+            }
         }
     }
 }
-
 
 /*--------------------------------------------------------------
 # RULES
 --------------------------------------------------------------*/
 
-function parseRules(rules, parent) {
+function parseRules(rules, parent, url) {
     var string = '';
 
     for (var i = 0, l = rules.length; i < l; i++) {
@@ -894,16 +678,10 @@ function parseRules(rules, parent) {
                 }
             }
         } else if (rule instanceof CSSImportRule) {
-            if (
-                rule.styleSheet &&
-                rule.styleSheet.cssRules
-            ) {
-                var result = parseRules(rule.styleSheet.cssRules);
-
-                if (result.length > 0) {
-                    string += result;
-                }
-            }
+            chrome.runtime.sendMessage({
+                action: 'dark-mode--fetch',
+                url: rule.styleSheet.href
+            });
         } else if (rule instanceof CSSStyleRule) {
             var properties = parseProperties(rule.style, false, [parent, rule.selectorText]);
 
@@ -921,17 +699,33 @@ function parseRules(rules, parent) {
         }
     }
 
-    loading_threads--;
+    EXT.threads--;
 
-    if (loading_threads <= 0) {
-        setTimeout(function() {
-            document.documentElement.classList.remove('dark-mode--loading');
-        }, 500);
+    if (EXT.threads === 0 && EXT.ready === false) {
+        EXT.ready = true;
+
+    	queryLinks();
+		queryStyles();
+		
+        document.documentElement.classList.add('dark-mode--ready');
+    }
+
+    queryInlines();
+
+    if (url) {
+        string = string.replace(EXT.regex.url, function(match) {
+            var result = match.replace(/url\(["']?/, '').replace(/["']?\)$/, '');
+
+            if (result.indexOf('data:') === 0) {
+                return match;
+            } else {
+                return 'url("' + url.replace(/[^/]+$/, '') + result + '")';
+            }
+        });
     }
 
     return string;
 }
-
 
 /*--------------------------------------------------------------
 # PROPERTIES
@@ -973,37 +767,7 @@ function parseProperties(properties, is_inline, parent) {
             var value = properties.getPropertyValue(property);
 
             string += property + ':' + parseShadowColor(value, property) + ';';
-        } else if (property.indexOf('--') === 0) {
-            var value = properties.getPropertyValue(property),
-                match = value.match(regex_rgb);
-
-            if (match) {
-                var query = property;
-
-                if (parent) {
-                    for (var j = 0, k = parent.length; j < k; j++) {
-                        if (parent[j]) {
-                            query = parent[j] + '{' + query;
-                        }
-                    }
-                }
-
-                if (!variables[property]) {
-                    variables[property] = {
-                        queries: [query],
-                        value: value,
-                        property: false
-                    };
-                } else {
-                    variables[property].value = value;
-                    variables[property].queries.push(query);
-                }
-
-                if (variables[property].property && variables[property].value) {
-                    modifyVariable(property, variables[property].value, variables[property].property, variables[property].queries[0]);
-                }
-            }
-        } else if (is_inline) {
+        }else if (is_inline) {
             string += property + ':' + properties.getPropertyValue(property) + ';';
         }
     }
@@ -1011,9 +775,8 @@ function parseProperties(properties, is_inline, parent) {
     return string;
 }
 
-
 /*--------------------------------------------------------------
-# COLORS
+# COLOR
 --------------------------------------------------------------*/
 
 function parseColor(value, property) {
@@ -1025,87 +788,17 @@ function parseColor(value, property) {
         }
     } else if (value.indexOf('#') === 0) {
         return rgbToHsl(hexToRgb(value));
-    } else if (color_keywords[value]) {
-        return color_keywords[value];
-    } else if (value.indexOf('--') === 0) {
-        if (!variables[value]) {
-            variables[value] = {
-                queries: [],
-                value: false,
-                property: property
-            };
-        } else {
-            variables[value].property = property;
-        }
-
-        if (variables[value].property && variables[value].value) {
-            modifyVariable(value, variables[value].value, variables[value].property, variables[value].queries[0]);
-        }
-    } else if (value.indexOf('var(') === 0) {
-        var match = value.match(/--[^ ,.)]+/);
-
-        if (match) {
-            var value2 = match;
-
-            if (!variables[value2]) {
-                variables[value2] = {
-                    queries: [],
-                    value: false,
-                    property: property
-                };
-            } else {
-                variables[value2].property = property;
-            }
-
-            if (variables[value2].property && variables[value2].value) {
-                modifyVariable(value2, variables[value2].value, variables[value2].property, variables[value2].queries[0]);
-            }
-
-        }
+    } else if (EXT.color_keywords[value]) {
+        return EXT.color_keywords[value];
     }
 }
-
-function modifyVariable(name, value, property, query) {
-    if (
-        property === 'background-color' ||
-        property === 'background-image'
-    ) {
-        value = parseBackgroundColor(value, property);
-
-        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
-    } else if (
-        property === 'color' ||
-        property === 'fill' ||
-        property === 'stroke' ||
-        property === 'stop-color'
-    ) {
-        value = parseTextColor(value, property);
-
-        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
-    } else if (
-        property === 'border-top-color' ||
-        property === 'border-right-color' ||
-        property === 'border-bottom-color' ||
-        property === 'border-left-color' ||
-        property === 'outline-color'
-    ) {
-        value = parseBorderColor(value, property);
-
-        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
-    } else if (property === 'box-shadow') {
-        value = parseShadowColor(value, property);
-
-        variables_string += query + ':' + value + ';' + ((query.match(/{/g) || {}).length === 2 ? '}}' : '}');
-    }
-}
-
 
 /*--------------------------------------------------------------
-# BACKGROUND COLOR
+# BACKGROUND
 --------------------------------------------------------------*/
 
 function parseBackgroundColor(value, property) {
-    var match = value.match(regex_rgb);
+    var match = value.match(EXT.regex.rgb);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
@@ -1120,13 +813,12 @@ function parseBackgroundColor(value, property) {
     return value;
 }
 
-
 /*--------------------------------------------------------------
-# TEXT COLOR
+# TEXT
 --------------------------------------------------------------*/
 
 function parseTextColor(value, property) {
-    var match = value.match(regex_rgb);
+    var match = value.match(EXT.regex.rgb);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
@@ -1141,13 +833,12 @@ function parseTextColor(value, property) {
     return value;
 }
 
-
 /*--------------------------------------------------------------
-# BORDER COLOR
+# BORDER
 --------------------------------------------------------------*/
 
 function parseBorderColor(value, property) {
-    var match = value.match(regex_rgb);
+    var match = value.match(EXT.regex.rgb);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
@@ -1162,13 +853,12 @@ function parseBorderColor(value, property) {
     return value;
 }
 
-
 /*--------------------------------------------------------------
-# SHADOW COLOR
+# SHADOW
 --------------------------------------------------------------*/
 
 function parseShadowColor(value, property) {
-    var match = value.match(regex_rgb);
+    var match = value.match(EXT.regex.rgb);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
@@ -1182,6 +872,32 @@ function parseShadowColor(value, property) {
 
     return value;
 }
+
+
+
+
+
+/*--------------------------------------------------------------
+# OTHER FUNCTIONS
+--------------------------------------------------------------*/
+
+function createStyle(content, parent) {
+    var element = document.createElement('style');
+
+    element.className = 'dark-mode--stylesheet';
+    element.textContent = content;
+
+    parent.appendChild(element);
+
+    return element;
+}
+
+function scale(x, inLow, inHigh, outLow, outHigh) {
+    return ((x - inLow) * (outHigh - outLow)) / (inHigh - inLow) + outLow;
+}
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -1209,10 +925,15 @@ function queryStyles() {
 }
 
 function queryInlines() {
-    var elements = document.querySelectorAll('*[style]:not(.dark-mode--attribute)');
+    var success = false,
+        elements = document.querySelectorAll('*[style]:not(.dark-mode--attribute)');
 
     for (var i = 0, l = elements.length; i < l; i++) {
         attributeStyle(elements[i]);
+    }
+
+    if (elements.length > 0) {
+        success = true;
     }
 
     var elements = document.querySelectorAll('*[bgcolor]:not(.dark-mode--bgcolor)');
@@ -1221,12 +942,25 @@ function queryInlines() {
         attributeBgcolor(elements[i]);
     }
 
+    if (elements.length > 0) {
+        success = true;
+    }
+
     var elements = document.querySelectorAll('*[color]:not(.dark-mode--color)');
 
     for (var i = 0, l = elements.length; i < l; i++) {
         attributeColor(elements[i]);
     }
+
+    if (elements.length > 0) {
+        success = true;
+    }
+
+    return success;
 }
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -1234,101 +968,8 @@ function queryInlines() {
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
-# OBSERVER
+# MESSAGES
 --------------------------------------------------------------*/
-
-var observer = new MutationObserver(parseMutations);
-
-chrome.storage.local.get(function(items) {
-    settings = items;
-
-    if (isActive() === true && settings.invert_colors !== false) {
-        observer.observe(document, {
-            attributes: true,
-            attributeFilter: [
-                'style'
-            ],
-            childList: true,
-            subtree: true
-        });
-    }
-
-    update();
-});
-
-chrome.storage.onChanged.addListener(function(changes) {
-    removeAll();
-
-    for (var key in changes) {
-        settings[key] = changes[key].newValue;
-    }
-
-    if (
-        changes.hasOwnProperty('mode') ||
-        changes.hasOwnProperty('websites') ||
-        changes.hasOwnProperty('invert_colors')
-    ) {
-        if (isActive() === true && settings.invert_colors !== false) {
-            queryLinks();
-            queryStyles();
-            queryInlines();
-        } else {
-            var elements = document.querySelectorAll('.dark-mode--stylesheet');
-
-            for (var i = elements.length - 1; i > -1; i--) {
-                elements[i].remove();
-            }
-        }
-    }
-
-    update();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (isActive() === true && settings.invert_colors !== false) {
-        document.head.appendChild(variables_element);
-
-        queryLinks();
-        queryStyles();
-        queryInlines();
-    }
-
-    var brightness = document.createElement('div'),
-        contrast = document.createElement('div');
-
-    brightness.id = 'dark-mode-extension-brightness';
-    contrast.id = 'dark-mode-extension-contrast';
-
-    document.body.appendChild(brightness);
-    document.body.appendChild(contrast);
-});
-
-window.addEventListener('load', function() {
-    observer.disconnect();
-
-    if (isActive() === true && settings.invert_colors !== false) {
-        queryLinks();
-        queryStyles();
-        queryInlines();
-    }
-});
-
-var page_url = location.href;
-
-document.addEventListener('visibilitychange', function() {
-    if (isActive() === true && settings.invert_colors !== false) {
-        if (page_url !== location.href) {
-            queryLinks();
-            queryStyles();
-            queryInlines();
-        }
-    }
-});
-
-chrome.runtime.sendMessage({
-    action: 'dark-mode--active'
-});
-
 
 chrome.runtime.onMessage.addListener(async function(message, sender) {
     if (typeof message !== 'object') {
@@ -1340,8 +981,40 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
             element = createStyle(message.response, parent),
             rules = element.sheet.cssRules;
 
-        createStyle(parseRules(rules), parent);
+        createStyle(parseRules(rules, null, message.url), parent);
 
         element.remove();
+    }
+});
+
+chrome.runtime.sendMessage({
+    action: 'dark-mode--active'
+});
+
+/*--------------------------------------------------------------
+# OBSERVER
+--------------------------------------------------------------*/
+
+EXT.observer = new MutationObserver(parseMutations);
+
+EXT.observer.observe(document, {
+    attributes: true,
+    attributeFilter: [
+        'bgcolor',
+        'color',
+        'fill',
+        'stop-color',
+        'stroke',
+        'style'
+    ],
+    childList: true,
+    subtree: true
+});
+
+var bodyObserver = new MutationObserver(function() {
+    if (document.body) {
+        bodyObserver.disconnect();
+
+        queryInlines();
     }
 });
