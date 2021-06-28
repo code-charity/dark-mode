@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Dark Mode",
     "version": "2.0",
-    "version_name": "2.0-testing.5",
+    "version_name": "2.0-testing.6",
     "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
 
     "default_locale": "en",

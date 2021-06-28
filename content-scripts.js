@@ -12,7 +12,6 @@
 # Color modifiers
 	# Background
 	# Border
-	# Shadow
 	# Text
 # Parsers
 	# Mutations
@@ -449,16 +448,6 @@ function modifyBorderColor(value) {
 }
 
 /*--------------------------------------------------------------
-# SHADOW
---------------------------------------------------------------*/
-
-function modifyShadowColor(value) {
-    value = modifyBackgroundColor(value);
-
-    return hslToStyle(value);
-}
-
-/*--------------------------------------------------------------
 # TEXT
 --------------------------------------------------------------*/
 
@@ -865,7 +854,7 @@ function parseShadowColor(value, property) {
             var color = parseColor(match[i], property);
 
             if (color) {
-                value = value.replace(match[i], modifyShadowColor(color));
+                value = value.replace(match[i], modifyBackgroundColor(color));
             }
         }
     }
@@ -881,11 +870,12 @@ function parseShadowColor(value, property) {
 # OTHER FUNCTIONS
 --------------------------------------------------------------*/
 
-function createStyle(content, parent) {
+function createStyle(content, parent, url) {
     var element = document.createElement('style');
 
     element.className = 'dark-mode--stylesheet';
     element.textContent = content;
+    element.dataset.url = url;
 
     parent.appendChild(element);
 
@@ -939,7 +929,7 @@ function queryInlines() {
     var elements = document.querySelectorAll('*[bgcolor]:not(.dark-mode--bgcolor)');
 
     for (var i = 0, l = elements.length; i < l; i++) {
-        attributeBgcolor(elements[i]);
+        attributeBgColor(elements[i]);
     }
 
     if (elements.length > 0) {
@@ -981,7 +971,7 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
             element = createStyle(message.response, parent),
             rules = element.sheet.cssRules;
 
-        createStyle(parseRules(rules, null, message.url), parent);
+        createStyle(parseRules(rules, null, message.url), parent, message.url);
 
         element.remove();
     }
