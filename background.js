@@ -45,12 +45,17 @@
 # MESSAGE LISTENER
 ---------------------------------------------------------------*/
 
-chrome.runtime.onMessage.addListener(async function(message, sender) {
+chrome.runtime.onMessage.addListener(async function(message, sender, sendResponse) {
     if (typeof message !== 'object') {
         return false;
     }
 
-    if (message.action === 'dark-mode--active') {
+    if (message.action === 'get-tab-url') {
+        sendResponse({
+            url: new URL(sender.tab.url).hostname,
+            id: sender.tab.id
+        });
+    } else if (message.action === 'dark-mode--active') {
         chrome.browserAction.setIcon({
             path: 'assets/icons/48.png',
             tabId: sender.tab.id
@@ -66,6 +71,14 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
             response: response,
             parent: message.parent,
             url: message.url
+        });
+    } else if (message.action === 'insert-user-agent-stylesheet') {
+        chrome.tabs.insertCSS(sender.tab.id, {
+            file: 'user-agent-stylesheet.css'
+        });
+    } else if (message.action === 'remove-user-agent-stylesheet') {
+        chrome.tabs.removeCSS(sender.tab.id, {
+            file: 'user-agent-stylesheet.css'
         });
     }
 });

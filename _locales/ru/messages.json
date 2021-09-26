@@ -5,14 +5,11 @@
     "accept": {
         "message": "Принять"
     },
-    "useGlobal": {
-        "message": "Use global"
+    "appearance": {
+        "message": "Внешний вид"
     },
     "audioFormats": {
         "message": "Форматы аудио"
-    },
-    "colorTemperature": {
-        "message": "Color temperature"
     },
     "backupAndReset": {
         "message": "Резервное копирование и сброс"
@@ -28,6 +25,9 @@
     },
     "cancel": {
         "message": "Отмена"
+    },
+    "colorTemperature": {
+        "message": "Color temperature"
     },
     "contrast": {
         "message": "Контраст"
@@ -143,6 +143,9 @@
     "settings": {
         "message": "Настройки"
     },
+    "somethingWentWrongTryReloadingThePage": {
+        "message": "Something went wrong. Try reloading the page."
+    },
     "styles": {
         "message": "Стили"
     },
@@ -181,6 +184,9 @@
     },
     "use24HourFormat": {
         "message": "24-часовой формат"
+    },
+    "useGlobal": {
+        "message": "Use global"
     },
     "useSettingsForAllWebsites": {
         "message": "Использовать настройки для всех веб-сайтов"

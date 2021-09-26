@@ -1,73 +1,42 @@
 /*--------------------------------------------------------------
 >>> CONTENT STYLES:
 ----------------------------------------------------------------
-1.0 <html>...</html>
-2.0 <body>...</body>
-3.0 Elements
-4.0 Pseudo-elements
+# Filters
+    # Invert colors
+    # Bluelight
 --------------------------------------------------------------*/
 
-@media screen {
-    /*----------------------------------------------------------
-    1.0 <HTML>...</HTML>
-    ----------------------------------------------------------*/
+/*--------------------------------------------------------------
+# FILTERS
+--------------------------------------------------------------*/
 
-    html:not(.dark-mode--ready) {
-        position: unset !important;
-        display: block !important;
-        visibility: visible !important;
-        transform: unset !important;
-        opacity: 1 !important;
-        color: #94969e !important;
-        border-color: transparent !important;
-        background-color: #121316 !important;
-        background-image: none !important;
-        box-shadow: none !important;
-    }
+/*--------------------------------------------------------------
+# INVERT COLORS
+--------------------------------------------------------------*/
 
+html[data-invert-colors] canvas,
+html[data-invert-colors] iframe,
+html[data-invert-colors] img,
+html[data-invert-colors] video
+{
+    filter: invert(1);
+}
 
-    /*----------------------------------------------------------
-    2.0 <BODY>...</BODY>
-    ----------------------------------------------------------*/
-
-    html:not(.dark-mode--ready) body {
-        color: #94969e !important;
-        border-color: transparent !important;
-        background-color: #121316 !important;
-        background-image: none !important;
-        box-shadow: none !important;
-    }
+html[data-invert-colors] {
+    background-color: #fff;
+}
 
 
-    /*----------------------------------------------------------
-    3.0 ELEMENTS
-    ----------------------------------------------------------*/
+/*--------------------------------------------------------------
+# BLUELIGHT
+--------------------------------------------------------------*/
 
-    html:not(.dark-mode--ready) body :not(iframe) {
-        color: #94969e !important;
-        border-color: transparent !important;
-        outline: none !important;
-        background-color: transparent !important;
-        background-image: none !important;
-        box-shadow: none !important;
-    }
-
-
-    /*----------------------------------------------------------
-    4.0 PSEUDO-ELEMENTS
-    ----------------------------------------------------------*/
-
-    html:not(.dark-mode--ready) body ::before,
-    html:not(.dark-mode--ready) body ::after {
-        color: #94969e !important;
-        border-color: transparent !important;
-        outline: none !important;
-        background-color: transparent !important;
-        background-image: none !important;
-        box-shadow: none !important;
-    }
-
-    html:not(.dark-mode--ready) body ::placeholder {
-        color: #94969e !important;
-    }
+#dark-mode__bluelight {
+    position: fixed;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
 }

@@ -5,11 +5,8 @@
     "accept": {
         "message": "Accept"
     },
-    "useGlobal": {
-        "message": "Use global"
-    },
-    "colorTemperature": {
-        "message": "Color temperature"
+    "appearance": {
+        "message": "Appearance"
     },
     "audioFormats": {
         "message": "Audio formats"
@@ -28,6 +25,9 @@
     },
     "cancel": {
         "message": "Cancel"
+    },
+    "colorTemperature": {
+        "message": "Color temperature"
     },
     "contrast": {
         "message": "Contrast"
@@ -134,6 +134,9 @@
     "settings": {
         "message": "Settings"
     },
+    "somethingWentWrongTryReloadingThePage": {
+        "message": "Something went wrong. Try reloading the page."
+    },
     "styles": {
         "message": "Styles"
     },
@@ -152,11 +155,11 @@
     "theListIsEmpty": {
         "message": "The list is empty"
     },
-    "theme": {
-        "message": "Theme"
-    },
     "thePageHOSTNAMEisProtectedByBrowser": {
         "message": "The page HOSTNAME is protected by browser."
+    },
+    "theme": {
+        "message": "Theme"
     },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
@@ -178,6 +181,9 @@
     },
     "use24HourFormat": {
         "message": "Use 24-hour format"
+    },
+    "useGlobal": {
+        "message": "Use global"
     },
     "useSettingsForAllWebsites": {
         "message": "Use settings for all websites"

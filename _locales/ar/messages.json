@@ -5,11 +5,8 @@
     "accept": {
         "message": "قبول"
     },
-    "useGlobal": {
-        "message": "استخدام التخصيص العام"
-    },
-    "colorTemperature": {
-        "message": "درجة حرارة اللون"
+    "appearance": {
+        "message": "Appearance"
     },
     "audioFormats": {
         "message": "تنسيقات الصوت"
@@ -28,6 +25,9 @@
     },
     "cancel": {
         "message": "إلغاء"
+    },
+    "colorTemperature": {
+        "message": "درجة حرارة اللون"
     },
     "contrast": {
         "message": "التباين"
@@ -134,6 +134,9 @@
     "settings": {
         "message": "الإعدادت"
     },
+    "somethingWentWrongTryReloadingThePage": {
+        "message": "Something went wrong. Try reloading the page."
+    },
     "styles": {
         "message": "المظاهر"
     },
@@ -152,11 +155,11 @@
     "theListIsEmpty": {
         "message": "القائمة فارغة"
     },
-    "theme": {
-        "message": "المظهر"
-    },
     "thePageHOSTNAMEisProtectedByBrowser": {
         "message": "محمية من قبل المتصفح HOSTNAME هذه الصفحة"
+    },
+    "theme": {
+        "message": "المظهر"
     },
     "thisWillResetAllSettings": {
         "message": "هذا سيعيد تعيين كل الإعدادات"
@@ -178,6 +181,9 @@
     },
     "use24HourFormat": {
         "message": "إستخدام نمد 24 ساعة"
+    },
+    "useGlobal": {
+        "message": "استخدام التخصيص العام"
     },
     "useSettingsForAllWebsites": {
         "message": "إستخدام الإعدادات لكل المواقع"
