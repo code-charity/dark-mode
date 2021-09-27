@@ -7,14 +7,14 @@
 
 function updateFilterStorages(value, skeleton) {
 	if (value === 'global') {
-		skeleton.dynamic_theme.storage = 'filters/dynamic-theme';
+		//skeleton.dynamic_theme.storage = 'filters/dynamic-theme';
 		skeleton.invert_colors.storage = 'filters/invert-colors';
 		skeleton.bluelight.storage = 'filters/bluelight';
 		skeleton.brightness.storage = 'filters/brightness';
 		skeleton.contrast.storage = 'filters/contrast';
 		skeleton.grayscale.storage = 'filters/grayscale';
 	} else if (value !== '...') {
-		skeleton.dynamic_theme.storage = 'websites/' + value + '/filters/dynamic-theme';
+		//skeleton.dynamic_theme.storage = 'websites/' + value + '/filters/dynamic-theme';
 		skeleton.invert_colors.storage = 'websites/' + value + '/filters/invert-colors';
 		skeleton.bluelight.storage = 'websites/' + value + '/filters/bluelight';
 		skeleton.brightness.storage = 'websites/' + value + '/filters/brightness';
@@ -199,7 +199,77 @@ var current_domain,
 
 								dynamic_theme: {
 									component: 'switch',
-									text: 'dynamicTheme'
+									text: 'dynamicTheme',
+									on: {
+										render: function () {
+											var value = satus.storage.get('websites/' + current_domain + '/filters/global');
+
+											if (value === false && current_domain) {
+												this.dataset.value = satus.storage.get('websites/' + current_domain + '/filters/dynamic-theme');
+											} else {
+												this.dataset.value = satus.storage.get('filters/dynamic-theme');
+											}
+										},
+										click: function () {
+											if (this.dataset.value === 'true') {
+												satus.render({
+													component: 'modal',
+													parent: this.skeleton,
+
+													label: {
+														component: 'span',
+														text: 'thisIsAnExperimentalFeatureDoYouWantToActivateIt'
+													},
+													actions: {
+														component: 'section',
+														variant: 'actions',
+
+														yes: {
+															component: 'button',
+															text: 'yes',
+															on: {
+																click: function () {
+																	var modal = this.parentNode.parentNode.parentNode,
+																		component = modal.skeleton.parent.rendered,
+																		value = component.dataset.value === 'true';
+
+																	if (satus.storage.get('websites/' + current_domain + '/filters/global') === false && current_domain) {
+																		satus.storage.set('websites/' + current_domain + '/filters/dynamic-theme', value);
+																	} else {
+																		satus.storage.set('filters/dynamic-theme', value);
+																	}
+
+																	modal.close();
+																}
+															}
+														},
+														no: {
+															component: 'button',
+															text: 'no',
+															on: {
+																click: function () {
+																	var modal = this.parentNode.parentNode.parentNode,
+																		component = modal.skeleton.parent.rendered;
+
+																	component.dataset.value = false;
+
+																	modal.close();
+																}
+															}
+														}
+													}
+												});
+											} else {
+												var value = this.dataset.value === 'true';
+
+												if (satus.storage.get('websites/' + current_domain + '/filters/global') === false && current_domain) {
+													satus.storage.set('websites/' + current_domain + '/filters/dynamic-theme', value);
+												} else {
+													satus.storage.set('filters/dynamic-theme', value);
+												}
+											}
+										}
+									}
 								},
 								invert_colors: {
 									component: 'switch',

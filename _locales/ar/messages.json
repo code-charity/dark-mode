@@ -101,6 +101,9 @@
     "name": {
         "message": "الإسم"
     },
+    "no": {
+        "message": "No"
+    },
     "ok": {
         "message": "حسنا"
     },
@@ -173,6 +176,9 @@
     "theme": {
         "message": "المظهر"
     },
+    "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
+        "message": "This is an experimental feature. Do you want to activate it?"
+    },
     "thisWillResetAllSettings": {
         "message": "هذا سيعيد تعيين كل الإعدادات"
     },
@@ -208,5 +214,8 @@
     },
     "websites": {
         "message": "المواقع"
+    },
+    "yes": {
+        "message": "Yes"
     }
 }

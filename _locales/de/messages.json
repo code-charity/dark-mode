@@ -101,6 +101,9 @@
     "name": {
         "message": "Name"
     },
+    "no": {
+        "message": "No"
+    },
     "ok": {
         "message": "OK"
     },
@@ -173,6 +176,9 @@
     "theme": {
         "message": "Thema"
     },
+    "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
+        "message": "This is an experimental feature. Do you want to activate it?"
+    },
     "thisWillResetAllSettings": {
         "message": "Das wird alle Einstellungen zurücksetzen"
     },
@@ -208,5 +214,8 @@
     },
     "websites": {
         "message": "Websites"
+    },
+    "yes": {
+        "message": "Yes"
     }
 }

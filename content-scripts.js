@@ -276,10 +276,7 @@ function updateAll(init) {
     if (status()) {
         filters();
         createCustomStyles();
-        if (init !== true) {
-            console.log('dynamicTheme');
-            dynamicTheme();
-        }
+        dynamicTheme(init);
     } else {
         document.documentElement.style.filter = '';
 
@@ -370,6 +367,30 @@ function removeCustomStyles() {
         EXT.elements.custom_styles.remove();
 
         delete EXT.elements.custom_styles;
+    }
+}
+
+function dynamicTheme() {
+    var value = getGlobalOrLocale()['dynamic-theme'];
+
+    if (value === true) {
+        queryLinks();
+        queryStyles();
+        queryInlines();
+
+        chrome.runtime.sendMessage({
+            action: 'insert-user-agent-stylesheet'
+        });
+    } else {
+        var elements = document.querySelectorAll('.dark-mode--stylesheet');
+
+        for (var i = 0, l = elements.length; i < l; i++) {
+            elements[i].remove();
+        }
+
+        chrome.runtime.sendMessage({
+            action: 'remove-user-agent-stylesheet'
+        });
     }
 }
 
@@ -833,6 +854,8 @@ function elementStyle(node) {
 --------------------------------------------------------------*/
 
 function parseMutations(mutationList) {
+    var ready = EXT.ready;
+
     for (var i = 0, l = mutationList.length; i < l; i++) {
         var mutation = mutationList[i];
 
@@ -842,19 +865,29 @@ function parseMutations(mutationList) {
 
                 if (node.nodeName === 'LINK') {
                     if (node.rel === 'stylesheet') {
-                        elementLink(node);
+                        if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                            elementLink(node);
+                        }
                     }
                 } else if (node.nodeName === 'STYLE') {
-                    elementStyle(node);
+                    if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                        elementStyle(node);
+                    }
                 }
             }
         } else if (mutation.type === 'attributes') {
             if (mutation.attributeName === 'style') {
-                attributeStyle(mutation.target);
+                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                    attributeStyle(mutation.target);
+                }
             } else if (mutation.attributeName === 'bgcolor') {
-                attributeBgColor(mutation.target);
+                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                    attributeBgColor(mutation.target);
+                }
             } else if (mutation.attributeName === 'color') {
-                attributeColor(mutation.target);
+                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                    attributeColor(mutation.target);
+                }
             }
         }
     }
@@ -1104,30 +1137,6 @@ function scale(x, inLow, inHigh, outLow, outHigh) {
     return ((x - inLow) * (outHigh - outLow)) / (inHigh - inLow) + outLow;
 }
 
-function dynamicTheme() {
-    var value = getGlobalOrLocale()['dynamic-theme'];
-
-    if (value === true) {
-        queryLinks();
-        queryStyles();
-        queryInlines();
-
-        chrome.runtime.sendMessage({
-            action: 'insert-user-agent-stylesheet'
-        });
-    } else {
-        var elements = document.querySelectorAll('.dark-mode--stylesheet');
-
-        for (var i = 0, l = elements.length; i < l; i++) {
-            elements[i].remove();
-        }
-
-        chrome.runtime.sendMessage({
-            action: 'remove-user-agent-stylesheet'
-        });
-    }
-}
-
 
 /*--------------------------------------------------------------
 # SELECTORS
@@ -1205,6 +1214,7 @@ chrome.runtime.sendMessage({
 
     chrome.storage.local.get(function (items) {
         EXT.storage = items;
+        EXT.ready = true;
 
         new MutationObserver(function () {
             if (document.body) {
@@ -1254,7 +1264,7 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
 # OBSERVER
 --------------------------------------------------------------*/
 
-/*EXT.observer = new MutationObserver(parseMutations);
+EXT.observer = new MutationObserver(parseMutations);
 
 EXT.observer.observe(document, {
     attributes: true,
@@ -1268,4 +1278,4 @@ EXT.observer.observe(document, {
     ],
     childList: true,
     subtree: true
-});*/
+});

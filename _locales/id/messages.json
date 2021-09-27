@@ -101,6 +101,9 @@
     "name": {
         "message": "Nama"
     },
+    "no": {
+        "message": "No"
+    },
     "ok": {
         "message": "OK"
     },
@@ -173,6 +176,9 @@
     "theme": {
         "message": "Tema"
     },
+    "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
+        "message": "This is an experimental feature. Do you want to activate it?"
+    },
     "thisWillResetAllSettings": {
         "message": "Ini akan menyetel ulang semua pengaturan"
     },
@@ -208,5 +214,8 @@
     },
     "websites": {
         "message": "Situs"
+    },
+    "yes": {
+        "message": "Yes"
     }
 }

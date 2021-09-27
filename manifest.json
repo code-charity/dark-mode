@@ -57,7 +57,8 @@
     "permissions": [
         "storage",
         "tabs",
-        "chrome://favicon/"
+        "chrome://favicon/",
+        "<all_urls>"
     ],
 
     "update_url": "https://clients2.google.com/service/update2/crx",

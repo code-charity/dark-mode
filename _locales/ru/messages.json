@@ -107,6 +107,9 @@
     "nightMode": {
         "message": "Night mode"
     },
+    "no": {
+        "message": "No"
+    },
     "ok": {
         "message": "OK"
     },
@@ -176,6 +179,9 @@
     "thePageHOSTNAMEisProtectedByBrowser": {
         "message": "Страница HOSTNAME защищна браузером."
     },
+    "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
+        "message": "This is an experimental feature. Do you want to activate it?"
+    },
     "thisWillResetAllSettings": {
         "message": "This will reset all settings"
     },
@@ -211,5 +217,8 @@
     },
     "websites": {
         "message": "Веб-сайты"
+    },
+    "yes": {
+        "message": "Yes"
     }
 }
