@@ -8,6 +8,15 @@
     "appearance": {
         "message": "Appearance"
     },
+    "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
+        "message": "Are you sure you want to delete the selected website settings?"
+    },
+    "areYouSureYouWantToExportTheData": {
+        "message": "Are you sure you want to export the data?"
+    },
+    "areYouSureYouWantToImportTheData": {
+        "message": "Are you sure you want to import the data?"
+    },
     "audioFormats": {
         "message": "Format suara"
     },
@@ -43,6 +52,9 @@
     },
     "disabled": {
         "message": "Nonaktifkan"
+    },
+    "dynamicTheme": {
+        "message": "Dynamic theme"
     },
     "excludeThisWebsite": {
         "message": "Kecualikan situs ini"

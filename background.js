@@ -45,7 +45,7 @@
 # MESSAGE LISTENER
 ---------------------------------------------------------------*/
 
-chrome.runtime.onMessage.addListener(async function(message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
     if (typeof message !== 'object') {
         return false;
     }

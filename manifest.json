@@ -56,8 +56,11 @@
 
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "chrome://favicon/"
     ],
 
-    "update_url": "https://clients2.google.com/service/update2/crx"
+    "update_url": "https://clients2.google.com/service/update2/crx",
+
+    "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: chrome://favicon;"
 }
