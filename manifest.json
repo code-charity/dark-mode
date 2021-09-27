@@ -1,67 +1,56 @@
 {
-    "manifest_version": 2,
-    "name": "Dark Mode",
-    "version": "2.0",
-    "version_name": "2.0",
-    "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
-
-    "default_locale": "en",
-
-    "icons": {
-        "16": "assets/icons/16.png",
-        "32": "assets/icons/32.png",
-        "48": "assets/icons/48.png",
-        "128": "assets/icons/128.png"
-    },
-
-    "background": {
-        "scripts": [
-            "background.js"
-        ]
-    },
-
-    "content_scripts": [{
-        "all_frames": true,
-        "match_about_blank": true,
-        "css": [
-            "user-agent-stylesheet.css",
+   "manifest_version": 2,
+   "name": "Dark Mode",
+   "version": "2.0",
+   "version_name": "2.0",
+   "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
+   "default_locale": "en",
+   "icons": {
+      "16": "assets/icons/16.png",
+      "32": "assets/icons/32.png",
+      "48": "assets/icons/48.png",
+      "128": "assets/icons/128.png"
+   },
+   "background": {
+      "scripts": [
+         "background.js"
+      ]
+   },
+   "content_scripts": [
+      {
+         "all_frames": true,
+         "match_about_blank": true,
+         "css": [
             "content-styles.css"
-        ],
-        "js": [
+         ],
+         "js": [
             "content-scripts.js"
-        ],
-        "matches": [
+         ],
+         "matches": [
             "<all_urls>"
-        ],
-        "run_at": "document_start"
-    }],
-
-    "browser_action": {
-        "default_icon": {
-            "16": "assets/icons/16g.png",
-            "32": "assets/icons/32g.png",
-            "48": "assets/icons/48g.png",
-            "128": "assets/icons/128g.png"
-        },
-        "default_popup": "popup.html"
-    },
-
-    "options_page": "options.html",
-
-    "optional_permissions": [
-        "downloads"
-    ],
-
-    "offline_enabled": true,
-
-    "permissions": [
-        "storage",
-        "tabs",
-        "chrome://favicon/",
-        "<all_urls>"
-    ],
-
-    "update_url": "https://clients2.google.com/service/update2/crx",
-
-    "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: chrome://favicon;"
+         ],
+         "run_at": "document_start"
+      }
+   ],
+   "browser_action": {
+      "default_icon": {
+         "16": "assets/icons/16g.png",
+         "32": "assets/icons/32g.png",
+         "48": "assets/icons/48g.png",
+         "128": "assets/icons/128g.png"
+      },
+      "default_popup": "popup.html"
+   },
+   "options_page": "options.html",
+   "optional_permissions": [
+      "downloads"
+   ],
+   "offline_enabled": true,
+   "permissions": [
+      "storage",
+      "tabs",
+      "chrome://favicon/",
+      "<all_urls>"
+   ],
+   "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: chrome://favicon;"
 }
