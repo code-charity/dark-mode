@@ -211,7 +211,7 @@ var current_domain,
 											}
 										},
 										click: function () {
-											if (this.dataset.value === 'true') {
+											if (this.dataset.value === 'true' && satus.storage.get('dynamic-theme-warning') !== true) {
 												satus.render({
 													component: 'modal',
 													parent: this.skeleton,
@@ -238,6 +238,8 @@ var current_domain,
 																	} else {
 																		satus.storage.set('filters/dynamic-theme', value);
 																	}
+
+																	satus.storage.set('dynamic-theme-warning', true);
 
 																	modal.close();
 																}
