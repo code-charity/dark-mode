@@ -1386,6 +1386,40 @@ satus.storage.attributes = {
 	'hide-made-with-love': true
 };
 
+function modalError(string) {
+	satus.render({
+    	component: 'modal',
+
+    	label: {
+    		component: 'span',
+    		text: string
+    	},
+    	actions: {
+    		component: 'section',
+    		variant: 'actions',
+
+    		ok: {
+				component: 'button',
+				text: 'ok',
+				on: {
+					click: function () {
+						this.parentNode.parentNode.parentNode.close();
+					}
+				}
+			},
+			cancel: {
+				component: 'button',
+				text: 'cancel',
+				on: {
+					click: function () {
+						this.parentNode.parentNode.parentNode.close();
+					}
+				}
+			}
+    	}
+    });
+}
+
 satus.storage.import(function (items) {
 	var language = items.language || window.navigator.language || 'en';
 
@@ -1484,9 +1518,15 @@ satus.storage.import(function (items) {
 				    	}
 				    });
 	            } else if (location.href.indexOf('action=export') !== -1) {
-	                var blob = new Blob([JSON.stringify(satus.storage.data)], {
-				        type: 'application/json;charset=utf-8'
-				    });
+	                var blob;
+
+	                try {
+	                	new Blob([JSON.stringify(satus.storage.data)], {
+					        type: 'application/json;charset=utf-8'
+					    });
+	                } catch (error) {
+	                	return modalError(error);
+	                }
 
 				    satus.render({
 				    	component: 'modal',
@@ -1504,21 +1544,25 @@ satus.storage.import(function (items) {
 								text: 'ok',
 								on: {
 									click: function () {
-										chrome.permissions.request({
-						                    permissions: ['downloads']
-						                }, function (granted) {
-						                    if (granted) {
-						                        chrome.downloads.download({
-						                            url: URL.createObjectURL(blob),
-						                            filename: 'dark-mode.json',
-						                            saveAs: true
-						                        }, function () {
-						                            setTimeout(function () {
-						                            	close();
-						                            });
-						                        });
-						                    }
-						                });
+										try {
+											chrome.permissions.request({
+							                    permissions: ['downloads']
+							                }, function (granted) {
+							                    if (granted) {
+							                        chrome.downloads.download({
+							                            url: URL.createObjectURL(blob),
+							                            filename: 'dark-mode.json',
+							                            saveAs: true
+							                        }, function () {
+							                            setTimeout(function () {
+							                            	close();
+							                            }, 1000);
+							                        });
+							                    }
+							                });
+							            } catch (error) {
+						                	return modalError(error);
+						                }
 
 										this.parentNode.parentNode.parentNode.close();
 									}
