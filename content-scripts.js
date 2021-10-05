@@ -307,7 +307,7 @@ function filters() {
         grayscale = storage['grayscale'] / 100,
         style = '';
 
-    if (invert !== false) {
+    if (invert !== false && isPage()) {
         style = 'invert(1)';
 
         html.dataset.invertColors = true;

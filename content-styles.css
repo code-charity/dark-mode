@@ -15,9 +15,9 @@
 --------------------------------------------------------------*/
 
 html[data-invert-colors] canvas,
-html[data-invert-colors] iframe,
 html[data-invert-colors] img,
-html[data-invert-colors] video
+html[data-invert-colors] video,
+html[data-invert-colors] [style*=background-image]
 {
     filter: invert(1);
 }
