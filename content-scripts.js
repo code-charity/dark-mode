@@ -307,8 +307,10 @@ function filters() {
         grayscale = storage['grayscale'] / 100,
         style = '';
 
-    if (invert !== false && isPage()) {
-        style = 'invert(1)';
+    if (invert !== false) {
+        if (isPage()) {
+            style = 'invert(1)';
+        }
 
         html.dataset.invertColors = true;
     } else {
