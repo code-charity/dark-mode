@@ -1423,7 +1423,11 @@ function modalError(string) {
 }
 
 satus.storage.import(function (items) {
-	var language = items.language || window.navigator.language || 'en';
+	var language = items.language || window.navigator.language;
+
+    if (language.indexOf('en') === 0) {
+        language = 'en';
+    }
 
 	satus.ajax('_locales/' + language + '/messages.json', function (response) {
 		try {
@@ -1523,7 +1527,7 @@ satus.storage.import(function (items) {
 	                var blob;
 
 	                try {
-	                	new Blob([JSON.stringify(satus.storage.data)], {
+	                	blob = new Blob([JSON.stringify(satus.storage.data)], {
 					        type: 'application/json;charset=utf-8'
 					    });
 	                } catch (error) {
