@@ -42,7 +42,8 @@
 --------------------------------------------------------------*/
 
 var EXT = {
-    url: location.href,
+    url: location.hostname,
+    styles: [],
     elements: {},
     values: {},
     storage: {},
@@ -840,6 +841,7 @@ function elementStyle(node) {
     ) {
         if (node.sheet) {
             EXT.threads++;
+            EXT.child('added', node);
 
             createStyle(parseRules(node.sheet.cssRules), node.parentNode);
         }
@@ -868,6 +870,8 @@ function parseMutations(mutationList) {
                 if (node.nodeName === 'LINK') {
                     if (node.rel === 'stylesheet') {
                         if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                            EXT.child('added', node);
+                            
                             elementLink(node);
                         }
                     }
@@ -876,6 +880,12 @@ function parseMutations(mutationList) {
                         elementStyle(node);
                     }
                 }
+            }
+
+            for (var j = 0, k = mutation.removedNodes.length; j < k; j++) {
+                var node = mutation.removedNodes[j];
+
+                EXT.child('removed', node);
             }
         } else if (mutation.type === 'attributes') {
             if (mutation.attributeName === 'style') {
@@ -949,13 +959,8 @@ function parseRules(rules, parent, url) {
     if (EXT.threads === 0 && EXT.ready === false) {
         EXT.ready = true;
 
-        //queryLinks();
-        //queryStyles();
-
         document.documentElement.classList.add('dark-mode--ready');
     }
-
-    queryInlines();
 
     if (url) {
         string = string.replace(EXT.regex.url, function (match) {
@@ -1281,3 +1286,35 @@ EXT.observer.observe(document, {
     childList: true,
     subtree: true
 });
+
+
+/*--------------------------------------------------------------
+# HANDLERS
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# CHILD
+--------------------------------------------------------------*/
+
+EXT.child = function (type, element) {
+    var children = element.children,
+        index = EXT.styles.indexOf(element);
+
+    if (type === 'added') {
+        if (index === -1) {
+            EXT.styles.push(element);
+        }
+    } else if (type === 'removed') {
+        if (index !== -1) {
+            EXT.styles.splice(index, 1);
+        }
+    }
+
+    if (children) {
+        for (var i = 0, l = children.length; i < l; i++) {
+            var child = children[i];
+
+            EXT.child(type, child);
+        }
+    }
+};

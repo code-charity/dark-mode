@@ -156,6 +156,7 @@ var current_domain,
 						click: {
 							tabs: {
 								component: 'tabs',
+								storage: false,
 								on: {
 									beforerender: function (target) {
 										var item = (current_domain || '...');
@@ -172,7 +173,7 @@ var current_domain,
 
 											satus.storage.set('websites/' + current_domain + '/filters/global', this.value === 'global');
 
-											updateFilterStorages(this.value, container);
+											updateFilterStorages(this.storageValue, container);
 
 											satus.empty(container.rendered);
 
@@ -1054,9 +1055,13 @@ var current_domain,
 													text: 'importSettings',
 													on: {
 														click: function () {
-															chrome.tabs.create({
-																url: 'options.html?action=import'
-															});
+															if (location.href.indexOf('/options.html?action=import') !== -1) {
+						                                        importData();
+						                                    } else {
+						                                        chrome.tabs.create({
+						                                            url: 'options.html?action=import'
+						                                        });
+						                                    }
 														}
 													}
 												},
@@ -1066,9 +1071,13 @@ var current_domain,
 
 													on: {
 														click: function () {
-															chrome.tabs.create({
-																url: 'options.html?action=export'
-															});
+															if (location.href.indexOf('/options.html?action=export') !== -1) {
+						                                        exportData();
+						                                    } else {
+						                                        chrome.tabs.create({
+						                                            url: 'options.html?action=export'
+						                                        });
+						                                    }
 														}
 													}
 												},
@@ -1381,12 +1390,8 @@ var current_domain,
 
 
 /*--------------------------------------------------------------
-# INITIALIZATION
+# FUNCTIONS
 --------------------------------------------------------------*/
-
-satus.storage.attributes = {
-	'hide-made-with-love': true
-};
 
 function modalError(string) {
 	satus.render({
@@ -1422,24 +1427,141 @@ function modalError(string) {
     });
 }
 
-satus.storage.import(function (items) {
-	var language = items.language || window.navigator.language;
+function exportData() {
+	if (location.href.indexOf('action=export') !== -1) {
+        var blob;
 
-    if (language.indexOf('en') === 0) {
-        language = 'en';
+        try {
+        	blob = new Blob([JSON.stringify(satus.storage.data)], {
+		        type: 'application/json;charset=utf-8'
+		    });
+        } catch (error) {
+        	return modalError(error);
+        }
+
+	    satus.render({
+	    	component: 'modal',
+
+	    	label: {
+	    		component: 'span',
+	    		text: 'areYouSureYouWantToExportTheData'
+	    	},
+	    	actions: {
+	    		component: 'section',
+	    		variant: 'actions',
+
+	    		ok: {
+					component: 'button',
+					text: 'ok',
+					on: {
+						click: function () {
+							try {
+								chrome.permissions.request({
+				                    permissions: ['downloads']
+				                }, function (granted) {
+				                    if (granted) {
+				                        chrome.downloads.download({
+				                            url: URL.createObjectURL(blob),
+				                            filename: 'dark-mode.json',
+				                            saveAs: true
+				                        }, function () {
+				                            setTimeout(function () {
+				                            	close();
+				                            }, 1000);
+				                        });
+				                    }
+				                });
+				            } catch (error) {
+			                	return modalError(error);
+			                }
+
+							this.parentNode.parentNode.parentNode.close();
+						}
+					}
+				},
+				cancel: {
+					component: 'button',
+					text: 'cancel',
+					on: {
+						click: function () {
+							this.parentNode.parentNode.parentNode.close();
+						}
+					}
+				}
+	    	}
+	    });
     }
+}
 
-	satus.ajax('_locales/' + language + '/messages.json', function (response) {
-		try {
-			response = JSON.parse(response);
+function importData() {
+	if (location.href.indexOf('action=import') !== -1) {
+        satus.render({
+	    	component: 'modal',
 
-			for (var key in response) {
-				satus.locale.strings[key] = response[key].message;
-			}
-		} catch (error) {
-			console.error(error);
-		}
+	    	label: {
+	    		component: 'span',
+	    		text: 'areYouSureYouWantToImportTheData'
+	    	},
+	    	actions: {
+	    		component: 'section',
+	    		variant: 'actions',
 
+	    		ok: {
+					component: 'button',
+					text: 'ok',
+					on: {
+						click: function () {
+							var input = document.createElement('input');
+
+			                input.type = 'file';
+
+			                input.addEventListener('change', function () {
+			                    var file_reader = new FileReader();
+
+			                    file_reader.onload = function () {
+			                        var data = JSON.parse(this.result);
+
+			                        for (var key in data) {
+			                            satus.storage.set(key, data[key]);
+			                        }
+
+			                        close();
+			                    };
+
+			                    file_reader.readAsText(this.files[0]);
+			                });
+
+			                input.click();
+
+							this.parentNode.parentNode.parentNode.close();
+						}
+					}
+				},
+				cancel: {
+					component: 'button',
+					text: 'cancel',
+					on: {
+						click: function () {
+							this.parentNode.parentNode.parentNode.close();
+						}
+					}
+				}
+	    	}
+	    });
+    }
+}
+
+
+/*--------------------------------------------------------------
+# INITIALIZATION
+--------------------------------------------------------------*/
+
+satus.storage.attributes = {
+	'hide-made-with-love': true
+};
+
+satus.storage.import(function (items) {
+	satus.locale.import(items.language, '_locales/', function () {
 		chrome.tabs.query({
 			active: true,
 			currentWindow: true
@@ -1447,10 +1569,6 @@ satus.storage.import(function (items) {
 			chrome.tabs.sendMessage(tabs[0].id, {
 				action: 'init'
 			}, function (response) {
-				current_domain = response;
-
-				skeleton.layers.toolbar.text = response || '';
-
 				if (!response) {
 					skeleton.layers.toolbar = {
 						component: 'alert',
@@ -1462,133 +1580,16 @@ satus.storage.import(function (items) {
 						component: 'switch',
 						class: 'satus-switch--domain',
 						text: response,
-						storage: 'websites/' + response + '/active',
+						storage: 'domains/' + response,
 						value: true
 					};
 				}
 
 				satus.render(skeleton);
-
-				if (location.href.indexOf('action=import') !== -1) {
-	                satus.render({
-				    	component: 'modal',
-
-				    	label: {
-				    		component: 'span',
-				    		text: 'areYouSureYouWantToImportTheData'
-				    	},
-				    	actions: {
-				    		component: 'section',
-				    		variant: 'actions',
-
-				    		ok: {
-								component: 'button',
-								text: 'ok',
-								on: {
-									click: function () {
-										var input = document.createElement('input');
-
-						                input.type = 'file';
-
-						                input.addEventListener('change', function () {
-						                    var file_reader = new FileReader();
-
-						                    file_reader.onload = function () {
-						                        var data = JSON.parse(this.result);
-
-						                        for (var key in data) {
-						                            satus.storage.set(key, data[key]);
-						                        }
-
-						                        close();
-						                    };
-
-						                    file_reader.readAsText(this.files[0]);
-						                });
-
-						                input.click();
-
-										this.parentNode.parentNode.parentNode.close();
-									}
-								}
-							},
-							cancel: {
-								component: 'button',
-								text: 'cancel',
-								on: {
-									click: function () {
-										this.parentNode.parentNode.parentNode.close();
-									}
-								}
-							}
-				    	}
-				    });
-	            } else if (location.href.indexOf('action=export') !== -1) {
-	                var blob;
-
-	                try {
-	                	blob = new Blob([JSON.stringify(satus.storage.data)], {
-					        type: 'application/json;charset=utf-8'
-					    });
-	                } catch (error) {
-	                	return modalError(error);
-	                }
-
-				    satus.render({
-				    	component: 'modal',
-
-				    	label: {
-				    		component: 'span',
-				    		text: 'areYouSureYouWantToExportTheData'
-				    	},
-				    	actions: {
-				    		component: 'section',
-				    		variant: 'actions',
-
-				    		ok: {
-								component: 'button',
-								text: 'ok',
-								on: {
-									click: function () {
-										try {
-											chrome.permissions.request({
-							                    permissions: ['downloads']
-							                }, function (granted) {
-							                    if (granted) {
-							                        chrome.downloads.download({
-							                            url: URL.createObjectURL(blob),
-							                            filename: 'dark-mode.json',
-							                            saveAs: true
-							                        }, function () {
-							                            setTimeout(function () {
-							                            	close();
-							                            }, 1000);
-							                        });
-							                    }
-							                });
-							            } catch (error) {
-						                	return modalError(error);
-						                }
-
-										this.parentNode.parentNode.parentNode.close();
-									}
-								}
-							},
-							cancel: {
-								component: 'button',
-								text: 'cancel',
-								on: {
-									click: function () {
-										this.parentNode.parentNode.parentNode.close();
-									}
-								}
-							}
-				    	}
-				    });
-	            }
 			});
 		});
-	}, function (success) {
-		satus.ajax('_locales/en/messages.json', success);
+
+		exportData();
+		importData();
 	});
 });

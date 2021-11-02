@@ -11,7 +11,7 @@
 # BASE
 --------------------------------------------------------------*/
 
-html {
+body[theme=black] {
     --satus-primary: rgb(255, 255, 255, .25);
     --satus-modal-background: #2b2e3b;
     --satus-modal-text: #dedfe3;
@@ -24,7 +24,8 @@ html {
     --satus-switch-track: #454d5f;
     --satus-switch-track--active: #375a6c;
     --satus-switch-thumb: #c6cad2;
-    --satus-tabs: #272935;
+    --satus-tabs-background: #1e2029;
+    --satus-tabs-foreground: #272935;
 }
 
 
@@ -43,10 +44,15 @@ html {
 # LAYERS
 --------------------------------------------------------------*/
 
+.satus-tabs {
+    width: 100%;
+    margin: 12px 0 4px;
+}
+
 .satus-switch--domain {
-    width: calc(100% - 24px);
+    width: 100%;
     height: 48px;
-    margin: 12px auto 0;
+    margin: 8px auto 0;
     padding: 0 16px;
     transition: 150ms;
     color: #7d95a1;
@@ -66,7 +72,6 @@ html {
 }
 
 .satus-alert {
-    width: calc(100% - 24px);
     margin: 12px auto 0;
 }
 
@@ -80,7 +85,7 @@ html {
 }
 
 .satus-section--styles {
-    margin: 8px;
+    margin: 8px 0;
     flex: 1;
 }
 
@@ -100,7 +105,7 @@ html {
 
 .satus-div--website-item {
     position: relative;
-    padding: 0;
+    padding: 0 !important;
 }
 
 .satus-button--favicon {

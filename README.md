@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/victor-savinov/dark-mode"><img src="https://github.com/victor-savinov/icons/blob/master/dark-mode/raised-128.png"></a>
+  <a href="https://github.com/victor-savinov/dark-mode"><img src="https://github.com/victor-savinov/graphics/blob/master/icons/dark-mode/raised-128.png"></a>
 </p>
 
 <h3 align="center">Night Mode</h3>

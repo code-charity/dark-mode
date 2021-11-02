@@ -9,13 +9,13 @@
         "message": "Внешний вид"
     },
     "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
-        "message": "Are you sure you want to delete the selected website settings?"
+        "message": "Вы уверены, что хотите удалить выбранные настройки веб-сайта?"
     },
     "areYouSureYouWantToExportTheData": {
-        "message": "Are you sure you want to export the data?"
+        "message": "Вы действительно хотите экспортировать данные?"
     },
     "areYouSureYouWantToImportTheData": {
-        "message": "Are you sure you want to import the data?"
+        "message": "Вы действительно хотите испортировать данные?"
     },
     "audioFormats": {
         "message": "Форматы аудио"
@@ -36,7 +36,7 @@
         "message": "Отмена"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Температура"
     },
     "contrast": {
         "message": "Контраст"
@@ -54,7 +54,7 @@
         "message": "Отключено"
     },
     "dynamicTheme": {
-        "message": "Dynamic theme"
+        "message": "Динамическая тема"
     },
     "excludeThisWebsite": {
         "message": "Исключить веб-сайт"
@@ -159,13 +159,13 @@
         "message": "Настройки"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "Что-то пошло не так. Попробуйте перезагрузить страницу."
     },
     "styles": {
         "message": "Стили"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Настройки успешно импортированы."
     },
     "sunsetToSunrise": {
         "message": "От заката до рассвета"
@@ -180,10 +180,10 @@
         "message": "Страница HOSTNAME защищна браузером."
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
-        "message": "This is an experimental feature. Do you want to activate it?"
+        "message": "Это экспериментальная функция. Вы хотите это активировать?"
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Вы действительно хотите сбросить все настройки?"
     },
     "timeFrom": {
         "message": "Время (от)"
