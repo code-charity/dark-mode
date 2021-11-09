@@ -1223,6 +1223,12 @@ chrome.runtime.sendMessage({
         EXT.storage = items;
         EXT.ready = true;
 
+        document.addEventListener('DOMContentLoaded', function () {
+            if (getGlobalOrLocale()['dynamic-theme'] === true) {
+                queryInlines();
+            }
+        });
+
         new MutationObserver(function () {
             if (document.body) {
                 this.disconnect();
