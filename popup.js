@@ -161,8 +161,6 @@ var current_domain,
 									beforerender: function (target) {
 										var item = (current_domain || '...');
 
-										console.log(current_domain);
-
 										target.items = ['global', item];
 
 										if (satus.storage.get('websites/' + current_domain + '/filters/global') === false) {
@@ -173,7 +171,7 @@ var current_domain,
 										if (current_domain) {
 											var container = this.skeleton.parent.section;
 
-											satus.storage.set('websites/' + current_domain + '/filters/global', this.value === 'global');
+											satus.storage.set('websites/' + current_domain + '/filters/global', this.storageValue === 'global');
 
 											updateFilterStorages(this.storageValue, container);
 
@@ -343,7 +341,7 @@ var current_domain,
 											target.items = ['global', item];
 										},
 										change: function () {
-											var value = this.value,
+											var value = this.storageValue,
 												textfield = this.skeleton.parent.section.textfield;
 
 											if (value === 'global') {
