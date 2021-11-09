@@ -146,9 +146,13 @@ satus.class = function (element, string) {
 # EMPTY
 --------------------------------------------------------------*/
 
-satus.empty = function (element) {
+satus.empty = function (element, exclude = []) {
     for (var i = element.childNodes.length - 1; i > -1; i--) {
-        element.childNodes[i].remove();
+        var child = element.childNodes[i];
+
+        if (exclude.indexOf(child) === -1) {
+            child.remove();
+        }
     }
 };
 
@@ -290,6 +294,17 @@ satus.storage.set = function (name, value) {
     }
 
     chrome.storage.local.set(items);
+};
+
+
+/*--------------------------------------------------------------
+# REMOVE
+--------------------------------------------------------------*/
+
+satus.storage.remove = function (name) {
+    delete this.data[name];
+
+    chrome.storage.local.remove(name);
 };
 
 
@@ -1347,6 +1362,7 @@ satus.components.slider = function (skeleton) {
 					component.values[handle_index] = value;
 
 					component.storageValue = component.values.length === 1 ? component.values[0] : component.values;
+					component.value = component.storageValue;
 
 					component.storageChange();
 				}

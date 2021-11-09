@@ -161,6 +161,8 @@ var current_domain,
 									beforerender: function (target) {
 										var item = (current_domain || '...');
 
+										console.log(current_domain);
+
 										target.items = ['global', item];
 
 										if (satus.storage.get('websites/' + current_domain + '/filters/global') === false) {
@@ -1576,6 +1578,8 @@ satus.storage.import(function (items) {
 						variant: 'error'
 					};
 				} else {
+					current_domain = response;
+					
 					skeleton.layers.toolbar = {
 						component: 'switch',
 						class: 'satus-switch--domain',
