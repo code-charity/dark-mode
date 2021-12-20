@@ -196,6 +196,8 @@ satus.fetch = function (url, success, error) {
         } else {
             error();
         }
+    }).catch(function () {
+        error(success);
     });
 };
 
@@ -254,7 +256,7 @@ satus.storage.get = function (name) {
 # SET
 --------------------------------------------------------------*/
 
-satus.storage.set = function (name, value) {
+satus.storage.set = function (name, value, callback) {
     var items = {},
         target = satus.storage.data;
 
@@ -290,10 +292,10 @@ satus.storage.set = function (name, value) {
     }
 
     if (satus.storage.attributes[name]) {
-        document.body.setAttribute(name, value);
+        document.body.setAttribute('data-' + name, value);
     }
 
-    chrome.storage.local.set(items);
+    chrome.storage.local.set(items, callback);
 };
 
 
@@ -312,11 +314,17 @@ satus.storage.remove = function (name) {
 # IMPORT
 --------------------------------------------------------------*/
 
-satus.storage.import = function (callback) {
-    chrome.storage.local.get(function (items) {
+satus.storage.import = function (keys, callback) {
+    if (typeof keys === 'function') {
+        callback = keys;
+
+        keys = undefined;
+    }
+
+    chrome.storage.local.get(keys, function (items) {
         for (var key in items) {
             if (satus.storage.attributes[key]) {
-                document.body.setAttribute(key, items[key]);
+                document.body.setAttribute('data-' + key, items[key]);
             }
 
             satus.storage.data[key] = items[key];
@@ -357,8 +365,8 @@ satus.locale.get = function (string) {
 # IMPORT
 --------------------------------------------------------------*/
 
-satus.locale.import = function (string, path, callback) {
-    var language = string || window.navigator.language;
+satus.locale.import = function (code, path, callback) {
+    var language = code || window.navigator.language;
 
     if (language.indexOf('en') === 0) {
         language = 'en';
@@ -368,20 +376,14 @@ satus.locale.import = function (string, path, callback) {
         path = '_locales/';
     }
 
-    satus.ajax(path + language + '/messages.json', function (response) {
-        try {
-            response = JSON.parse(response);
-
-            for (var key in response) {
-                satus.locale.strings[key] = response[key].message;
-            }
-        } catch (error) {
-            console.error(error);
+    satus.fetch(chrome.runtime.getURL(path + language + '/messages.json'), function (response) {
+        for (var key in response) {
+            satus.locale.strings[key] = response[key].message;
         }
 
         callback();
     }, function (success) {
-        satus.ajax(path + 'en/messages.json', success);
+        satus.fetch(chrome.runtime.getURL(path + 'en/messages.json'), success);
     });
 };
 
@@ -1031,36 +1033,26 @@ satus.components.tabs = function (skeleton) {
 --------------------------------------------------------------*/
 
 satus.components.menubar = function (skeleton) {
-	var component = document.createElement('ul');
+	function createList(items) {
+		var ul = document.createElement('ul');
 
-	if (skeleton.items) {
-		for (var i = 0, l = skeleton.items.length; i < l; i++) {
-			var item = skeleton.items[i],
+		for (var key in items) {
+			var item = items[key],
 				li = document.createElement('li');
 
-			if (Array.isArray(item) === true) {
-				var ul = document.createElement('ul');
+			satus.render(item, li);
 
-				satus.render(item[0], li);
-
-				for (var j = 1, k = item.length; j < k; j++) {
-					var li2 = document.createElement('li');
-
-					satus.render(item[j], li2);
-
-					ul.appendChild(li2);
-				}
-
-				li.appendChild(ul);
-			} else {
-				satus.render(item, li);
+			if (item.items) {
+				li.appendChild(createList(item.items));
 			}
 
-			component.appendChild(li);
+			ul.appendChild(li);
 		}
+
+		return ul;
 	}
 
-	return component;
+	return createList(skeleton.items);
 };
 /*--------------------------------------------------------------
 >>> RADIO
@@ -1135,6 +1127,55 @@ satus.components.list = function (skeleton) {
 	}
 
 	return ul;
+};
+/*--------------------------------------------------------------
+>>> TEXTAREA
+--------------------------------------------------------------*/
+
+satus.components.textarea = function (skeleton) {
+	var component = document.createElement('div'),
+		line_number = document.createElement('div'),
+		textarea = document.createElement('textarea');
+
+	line_number.className = 'satus-textarea__line-number';
+
+	component.line_number = line_number;
+	component.textarea = textarea;
+
+	line_number.update = function (count) {
+		if (count !== this.children.length) {
+			satus.empty(this);
+
+			for (var i = 1; i <= count; i++) {
+				var span = document.createElement('span');
+
+				span.textContent = i;
+
+				this.appendChild(span);
+			}
+		}
+	};
+
+	textarea.addEventListener('input', function () {
+		this.parentNode.line_number.update(this.value.split('\n').length);
+	});
+
+	textarea.addEventListener('selectionchange', function () {
+		this.parentNode.line_number.update(this.value.split('\n').length);
+	});
+
+	textarea.addEventListener('scroll', function () {
+		this.parentNode.line_number.style.transform = 'translateY(-' + this.scrollTop + 'px)';
+
+		this.parentNode.line_number.update(this.value.split('\n').length);
+	});
+
+	component.appendChild(line_number);
+	component.appendChild(textarea);
+
+	line_number.update(1);
+
+	return component;
 };
 /*--------------------------------------------------------------
 >>> MODAL
@@ -1404,49 +1445,19 @@ satus.components.shortcut = function (skeleton) {
     component.className = 'satus-button';
     value.className = 'satus-shortcut__value';
 
-    component.update = function () {
-        var object = satus.storage.get(this.skeleton.storage) || this.skeleton.value || {},
-            array = [];
-
-        if (object.shift) {
-            array.push('Shift');
-        }
-
-        if (object.ctrl) {
-            array.push('Ctrl');
-        }
-
-        if (object.alt) {
-            array.push('Alt');
-        }
-
-        if (typeof object.keys === 'object') {
-            for (var key in object.keys) {
-                var char = object.keys[key].key || object.keys[key].code;
-
-                if (key === 32) {
-                    char = 'space';
-                }
-
-                array.push(char);
-            }
-        }
-
-        this.valueElement.textContent = array.join(' + ');
-    };
-
-    component.render = function () {
+    component.render = function (parent) {
         var self = this,
-            children = this.primary.children;
+            parent = parent || self.primary,
+            children = parent.children;
 
-        satus.empty(this.primary);
+        satus.empty(parent);
 
         function createElement(name) {
             var element = document.createElement('div');
 
             element.className = 'satus-shortcut__' + name;
 
-            self.primary.appendChild(element);
+            parent.appendChild(element);
 
             return element;
         }
@@ -1472,11 +1483,21 @@ satus.components.shortcut = function (skeleton) {
         }
 
         for (var code in this.data.keys) {
+            var key = this.data.keys[code].key,
+                arrows = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'],
+                index = arrows.indexOf(key);
+
             if (children.length && children[children.length - 1].className.indexOf('key') !== -1) {
                 createElement('plus');
             }
 
-            createElement('key').textContent = this.data.keys[code].key.toUpperCase();
+            if (index !== -1) {
+                createElement('key').textContent = ['↑', '→', '↓', '←'][index];
+            } else if (key === ' ') {
+                createElement('key').textContent = '␣';
+            } else if (key) {
+                createElement('key').textContent = key.toUpperCase();
+            }
         }
 
         if (this.data.wheel) {
@@ -1490,6 +1511,32 @@ satus.components.shortcut = function (skeleton) {
             mouse.appendChild(div);
 
             mouse.className += ' ' + (this.data.wheel > 0);
+        }
+
+        if (this.data.click) {
+            if (children.length && children[children.length - 1].className.indexOf('key') !== -1) {
+                createElement('plus');
+            }
+
+            var mouse = createElement('mouse'),
+                div = document.createElement('div');
+
+            mouse.appendChild(div);
+
+            mouse.className += ' click';
+        }
+
+        if (this.data.context) {
+            if (children.length && children[children.length - 1].className.indexOf('key') !== -1) {
+                createElement('plus');
+            }
+
+            var mouse = createElement('mouse'),
+                div = document.createElement('div');
+
+            mouse.appendChild(div);
+
+            mouse.className += ' context';
         }
     };
 
@@ -1528,13 +1575,13 @@ satus.components.shortcut = function (skeleton) {
 
         if (
             (
-                component.data.wheel === 0 && 
-                    (
-                        Object.keys(component.data.keys).length === 0 &&
-                        component.data.alt === false &&
-                        component.data.ctrl === false &&
-                        component.data.shift === false
-                    )
+                component.data.wheel === 0 &&
+                (
+                    Object.keys(component.data.keys).length === 0 &&
+                    component.data.alt === false &&
+                    component.data.ctrl === false &&
+                    component.data.shift === false
+                )
             ) ||
             component.data.wheel < 0 && event.deltaY > 0 ||
             component.data.wheel > 0 && event.deltaY < 0) {
@@ -1562,7 +1609,7 @@ satus.components.shortcut = function (skeleton) {
             wheel: 0
         };
 
-        this.update();
+        this.render(this.valueElement);
     });
 
     component.addEventListener('click', function () {
@@ -1582,6 +1629,27 @@ satus.components.shortcut = function (skeleton) {
                     render: function () {
                         component.primary = this;
 
+                        if (component.skeleton.mouseButtons === true) {
+                            this.addEventListener('click', function () {
+                                component.data.context = false;
+                                component.data.click = true;
+
+                                component.render();
+                            });
+
+                            this.addEventListener('contextmenu', function (event) {
+                                event.preventDefault();
+                                event.stopPropagation();
+
+                                component.data.context = true;
+                                component.data.click = false;
+
+                                component.render();
+
+                                return false;
+                            });
+                        }
+
                         component.render();
                     }
                 }
@@ -1595,9 +1663,9 @@ satus.components.shortcut = function (skeleton) {
                     text: 'reset',
                     on: {
                         click: function () {
-                            component.data = component.skeleton.value;
+                            component.data = component.skeleton.value || {};
 
-                            component.update();
+                            component.render(component.valueElement);
 
                             satus.storage.set(skeleton.storage, false);
 
@@ -1613,9 +1681,9 @@ satus.components.shortcut = function (skeleton) {
                     text: 'cancel',
                     on: {
                         click: function () {
-                            component.data = satus.storage.get(component.storage) || component.skeleton.value;
+                            component.data = satus.storage.get(component.storage) || component.skeleton.value || {};
 
-                            component.update();
+                            component.render(component.valueElement);
 
                             this.parentNode.parentNode.parentNode.close();
 
@@ -1630,10 +1698,10 @@ satus.components.shortcut = function (skeleton) {
                     on: {
                         click: function () {
                             component.storageValue = component.data;
-                            
+
                             component.storageChange();
 
-                            component.update();
+                            component.render(component.valueElement);
 
                             this.parentNode.parentNode.parentNode.close();
 
@@ -2520,6 +2588,15 @@ satus.events.add('render', function (component, skeleton) {
 /*--------------------------------------------------------------
 >>> EXTENSION STORAGE
 --------------------------------------------------------------*/
+/*--------------------------------------------------------------
+>>> UUID
+--------------------------------------------------------------*/
+
+satus.uuid = function () {
+	return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (match) {
+		return (match ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> match / 4).toString(16)
+	});
+};
 /*--------------------------------------------------------------
 >>> PLUVIAM
 --------------------------------------------------------------*/

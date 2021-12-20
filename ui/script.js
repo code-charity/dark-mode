@@ -1056,12 +1056,12 @@ var current_domain,
 													on: {
 														click: function () {
 															if (location.href.indexOf('/options.html?action=import') !== -1) {
-						                                        importData();
-						                                    } else {
-						                                        chrome.tabs.create({
-						                                            url: 'options.html?action=import'
-						                                        });
-						                                    }
+																importData();
+															} else {
+																chrome.tabs.create({
+																	url: 'options.html?action=import'
+																});
+															}
 														}
 													}
 												},
@@ -1072,12 +1072,12 @@ var current_domain,
 													on: {
 														click: function () {
 															if (location.href.indexOf('/options.html?action=export') !== -1) {
-						                                        exportData();
-						                                    } else {
-						                                        chrome.tabs.create({
-						                                            url: 'options.html?action=export'
-						                                        });
-						                                    }
+																exportData();
+															} else {
+																chrome.tabs.create({
+																	url: 'options.html?action=export'
+																});
+															}
 														}
 													}
 												},
@@ -1395,17 +1395,17 @@ var current_domain,
 
 function modalError(string) {
 	satus.render({
-    	component: 'modal',
+		component: 'modal',
 
-    	label: {
-    		component: 'span',
-    		text: string
-    	},
-    	actions: {
-    		component: 'section',
-    		variant: 'actions',
+		label: {
+			component: 'span',
+			text: string
+		},
+		actions: {
+			component: 'section',
+			variant: 'actions',
 
-    		ok: {
+			ok: {
 				component: 'button',
 				text: 'ok',
 				on: {
@@ -1423,57 +1423,57 @@ function modalError(string) {
 					}
 				}
 			}
-    	}
-    });
+		}
+	});
 }
 
 function exportData() {
 	if (location.href.indexOf('action=export') !== -1) {
-        var blob;
+		var blob;
 
-        try {
-        	blob = new Blob([JSON.stringify(satus.storage.data)], {
-		        type: 'application/json;charset=utf-8'
-		    });
-        } catch (error) {
-        	return modalError(error);
-        }
+		try {
+			blob = new Blob([JSON.stringify(satus.storage.data)], {
+				type: 'application/json;charset=utf-8'
+			});
+		} catch (error) {
+			return modalError(error);
+		}
 
-	    satus.render({
-	    	component: 'modal',
+		satus.render({
+			component: 'modal',
 
-	    	label: {
-	    		component: 'span',
-	    		text: 'areYouSureYouWantToExportTheData'
-	    	},
-	    	actions: {
-	    		component: 'section',
-	    		variant: 'actions',
+			label: {
+				component: 'span',
+				text: 'areYouSureYouWantToExportTheData'
+			},
+			actions: {
+				component: 'section',
+				variant: 'actions',
 
-	    		ok: {
+				ok: {
 					component: 'button',
 					text: 'ok',
 					on: {
 						click: function () {
 							try {
 								chrome.permissions.request({
-				                    permissions: ['downloads']
-				                }, function (granted) {
-				                    if (granted) {
-				                        chrome.downloads.download({
-				                            url: URL.createObjectURL(blob),
-				                            filename: 'dark-mode.json',
-				                            saveAs: true
-				                        }, function () {
-				                            setTimeout(function () {
-				                            	close();
-				                            }, 1000);
-				                        });
-				                    }
-				                });
-				            } catch (error) {
-			                	return modalError(error);
-			                }
+									permissions: ['downloads']
+								}, function (granted) {
+									if (granted) {
+										chrome.downloads.download({
+											url: URL.createObjectURL(blob),
+											filename: 'dark-mode.json',
+											saveAs: true
+										}, function () {
+											setTimeout(function () {
+												close();
+											}, 1000);
+										});
+									}
+								});
+							} catch (error) {
+								return modalError(error);
+							}
 
 							this.parentNode.parentNode.parentNode.close();
 						}
@@ -1488,50 +1488,50 @@ function exportData() {
 						}
 					}
 				}
-	    	}
-	    });
-    }
+			}
+		});
+	}
 }
 
 function importData() {
 	if (location.href.indexOf('action=import') !== -1) {
-        satus.render({
-	    	component: 'modal',
+		satus.render({
+			component: 'modal',
 
-	    	label: {
-	    		component: 'span',
-	    		text: 'areYouSureYouWantToImportTheData'
-	    	},
-	    	actions: {
-	    		component: 'section',
-	    		variant: 'actions',
+			label: {
+				component: 'span',
+				text: 'areYouSureYouWantToImportTheData'
+			},
+			actions: {
+				component: 'section',
+				variant: 'actions',
 
-	    		ok: {
+				ok: {
 					component: 'button',
 					text: 'ok',
 					on: {
 						click: function () {
 							var input = document.createElement('input');
 
-			                input.type = 'file';
+							input.type = 'file';
 
-			                input.addEventListener('change', function () {
-			                    var file_reader = new FileReader();
+							input.addEventListener('change', function () {
+								var file_reader = new FileReader();
 
-			                    file_reader.onload = function () {
-			                        var data = JSON.parse(this.result);
+								file_reader.onload = function () {
+									var data = JSON.parse(this.result);
 
-			                        for (var key in data) {
-			                            satus.storage.set(key, data[key]);
-			                        }
+									for (var key in data) {
+										satus.storage.set(key, data[key]);
+									}
 
-			                        close();
-			                    };
+									close();
+								};
 
-			                    file_reader.readAsText(this.files[0]);
-			                });
+								file_reader.readAsText(this.files[0]);
+							});
 
-			                input.click();
+							input.click();
 
 							this.parentNode.parentNode.parentNode.close();
 						}
@@ -1546,9 +1546,9 @@ function importData() {
 						}
 					}
 				}
-	    	}
-	    });
-    }
+			}
+		});
+	}
 }
 
 
@@ -1561,35 +1561,39 @@ satus.storage.attributes = {
 };
 
 satus.storage.import(function (items) {
-	satus.locale.import(items.language, '_locales/', function () {
-		chrome.tabs.query({
-			active: true,
-			currentWindow: true
-		}, function (tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, {
-				action: 'init'
-			}, function (response) {
-				if (!response) {
-					skeleton.layers.toolbar = {
-						component: 'alert',
-						text: 'somethingWentWrongTryReloadingThePage',
-						variant: 'error'
-					};
-				} else {
-					current_domain = response;
-					
-					skeleton.layers.toolbar = {
-						component: 'switch',
-						class: 'satus-switch--domain',
-						text: response,
-						storage: 'domains/' + response,
-						value: true
-					};
-				}
+	satus.locale.import(items.language, '../_locales/', function () {
+		if (document.body.dataset.pageType === 'popup') {
+			chrome.tabs.query({
+				active: true,
+				currentWindow: true
+			}, function (tabs) {
+				chrome.tabs.sendMessage(tabs[0].id, {
+					action: 'init'
+				}, function (response) {
+					if (!response) {
+						skeleton.layers.toolbar = {
+							component: 'alert',
+							text: 'somethingWentWrongTryReloadingThePage',
+							variant: 'error'
+						};
+					} else {
+						current_domain = response;
+						
+						skeleton.layers.toolbar = {
+							component: 'switch',
+							class: 'satus-switch--domain',
+							text: response,
+							storage: 'domains/' + response,
+							value: true
+						};
+					}
 
-				satus.render(skeleton);
+					satus.render(skeleton);
+				});
 			});
-		});
+		} else {
+			satus.render(skeleton);
+		}
 
 		exportData();
 		importData();

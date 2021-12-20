@@ -8,28 +8,6 @@
 
 
 /*--------------------------------------------------------------
-# BASE
---------------------------------------------------------------*/
-
-body[theme=black] {
-    --satus-primary: rgb(255, 255, 255, .25);
-    --satus-modal-background: #2b2e3b;
-    --satus-modal-text: #dedfe3;
-    --satus-header-background: #2b2e3b;
-    --satus-header-text: #dedfe3;
-    --satus-layers-background: #111218;
-    --satus-layers-text: #c7c7d1;
-    --satus-section-card-background: #272935;
-    --satus-hover: rgba(255, 255, 255, .06);
-    --satus-switch-track: #454d5f;
-    --satus-switch-track--active: #375a6c;
-    --satus-switch-thumb: #c6cad2;
-    --satus-tabs-background: #1e2029;
-    --satus-tabs-foreground: #272935;
-}
-
-
-/*--------------------------------------------------------------
 # HEADER
 --------------------------------------------------------------*/
 

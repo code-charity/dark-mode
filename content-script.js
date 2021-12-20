@@ -2,6 +2,7 @@
 >>> CONTENT SCRIPTS:
 ----------------------------------------------------------------
 # Global variable
+# Storage
 # Filters
     # Style
     # Bluelight
@@ -18,13 +19,11 @@
     # Text
 # Parsers
     # Mutations
+    # Children
     # Rules
     # Properties
     # Color
-    # Background
-    # Text
-    # Border
-    # Shadow
+    # Variable
 # Attribute handlers
     # Attribute <* style="..."></*>
     # Attribute <* bgcolor="..."></*>
@@ -35,6 +34,9 @@
 # Other functions
 # Initialization
     # Observer
+    # DOM content loaded
+    # Storage
+    # Messages
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -43,10 +45,31 @@
 
 var EXT = {
     url: location.hostname,
-    styles: [],
+    storage: {
+        items: {},
+        filters: {},
+        ready: false
+    },
+    filters: {},
+    queue: {
+        attributes: {
+            style: [],
+            bgcolor: [],
+            color: []
+        },
+        link: [],
+        style: []
+    },
+    indexes: [],
+    styles: {},
     elements: {},
     values: {},
-    storage: {},
+    variables: {
+        items: {},
+        include_var: {}
+    },
+    dynamic_theme: false,
+    DOMContentLoaded: false,
     ready: false,
     threads: 0,
     color_keywords: {
@@ -203,22 +226,25 @@ var EXT = {
         url: /url\((('.+?')|(".+?")|([^\)]*?))\)/g,
         rgb: /(#[A-Za-z0-9]+)|(rgba?\([^)]+\))|(-?-?\b[a-z-]+)/g,
         hex: /[A-Za-z0-9]{3,6}/g,
-        num: /[0-9.]+/g
+        num: /[0-9.]+/g,
+        url_origin: /[^/]+\/\/[^/]+/
     }
 };
 
 
-/*--------------------------------------------------------------
-# FILTERS
---------------------------------------------------------------*/
+
+
+
+
+
 
 /*--------------------------------------------------------------
-# STYLE
+# STORAGE
 --------------------------------------------------------------*/
 
-function getStorageValue(string, object) {
+EXT.storage.getStorageValue = function (string) {
     var array = string.split('/'),
-        target = object || EXT.storage;
+        target = EXT.storage.items;
 
     for (var i = 0, l = array.length; i < l; i++) {
         var j = array[i];
@@ -233,20 +259,43 @@ function getStorageValue(string, object) {
             return undefined;
         }
     }
-}
+};
+
+EXT.storage.getGlobalOrLocale = function () {
+    if (this.getStorageValue('websites/' + EXT.url + '/filters/global') === false) {
+        EXT.storage.filters = this.getStorageValue('websites/' + EXT.url + '/filters') || {};
+    } else {
+        EXT.storage.filters = EXT.storage.items.filters || {};
+    }
+};
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+# FILTERS
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# STYLE
+--------------------------------------------------------------*/
 
 function status() {
-    if (EXT.storage.power === false) {
+    if (EXT.storage.items.power === false) {
         return false;
     }
 
-    if (getStorageValue('websites/' + EXT.url + '/active') === false) {
+    if (EXT.storage.getStorageValue('domains/' + EXT.url) === false) {
         return false;
     }
 
-    if (EXT.storage.schedule === 'sunset_to_sunrise') {
-        var schedule_from = Number((EXT.storage.time_from || '00:00').substr(0, 2)),
-            schedule_to = Number((EXT.storage.time_to || '00:00').substr(0, 2)),
+    if (EXT.storage.items.schedule === 'sunset_to_sunrise') {
+        var schedule_from = Number((EXT.storage.items.time_from || '00:00').substr(0, 2)),
+            schedule_to = Number((EXT.storage.items.time_to || '00:00').substr(0, 2)),
             current = new Date().getHours();
 
         if (schedule_to < schedule_from && current > schedule_from && current < 24) {
@@ -258,9 +307,7 @@ function status() {
         if (current < schedule_from || current > schedule_to) {
             return false;
         }
-    }
-
-    if (EXT.storage.schedule === 'system_peference') {
+    } else if (EXT.storage.items.schedule === 'system_peference') {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
             return false;
         }
@@ -269,15 +316,11 @@ function status() {
     return true;
 }
 
-function isPage() {
-    return window === window.top;
-}
-
 function updateAll(init) {
-    if (status()) {
+    if (EXT.storage.filters.active) {
         filters();
         createCustomStyles();
-        dynamicTheme(init);
+        dynamicTheme();
     } else {
         document.documentElement.style.filter = '';
 
@@ -290,26 +333,17 @@ function updateAll(init) {
     }
 }
 
-function getGlobalOrLocale() {
-    if (getStorageValue('websites/' + EXT.url + '/filters/global') === false) {
-        return getStorageValue('websites/' + EXT.url + '/filters') || {};
-    } else {
-        return getStorageValue('filters') || {};
-    }
-}
-
 function filters() {
     var html = document.documentElement,
-        storage = getGlobalOrLocale(),
-        invert = storage['invert-colors'],
-        bluelight = storage['bluelight'],
-        brightness = storage['brightness'] / 100,
-        contrast = storage['contrast'] / 100,
-        grayscale = storage['grayscale'] / 100,
+        invert = EXT.storage.filters['invert-colors'],
+        bluelight = EXT.storage.filters['bluelight'],
+        brightness = EXT.storage.filters['brightness'] / 100,
+        contrast = EXT.storage.filters['contrast'] / 100,
+        grayscale = EXT.storage.filters['grayscale'] / 100,
         style = '';
 
     if (invert !== false) {
-        if (isPage()) {
+        if (window === window.top) {
             style = 'invert(1)';
         }
 
@@ -359,8 +393,8 @@ function createCustomStyles() {
         document.body.appendChild(style);
     }
 
-    var global_styles = getStorageValue('styles') || '',
-        local_styles = getStorageValue('websites/' + EXT.url + '/styles') || '';
+    var global_styles = EXT.storage.items.styles || '',
+        local_styles = EXT.storage.getStorageValue('websites/' + EXT.url + '/styles') || '';
 
     style.textContent = global_styles + local_styles;
 }
@@ -374,9 +408,7 @@ function removeCustomStyles() {
 }
 
 function dynamicTheme() {
-    var value = getGlobalOrLocale()['dynamic-theme'];
-
-    if (value === true) {
+    if (EXT.dynamic_theme) {
         queryLinks();
         queryStyles();
         queryInlines();
@@ -403,7 +435,7 @@ function dynamicTheme() {
 --------------------------------------------------------------*/
 
 function createBluelight() {
-    if (isPage() && EXT.elements.hasOwnProperty('bluelight') === false) {
+    if (window === window.top && EXT.elements.hasOwnProperty('bluelight') === false) {
         var namespace = 'http://www.w3.org/2000/svg',
             svg = document.createElementNS(namespace, 'svg'),
             filter = document.createElementNS(namespace, 'filter'),
@@ -457,6 +489,12 @@ function removeBluelight() {
 }
 
 
+
+
+
+
+
+
 /*--------------------------------------------------------------
 # COLOR CONVERTERS
 --------------------------------------------------------------*/
@@ -485,6 +523,7 @@ function hueToRgb(t1, t2, hue) {
     }
 }
 
+
 /*--------------------------------------------------------------
 # STYLE TO RGB
 --------------------------------------------------------------*/
@@ -500,6 +539,7 @@ function styleToRgb(string) {
 
     return match;
 }
+
 
 /*--------------------------------------------------------------
 # HEX TO RGB
@@ -552,6 +592,7 @@ function hexToRgb(string) {
     return rgb;
 }
 
+
 /*--------------------------------------------------------------
 # RGB TO HSL
 --------------------------------------------------------------*/
@@ -592,6 +633,7 @@ function rgbToHsl(array) {
     }
 }
 
+
 /*--------------------------------------------------------------
 # HSL TO STYLE
 --------------------------------------------------------------*/
@@ -603,6 +645,7 @@ function hslToStyle(array) {
         return 'hsla(' + (array[0] * 360).toFixed(0) + 'deg,' + (array[1] * 100).toFixed(0) + '%,' + (array[2] * 100).toFixed(0) + '%,' + array[3] + ')';
     }
 }
+
 
 /*--------------------------------------------------------------
 # HSL TO RGB
@@ -628,6 +671,12 @@ function hslToRgb(array) {
 
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
+
+
+
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -674,6 +723,7 @@ function modifyBackgroundColor(value, convert = true) {
     }
 }
 
+
 /*--------------------------------------------------------------
 # BORDER
 --------------------------------------------------------------*/
@@ -697,6 +747,7 @@ function modifyBorderColor(value) {
 
     return hslToStyle(value);
 }
+
 
 /*--------------------------------------------------------------
 # TEXT
@@ -733,9 +784,20 @@ function modifyTextColor(value) {
 }
 
 
+
+
+
+
+
+
 /*--------------------------------------------------------------
 # ATTRIBUTE HANDLERS
 --------------------------------------------------------------*/
+
+function attribute(node) {
+
+}
+
 
 /*--------------------------------------------------------------
 # ATTRIBUTE <* STYLE="..."></*>
@@ -745,9 +807,10 @@ function attributeStyle(node) {
     if (typeof node.className === 'string' && node.className.indexOf('dark-mode--attribute') === -1) {
         node.className += ' dark-mode--attribute';
 
-        node.setAttribute('style', parseProperties(node.style, true));
+        node.setAttribute('style', parseProperties(undefined, node.style, true));
     }
 }
+
 
 /*--------------------------------------------------------------
 # ATTRIBUTE <* BGCOLOR="..."></*>
@@ -779,6 +842,7 @@ function attributeBgColor(node) {
         node.setAttribute('bgcolor', value);
     }
 }
+
 
 /*--------------------------------------------------------------
 # ATTRIBUTE <* COLOR="..."></*>
@@ -812,6 +876,12 @@ function attributeColor(node) {
 }
 
 
+
+
+
+
+
+
 /*--------------------------------------------------------------
 # ELEMENT HANDLERS
 --------------------------------------------------------------*/
@@ -820,33 +890,60 @@ function attributeColor(node) {
 # ELEMENT <LINK REL=STYLESHEET HREF="...">
 --------------------------------------------------------------*/
 
-function elementLink(node) {
-    EXT.threads++;
+function elementLink(type, node) {
+    if (type === 1) {
+        EXT.indexes.push(node);
 
-    chrome.runtime.sendMessage({
-        action: 'dark-mode--fetch',
-        url: node.href,
-        parent: node.parentNode.localName
-    });
+        chrome.runtime.sendMessage({
+            action: 'dark-mode--fetch',
+            url: node.href,
+            index: EXT.indexes.length - 1
+        });
+
+        EXT.threads++;
+    } else if (type === -1) {
+        var index = EXT.indexes.indexOf(node);
+
+        if (index !== -1) {
+            EXT.indexes.splice(index, 1);
+
+            if (EXT.styles[index]) {
+                delete EXT.styles[index];
+            }
+        }
+    }
 }
+
 
 /*--------------------------------------------------------------
 # ELEMENT <STYLE>...</STYLE>
 --------------------------------------------------------------*/
 
-function elementStyle(node) {
-    if (
-        node.className.indexOf('dark-mode--stylesheet') === -1 &&
-        node.className.indexOf('dark-mode--filters') === -1
-    ) {
-        if (node.sheet) {
-            EXT.threads++;
-            EXT.child('added', node);
+function elementStyle(type, node) {
+    if (type === 1) {
+        if (node.sheet && node.className.indexOf('dark-mode') === -1) {
+            EXT.indexes.push(node);
 
             createStyle(parseRules(node.sheet.cssRules), node.parentNode);
         }
+    } else if (type === -1) {
+        var index = EXT.indexes.indexOf(node);
+
+        if (index !== -1) {
+            EXT.indexes.splice(index, 1);
+
+            if (EXT.styles[index]) {
+                delete EXT.styles[index];
+            }
+        }
     }
 }
+
+
+
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -858,52 +955,92 @@ function elementStyle(node) {
 --------------------------------------------------------------*/
 
 function parseMutations(mutationList) {
-    var ready = EXT.ready;
-
     for (var i = 0, l = mutationList.length; i < l; i++) {
         var mutation = mutationList[i];
 
         if (mutation.type === 'childList') {
             for (var j = 0, k = mutation.addedNodes.length; j < k; j++) {
-                var node = mutation.addedNodes[j];
-
-                if (node.nodeName === 'LINK') {
-                    if (node.rel === 'stylesheet') {
-                        if (ready && getGlobalOrLocale()['dynamic-theme']) {
-                            EXT.child('added', node);
-                            
-                            elementLink(node);
-                        }
-                    }
-                } else if (node.nodeName === 'STYLE') {
-                    if (ready && getGlobalOrLocale()['dynamic-theme']) {
-                        elementStyle(node);
-                    }
-                }
+                parseChildren(1, mutation.addedNodes[j]);
             }
 
             for (var j = 0, k = mutation.removedNodes.length; j < k; j++) {
-                var node = mutation.removedNodes[j];
-
-                EXT.child('removed', node);
+                parseChildren(-1, mutation.removedNodes[j]);
             }
         } else if (mutation.type === 'attributes') {
             if (mutation.attributeName === 'style') {
-                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                if (EXT.dynamic_theme) {
                     attributeStyle(mutation.target);
+                } else {
+                    EXT.queue.attributes.style.push(mutation.target);
                 }
             } else if (mutation.attributeName === 'bgcolor') {
-                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                if (EXT.dynamic_theme) {
                     attributeBgColor(mutation.target);
+                } else {
+                    EXT.queue.attributes.style.push(mutation.target);
                 }
             } else if (mutation.attributeName === 'color') {
-                if (ready && getGlobalOrLocale()['dynamic-theme']) {
+                if (EXT.dynamic_theme) {
                     attributeColor(mutation.target);
+                } else {
+                    EXT.queue.attributes.style.push(mutation.target);
                 }
             }
         }
     }
 }
+
+
+/*--------------------------------------------------------------
+# CHILDREN
+--------------------------------------------------------------*/
+
+function parseChildren(type, node) {
+    var children = node.children;
+
+    if (node.nodeName === 'LINK') {
+        if (node.rel.toLowerCase() === 'stylesheet') {
+            if (EXT.dynamic_theme) {
+                elementLink(type, node);
+            } else if (type === 1) {
+                EXT.queue.link.push(node);
+            }
+        }
+    } else if (node.nodeName === 'STYLE') {
+        if (EXT.dynamic_theme) {
+            elementStyle(type, node);
+        } else if (type === 1) {
+            EXT.queue.style.push(node);
+        }
+    } else if (node.nodeType === 1 && node.hasAttribute) {
+        if (node.hasAttribute('style')) {
+            if (EXT.dynamic_theme) {
+                attributeStyle(node);
+            } else {
+                EXT.queue.attributes.style.push(node);
+            }
+        } else if (node.hasAttribute('bgcolor')) {
+            if (EXT.dynamic_theme) {
+                attributeBgColor(node);
+            } else {
+                EXT.queue.attributes.bgcolor.push(node);
+            }
+        } else if (node.hasAttribute('color')) {
+            if (EXT.dynamic_theme) {
+                attributeColor(node);
+            } else {
+                EXT.queue.attributes.color.push(node);
+            }
+        }
+    }
+
+    if (children) {
+        for (var i = 0, l = children.length; i < l; i++) {
+            parseChildren(type, children[i]);
+        }
+    }
+}
+
 
 /*--------------------------------------------------------------
 # RULES
@@ -933,12 +1070,14 @@ function parseRules(rules, parent, url) {
                 }
             }
         } else if (rule instanceof CSSImportRule) {
-            chrome.runtime.sendMessage({
-                action: 'dark-mode--fetch',
-                url: rule.styleSheet.href
-            });
+            if (rule.styleSheet) {
+                chrome.runtime.sendMessage({
+                    action: 'dark-mode--fetch',
+                    url: rule.styleSheet.href
+                });
+            }
         } else if (rule instanceof CSSStyleRule) {
-            var properties = parseProperties(rule.style, false, [parent, rule.selectorText]);
+            var properties = parseProperties(rule.selectorText, rule.style, false, parent);
 
             if (properties.length > 0) {
                 string += rule.selectorText + '{' + properties + '}';
@@ -954,13 +1093,7 @@ function parseRules(rules, parent, url) {
         }
     }
 
-    EXT.threads--;
-
-    if (EXT.threads === 0 && EXT.ready === false) {
-        EXT.ready = true;
-
-        document.documentElement.classList.add('dark-mode--ready');
-    }
+    isReady();
 
     if (url) {
         string = string.replace(EXT.regex.url, function (match) {
@@ -969,7 +1102,11 @@ function parseRules(rules, parent, url) {
             if (result.indexOf('data:') === 0) {
                 return match;
             } else {
-                return 'url("' + url.replace(/[^/]+$/, '') + result + '")';
+                var match = url.match(EXT.regex.url_origin, '');
+
+                if (match) {
+                    return 'url("' + match[0] + result + '")';
+                }
             }
         });
     }
@@ -977,11 +1114,12 @@ function parseRules(rules, parent, url) {
     return string;
 }
 
+
 /*--------------------------------------------------------------
 # PROPERTIES
 --------------------------------------------------------------*/
 
-function parseProperties(properties, is_inline, parent) {
+function parseProperties(selector, properties, is_inline, parent) {
     var string = '';
 
     for (var i = 0, l = properties.length; i < l; i++) {
@@ -991,18 +1129,32 @@ function parseProperties(properties, is_inline, parent) {
             property === 'background-color' ||
             property === 'background-image'
         ) {
-            var value = properties.getPropertyValue(property);
+            var value = properties.getPropertyValue(property),
+                priority = properties.getPropertyPriority(property);
 
-            string += property + ':' + parseBackgroundColor(value, property) + ';';
+            string += property + ':' + parseValue(selector, property, value, modifyBackgroundColor);
+
+            if (priority) {
+                string += ' !important';
+            }
+
+            string += ';';
         } else if (
             property === 'color' ||
             property === 'fill' ||
             property === 'stroke' ||
             property === 'stop-color'
         ) {
-            var value = properties.getPropertyValue(property);
+            var value = properties.getPropertyValue(property),
+                priority = properties.getPropertyPriority(property);
 
-            string += property + ':' + parseTextColor(value, property) + ';';
+            string += property + ':' + parseValue(selector, property, value, modifyTextColor);
+
+            if (priority) {
+                string += ' !important';
+            }
+
+            string += ';';
         } else if (
             property === 'border-top-color' ||
             property === 'border-right-color' ||
@@ -1010,20 +1162,50 @@ function parseProperties(properties, is_inline, parent) {
             property === 'border-left-color' ||
             property === 'outline-color'
         ) {
-            var value = properties.getPropertyValue(property);
+            var value = properties.getPropertyValue(property),
+                priority = properties.getPropertyPriority(property);
 
-            string += property + ':' + parseBorderColor(value, property) + ';';
+            string += property + ':' + parseValue(selector, property, value, modifyBorderColor);
+
+            if (priority) {
+                string += ' !important';
+            }
+
+            string += ';';
         } else if (property === 'box-shadow') {
-            var value = properties.getPropertyValue(property);
+            var value = properties.getPropertyValue(property),
+                priority = properties.getPropertyPriority(property);
 
-            string += property + ':' + parseShadowColor(value, property) + ';';
+            string += property + ':' + parseValue(selector, property, value, modifyBackgroundColor) + ';';
+
+            if (priority) {
+                string += ' !important';
+            }
+
+            string += ';';
+        } else if (property.startsWith('--')) {
+            var value = properties.getPropertyValue(property),
+                priority = properties.getPropertyPriority(property);
+
+            EXT.variables.items[property] = value;
+
+            parseVariable(selector, property, value);
         } else if (is_inline) {
-            string += property + ':' + properties.getPropertyValue(property) + ';';
+            var priority = properties.getPropertyPriority(property);
+
+            string += property + ':' + properties.getPropertyValue(property);
+
+            if (priority) {
+                string += ' !important';
+            }
+
+            string += ';';
         }
     }
 
     return string;
 }
+
 
 /*--------------------------------------------------------------
 # COLOR
@@ -1043,19 +1225,22 @@ function parseColor(value, property) {
     }
 }
 
+
 /*--------------------------------------------------------------
-# BACKGROUND
+# VALUE
 --------------------------------------------------------------*/
 
-function parseBackgroundColor(value, property) {
+function parseValue(selector, property, value, modifier) {
     var match = value.match(EXT.regex.rgb);
+
+    parseVariable(selector, property, value);
 
     if (match) {
         for (var i = 0, l = match.length; i < l; i++) {
             var color = parseColor(match[i], property);
 
             if (color) {
-                value = value.replace(match[i], modifyBackgroundColor(color));
+                value = value.replace(match[i], modifier(color));
             }
         }
     }
@@ -1063,65 +1248,30 @@ function parseBackgroundColor(value, property) {
     return value;
 }
 
-/*--------------------------------------------------------------
-# TEXT
---------------------------------------------------------------*/
-
-function parseTextColor(value, property) {
-    var match = value.match(EXT.regex.rgb);
-
-    if (match) {
-        for (var i = 0, l = match.length; i < l; i++) {
-            var color = parseColor(match[i], property);
-
-            if (color) {
-                value = value.replace(match[i], modifyTextColor(color));
-            }
-        }
-    }
-
-    return value;
-}
 
 /*--------------------------------------------------------------
-# BORDER
+# VARIABLE
 --------------------------------------------------------------*/
 
-function parseBorderColor(value, property) {
-    var match = value.match(EXT.regex.rgb);
+function parseVariable(selector, property, value) {
+    var var_index = value.indexOf('var(');
 
-    if (match) {
-        for (var i = 0, l = match.length; i < l; i++) {
-            var color = parseColor(match[i], property);
+    if (var_index !== -1) {
+        var depth = 0;
 
-            if (color) {
-                value = value.replace(match[i], modifyBorderColor(color));
-            }
+        for (var i = var_index + 3, l = value.length; i < l; i++) {
+
         }
-    }
 
-    return value;
+        EXT.variables.include_var[selector] = [property, value];
+    }
 }
 
-/*--------------------------------------------------------------
-# SHADOW
---------------------------------------------------------------*/
 
-function parseShadowColor(value, property) {
-    var match = value.match(EXT.regex.rgb);
 
-    if (match) {
-        for (var i = 0, l = match.length; i < l; i++) {
-            var color = parseColor(match[i], property);
 
-            if (color) {
-                value = value.replace(match[i], modifyBackgroundColor(color));
-            }
-        }
-    }
 
-    return value;
-}
+
 
 
 /*--------------------------------------------------------------
@@ -1143,6 +1293,12 @@ function createStyle(content, parent, url) {
 function scale(x, inLow, inHigh, outLow, outHigh) {
     return ((x - inLow) * (outHigh - outLow)) / (inHigh - inLow) + outLow;
 }
+
+
+
+
+
+
 
 
 /*--------------------------------------------------------------
@@ -1205,72 +1361,32 @@ function queryInlines() {
 }
 
 
+
+
+
+
+
+
 /*--------------------------------------------------------------
 # INITIALIZATION
 --------------------------------------------------------------*/
 
-/*--------------------------------------------------------------
-# STORAGE
---------------------------------------------------------------*/
-
-chrome.runtime.sendMessage({
-    action: 'get-tab-url'
-}, function (response) {
-    EXT.url = response.url;
-    EXT.id = response.id;
-
-    chrome.storage.local.get(function (items) {
-        EXT.storage = items;
+function isReady() {
+    if (
+        EXT.threads <= 0 &&
+        EXT.ready === false &&
+        EXT.DOMContentLoaded === true &&
+        EXT.storage.ready === true
+    ) {
         EXT.ready = true;
 
-        document.addEventListener('DOMContentLoaded', function () {
-            if (getGlobalOrLocale()['dynamic-theme'] === true) {
-                queryInlines();
-            }
+        chrome.runtime.sendMessage({
+            action: 'insert-user-agent-stylesheet'
         });
 
-        new MutationObserver(function () {
-            if (document.body) {
-                this.disconnect();
-
-                updateAll(true);
-            }
-        }).observe(document, {
-            attributes: false,
-            childList: true,
-            subtree: true
-        });
-    });
-});
-
-chrome.storage.onChanged.addListener(function (changes) {
-    for (var key in changes) {
-        EXT.storage[key] = changes[key].newValue;
-
-        updateAll();
+        document.documentElement.classList.add('dark-mode--ready');
     }
-});
-
-
-/*--------------------------------------------------------------
-# MESSAGES
---------------------------------------------------------------*/
-
-chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
-    if (message.action === 'init') {
-        if (isPage()) {
-            sendResponse(EXT.url);
-        }
-    } else if (message.action === 'dark-mode--fetch-response') {
-        var parent = message.parent === 'head' ? document.head : document.body,
-            element = createStyle(message.response, parent),
-            rules = element.sheet.cssRules;
-
-        createStyle(parseRules(rules, null, message.url), parent, message.url);
-
-        element.remove();
-    }
-});
+}
 
 
 /*--------------------------------------------------------------
@@ -1295,32 +1411,119 @@ EXT.observer.observe(document, {
 
 
 /*--------------------------------------------------------------
-# HANDLERS
+# DOM CONTENT LOADED
 --------------------------------------------------------------*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    EXT.DOMContentLoaded = true;
+
+    isReady();
+});
+
 
 /*--------------------------------------------------------------
-# CHILD
+# STORAGE
 --------------------------------------------------------------*/
 
-EXT.child = function (type, element) {
-    var children = element.children,
-        index = EXT.styles.indexOf(element);
+chrome.runtime.sendMessage({
+    action: 'init'
+}, function (response) {
+    EXT.url = response.url;
+    EXT.id = response.id;
+    EXT.dynamic_theme = response.dynamic_theme;
 
-    if (type === 'added') {
-        if (index === -1) {
-            EXT.styles.push(element);
+    chrome.storage.local.get(function (items) {
+        EXT.storage.items = items;
+
+        EXT.storage.getGlobalOrLocale();
+
+        EXT.storage.filters.active = status();
+
+        if (!EXT.dynamic_theme) {
+            document.documentElement.classList.add('dark-mode--ready');
+        } else if (EXT.storage.filters.active) {
+            for (var i = 0, l = EXT.queue.attributes.style.length; i < l; i++) {
+                attributeStyle(EXT.queue.attributes.style[i]);
+            }
+
+            for (var i = 0, l = EXT.queue.attributes.bgcolor.length; i < l; i++) {
+                attributeBgColor(EXT.queue.attributes.bgcolor[i]);
+            }
+
+            for (var i = 0, l = EXT.queue.attributes.color.length; i < l; i++) {
+                attributeColor(EXT.queue.attributes.color[i]);
+            }
+
+            for (var i = 0, l = EXT.queue.link.length; i < l; i++) {
+                elementLink(1, EXT.queue.link[i]);
+            }
+
+            for (var i = 0, l = EXT.queue.style.length; i < l; i++) {
+                elementStyle(1, EXT.queue.style[i]);
+            }
         }
-    } else if (type === 'removed') {
-        if (index !== -1) {
-            EXT.styles.splice(index, 1);
-        }
+
+        EXT.storage.ready = true;
+
+        isReady();
+
+        new MutationObserver(function () {
+            if (document.body) {
+                this.disconnect();
+
+                updateAll(true);
+            }
+        }).observe(document, {
+            attributes: false,
+            childList: true,
+            subtree: true
+        });
+    });
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+    for (var key in changes) {
+        EXT.storage.items[key] = changes[key].newValue;
+
+        EXT.storage.getGlobalOrLocale();
+
+        EXT.storage.filters.active = status();
+
+        chrome.runtime.sendMessage({
+            action: 'dynamic-theme'
+        }, function (response) {
+            EXT.dynamic_theme = response.dynamic_theme;
+
+            updateAll();
+        });
     }
+});
 
-    if (children) {
-        for (var i = 0, l = children.length; i < l; i++) {
-            var child = children[i];
 
-            EXT.child(type, child);
+/*--------------------------------------------------------------
+# MESSAGES
+--------------------------------------------------------------*/
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (message.action === 'init') {
+        if (window === window.top) {
+            sendResponse(EXT.url);
         }
+    } else if (message.action === 'dark-mode--fetch-response') {
+        var style = EXT.indexes[message.index],
+            parent = document.head;
+
+        if (style) {
+            parent = style.parentNode;
+        }
+
+        var element = createStyle(message.response, parent),
+            rules = element.sheet.cssRules;
+
+        EXT.threads--;
+
+        createStyle(parseRules(rules, null, message.url), parent, message.url);
+
+        element.remove();
     }
-};
+});

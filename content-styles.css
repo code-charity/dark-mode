@@ -4,11 +4,14 @@
 # Filters
     # Invert colors
     # Bluelight
+    # Dynamic theme
 --------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
 # FILTERS
 --------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
 # INVERT COLORS
@@ -17,8 +20,7 @@
 html[data-invert-colors] canvas,
 html[data-invert-colors] img,
 html[data-invert-colors] video,
-html[data-invert-colors] [style*=background-image]
-{
+html[data-invert-colors] [style*=background-image] {
     filter: invert(1);
 }
 
@@ -39,4 +41,20 @@ html[data-invert-colors] {
     width: 100%;
     height: 100vh;
     pointer-events: none;
+}
+
+
+/*--------------------------------------------------------------
+# DYNAMIC THEME
+--------------------------------------------------------------*/
+
+html:not(.dark-mode--ready),
+html:not(.dark-mode--ready) body,
+html:not(.dark-mode--ready) body :not(iframe) {
+    color: rgb(82, 82, 82) !important;
+    background-color: rgb(20, 20, 20) !important;
+    border-color: rgb(41, 41, 41) !important;
+    fill: rgb(82, 82, 82) !important;
+    stroke: rgb(82, 82, 82) !important;
+    transition: none !important;
 }

@@ -1,14 +1,14 @@
 {
    "manifest_version": 2,
    "name": "Dark Mode",
-   "version": "2.1.3",
-   "description": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day.",
+   "version": "3.0",
+   "description": "__MSG_description__",
    "default_locale": "en",
    "icons": {
-      "16": "assets/icons/16.png",
-      "32": "assets/icons/32.png",
-      "48": "assets/icons/48.png",
-      "128": "assets/icons/128.png"
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
    },
    "background": {
       "scripts": [
@@ -23,7 +23,7 @@
             "content-styles.css"
          ],
          "js": [
-            "content-scripts.js"
+            "content-script.js"
          ],
          "matches": [
             "<all_urls>"
@@ -31,25 +31,18 @@
          "run_at": "document_start"
       }
    ],
+   "options_page": "ui/options.html",
    "browser_action": {
-      "default_icon": {
-         "16": "assets/icons/16g.png",
-         "32": "assets/icons/32g.png",
-         "48": "assets/icons/48g.png",
-         "128": "assets/icons/128g.png"
-      },
-      "default_popup": "popup.html"
+      "default_popup": "ui/popup.html"
    },
-   "options_page": "options.html",
    "optional_permissions": [
       "downloads"
    ],
-   "offline_enabled": true,
    "permissions": [
       "storage",
       "tabs",
-      "chrome://favicon/",
       "<all_urls>"
    ],
+   "offline_enabled": true,
    "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: chrome://favicon;"
 }

@@ -44,6 +44,9 @@
     "cores": {
         "message": "الأنويه"
     },
+    "description": {
+        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
+    },
     "dateAndTime": {
         "message": "التاريخ والوقت"
     },

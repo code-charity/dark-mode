@@ -2,111 +2,23 @@
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
 # Document
-# Scrollbar
 # Link
 # Button, input, select, textarea
 # Fieldset, hr, iframe, table
+# Scrollbar
+# Selection
+# SVG
 --------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
 # DOCUMENT
 --------------------------------------------------------------*/
 
 html,
-body
-{
+body {
     color: #fff;
-    background-color: #000;
-}
-
-
-/*--------------------------------------------------------------
-# SCROLLBAR
---------------------------------------------------------------*/
-
-::-webkit-scrollbar
-{
-    background-color: #333;
-}
-
-::-webkit-scrollbar-button:single-button
-{
-    display: block;
-
-    background-repeat: no-repeat;
-}
-
-::-webkit-scrollbar-button:single-button:hover
-{
-    background-color: #555;
-}
-
-::-webkit-scrollbar-button:single-button:vertical
-{
-    background-size: 7px 4px;
-}
-
-::-webkit-scrollbar-button:single-button:horizontal
-{
-    background-size: 4px 7px;
-}
-
-::-webkit-scrollbar-button:single-button:vertical:decrement
-{
-    width: 16px;
-    height: 15px;
-
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" fill="rgb(125, 125, 125)"><polygon points="3.5,0 0,4 7,4"/></svg>');
-    background-position: 4px 6px;
-}
-
-::-webkit-scrollbar-button:single-button:vertical:increment
-{
-    width: 16px;
-    height: 15px;
-
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" fill="rgb(125, 125, 125)"><polygon points="0,0 7,0 3.5,4"/></svg>');
-    background-position: 4px 5px;
-}
-
-::-webkit-scrollbar-button:single-button:horizontal:decrement
-{
-    width: 15px;
-    height: 16px;
-
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="rgb(125, 125, 125)"><polygon points="0,3.5 4,0 4,7"/></svg>');
-    background-position: 5px 4px;
-}
-
-::-webkit-scrollbar-button:single-button:horizontal:increment
-{
-    width: 15px;
-    height: 16px;
-
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="rgb(125, 125, 125)"><polygon points="0,0 0,7 4,3.5"/></svg>');
-    background-position: 6px 4px;
-}
-
-::-webkit-scrollbar-thumb
-{
-    border-right: 2px solid #333;
-    border-left: 2px solid #333;
-    background-color: #555;
-}
-
-::-webkit-scrollbar-thumb:hover
-{
-    background-color: #666;
-}
-
-::-webkit-scrollbar-thumb:active
-{
-    background-color: #666;
-}
-
-::-webkit-scrollbar-corner
-{
-    background-color: #444;
+    background-color: rgb(23, 25, 28);
 }
 
 
@@ -114,8 +26,7 @@ body
 # LINK
 --------------------------------------------------------------*/
 
-a
-{
+a {
     color: #0075ff;
 }
 
@@ -127,8 +38,7 @@ a
 button,
 input,
 select,
-textarea
-{
+textarea {
     color: #fff;
     border-color: #333;
     background-color: #000;
@@ -137,14 +47,12 @@ textarea
 button[disabled],
 input[disabled],
 select[disabled],
-textarea[disabled]
-{
+textarea[disabled] {
     opacity: .5;
 }
 
 input[type=text],
-textarea
-{
+textarea {
     background-color: transparent;
 }
 
@@ -155,12 +63,102 @@ textarea
 
 fieldset,
 hr,
-iframe
-{
+iframe {
     border-color: #808080;
 }
 
-table
-{
+table {
     border-color: #808080;
+}
+
+
+/*--------------------------------------------------------------
+# SCROLLBAR
+--------------------------------------------------------------*/
+
+::-webkit-scrollbar {
+    background-color: #333;
+}
+
+::-webkit-scrollbar-button:single-button {
+    display: block;
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:single-button:hover {
+    background-color: #555;
+}
+
+::-webkit-scrollbar-button:single-button:vertical {
+    background-size: 7px 4px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal {
+    background-size: 4px 7px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    width: 16px;
+    height: 15px;
+    background-image: url('data:image/svg xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" fill="rgb(125, 125, 125)"><polygon points="3.5,0 0,4 7,4"/></svg>');
+    background-position: 4px 6px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    width: 16px;
+    height: 15px;
+    background-image: url('data:image/svg xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" fill="rgb(125, 125, 125)"><polygon points="0,0 7,0 3.5,4"/></svg>');
+    background-position: 4px 5px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+    width: 15px;
+    height: 16px;
+    background-image: url('data:image/svg xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="rgb(125, 125, 125)"><polygon points="0,3.5 4,0 4,7"/></svg>');
+    background-position: 5px 4px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+    width: 15px;
+    height: 16px;
+    background-image: url('data:image/svg xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="rgb(125, 125, 125)"><polygon points="0,0 0,7 4,3.5"/></svg>');
+    background-position: 6px 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-right: 2px solid #333;
+    border-left: 2px solid #333;
+    background-color: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #666;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #444;
+}
+
+
+/*--------------------------------------------------------------
+# SELECTION
+--------------------------------------------------------------*/
+
+::selection {
+    background-color: #fff;
+    color: #000;
+}
+
+
+/*--------------------------------------------------------------
+# SVG
+--------------------------------------------------------------*/
+
+svg {
+    fill: #fff;
+    stroke: #fff;
 }
