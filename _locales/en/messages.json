@@ -153,7 +153,7 @@
         "message": "Settings"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Restricted browser page! (Otherwise, try reloading!)"
+        "message": "Restricted Browser Page! (Otherwise, try reloading!)"
     },
     "styles": {
         "message": "Styles"
