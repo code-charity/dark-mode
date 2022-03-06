@@ -1,224 +1,224 @@
 {
     "about": {
-        "message": "About"
+        "message": "درباره"
     },
     "accept": {
-        "message": "Accept"
+        "message": "پذیرفتن"
     },
     "appearance": {
-        "message": "Appearance"
+        "message": "ظاهر"
     },
     "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
-        "message": "Are you sure you want to delete the selected website settings?"
+        "message": "آیا مطمئنید که میخواهید تنظیمات سایت های انتخاب شده را حذف کنید؟"
     },
     "areYouSureYouWantToExportTheData": {
-        "message": "Are you sure you want to export the data?"
+        "message": "آیا مطمئنید که میخواهید از اطلاعات خروجی بگیرید؟"
     },
     "areYouSureYouWantToImportTheData": {
-        "message": "Are you sure you want to import the data?"
+        "message": "آیا مطمئنید که میخواهید اطلاعات را وارد کنید؟"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "فرمت های صوتی"
     },
     "backupAndReset": {
-        "message": "Backup & reset"
+        "message": "پشتیبان گیری و بازنشانی کردن"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "نور آبی"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "روشنایی"
     },
     "browser": {
-        "message": "Browser"
+        "message": "مرورگر"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "لغو"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "دمای رنگ"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "کنتراست"
     },
     "cores": {
-        "message": "Cores"
+        "message": "هسته ها"
     },
     "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
+        "message": "حالت تیره، شب ها مطالعه کنید. فیلتر نور آبی برای همه سایت ها. در شب و در روز به چشمانتان استراحت بدهید."
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "تاریخ و زمان"
     },
     "device": {
-        "message": "Device"
+        "message": "دستگاه"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "غیرفعال شده"
     },
     "dynamicTheme": {
-        "message": "Dynamic theme"
+        "message": "پوسته پویا"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "این سایت را مستثنی کن"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "خروجی گرفتن از تنظیمات"
     },
     "extension": {
-        "message": "Extension"
+        "message": "افزونه"
     },
     "filters": {
-        "message": "Filters"
+        "message": "فیلتر ها"
     },
     "flash": {
-        "message": "Flash"
+        "message": "فلش پلیر"
     },
     "general": {
-        "message": "General"
+        "message": "عمومی"
     },
     "global": {
-        "message": "Global"
+        "message": "همگانی"
     },
     "gpu": {
-        "message": "GPU"
+        "message": "کارت گرافیک"
     },
     "grayscale": {
-        "message": "Grayscale"
+        "message": "مقیاس خاکستری"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "پنهان کردن جمله \"ساخته شده با عشق توسط ❤...\""
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "وارد کردن تنظیمات"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "وارونه کردن رنگ ها"
     },
     "language": {
-        "message": "Language"
+        "message": "زبان"
     },
     "languages": {
-        "message": "Languages"
+        "message": "زبان ها"
     },
     "name": {
-        "message": "Name"
+        "message": "نام"
     },
     "no": {
-        "message": "No"
+        "message": "خیر"
     },
     "ok": {
-        "message": "OK"
+        "message": "تایید"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "فقط برای این سایت فعال کن"
     },
     "os": {
-        "message": "OS"
+        "message": "سیستم عامل"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "دسترسی داده نشده است"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "دسترسی ها"
     },
     "platform": {
-        "message": "Platform"
+        "message": "معماری رایانه"
     },
     "ram": {
-        "message": "RAM"
+        "message": "حافظه رم"
     },
     "remove": {
-        "message": "Remove"
+        "message": "حذف کردن"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "بازنشانی همه تنظیمات"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "تنظیمات را بازنشانی کنم؟"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "ذخیره کردن به نام ..."
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "زمان بندی"
     },
     "screen": {
-        "message": "Screen"
+        "message": "صفحه نمایش"
     },
     "sepia": {
-        "message": "Sepia"
+        "message": "قرمز تیره"
     },
     "settings": {
-        "message": "Settings"
+        "message": "تنظیمات"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "یک مشکلی پیش آمده. صفحه را رفرش کنید."
     },
     "styles": {
-        "message": "Styles"
+        "message": "قالب ها"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "تنظیمات با موفقیت وارد شد."
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "غروب تا طلوع"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "وابسته به تنظیمات سیستم"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "حالت ویرایشگر متن"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "لیست خالی است"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "این صفحه HOSTNAME توسط مرورگر محافظت شده است."
     },
     "theme": {
-        "message": "Theme"
+        "message": "پوسته"
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
-        "message": "This is an experimental feature. Do you want to activate it?"
+        "message": "این یک قابلیت آزمایشی است. آیا میخواهید آن را فعال کنید؟"
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "این همه تنظیمات را بازنشانی خواهد کرد"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "از ساعت"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "تا ساعت"
     },
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "برای این سایت خاموش کن"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+        "message": "برای این سایت روشن کن"
     },
     "type": {
-        "message": "Type"
+        "message": "نوع"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+        "message": "از مدل 24 ساعته زمان استفاده کن"
     },
     "useGlobal": {
-        "message": "Use global"
+        "message": "از حالت همگانی استفاده کن"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+        "message": "تنظیمات را برای همه سایت ها استفاده کن"
     },
     "version": {
-        "message": "Version"
+        "message": "نسخه"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "فرمت های ویدیویی"
     },
     "websites": {
-        "message": "Websites"
+        "message": "سایت ها"
     },
     "yes": {
-        "message": "Yes"
+        "message": "بله"
     }
 }
