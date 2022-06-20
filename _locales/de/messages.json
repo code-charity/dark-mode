@@ -2,8 +2,17 @@
     "about": {
         "message": "Über"
     },
+    "absolute": {
+        "message": "Absolute"
+    },
     "accept": {
         "message": "Akzeptieren"
+    },
+    "allYourSettingsWillBeErasedAndCanTBeRecovered": {
+        "message": "All your settings will be erased and can't be recovered"
+    },
+    "always": {
+        "message": "Always"
     },
     "appearance": {
         "message": "Appearance"
@@ -22,6 +31,9 @@
     },
     "backupAndReset": {
         "message": "Backup & zurücksetzen"
+    },
+    "bitness": {
+        "message": "Bitness"
     },
     "bluelight": {
         "message": "Blaues Licht"
@@ -44,17 +56,23 @@
     "cores": {
         "message": "Kerne"
     },
-    "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
-    },
     "dateAndTime": {
         "message": "Datum & Zeit"
+    },
+    "description": {
+        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
     },
     "device": {
         "message": "Gerät"
     },
     "disabled": {
         "message": "Deaktiviert"
+    },
+    "dynamic": {
+        "message": "Dynamic"
+    },
+    "dynamicFilter": {
+        "message": "Dynamic filter"
     },
     "dynamicTheme": {
         "message": "Dynamic theme"
@@ -86,11 +104,17 @@
     "grayscale": {
         "message": "Graustufe"
     },
+    "hardwareInformation": {
+        "message": "Hardware information"
+    },
     "hideMadeWithLove": {
         "message": "\"Made with ❤...\" nicht mehr anzeigen"
     },
     "importSettings": {
         "message": "Einstellungen importieren"
+    },
+    "invert": {
+        "message": "Invert"
     },
     "invertColors": {
         "message": "Farben invertieren"
@@ -101,8 +125,14 @@
     "languages": {
         "message": "Sprachen"
     },
+    "mode": {
+        "message": "Mode"
+    },
     "name": {
         "message": "Name"
+    },
+    "never": {
+        "message": "Never"
     },
     "no": {
         "message": "No"
@@ -131,6 +161,9 @@
     "remove": {
         "message": "Entfernen"
     },
+    "reset": {
+        "message": "Reset"
+    },
     "resetAllSettings": {
         "message": "Alle Einstellungen zurücksetzen"
     },
@@ -151,6 +184,9 @@
     },
     "settings": {
         "message": "Einstellungen"
+    },
+    "softwareInformation": {
+        "message": "Software information"
     },
     "somethingWentWrongTryReloadingThePage": {
         "message": "Something went wrong. Try reloading the page."
@@ -193,6 +229,9 @@
     },
     "turnOffForThisWebsite": {
         "message": "Für diese Website deaktivieren"
+    },
+    "turnOn": {
+        "message": "Turn on"
     },
     "turnOnForThisWebsite": {
         "message": "Für diese Website aktivieren"

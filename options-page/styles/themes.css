@@ -1,0 +1,30 @@
+/*--------------------------------------------------------------
+>>> THEMES
+----------------------------------------------------------------
+#
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+#
+--------------------------------------------------------------*/
+
+.satus-base {
+    --satus-primary: #2d799f;
+    --satus-light: 255, 255, 255;
+    --satus-base-background: #131316;
+    --satus-base-foreground: #e0e0e0;
+    --satus-header-background: #26262c;
+    --satus-header-text: #e0e0e0;
+    --satus-header-shadow: 0 1px 0 #000;
+    --satus-layers-background: #131316;
+    --satus-layers-text: #e0e0e0;
+    --satus-section-background: #1c1d21;
+    --satus-section-border: #212121;
+    --satus-modal-background: #2a2b32;
+    --satus-modal-foreground: #e0e0e0;
+    --satus-modal-shadow: 0px 1px 5px 3px rgba(0, 0, 0, .24);
+    --satus-tabs-background: #1c1d21;
+    --satus-tabs-foreground: #33343d;
+    --satus-text-field-background: #1e1e1e;
+    --satus-text-field-foreground: #e0e0e0;
+}

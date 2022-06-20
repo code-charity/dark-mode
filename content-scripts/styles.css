@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------
->>> CONTENT STYLES:
+>>> STYLES
 ----------------------------------------------------------------
 # Filters
     # Invert colors
@@ -17,15 +17,16 @@
 # INVERT COLORS
 --------------------------------------------------------------*/
 
-html[data-invert-colors] canvas,
-html[data-invert-colors] img,
-html[data-invert-colors] video,
-html[data-invert-colors] [style*=background-image] {
-    filter: invert(1);
+html[dm-invert-colors]:not([dm-default-theme='dark']) canvas,
+html[dm-invert-colors]:not([dm-default-theme='dark']) img,
+html[dm-invert-colors]:not([dm-default-theme='dark']) video,
+html[dm-invert-colors]:not([dm-default-theme='dark']) iframe,
+html[dm-invert-colors]:not([dm-default-theme='dark']) [style*=background-image] {
+    filter: invert(1) !important;
 }
 
-html[data-invert-colors] {
-    background-color: #fff;
+html[dm-invert-colors]:not([dm-default-theme='dark']) {
+    background-color: #fff !important;
 }
 
 
@@ -34,13 +35,13 @@ html[data-invert-colors] {
 --------------------------------------------------------------*/
 
 #dark-mode__bluelight {
-    position: fixed;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    visibility: hidden !important;
+    width: 100% !important;
+    height: 100vh !important;
+    pointer-events: none !important;
 }
 
 
@@ -48,9 +49,11 @@ html[data-invert-colors] {
 # DYNAMIC THEME
 --------------------------------------------------------------*/
 
-html:not(.dark-mode--ready),
-html:not(.dark-mode--ready) body,
-html:not(.dark-mode--ready) body :not(iframe) {
+html:not([dm-ready]),
+html:not([dm-ready]) body,
+html:not([dm-ready]) body :not(iframe),
+html:not([dm-ready]) body :not(iframe)::before,
+html:not([dm-ready]) body :not(iframe)::after {
     color: rgb(82, 82, 82) !important;
     background-color: rgb(20, 20, 20) !important;
     border-color: rgb(41, 41, 41) !important;

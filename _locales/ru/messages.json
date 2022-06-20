@@ -2,8 +2,17 @@
     "about": {
         "message": "О Dark Mode"
     },
+    "absolute": {
+        "message": "Absolute"
+    },
     "accept": {
         "message": "Принять"
+    },
+    "allYourSettingsWillBeErasedAndCanTBeRecovered": {
+        "message": "All your settings will be erased and can't be recovered"
+    },
+    "always": {
+        "message": "Always"
     },
     "appearance": {
         "message": "Внешний вид"
@@ -22,6 +31,9 @@
     },
     "backupAndReset": {
         "message": "Резервное копирование и сброс"
+    },
+    "bitness": {
+        "message": "Bitness"
     },
     "bluelight": {
         "message": "Bluelight"
@@ -44,17 +56,23 @@
     "cores": {
         "message": "Ядра"
     },
-    "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
-    },
     "dateAndTime": {
         "message": "Дата и время"
+    },
+    "description": {
+        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
     },
     "device": {
         "message": "Устройство"
     },
     "disabled": {
         "message": "Отключено"
+    },
+    "dynamic": {
+        "message": "Dynamic"
+    },
+    "dynamicFilter": {
+        "message": "Dynamic filter"
     },
     "dynamicTheme": {
         "message": "Динамическая тема"
@@ -74,6 +92,9 @@
     "flash": {
         "message": "Флеш"
     },
+    "general": {
+        "message": "General"
+    },
     "gitHub": {
         "message": "GitHub"
     },
@@ -86,11 +107,17 @@
     "grayscale": {
         "message": "Насыщенность"
     },
+    "hardwareInformation": {
+        "message": "Hardware information"
+    },
     "hideMadeWithLove": {
         "message": "Скрыть \"Made with ❤...\""
     },
     "importSettings": {
         "message": "Импорт настроек"
+    },
+    "invert": {
+        "message": "Invert"
     },
     "invertColors": {
         "message": "Инвертировать цвета"
@@ -106,6 +133,9 @@
     },
     "name": {
         "message": "Имя"
+    },
+    "never": {
+        "message": "Never"
     },
     "nightMode": {
         "message": "Night mode"
@@ -140,6 +170,9 @@
     "remove": {
         "message": "Удалить"
     },
+    "reset": {
+        "message": "Reset"
+    },
     "resetAllSettings": {
         "message": "Сбросить все настройки"
     },
@@ -161,6 +194,9 @@
     "settings": {
         "message": "Настройки"
     },
+    "softwareInformation": {
+        "message": "Software information"
+    },
     "somethingWentWrongTryReloadingThePage": {
         "message": "Что-то пошло не так. Попробуйте перезагрузить страницу."
     },
@@ -176,11 +212,17 @@
     "systemPeference": {
         "message": "Определено системой"
     },
+    "textEditorMode": {
+        "message": "Text editor mode"
+    },
     "theListIsEmpty": {
         "message": "Список пуст"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
         "message": "Страница HOSTNAME защищна браузером."
+    },
+    "theme": {
+        "message": "Theme"
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
         "message": "Это экспериментальная функция. Вы хотите это активировать?"
@@ -196,6 +238,9 @@
     },
     "turnOffForThisWebsite": {
         "message": "Включить для текущего веб-сайта"
+    },
+    "turnOn": {
+        "message": "Turn on"
     },
     "turnOnForThisWebsite": {
         "message": "Выключить для текущего веб-сайта"

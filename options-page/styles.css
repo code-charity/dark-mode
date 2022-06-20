@@ -1,0 +1,76 @@
+/*--------------------------------------------------------------
+>>> STYLES
+--------------------------------------------------------------*/
+
+.satus-alert--success {
+	overflow: hidden;
+
+	padding: 0;
+}
+
+.satus-alert--success>.satus-switch {
+	width: 100%;
+	height: 48px;
+	padding: 8px 12px;
+
+	transition: background-color .3s cubic-bezier(.25, .8, .5, 1);
+
+	--satus-switch-track: hsl(var(--satus-alert-hue-success), 56%, 34%);
+	--satus-switch-track--checked: hsl(var(--satus-alert-hue-success), 56%, 48%);
+	--satus-switch-thumb: rgba(255, 255, 255, .88);
+}
+
+.satus-alert--success>.satus-switch:hover {
+	background-color: rgba(var(--satus-light), .04);
+}
+
+
+.satus-button--mode {
+	justify-content: space-between !important;
+}
+
+.satus-button--mode span {
+	opacity: .64;
+}
+
+.satus-button--power {
+	justify-content: center;
+}
+
+.satus-button--power > svg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -1px;
+}
+
+.satus-button--power[data-value='false'] > svg {
+    opacity: .4;
+    transition: 150ms;
+}
+
+.satus-button--power[data-value='true'] > svg {
+	stroke: #ffbf00;
+    opacity: 1;
+    transition: 75ms;
+}
+
+body[tab] {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body[tab] .satus-base {
+    width: 100%;
+    height: 100%;
+}
+
+body[tab] .satus-alert {
+	display: none;
+}
+
+.satus-text-field--css-editor {
+	height: 100%;
+	padding: 12px 0;
+}

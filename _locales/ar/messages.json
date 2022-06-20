@@ -2,8 +2,17 @@
     "about": {
         "message": "حول"
     },
+    "absolute": {
+        "message": "Absolute"
+    },
     "accept": {
         "message": "قبول"
+    },
+    "allYourSettingsWillBeErasedAndCanTBeRecovered": {
+        "message": "All your settings will be erased and can't be recovered"
+    },
+    "always": {
+        "message": "Always"
     },
     "appearance": {
         "message": "Appearance"
@@ -22,6 +31,9 @@
     },
     "backupAndReset": {
         "message": "نسج احتياطي وإعادة التعيين"
+    },
+    "bitness": {
+        "message": "Bitness"
     },
     "bluelight": {
         "message": "الضوء الأزرق"
@@ -44,17 +56,23 @@
     "cores": {
         "message": "الأنويه"
     },
-    "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
-    },
     "dateAndTime": {
         "message": "التاريخ والوقت"
+    },
+    "description": {
+        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
     },
     "device": {
         "message": "الجهاز"
     },
     "disabled": {
         "message": "معطل"
+    },
+    "dynamic": {
+        "message": "Dynamic"
+    },
+    "dynamicFilter": {
+        "message": "Dynamic filter"
     },
     "dynamicTheme": {
         "message": "Dynamic theme"
@@ -86,11 +104,17 @@
     "grayscale": {
         "message": "التدرج الرمادي"
     },
+    "hardwareInformation": {
+        "message": "Hardware information"
+    },
     "hideMadeWithLove": {
         "message": "\"Made with ❤...\" إخفاء"
     },
     "importSettings": {
         "message": "استيراد الإعدادات"
+    },
+    "invert": {
+        "message": "Invert"
     },
     "invertColors": {
         "message": "عكس الألوان"
@@ -101,8 +125,14 @@
     "languages": {
         "message": "اللغات"
     },
+    "mode": {
+        "message": "Mode"
+    },
     "name": {
         "message": "الإسم"
+    },
+    "never": {
+        "message": "Never"
     },
     "no": {
         "message": "No"
@@ -131,6 +161,9 @@
     "remove": {
         "message": "حذف"
     },
+    "reset": {
+        "message": "Reset"
+    },
     "resetAllSettings": {
         "message": "إعادة تعين كل الإعدادت"
     },
@@ -151,6 +184,9 @@
     },
     "settings": {
         "message": "الإعدادت"
+    },
+    "softwareInformation": {
+        "message": "Software information"
     },
     "somethingWentWrongTryReloadingThePage": {
         "message": "Something went wrong. Try reloading the page."
@@ -193,6 +229,9 @@
     },
     "turnOffForThisWebsite": {
         "message": "تعطيل لهذا الموقع"
+    },
+    "turnOn": {
+        "message": "Turn on"
     },
     "turnOnForThisWebsite": {
         "message": "تفعيل لهذا الموقع"

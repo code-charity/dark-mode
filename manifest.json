@@ -1,48 +1,52 @@
 {
-   "manifest_version": 2,
-   "name": "Dark Mode",
-   "version": "3.0",
-   "description": "__MSG_description__",
-   "default_locale": "en",
-   "icons": {
-      "16": "icons/16.png",
-      "32": "icons/32.png",
-      "48": "icons/48.png",
-      "128": "icons/128.png"
-   },
-   "background": {
-      "scripts": [
-         "background.js"
-      ]
-   },
-   "content_scripts": [
-      {
-         "all_frames": true,
-         "match_about_blank": true,
-         "css": [
-            "content-styles.css"
-         ],
-         "js": [
-            "content-script.js"
-         ],
-         "matches": [
-            "<all_urls>"
-         ],
-         "run_at": "document_start"
-      }
-   ],
-   "options_page": "ui/options.html",
-   "browser_action": {
-      "default_popup": "ui/popup.html"
-   },
-   "optional_permissions": [
-      "downloads"
-   ],
-   "permissions": [
-      "storage",
-      "tabs",
-      "<all_urls>"
-   ],
-   "offline_enabled": true,
-   "content_security_policy": "script-src 'self'; object-src 'self'; img-src * data: chrome://favicon;"
+	"manifest_version": 3,
+	"name": "Dark Mode",
+	"version": "3.1",
+	"description": "__MSG_description__",
+	"default_locale": "en",
+	"icons": {
+		"16": "assets/icons/16.png",
+		"32": "assets/icons/32.png",
+		"48": "assets/icons/48.png",
+		"128": "assets/icons/128.png"
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"action": {
+		"default_popup": "options-page/index.html"
+	},
+	"options_page": "options-page/index.html",
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"match_about_blank": true,
+			"css": [
+				"content-scripts/styles.css"
+			],
+			"js": [
+				"assets/satus/satus.js",
+				"content-scripts/core.js",
+				"content-scripts/custom-css.js",
+				"content-scripts/dynamic-theme.js",
+				"content-scripts/filters.js"
+			],
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start"
+		}
+	],
+	"optional_permissions": [
+		"downloads"
+	],
+	"host_permissions": [
+		"<all_urls>"
+	],
+	"permissions": [
+		"scripting",
+		"storage",
+		"tabs"
+	],
+	"offline_enabled": true
 }

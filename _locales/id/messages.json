@@ -2,8 +2,17 @@
     "about": {
         "message": "Tentang"
     },
+    "absolute": {
+        "message": "Absolute"
+    },
     "accept": {
         "message": "Terima"
+    },
+    "allYourSettingsWillBeErasedAndCanTBeRecovered": {
+        "message": "All your settings will be erased and can't be recovered"
+    },
+    "always": {
+        "message": "Always"
     },
     "appearance": {
         "message": "Appearance"
@@ -22,6 +31,9 @@
     },
     "backupAndReset": {
         "message": "Backup & reset"
+    },
+    "bitness": {
+        "message": "Bitness"
     },
     "bluelight": {
         "message": "Cahaya biru"
@@ -44,17 +56,23 @@
     "cores": {
         "message": "Core"
     },
-    "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
-    },
     "dateAndTime": {
         "message": "Tanggal & waktu"
+    },
+    "description": {
+        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
     },
     "device": {
         "message": "Perangkat"
     },
     "disabled": {
         "message": "Nonaktifkan"
+    },
+    "dynamic": {
+        "message": "Dynamic"
+    },
+    "dynamicFilter": {
+        "message": "Dynamic filter"
     },
     "dynamicTheme": {
         "message": "Dynamic theme"
@@ -86,11 +104,17 @@
     "grayscale": {
         "message": "Grayscale"
     },
+    "hardwareInformation": {
+        "message": "Hardware information"
+    },
     "hideMadeWithLove": {
         "message": "Sembunyikan \"Made with ❤...\""
     },
     "importSettings": {
         "message": "Impor pengaturan"
+    },
+    "invert": {
+        "message": "Invert"
     },
     "invertColors": {
         "message": "Balikkan warna"
@@ -101,8 +125,14 @@
     "languages": {
         "message": "Bahasa"
     },
+    "mode": {
+        "message": "Mode"
+    },
     "name": {
         "message": "Nama"
+    },
+    "never": {
+        "message": "Never"
     },
     "no": {
         "message": "No"
@@ -131,6 +161,9 @@
     "remove": {
         "message": "Hapus"
     },
+    "reset": {
+        "message": "Reset"
+    },
     "resetAllSettings": {
         "message": "Setel ulang semua pengaturan"
     },
@@ -151,6 +184,9 @@
     },
     "settings": {
         "message": "Pengaturan"
+    },
+    "softwareInformation": {
+        "message": "Software information"
     },
     "somethingWentWrongTryReloadingThePage": {
         "message": "Something went wrong. Try reloading the page."
@@ -193,6 +229,9 @@
     },
     "turnOffForThisWebsite": {
         "message": "Nonaktifkan untuk situs ini"
+    },
+    "turnOn": {
+        "message": "Turn on"
     },
     "turnOnForThisWebsite": {
         "message": "Aktifkan untuk situs ini"
