@@ -1,12 +1,12 @@
 {
     "about": {
-        "message": "About"
+        "message": "Hakkında"
     },
     "absolute": {
         "message": "Absolute"
     },
     "accept": {
-        "message": "Accept"
+        "message": "Kabul"
     },
     "allYourSettingsWillBeErasedAndCanTBeRecovered": {
         "message": "All your settings will be erased and can't be recovered"
@@ -15,58 +15,58 @@
         "message": "Always"
     },
     "appearance": {
-        "message": "Appearance"
+        "message": "Görünüm"
     },
     "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
-        "message": "Are you sure you want to delete the selected website settings?"
+        "message": "Seçilen web sitesi ayarlarını silmek istediğinizden emin misiniz??"
     },
     "areYouSureYouWantToExportTheData": {
-        "message": "Are you sure you want to export the data?"
+        "message": "Verileri dışa aktarmak istediğinizden emin misiniz?"
     },
     "areYouSureYouWantToImportTheData": {
-        "message": "Are you sure you want to import the data?"
+        "message": "Verileri içe aktarmak istediğinizden emin misiniz?"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "Ses formatları"
     },
     "backupAndReset": {
-        "message": "Backup & reset"
+        "message": "Yedek & Sıfırla"
     },
     "bitness": {
         "message": "Bitness"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "Mavi ışık"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "Parlaklık"
     },
     "browser": {
-        "message": "Browser"
+        "message": "Tarayıcı"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "İptal"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Renk sıcaklığı"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "Kontrast"
     },
     "cores": {
-        "message": "Cores"
+        "message": "Çekirdek"
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "Tarih & Saat"
     },
     "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
+        "message": "Karanlık Mod ile geceleri okuyun.  Her web sitesi için mavi ışık filtresi.  Gece ve gündüz gözlerinizi rahatlatın."
     },
     "device": {
-        "message": "Device"
+        "message": "Cihaz"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "Engelli"
     },
     "dynamic": {
         "message": "Dynamic"
@@ -75,82 +75,82 @@
         "message": "Dynamic filter"
     },
     "dynamicTheme": {
-        "message": "Dynamic theme"
+        "message": "Dinamik tema"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "Bu siteyi hariç tut"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "Dışa aktarma ayarları"
     },
     "extension": {
-        "message": "Extension"
+        "message": "Uzantı"
     },
     "filters": {
-        "message": "Filters"
+        "message": "Filtreler"
     },
     "flash": {
-        "message": "Flash"
+        "message": "Flaş"
     },
     "general": {
-        "message": "General"
+        "message": "Genel"
     },
     "global": {
-        "message": "Global"
+        "message": "Genel"
     },
     "gpu": {
         "message": "GPU"
     },
     "grayscale": {
-        "message": "Grayscale"
+        "message": "Gri tonlamalı"
     },
     "hardwareInformation": {
         "message": "Hardware information"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "\"❤ ile yapıldı'yı\" gizle"
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "Ayarları içe aktar"
     },
     "invert": {
         "message": "Invert"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "Renkleri ters çevir"
     },
     "language": {
-        "message": "Language"
+        "message": "Dil"
     },
     "languages": {
-        "message": "Languages"
+        "message": "Diller"
     },
     "mode": {
         "message": "Mode"
     },
     "name": {
-        "message": "Name"
+        "message": "Ad"
     },
     "never": {
         "message": "Never"
     },
     "no": {
-        "message": "No"
+        "message": "Hayır"
     },
     "ok": {
-        "message": "OK"
+        "message": "Tamam"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "Yalnızca bu site için etkinleştir"
     },
     "os": {
         "message": "OS"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "İzin verilmedi"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "İzinler"
     },
     "platform": {
         "message": "Platform"
@@ -159,105 +159,105 @@
         "message": "RAM"
     },
     "remove": {
-        "message": "Remove"
+        "message": "Kaldır"
     },
     "reset": {
         "message": "Reset"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "Bütün ayarları sıfırla"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "Ayarları sıfırla?"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "Farklı kaydet..."
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "Zamanlayıcı"
     },
     "screen": {
-        "message": "Screen"
+        "message": "Ekran"
     },
     "sepia": {
-        "message": "Sepia"
+        "message": "Sepya"
     },
     "settings": {
-        "message": "Settings"
+        "message": "Ayarlar"
     },
     "softwareInformation": {
         "message": "Software information"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "Bir şeyler yanlış gitti.  Sayfayı yeniden yüklemeyi deneyin."
     },
     "styles": {
-        "message": "Styles"
+        "message": "Stiller"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Ayarlar başarıyla içe aktarıldı."
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "Gün batımından gün doğumuna"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "Sistem tercihi"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "Metin düzenleyici modu"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "Liste boş"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "HOSTNAME sayfası tarayıcı tarafından korunuyor."
     },
     "theme": {
-        "message": "Theme"
+        "message": "Tema"
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
-        "message": "This is an experimental feature. Do you want to activate it?"
+        "message": "Bu deneysel bir özelliktir.  Etkinleştirmek istiyor musunuz?"
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Bu, tüm ayarları sıfırlayacaktır"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "Şu saatten"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "Bu saate"
     },
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "Bu site için kapat"
     },
     "turnOn": {
         "message": "Turn on"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+        "message": "Bu site için aç"
     },
     "type": {
-        "message": "Type"
+        "message": "Tip"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+        "message": "24 saatlik biçimi kullan"
     },
     "useGlobal": {
-        "message": "Use global"
+        "message": "Genel kullan"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+        "message": "Tüm web siteleri için ayarları kullan"
     },
     "version": {
-        "message": "Version"
+        "message": "Versiyon"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "Video formatları"
     },
     "websites": {
-        "message": "Websites"
+        "message": "Siteler"
     },
     "yes": {
-        "message": "Yes"
+        "message": "Evet"
     }
 }

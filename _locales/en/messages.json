@@ -189,7 +189,7 @@
         "message": "Software information"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "Restricted Browser Page! (Otherwise, try reloading!)"
     },
     "styles": {
         "message": "Styles"
