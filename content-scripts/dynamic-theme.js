@@ -219,7 +219,7 @@ extension.dynamicFilter.hueToRgb = function (t1, t2, hue) {
 	} else {
 		return t1;
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -236,7 +236,7 @@ extension.dynamicFilter.styleToRgb = function (string) {
 	}
 
 	return match;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -288,7 +288,7 @@ extension.dynamicFilter.hexToRgb = function (string) {
 	}
 
 	return rgb;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -329,7 +329,7 @@ extension.dynamicFilter.rgbToHsl = function (array) {
 	} else {
 		return [h, s, l, array[3]];
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -342,7 +342,7 @@ extension.dynamicFilter.hslToStyle = function (array) {
 	} else {
 		return 'hsla(' + (array[0] * 360).toFixed(0) + 'deg,' + (array[1] * 100).toFixed(0) + '%,' + (array[2] * 100).toFixed(0) + '%,' + array[3] + ')';
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -368,7 +368,7 @@ extension.dynamicFilter.hslToRgb = function (array) {
 	b = extension.dynamicFilter.hueToRgb(t1, t2, hue - 2) * 255;
 
 	return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -413,7 +413,7 @@ extension.dynamicFilter.modifyBackgroundColor = function (value, convert = true)
 	} else {
 		return value;
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -438,7 +438,7 @@ extension.dynamicFilter.modifyBorderColor = function (value) {
 	value[2] = extension.dynamicFilter.scale(lightness, 0, 1, .5, .2);
 
 	return extension.dynamicFilter.hslToStyle(value);
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -473,7 +473,7 @@ extension.dynamicFilter.modifyTextColor = function (value) {
 	}
 
 	return extension.dynamicFilter.hslToStyle(value);
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -482,7 +482,7 @@ extension.dynamicFilter.modifyTextColor = function (value) {
 
 extension.dynamicFilter.attribute = function (node) {
 
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -493,9 +493,10 @@ extension.dynamicFilter.attributeStyle = function (node) {
 	if (typeof node.className === 'string' && node.className.indexOf('attribute') === -1) {
 		node.className += ' dark-mode--attribute';
 
+		node.setAttribute('dm-old-style', node.getAttribute('style'));
 		node.setAttribute('style', extension.dynamicFilter.parseProperties(undefined, node.style, true));
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -525,9 +526,10 @@ extension.dynamicFilter.attributeBgColor = function (node) {
 			}
 		}
 
+		node.setAttribute('dm-old-bgcolor', node.getAttribute('bgcolor'));
 		node.setAttribute('bgcolor', value);
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -557,9 +559,10 @@ extension.dynamicFilter.attributeColor = function (node) {
 			}
 		}
 
+		node.setAttribute('dm-old-color', node.getAttribute('color'));
 		node.setAttribute('color', value);
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -592,7 +595,7 @@ extension.dynamicFilter.elementLink = function (type, node) {
 			}
 		}
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -617,7 +620,7 @@ extension.dynamicFilter.elementStyle = function (type, node) {
 			}
 		}
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -662,7 +665,7 @@ extension.dynamicFilter.parseMutations = function (mutationList) {
 			}
 		}
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -713,7 +716,7 @@ extension.dynamicFilter.parseChildren = function (type, node) {
 			extension.dynamicFilter.parseChildren(type, children[i]);
 		}
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -784,7 +787,7 @@ extension.dynamicFilter.parseRules = function (rules, parent, url) {
 	}
 
 	return string;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -885,7 +888,7 @@ extension.dynamicFilter.parseProperties = function (selector, properties, is_inl
 	}
 
 	return string;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -904,7 +907,7 @@ extension.dynamicFilter.parseColor = function (value, property) {
 	} else if (extension.dynamicFilter.color_keywords[value]) {
 		return extension.dynamicFilter.color_keywords[value];
 	}
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -927,7 +930,7 @@ extension.dynamicFilter.parseValue = function (selector, property, value, modifi
 	}
 
 	return value;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -940,7 +943,7 @@ extension.dynamicFilter.queryLinks = function () {
 	for (var i = 0, l = links.length; i < l; i++) {
 		extension.dynamicFilter.elementLink(1, links[i]);
 	}
-}
+};
 
 extension.dynamicFilter.queryStyles = function () {
 	var styles = document.querySelectorAll('style:not(.dark-mode--stylesheet)');
@@ -952,7 +955,7 @@ extension.dynamicFilter.queryStyles = function () {
 			extension.dynamicFilter.createStyle(extension.dynamicFilter.parseRules(style.sheet.cssRules), style.parentNode);
 		}
 	}
-}
+};
 
 extension.dynamicFilter.queryInlines = function () {
 	var success = false,
@@ -987,7 +990,7 @@ extension.dynamicFilter.queryInlines = function () {
 	}
 
 	return success;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -1004,11 +1007,11 @@ extension.dynamicFilter.createStyle = function (content, parent, url) {
 	parent.appendChild(element);
 
 	return element;
-}
+};
 
 extension.dynamicFilter.scale = function (x, inLow, inHigh, outLow, outHigh) {
 	return ((x - inLow) * (outHigh - outLow)) / (inHigh - inLow) + outLow;
-}
+};
 
 
 /*--------------------------------------------------------------
@@ -1041,6 +1044,60 @@ extension.dynamicFilter.activate = function () {
 	});
 };
 
+extension.dynamicFilter.deactivate = function () {
+	var elements = document.querySelectorAll('.dark-mode--stylesheet');
+
+	for (var i = 0, l = elements.length; i < l; i++) {
+		elements[i].remove();
+	}
+
+	elements = document.querySelectorAll('.dark-mode--attribute');
+
+	for (var i = 0, l = elements.length; i < l; i++) {
+		var element = elements[i];
+
+		element.classList.remove('dark-mode--attribute');
+
+		element.setAttribute('style', element.getAttribute('dm-old-style'));
+
+		element.removeAttribute('dm-old-style');
+	}
+
+	elements = document.querySelectorAll('.dark-mode--bgcolor');
+
+	for (var i = 0, l = elements.length; i < l; i++) {
+		var element = elements[i];
+
+		element.classList.remove('dark-mode--bgcolor');
+
+		element.setAttribute('bgcolor', element.getAttribute('dm-old-bgcolor'));
+
+		element.removeAttribute('dm-old-bgcolor');
+	}
+
+	elements = document.querySelectorAll('.dark-mode--color');
+
+	for (var i = 0, l = elements.length; i < l; i++) {
+		var element = elements[i];
+
+		element.classList.remove('dark-mode--color');
+
+		element.setAttribute('color', element.getAttribute('dm-old-color'));
+
+		element.removeAttribute('dm-old-color');
+	}
+
+	if (extension.dynamicFilter.observer) {
+		extension.dynamicFilter.observer.disconnect();
+
+		delete extension.dynamicFilter.observer;
+	}
+
+	chrome.runtime.sendMessage({
+		action: 'remove-user-agent-stylesheet'
+	});
+};
+
 
 /*--------------------------------------------------------------
 # MESSAGE LISTENER
@@ -1063,5 +1120,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 		extension.dynamicFilter.createStyle(extension.dynamicFilter.parseRules(rules, null, message.url), parent, message.url);
 
 		element.remove();
+
+		if (extension.dynamicFilter.threads === 0) {
+			extension.allowColors();
+		}
 	}
 });

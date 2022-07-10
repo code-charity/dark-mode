@@ -22,11 +22,11 @@ html[dm-invert-colors]:not([dm-default-theme='dark']) img,
 html[dm-invert-colors]:not([dm-default-theme='dark']) video,
 html[dm-invert-colors]:not([dm-default-theme='dark']) iframe,
 html[dm-invert-colors]:not([dm-default-theme='dark']) [style*=background-image] {
-    filter: invert(1) !important;
+	filter: invert(1) !important;
 }
 
 html[dm-invert-colors]:not([dm-default-theme='dark']) {
-    background-color: #fff !important;
+	background-color: #fff !important;
 }
 
 
@@ -35,13 +35,16 @@ html[dm-invert-colors]:not([dm-default-theme='dark']) {
 --------------------------------------------------------------*/
 
 #dark-mode__bluelight {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    visibility: hidden !important;
-    width: 100% !important;
-    height: 100vh !important;
-    pointer-events: none !important;
+	position: fixed !important;
+	top: 0 !important;
+	left: 0 !important;
+
+	visibility: hidden !important;
+
+	width: 100% !important;
+	height: 100vh !important;
+
+	pointer-events: none !important;
 }
 
 
@@ -49,15 +52,19 @@ html[dm-invert-colors]:not([dm-default-theme='dark']) {
 # DYNAMIC THEME
 --------------------------------------------------------------*/
 
-html:not([dm-ready]),
-html:not([dm-ready]) body,
-html:not([dm-ready]) body :not(iframe),
-html:not([dm-ready]) body :not(iframe)::before,
-html:not([dm-ready]) body :not(iframe)::after {
-    color: rgb(82, 82, 82) !important;
-    background-color: rgb(20, 20, 20) !important;
-    border-color: rgb(41, 41, 41) !important;
-    fill: rgb(82, 82, 82) !important;
-    stroke: rgb(82, 82, 82) !important;
-    transition: none !important;
+html:not([dm-allow-colors]),
+html:not([dm-allow-colors]) body,
+html:not([dm-allow-colors]) body :not(iframe),
+html:not([dm-allow-colors]) body :not(iframe)::before,
+html:not([dm-allow-colors]) body :not(iframe)::after {
+	color: rgb(82, 82, 82) !important;
+	border-color: rgb(41, 41, 41) !important;
+	background-color: rgb(20, 20, 20) !important;
+
+	fill: rgb(82, 82, 82) !important;
+	stroke: rgb(82, 82, 82) !important;
+}
+
+html:not([dm-allow-transitions]) * {
+	transition: none !important;
 }

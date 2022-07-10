@@ -13,51 +13,51 @@
 extension.bluelight = function (value) {
 	if (
 		extension.storage.get('power') !== false &&
-    	extension.storage.get('websites/' + extension.hostname + '/active') !== false &&
-    	value > 0
+		extension.storage.get('websites/' + extension.hostname + '/active') !== false &&
+		value > 0
 	) {
 		if (!extension.bluelight.element) {
 			var namespace = 'http://www.w3.org/2000/svg',
-		        svg = document.createElementNS(namespace, 'svg'),
-		        filter = document.createElementNS(namespace, 'filter'),
-		        matrix = document.createElementNS(namespace, 'feColorMatrix');
+				svg = document.createElementNS(namespace, 'svg'),
+				filter = document.createElementNS(namespace, 'filter'),
+				matrix = document.createElementNS(namespace, 'feColorMatrix');
 
-		    if (matrix && matrix.values && matrix.values.baseVal) {
-		    	var values = matrix.values.baseVal;
-		    } else {
-		    	return;
-		    }
+			if (matrix && matrix.values && matrix.values.baseVal) {
+				var values = matrix.values.baseVal;
+			} else {
+				return;
+			}
 
-		    svg.setAttributeNS(null, 'viewBox', '0 0 1 1');
-		    svg.setAttributeNS(null, 'version', '1.1');
-		    svg.setAttributeNS(null, 'id', 'dark-mode__bluelight');
-		    filter.setAttributeNS(null, 'id', 'dark-mode__bluelight-filter');
-		    matrix.setAttributeNS(null, 'type', 'matrix');
+			svg.setAttributeNS(null, 'viewBox', '0 0 1 1');
+			svg.setAttributeNS(null, 'version', '1.1');
+			svg.setAttributeNS(null, 'id', 'dark-mode__bluelight');
+			filter.setAttributeNS(null, 'id', 'dark-mode__bluelight-filter');
+			matrix.setAttributeNS(null, 'type', 'matrix');
 
-		    for (var i = 0; i < 20; i++) {
-		        var number = svg.createSVGNumber();
+			for (var i = 0; i < 20; i++) {
+				var number = svg.createSVGNumber();
 
-		        if (
-		        	i === 0 ||
-		        	i === 6 ||
-		        	i === 12 ||
-		        	i === 18
-		        ) {
-		        	number.value = 1;
-		        } else {
-		        	number.value = 0;
-		        }
+				if (
+					i === 0 ||
+					i === 6 ||
+					i === 12 ||
+					i === 18
+				) {
+					number.value = 1;
+				} else {
+					number.value = 0;
+				}
 
-		        values.appendItem(number);
-		    }
+				values.appendItem(number);
+			}
 
-		    svg.appendChild(filter);
-		    filter.appendChild(matrix);
+			svg.appendChild(filter);
+			filter.appendChild(matrix);
 
-		    extension.bluelight.element = svg;
-		    extension.bluelight.values = values;
+			extension.bluelight.element = svg;
+			extension.bluelight.values = values;
 
-		    document.documentElement.appendChild(svg);
+			document.documentElement.appendChild(svg);
 		}
 
 		extension.bluelight.values[12].value = 1 - value / 100;
@@ -73,55 +73,63 @@ extension.bluelight = function (value) {
 >>> FILTERS
 --------------------------------------------------------------*/
 
-extension.filters = function () {
+extension.filters = function (changed) {
 	var html = document.documentElement,
-        theme = extension.storage.website.theme,
-        bluelight = extension.storage.website.filters.bluelight,
-        brightness = extension.storage.website.filters.brightness,
-        contrast = extension.storage.website.filters.contrast,
-        grayscale = extension.storage.website.filters.grayscale,
-        style = '';
+		theme = extension.storage.website.theme,
+		bluelight = extension.storage.website.filters.bluelight,
+		brightness = extension.storage.website.filters.brightness,
+		contrast = extension.storage.website.filters.contrast,
+		grayscale = extension.storage.website.filters.grayscale,
+		style = '';
 
-    if (
-    	extension.storage.get('power') !== false &&
-    	extension.storage.get('websites/' + extension.hostname + '/active') !== false
-    ) {
-	    if (theme === 'invert' && extension.websiteHasDarkTheme === false) {
-	        style = 'invert(1)';
+	if (
+		extension.storage.get('power') !== false &&
+		extension.storage.get('websites/' + extension.hostname + '/active') !== false
+	) {
+		if (theme === 'invert' && extension.websiteHasDarkTheme === false) {
+			style = 'invert(1)';
 
-	        html.setAttribute('dm-invert-colors', 'true');
-	    } else {
-	        html.removeAttribute('dm-invert-colors');
+			html.setAttribute('dm-invert-colors', 'true');
 
-	        if (theme === 'dynamic' && extension.websiteHasDarkTheme === false) {
-	        	extension.dynamicFilter.activate();
-	        }
-	    }
+			extension.allowColors();
+		} else {
+			html.removeAttribute('dm-invert-colors');
 
-	    if (bluelight > 0) {
-	        style += ' url(#dark-mode__bluelight-filter)';
-	    }
+			if (theme === 'dynamic' && extension.websiteHasDarkTheme === false && !extension.dynamicFilter.observer) {
+				extension.dynamicFilter.activate();
+			} else {
+				extension.allowColors();
+			}
+		}
 
-	    if (brightness < 100) {
-	        style += ' brightness(' + brightness / 100 + ')';
-	    }
+		if (changed === true && theme !== 'dynamic') {
+			extension.dynamicFilter.deactivate();
+		}
 
-	    if (contrast < 100) {
-	        style += ' contrast(' + contrast / 100 + ')';
-	    }
+		if (bluelight > 0) {
+			style += ' url(#dark-mode__bluelight-filter)';
+		}
 
-	    if (grayscale > 0) {
-	        style += ' grayscale(' + grayscale / 100 + ')';
-	    }
+		if (brightness < 100) {
+			style += ' brightness(' + brightness / 100 + ')';
+		}
+
+		if (contrast < 100) {
+			style += ' contrast(' + contrast / 100 + ')';
+		}
+
+		if (grayscale > 0) {
+			style += ' grayscale(' + grayscale / 100 + ')';
+		}
 	}
 
-    extension.bluelight(bluelight);
+	extension.bluelight(bluelight);
 
-    if (!extension.filters.element) {
-    	extension.filters.element = extension.styles.create();
-    }
+	if (!extension.filters.element) {
+		extension.filters.element = extension.styles.create();
+	}
 
-    extension.filters.element.textContent = 'html{filter:' + style + ' !important}';
+	extension.filters.element.textContent = 'html{filter:' + style + ' !important}';
 };
 
 
@@ -130,11 +138,18 @@ extension.filters = function () {
 --------------------------------------------------------------*/
 
 extension.checkDefaultTheme = function () {
+	if (extension.storage.website.theme === 'dynamic' && extension.websiteHasDarkTheme === false) {
+		document.documentElement.removeAttribute('dm-default-theme');
+
+		extension.websiteHasDarkTheme = false;
+
+		return;
+	}
+
 	var colors = [],
 		is_dark = false;
 
-	colors.push(satus.css(document.documentElement, 'background-color'));
-	colors.push(satus.css(document.body, 'background-color'));
+	extension.allowColors(false);
 
 	function parse(element, depth, depth_limit) {
 		depth++;
@@ -156,33 +171,38 @@ extension.checkDefaultTheme = function () {
 		}
 	}
 
-	parse(document.body, 0, 3);
+	setTimeout(function () {
+		colors.push(satus.css(document.documentElement, 'background-color'));
+		colors.push(satus.css(document.body, 'background-color'));
 
-	for (var i = 0, l = colors.length; i < l; i++) {
-		var color = colors[i];
+		parse(document.body, 0, 3);
 
-		if (satus.isString(color)) {
-			var array = satus.color.stringToArray(color);
+		for (var i = 0, l = colors.length; i < l; i++) {
+			var color = colors[i];
 
-			if (satus.isArray(array) && (satus.isset(array[3]) === false || array[3] > 0.5)) {
-				var hsl = satus.color.rgbToHsl(array);
+			if (satus.isString(color)) {
+				var array = satus.color.stringToArray(color);
 
-				if (satus.isArray(hsl)) {
-					var l = hsl[2];
+				if (satus.isArray(array) && (satus.isset(array[3]) === false || array[3] > 0.5)) {
+					var hsl = satus.color.rgbToHsl(array);
 
-					if (l < 50) {
-						is_dark = true;
+					if (satus.isArray(hsl)) {
+						if (hsl[2] < 50) {
+							is_dark = true;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if (is_dark) {
-		document.documentElement.setAttribute('dm-default-theme', 'dark');
+		if (is_dark) {
+			document.documentElement.setAttribute('dm-default-theme', 'dark');
 
-		extension.websiteHasDarkTheme = true;
-	}
+			extension.websiteHasDarkTheme = true;
+		}
+
+		extension.allowColors();
+	});
 };
 
 extension.events.on('extension-loaded', function () {
@@ -193,17 +213,17 @@ extension.events.on('extension-loaded', function () {
 
 extension.events.on('website-loaded', function () {
 	extension.checkDefaultTheme();
-	
+
 	extension.filters();
 });
 
 extension.events.on('storage-changed', function () {
-	extension.filters();
+	extension.filters(true);
 });
 
 window.addEventListener('focus', function () {
 	setTimeout(function () {
 		extension.checkDefaultTheme();
 		extension.filters();
-	}, 100);
+	}, 125);
 });

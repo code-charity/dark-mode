@@ -209,7 +209,6 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
 	var action = message.action;
 
 	if (action === 'fetch') {
-		console.log(message);
 		var response = await (await fetch(message.url, {
 			cache: 'force-cache',
 			credentials: 'omit'
@@ -234,7 +233,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 				allFrames: true
 			},
 			files: [
-				'/user-agent-stylesheet.css'
+				'/content-scripts/user-agent-stylesheet.css'
 			]
 		});
 	} else if (action === 'remove-user-agent-stylesheet') {
@@ -244,7 +243,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 				allFrames: true
 			},
 			files: [
-				'/user-agent-stylesheet.css'
+				'/content-scripts/user-agent-stylesheet.css'
 			]
 		});
 	} else if (action === 'tab-connected') {

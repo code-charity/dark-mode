@@ -95,21 +95,21 @@ extension.events.trigger = async function (type, data) {
 
 extension.storage.get = function (key) {
 	var array = key.split('/'),
-        target = extension.storage.data;
+		target = extension.storage.data;
 
-    for (var i = 0, l = array.length; i < l; i++) {
-        var j = array[i];
+	for (var i = 0, l = array.length; i < l; i++) {
+		var j = array[i];
 
-        if (target[j] !== undefined) {
-            target = target[j];
+		if (target[j] !== undefined) {
+			target = target[j];
 
-            if (i + 1 === l) {
-                return target;
-            }
-        } else {
-            return undefined;
-        }
-    }
+			if (i + 1 === l) {
+				return target;
+			}
+		} else {
+			return undefined;
+		}
+	}
 };
 
 
@@ -128,47 +128,61 @@ extension.schedule = function () {
 	}
 
 	if (extension.storage.data.schedule === 'sunset_to_sunrise') {
-        var start = Number((extension.storage.data.time_from || '00:00').substr(0, 2)),
-            end = Number((extension.storage.data.time_to || '00:00').substr(0, 2)),
-            current = new Date().getHours();
+		var start = Number((extension.storage.data.time_from || '00:00').substr(0, 2)),
+			end = Number((extension.storage.data.time_to || '00:00').substr(0, 2)),
+			current = new Date().getHours();
 
-        if (end < start && current > start && current < 24) {
-            end += 24;
-        } else if (end < start && current < end) {
-            start = 0;
-        }
+		if (end < start && current > start && current < 24) {
+			end += 24;
+		} else if (end < start && current < end) {
+			start = 0;
+		}
 
-        if (current < start || current > end) {
-        	extension.schedule.interval = setInterval(extension.schedule, 1000 * 60);
+		if (current < start || current > end) {
+			extension.schedule.interval = setInterval(extension.schedule, 1000 * 60);
 
-            return false;
-        }
-    } else if (extension.storage.data.schedule === 'system_peference') {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
-            return false;
-        }
-    }
+			return false;
+		}
+	} else if (extension.storage.data.schedule === 'system_peference') {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
+			return false;
+		}
+	}
 
 	if (extension.storage.get('websites/' + extension.hostname + '/separated') === true) {
 		extension.storage.website.styles = extension.storage.get('websites/' + extension.hostname + '/styles');
 		extension.storage.website.theme = extension.storage.get('websites/' + extension.hostname + '/theme') || 'invert';
-        extension.storage.website.filters = extension.storage.get('websites/' + extension.hostname + '/filters') || {};
-    } else {
-        extension.storage.website.styles = extension.storage.get('styles');
+		extension.storage.website.filters = extension.storage.get('websites/' + extension.hostname + '/filters') || {};
+	} else {
+		extension.storage.website.styles = extension.storage.get('styles');
 		extension.storage.website.theme = extension.storage.get('theme') || 'invert';
-        extension.storage.website.filters = extension.storage.get('filters') || {};
-    }
+		extension.storage.website.filters = extension.storage.get('filters') || {};
+	}
 };
 
-extension.init = function  () {
+extension.allowTransitions = function () {
+	document.documentElement.setAttribute('dm-allow-transitions', '');
+};
+
+extension.allowColors = function (value) {
+	if (value !== false) {
+		document.documentElement.setAttribute('dm-allow-colors', '');
+	} else {
+		document.documentElement.removeAttribute('dm-allow-colors');
+	}
+};
+
+extension.init = function () {
 	extension.ready++;
 
 	if (extension.ready > 2) {
-		document.documentElement.setAttribute('dm-ready', '');
-
 		extension.schedule();
 
 		extension.events.trigger('extension-loaded');
+
+		setTimeout(function () {
+			extension.allowTransitions();
+		});
 	}
 };
 
@@ -189,7 +203,7 @@ chrome.storage.onChanged.addListener(function (changes) {
 
 	extension.schedule();
 
-    for (var key in changes) {
+	for (var key in changes) {
 		var value = changes[key].newValue;
 
 		extension.events.trigger('storage-changed', {
