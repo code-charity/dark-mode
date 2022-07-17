@@ -89,9 +89,9 @@ extension.filters = function (changed) {
 		if (theme === 'invert' && extension.websiteHasDarkTheme === false) {
 			style = 'invert(1)';
 
-			html.setAttribute('dm-invert-colors', 'true');
-
 			extension.allowColors();
+
+			html.setAttribute('dm-invert-colors', 'true');
 		} else {
 			html.removeAttribute('dm-invert-colors');
 
@@ -138,7 +138,18 @@ extension.filters = function (changed) {
 --------------------------------------------------------------*/
 
 extension.checkDefaultTheme = function () {
-	if (extension.storage.website.theme === 'dynamic' && extension.websiteHasDarkTheme === false) {
+	if (localStorage && localStorage.getItem('dm-default-theme') === 'dark') {
+		document.documentElement.setAttribute('dm-default-theme', 'dark');
+
+		extension.websiteHasDarkTheme = true;
+
+		return;
+	}
+
+	if (
+		extension.storage.website.theme === 'dynamic' &&
+		extension.websiteHasDarkTheme === false
+	) {
 		document.documentElement.removeAttribute('dm-default-theme');
 
 		extension.websiteHasDarkTheme = false;
@@ -198,6 +209,10 @@ extension.checkDefaultTheme = function () {
 		if (is_dark) {
 			document.documentElement.setAttribute('dm-default-theme', 'dark');
 
+			if (localStorage) {
+				localStorage.setItem('dm-default-theme', 'dark');
+			}
+
 			extension.websiteHasDarkTheme = true;
 		}
 
@@ -207,6 +222,14 @@ extension.checkDefaultTheme = function () {
 
 extension.events.on('extension-loaded', function () {
 	extension.checkDefaultTheme();
+
+	if (localStorage && localStorage.getItem('dm-default-theme') === 'dark') {
+		document.documentElement.setAttribute('dm-default-theme', 'dark');
+
+		extension.websiteHasDarkTheme = true;
+
+		extension.allowColors();
+	}
 
 	extension.filters();
 });

@@ -1019,6 +1019,12 @@ extension.dynamicFilter.scale = function (x, inLow, inHigh, outLow, outHigh) {
 --------------------------------------------------------------*/
 
 extension.dynamicFilter.activate = function () {
+	extension.allowColors(false);
+
+	extension.dynamicFilter.queryLinks();
+	extension.dynamicFilter.queryStyles();
+	extension.dynamicFilter.queryInlines();
+
 	extension.dynamicFilter.observer = new MutationObserver(extension.dynamicFilter.parseMutations);
 
 	extension.dynamicFilter.observer.observe(document, {
@@ -1035,56 +1041,45 @@ extension.dynamicFilter.activate = function () {
 		subtree: true
 	});
 
-	extension.dynamicFilter.queryLinks();
-	extension.dynamicFilter.queryStyles();
-	extension.dynamicFilter.queryInlines();
-
 	chrome.runtime.sendMessage({
 		action: 'insert-user-agent-stylesheet'
 	});
 };
 
 extension.dynamicFilter.deactivate = function () {
-	var elements = document.querySelectorAll('.dark-mode--stylesheet');
+	var elements = {
+			attribute: document.querySelectorAll('.dark-mode--attribute'),
+			bgcolor: document.querySelectorAll('.dark-mode--bgcolor'),
+			color: document.querySelectorAll('.dark-mode--color'),
+			stylesheet: document.querySelectorAll('.dark-mode--stylesheet')
+		};
 
-	for (var i = 0, l = elements.length; i < l; i++) {
-		elements[i].remove();
-	}
-
-	elements = document.querySelectorAll('.dark-mode--attribute');
-
-	for (var i = 0, l = elements.length; i < l; i++) {
-		var element = elements[i];
+	for (var i = 0, l = elements.attribute.length; i < l; i++) {
+		var element = elements.attribute[i];
 
 		element.classList.remove('dark-mode--attribute');
-
 		element.setAttribute('style', element.getAttribute('dm-old-style'));
-
 		element.removeAttribute('dm-old-style');
 	}
 
-	elements = document.querySelectorAll('.dark-mode--bgcolor');
-
-	for (var i = 0, l = elements.length; i < l; i++) {
-		var element = elements[i];
+	for (var i = 0, l = elements.bgcolor.length; i < l; i++) {
+		var element = elements.bgcolor[i];
 
 		element.classList.remove('dark-mode--bgcolor');
-
 		element.setAttribute('bgcolor', element.getAttribute('dm-old-bgcolor'));
-
 		element.removeAttribute('dm-old-bgcolor');
 	}
 
-	elements = document.querySelectorAll('.dark-mode--color');
-
-	for (var i = 0, l = elements.length; i < l; i++) {
-		var element = elements[i];
+	for (var i = 0, l = elements.color.length; i < l; i++) {
+		var element = elements.color[i];
 
 		element.classList.remove('dark-mode--color');
-
 		element.setAttribute('color', element.getAttribute('dm-old-color'));
-
 		element.removeAttribute('dm-old-color');
+	}
+
+	for (var i = 0, l = elements.stylesheet.length; i < l; i++) {
+		elements.stylesheet[i].remove();
 	}
 
 	if (extension.dynamicFilter.observer) {
