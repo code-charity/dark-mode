@@ -26,7 +26,7 @@ var extension = {
 			filters: {}
 		}
 	},
-	hostname: location.hostname,
+	hostname: location.hostname || location.href,
 	websiteHasDarkTheme: false
 };
 
@@ -165,11 +165,11 @@ extension.allowTransitions = function () {
 };
 
 extension.allowColors = function (value) {
-	if (value !== false) {
-		document.documentElement.setAttribute('dm-allow-colors', '');
-	} else {
-		document.documentElement.removeAttribute('dm-allow-colors');
-	}
+	document.documentElement.setAttribute('dm-allow-colors', '');
+};
+
+extension.disallowColors = function (value) {
+	document.documentElement.removeAttribute('dm-allow-colors');
 };
 
 extension.init = function () {

@@ -28,6 +28,7 @@ extension.dynamicFilter = {
 		link: [],
 		style: []
 	},
+	status: false,
 	indexes: [],
 	styles: {},
 	elements: {},
@@ -1019,78 +1020,88 @@ extension.dynamicFilter.scale = function (x, inLow, inHigh, outLow, outHigh) {
 --------------------------------------------------------------*/
 
 extension.dynamicFilter.activate = function () {
-	extension.allowColors(false);
+	if (extension.dynamicFilter.status === false) {
+		extension.dynamicFilter.status = true;
 
-	extension.dynamicFilter.queryLinks();
-	extension.dynamicFilter.queryStyles();
-	extension.dynamicFilter.queryInlines();
+		document.documentElement.removeAttribute('dm-default-theme');
 
-	extension.dynamicFilter.observer = new MutationObserver(extension.dynamicFilter.parseMutations);
+		extension.disallowColors();
 
-	extension.dynamicFilter.observer.observe(document, {
-		attributes: true,
-		attributeFilter: [
-			'bgcolor',
-			'color',
-			'fill',
-			'stop-color',
-			'stroke',
-			'style'
-		],
-		childList: true,
-		subtree: true
-	});
+		extension.dynamicFilter.queryLinks();
+		extension.dynamicFilter.queryStyles();
+		extension.dynamicFilter.queryInlines();
 
-	chrome.runtime.sendMessage({
-		action: 'insert-user-agent-stylesheet'
-	});
+		extension.dynamicFilter.observer = new MutationObserver(extension.dynamicFilter.parseMutations);
+
+		extension.dynamicFilter.observer.observe(document, {
+			attributes: true,
+			attributeFilter: [
+				'bgcolor',
+				'color',
+				'fill',
+				'stop-color',
+				'stroke',
+				'style'
+			],
+			childList: true,
+			subtree: true
+		});
+
+		chrome.runtime.sendMessage({
+			action: 'insert-user-agent-stylesheet'
+		});
+	}
 };
 
 extension.dynamicFilter.deactivate = function () {
-	var elements = {
-			attribute: document.querySelectorAll('.dark-mode--attribute'),
-			bgcolor: document.querySelectorAll('.dark-mode--bgcolor'),
-			color: document.querySelectorAll('.dark-mode--color'),
-			stylesheet: document.querySelectorAll('.dark-mode--stylesheet')
-		};
+	if (extension.dynamicFilter.status === true) {
+		extension.dynamicFilter.status = false;
 
-	for (var i = 0, l = elements.attribute.length; i < l; i++) {
-		var element = elements.attribute[i];
+		var elements = {
+				attribute: document.querySelectorAll('.dark-mode--attribute'),
+				bgcolor: document.querySelectorAll('.dark-mode--bgcolor'),
+				color: document.querySelectorAll('.dark-mode--color'),
+				stylesheet: document.querySelectorAll('.dark-mode--stylesheet')
+			};
 
-		element.classList.remove('dark-mode--attribute');
-		element.setAttribute('style', element.getAttribute('dm-old-style'));
-		element.removeAttribute('dm-old-style');
+		for (var i = 0, l = elements.attribute.length; i < l; i++) {
+			var element = elements.attribute[i];
+
+			element.classList.remove('dark-mode--attribute');
+			element.setAttribute('style', element.getAttribute('dm-old-style'));
+			element.removeAttribute('dm-old-style');
+		}
+
+		for (var i = 0, l = elements.bgcolor.length; i < l; i++) {
+			var element = elements.bgcolor[i];
+
+			element.classList.remove('dark-mode--bgcolor');
+			element.setAttribute('bgcolor', element.getAttribute('dm-old-bgcolor'));
+			element.removeAttribute('dm-old-bgcolor');
+		}
+
+		for (var i = 0, l = elements.color.length; i < l; i++) {
+			var element = elements.color[i];
+
+			element.classList.remove('dark-mode--color');
+			element.setAttribute('color', element.getAttribute('dm-old-color'));
+			element.removeAttribute('dm-old-color');
+		}
+
+		for (var i = 0, l = elements.stylesheet.length; i < l; i++) {
+			elements.stylesheet[i].remove();
+		}
+
+		if (extension.dynamicFilter.observer) {
+			extension.dynamicFilter.observer.disconnect();
+
+			delete extension.dynamicFilter.observer;
+		}
+
+		chrome.runtime.sendMessage({
+			action: 'remove-user-agent-stylesheet'
+		});
 	}
-
-	for (var i = 0, l = elements.bgcolor.length; i < l; i++) {
-		var element = elements.bgcolor[i];
-
-		element.classList.remove('dark-mode--bgcolor');
-		element.setAttribute('bgcolor', element.getAttribute('dm-old-bgcolor'));
-		element.removeAttribute('dm-old-bgcolor');
-	}
-
-	for (var i = 0, l = elements.color.length; i < l; i++) {
-		var element = elements.color[i];
-
-		element.classList.remove('dark-mode--color');
-		element.setAttribute('color', element.getAttribute('dm-old-color'));
-		element.removeAttribute('dm-old-color');
-	}
-
-	for (var i = 0, l = elements.stylesheet.length; i < l; i++) {
-		elements.stylesheet[i].remove();
-	}
-
-	if (extension.dynamicFilter.observer) {
-		extension.dynamicFilter.observer.disconnect();
-
-		delete extension.dynamicFilter.observer;
-	}
-
-	chrome.runtime.sendMessage({
-		action: 'remove-user-agent-stylesheet'
-	});
 };
 
 

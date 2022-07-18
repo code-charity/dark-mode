@@ -227,25 +227,29 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 	var action = message.action;
 
 	if (action === 'insert-user-agent-stylesheet') {
-		chrome.scripting.insertCSS({
-			target: {
-				tabId: sender.tab.id,
-				allFrames: true
-			},
-			files: [
-				'/content-scripts/user-agent-stylesheet.css'
-			]
-		});
+		if (!sender.frameId) {
+			chrome.scripting.insertCSS({
+				target: {
+					tabId: sender.tab.id,
+					allFrames: true
+				},
+				files: [
+					'/content-scripts/user-agent-stylesheet.css'
+				]
+			});
+		}
 	} else if (action === 'remove-user-agent-stylesheet') {
-		chrome.scripting.removeCSS({
-			target: {
-				tabId: sender.tab.id,
-				allFrames: true
-			},
-			files: [
-				'/content-scripts/user-agent-stylesheet.css'
-			]
-		});
+		if (!sender.frameId) {
+			chrome.scripting.removeCSS({
+				target: {
+					tabId: sender.tab.id,
+					allFrames: true
+				},
+				files: [
+					'/content-scripts/user-agent-stylesheet.css'
+				]
+			});
+		}
 	} else if (action === 'tab-connected') {
 		sendResponse(new URL(sender.url).hostname);
 	} else if (action === 'options-page-connected') {

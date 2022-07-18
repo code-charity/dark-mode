@@ -95,15 +95,12 @@ extension.filters = function (changed) {
 		} else {
 			html.removeAttribute('dm-invert-colors');
 
-			if (theme === 'dynamic' && extension.websiteHasDarkTheme === false && !extension.dynamicFilter.observer) {
+			if (theme === 'dynamic' && extension.websiteHasDarkTheme === false) {
 				extension.dynamicFilter.activate();
 			} else {
 				extension.allowColors();
+				extension.dynamicFilter.deactivate();
 			}
-		}
-
-		if (changed === true && theme !== 'dynamic') {
-			extension.dynamicFilter.deactivate();
 		}
 
 		if (bluelight > 0) {
@@ -138,51 +135,33 @@ extension.filters = function (changed) {
 --------------------------------------------------------------*/
 
 extension.checkDefaultTheme = function () {
-	if (localStorage && localStorage.getItem('dm-default-theme') === 'dark') {
-		document.documentElement.setAttribute('dm-default-theme', 'dark');
+	if (extension.dynamicFilter.status === false) {
+		var colors = [],
+			is_dark = false,
+			allowed_colors = document.documentElement.hasAttribute('dm-allow-colors');
 
-		extension.websiteHasDarkTheme = true;
+		extension.allowColors();
 
-		return;
-	}
+		function parse(element, depth, depth_limit) {
+			depth++;
 
-	if (
-		extension.storage.website.theme === 'dynamic' &&
-		extension.websiteHasDarkTheme === false
-	) {
-		document.documentElement.removeAttribute('dm-default-theme');
+			for (var i = 0, l = element.children.length; i < l; i++) {
+				var child = element.children[i],
+					rect = child.getBoundingClientRect();
 
-		extension.websiteHasDarkTheme = false;
+				if (
+					rect.width >= document.body.offsetWidth &&
+					rect.height >= window.innerHeight
+				) {
+					colors.push(satus.css(child, 'background-color'));
+				}
 
-		return;
-	}
-
-	var colors = [],
-		is_dark = false;
-
-	extension.allowColors(false);
-
-	function parse(element, depth, depth_limit) {
-		depth++;
-
-		for (var i = 0, l = element.children.length; i < l; i++) {
-			var child = element.children[i],
-				rect = child.getBoundingClientRect();
-
-			if (
-				rect.width >= document.body.offsetWidth &&
-				rect.height >= window.innerHeight
-			) {
-				colors.push(satus.css(child, 'background-color'));
-			}
-
-			if (depth < depth_limit && child.children) {
-				parse(child, depth, depth_limit);
+				if (depth < depth_limit && child.children) {
+					parse(child, depth, depth_limit);
+				}
 			}
 		}
-	}
 
-	setTimeout(function () {
 		colors.push(satus.css(document.documentElement, 'background-color'));
 		colors.push(satus.css(document.body, 'background-color'));
 
@@ -214,39 +193,51 @@ extension.checkDefaultTheme = function () {
 			}
 
 			extension.websiteHasDarkTheme = true;
+		} else {
+			localStorage.removeItem('dm-default-theme');
 		}
 
-		extension.allowColors();
-	});
+		if (allowed_colors === false) {
+			extension.disallowColors();
+		}
+
+		console.log(extension.hostname, 'default-dark', extension.websiteHasDarkTheme);
+	}
 };
 
 extension.events.on('extension-loaded', function () {
 	extension.checkDefaultTheme();
 
-	if (localStorage && localStorage.getItem('dm-default-theme') === 'dark') {
-		document.documentElement.setAttribute('dm-default-theme', 'dark');
-
-		extension.websiteHasDarkTheme = true;
-
-		extension.allowColors();
-	}
-
 	extension.filters();
 });
 
 extension.events.on('website-loaded', function () {
-	extension.checkDefaultTheme();
+	if (extension.ready > 2) {
+		extension.checkDefaultTheme();
 
-	extension.filters();
+		extension.filters();
+	}
 });
 
 extension.events.on('storage-changed', function () {
-	extension.filters(true);
+	if (extension.ready > 2) {
+		extension.filters(true);
+	}
 });
 
 window.addEventListener('focus', function () {
-	setTimeout(function () {
-		extension.checkDefaultTheme();
-		extension.filters();
-	}, 125);
+	if (extension.ready > 2) {
+		setTimeout(function () {
+			extension.checkDefaultTheme();
+			extension.filters();
+		}, 125);
+	}
 });
+
+if (localStorage && localStorage.getItem('dm-default-theme') === 'dark') {
+	document.documentElement.setAttribute('dm-default-theme', 'dark');
+
+	extension.websiteHasDarkTheme = true;
+
+	extension.allowColors();
+}
