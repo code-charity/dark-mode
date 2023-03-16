@@ -1,99 +1,99 @@
 {
     "about": {
-        "message": "About"
+        "message": "À propos"
     },
     "absolute": {
-        "message": "Absolute"
+        "message": "Absolu"
     },
     "accept": {
-        "message": "Accept"
+        "message": "Accepter"
     },
     "allYourSettingsWillBeErasedAndCanTBeRecovered": {
-        "message": "All your settings will be erased and can't be recovered"
+        "message": "Tous vos paramètres seront effacés et ne pourront pas être récupérés"
     },
     "always": {
-        "message": "Always"
+        "message": "Toujours"
     },
     "appearance": {
-        "message": "Appearance"
+        "message": "Apparence"
     },
     "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
-        "message": "Are you sure you want to delete the selected website settings?"
+        "message": "Êtes-vous sûr de vouloir supprimer les paramètres du site web sélectionné ?"
     },
     "areYouSureYouWantToExportTheData": {
-        "message": "Are you sure you want to export the data?"
+        "message": "Êtes-vous sûr de vouloir exporter les données ?"
     },
     "areYouSureYouWantToImportTheData": {
-        "message": "Are you sure you want to import the data?"
+        "message": "Êtes-vous sûr de vouloir importer les données ?"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "Formats audio"
     },
     "backupAndReset": {
-        "message": "Backup & reset"
+        "message": "Sauvegarde et réinitialisation"
     },
     "bitness": {
-        "message": "Bitness"
+        "message": "Architecture de processeur"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "Lumière bleue"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "Luminosité"
     },
     "browser": {
-        "message": "Browser"
+        "message": "Navigateur"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "Annuler"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Température de couleur"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "Contraste"
     },
     "cores": {
-        "message": "Cores"
+        "message": "Cœurs"
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "Date et heure"
     },
     "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
+        "message": "Mode sombre, lecture de nuit. Filtre de lumière bleue pour tous les sites web. Reposez vos yeux la nuit et le jour."
     },
     "device": {
-        "message": "Device"
+        "message": "Appareil"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "Désactivé"
     },
     "dynamic": {
-        "message": "Dynamic"
+        "message": "Dynamique"
     },
     "dynamicFilter": {
-        "message": "Dynamic filter"
+        "message": "Filtre dynamique"
     },
     "dynamicTheme": {
-        "message": "Dynamic theme"
+        "message": "Thème dynamique"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "Exclure ce site web"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "Exporter les paramètres"
     },
     "extension": {
         "message": "Extension"
     },
     "filters": {
-        "message": "Filters"
+        "message": "Filtres"
     },
     "flash": {
         "message": "Flash"
     },
     "general": {
-        "message": "General"
+        "message": "Général"
     },
     "global": {
         "message": "Global"
@@ -102,162 +102,163 @@
         "message": "GPU"
     },
     "grayscale": {
-        "message": "Grayscale"
+        "message": "Niveau de gris"
     },
     "hardwareInformation": {
-        "message": "Hardware information"
+        "message": "Informations sur le matériel"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "Masquer \"Made with ❤...\""
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "Importer les paramètres"
     },
     "invert": {
-        "message": "Invert"
+        "message": "Inverser"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "Inverser les couleurs"
     },
     "language": {
-        "message": "Language"
+        "message": "Langue"
     },
     "languages": {
-        "message": "Languages"
+        "message": "Langues"
     },
     "mode": {
         "message": "Mode"
     },
     "name": {
-        "message": "Name"
+        "message": "Nom"
     },
     "never": {
-        "message": "Never"
+        "message": "Jamais"
     },
     "no": {
-        "message": "No"
+        "message": "Non"
     },
     "ok": {
         "message": "OK"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "Activer uniquement pour ce site web"
     },
     "os": {
-        "message": "OS"
+        "message": "Système d'exploitation"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "Autorisation non accordée"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "Autorisations"
     },
     "platform": {
-        "message": "Platform"
+        "message": "Plateforme"
     },
     "ram": {
         "message": "RAM"
     },
     "remove": {
-        "message": "Remove"
+        "message": "Supprimer"
     },
     "reset": {
-        "message": "Reset"
+        "message": "Réinitialiser"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "Réinitialiser tous les paramètres"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "Réinitialiser les paramètres?"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "Enregistrer sous..."
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "Planifier"
     },
     "screen": {
-        "message": "Screen"
+        "message": "Écran"
     },
     "sepia": {
-        "message": "Sepia"
+        "message": "Sépia"
     },
     "settings": {
-        "message": "Settings"
+        "message": "Paramètres"
     },
     "softwareInformation": {
-        "message": "Software information"
+        "message": "Informations sur le logiciel"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "Une erreur s'est produite. Essayez de recharger la page."
     },
     "styles": {
         "message": "Styles"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Paramètres importés avec succès"
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "Coucher de soleil à lever de soleil"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "Préférence du système"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "Mode éditeur de texte"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "La liste est vide"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "La page HOSTNAME est protégée par le navigateur."
     },
     "theme": {
-        "message": "Theme"
+        "message": "Thème"
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
-        "message": "This is an experimental feature. Do you want to activate it?"
+        "message": "Il s'agit d'une fonctionnalité expérimentale. Voulez-vous l'activer?"
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Cela réinitialisera tous les paramètres"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "De"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "À"
     },
+
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "Désactiver pour ce site web"
     },
     "turnOn": {
-        "message": "Turn on"
+       "message": "Activer"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+       "message": "Activer pour ce site web"
     },
     "type": {
-        "message": "Type"
+       "message": "Type"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+       "message": "Utiliser le format 24 heures"
     },
     "useGlobal": {
-        "message": "Use global"
+       "message": "Utiliser globalement"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+       "message": "Utiliser les paramètres pour tous les sites web"
     },
     "version": {
-        "message": "Version"
+       "message": "Version"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "Formats vidéo"
     },
     "websites": {
-        "message": "Websites"
+       "message": "Sites web"
     },
     "yes": {
-        "message": "Yes"
+      "message": "Oui"
     }
 }
