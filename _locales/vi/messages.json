@@ -1,263 +1,263 @@
 {
     "about": {
-        "message": "About"
+        "message": "Về chúng tôi"
     },
     "absolute": {
-        "message": "Absolute"
+        "message": "Tuyệt Đối"
     },
     "accept": {
-        "message": "Accept"
+        "message": "Chấp Nhập"
     },
     "allYourSettingsWillBeErasedAndCanTBeRecovered": {
-        "message": "All your settings will be erased and can't be recovered"
+        "message": "Xóa tất cả thiết lập"
     },
     "always": {
-        "message": "Always"
+        "message": "Luôn luôn"
     },
     "appearance": {
-        "message": "Appearance"
+        "message": "Giao diện"
     },
     "areYouSureYouWantToDeleteTheSelectedWebsiteSettings": {
-        "message": "Are you sure you want to delete the selected website settings?"
+        "message": "Bạn có muốn xóa cài đặt cho website được chọn không?"
     },
     "areYouSureYouWantToExportTheData": {
-        "message": "Are you sure you want to export the data?"
+        "message": "Bạn có muốn xuất dữ liệu?"
     },
     "areYouSureYouWantToImportTheData": {
-        "message": "Are you sure you want to import the data?"
+        "message": "Bạn có muốn nhập dữ liệu?"
     },
     "audioFormats": {
-        "message": "Audio formats"
+        "message": "Định dạng audio"
     },
     "backupAndReset": {
-        "message": "Backup & reset"
+        "message": "Khôi phục và thiết lập lại"
     },
     "bitness": {
         "message": "Bitness"
     },
     "bluelight": {
-        "message": "Bluelight"
+        "message": "Ánh sáng xanh"
     },
     "brightness": {
-        "message": "Brightness"
+        "message": "Độ sáng"
     },
     "browser": {
-        "message": "Browser"
+        "message": "Trình duyệt"
     },
     "cancel": {
-        "message": "Cancel"
+        "message": "Hủy"
     },
     "colorTemperature": {
-        "message": "Color temperature"
+        "message": "Nhiệt độ màu"
     },
     "contrast": {
-        "message": "Contrast"
+        "message": "Tương phản"
     },
     "cores": {
-        "message": "Cores"
+        "message": "Lõi"
     },
     "dateAndTime": {
-        "message": "Date & time"
+        "message": "Ngày và giờ"
     },
     "description": {
-        "message": "Dark Mode, read at night. Bluelight filter for every website. Relax your eyes at night and day."
+        "message": "Chế độ tối để đọc vào ban đêm. Lọc ánh sáng xanh cho mọi website. Thư giãn mắt dù là đêm lẫn ngày."
     },
     "device": {
-        "message": "Device"
+        "message": "Thiết bị"
     },
     "disabled": {
-        "message": "Disabled"
+        "message": "Đã tắt"
     },
     "dynamic": {
-        "message": "Dynamic"
+        "message": "Động"
     },
     "dynamicFilter": {
-        "message": "Dynamic filter"
+        "message": "Lọc động"
     },
     "dynamicTheme": {
-        "message": "Dynamic theme"
+        "message": "Nền động"
     },
     "excludeThisWebsite": {
-        "message": "Exclude this website"
+        "message": "Không áp dụng cho website"
     },
     "exportSettings": {
-        "message": "Export settings"
+        "message": "Xuất cài đặt"
     },
     "extension": {
         "message": "Extension"
     },
     "filters": {
-        "message": "Filters"
+        "message": "Lọc"
     },
     "flash": {
-        "message": "Flash"
+        "message": "Đèn"
     },
     "general": {
-        "message": "General"
+        "message": "Tổng quan"
     },
     "global": {
-        "message": "Global"
+        "message": "Chung"
     },
     "gpu": {
         "message": "GPU"
     },
     "grayscale": {
-        "message": "Grayscale"
+        "message": "Thang độ xám"
     },
     "hardwareInformation": {
-        "message": "Hardware information"
+        "message": "Thông tin phần cứng"
     },
     "hideMadeWithLove": {
-        "message": "Hide \"Made with ❤...\""
+        "message": "Ẩn \"Made with ❤...\""
     },
     "importSettings": {
-        "message": "Import settings"
+        "message": "Nhập cài đặt"
     },
     "invert": {
-        "message": "Invert"
+        "message": "Đảo"
     },
     "invertColors": {
-        "message": "Invert colors"
+        "message": "Đảo màu"
     },
     "language": {
-        "message": "Language"
+        "message": "Ngôn Ngữ"
     },
     "languages": {
-        "message": "Languages"
+        "message": "Ngôn Ngữ"
     },
     "mode": {
-        "message": "Mode"
+        "message": "Chế độ"
     },
     "name": {
-        "message": "Name"
+        "message": "Tên"
     },
     "never": {
-        "message": "Never"
+        "message": "Không bao giờ"
     },
     "no": {
-        "message": "No"
+        "message": "Không"
     },
     "ok": {
         "message": "OK"
     },
     "onlyEnableForThisWebsite": {
-        "message": "Only enable for this website"
+        "message": "Chỉ bật cho website này"
     },
     "os": {
-        "message": "OS"
+        "message": "Hệ điều hành"
     },
     "permissionIsNotGranted": {
-        "message": "Permission is not granted"
+        "message": "Không được cấp quyền"
     },
     "permissions": {
-        "message": "Permissions"
+        "message": "Quyền"
     },
     "platform": {
-        "message": "Platform"
+        "message": "Nền tảng"
     },
     "ram": {
         "message": "RAM"
     },
     "remove": {
-        "message": "Remove"
+        "message": "Xóa"
     },
     "reset": {
-        "message": "Reset"
+        "message": "Cài đặt lại"
     },
     "resetAllSettings": {
-        "message": "Reset all settings"
+        "message": "Cài đặt lại tất cả thiết lập"
     },
     "resetSettings": {
-        "message": "Reset settings?"
+        "message": "Cài đặt lại thiết lập?"
     },
     "saveAs": {
-        "message": "Save as..."
+        "message": "Lưu"
     },
     "schedule": {
-        "message": "Schedule"
+        "message": "Lịch"
     },
     "screen": {
-        "message": "Screen"
+        "message": "Màn hình"
     },
     "sepia": {
         "message": "Sepia"
     },
     "settings": {
-        "message": "Settings"
+        "message": "Cài đặt"
     },
     "softwareInformation": {
-        "message": "Software information"
+        "message": "Thông tin phần mềm"
     },
     "somethingWentWrongTryReloadingThePage": {
-        "message": "Something went wrong. Try reloading the page."
+        "message": "Lỗi rồi ! Refresh lại page đi."
     },
     "styles": {
         "message": "Styles"
     },
     "successfullyImportedSettings": {
-        "message": "Successfully imported settings"
+        "message": "Thành công nhập thiết lập"
     },
     "sunsetToSunrise": {
-        "message": "Sunset to sunrise"
+        "message": "Hoàng hôn thành bình minh"
     },
     "systemPeference": {
-        "message": "System preference"
+        "message": "Tương thích hệ thống"
     },
     "textEditorMode": {
-        "message": "Text editor mode"
+        "message": "Chế độ soạn thảo văn bản"
     },
     "theListIsEmpty": {
-        "message": "The list is empty"
+        "message": "Danh sách trống"
     },
     "thePageHOSTNAMEisProtectedByBrowser": {
-        "message": "The page HOSTNAME is protected by browser."
+        "message": "Trang HOSTNAME đã được bảo vệ bởi trình duyệt"
     },
     "theme": {
-        "message": "Theme"
+        "message": "Nền"
     },
     "thisIsAnExperimentalFeatureDoYouWantToActivateIt": {
-        "message": "This is an experimental feature. Do you want to activate it?"
+        "message": "Đây là tính năng thử nghiệm. Mày có muốn bật không >"
     },
     "thisWillResetAllSettings": {
-        "message": "This will reset all settings"
+        "message": "Thiết lập lại toàn bộ cài đặt"
     },
     "timeFrom": {
-        "message": "Time from"
+        "message": "Từ"
     },
     "timeTo": {
-        "message": "Time to"
+        "message": "Đến"
     },
     "turnOffForThisWebsite": {
-        "message": "Turn off for this website"
+        "message": "Tắt cho website này"
     },
     "turnOn": {
-        "message": "Turn on"
+        "message": "Bật"
     },
     "turnOnForThisWebsite": {
-        "message": "Turn on for this website"
+        "message": "Kích hoạt cho website này"
     },
     "type": {
-        "message": "Type"
+        "message": "Nhập"
     },
     "use24HourFormat": {
-        "message": "Use 24-hour format"
+        "message": "Sử dụng định dạng 24 giờ"
     },
     "useGlobal": {
-        "message": "Use global"
+        "message": "Áp dụng chung"
     },
     "useSettingsForAllWebsites": {
-        "message": "Use settings for all websites"
+        "message": "Áp dụng cài đặt cho tất cả Websites"
     },
     "version": {
-        "message": "Version"
+        "message": "Phiên bản"
     },
     "videoFormats": {
-        "message": "Video formats"
+        "message": "Định dạng Video"
     },
     "websites": {
         "message": "Websites"
     },
     "yes": {
-        "message": "Yes"
+        "message": "Có"
     }
 }
