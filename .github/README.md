@@ -59,6 +59,6 @@
 - [ ] [Thai](https://github.com/victor-savinov/dark-mode/tree/master/_locales/th/messages.json) `/th/`
 - [x] [Turkish](https://github.com/victor-savinov/dark-mode/tree/master/_locales/tr/messages.json) `/tr/`
 - [ ] [Ukrainian](https://github.com/victor-savinov/dark-mode/tree/master/_locales/uk/messages.json) `/uk/`
-- [ ] [Vietnamese](https://github.com/victor-savinov/dark-mode/tree/master/_locales/vi/messages.json) `/vi/`
+- [X] [Vietnamese](https://github.com/victor-savinov/dark-mode/tree/master/_locales/vi/messages.json) `/vi/`
 - [ ] [Chinese (China)](https://github.com/victor-savinov/dark-mode/tree/master/_locales/zh_CN/messages.json) `/zh_CN/`
 - [ ] [Chinese (Taiwan)](https://github.com/victor-savinov/dark-mode/tree/master/_locales/zh_TW/messages.json) `/zh_TW/`
