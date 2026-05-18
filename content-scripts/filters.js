@@ -134,6 +134,53 @@ extension.filters = function (changed) {
 >>> INITIALIZATION
 --------------------------------------------------------------*/
 
+extension.checkNativeDarkSupport = function () {
+	if (extension.storage.get('skip_on_native_dark') === false) {
+		return false;
+	}
+
+	if (!window.matchMedia || window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
+		return false;
+	}
+
+	var stylesheets = document.styleSheets;
+
+	for (var i = 0, l = stylesheets.length; i < l; i++) {
+		var rules;
+
+		try {
+			rules = stylesheets[i].cssRules;
+		} catch (e) {
+			continue;
+		}
+
+		if (!rules) {
+			continue;
+		}
+
+		for (var j = 0, m = rules.length; j < m; j++) {
+			var rule = rules[j];
+
+			if (
+				rule instanceof CSSMediaRule &&
+				rule.media.mediaText.indexOf('prefers-color-scheme: dark') !== -1
+			) {
+				document.documentElement.setAttribute('dm-default-theme', 'dark');
+
+				if (localStorage) {
+					localStorage.setItem('dm-default-theme', 'dark');
+				}
+
+				extension.websiteHasDarkTheme = true;
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+};
+
 extension.checkDefaultTheme = function () {
 	if (extension.dynamicFilter.status === false) {
 		var colors = [],
@@ -206,6 +253,7 @@ extension.checkDefaultTheme = function () {
 };
 
 extension.events.on('extension-loaded', function () {
+	extension.checkNativeDarkSupport();
 	extension.checkDefaultTheme();
 
 	extension.filters();
@@ -213,6 +261,7 @@ extension.events.on('extension-loaded', function () {
 
 extension.events.on('website-loaded', function () {
 	if (extension.ready > 2) {
+		extension.checkNativeDarkSupport();
 		extension.checkDefaultTheme();
 
 		extension.filters();
@@ -228,6 +277,7 @@ extension.events.on('storage-changed', function () {
 window.addEventListener('focus', function () {
 	if (extension.ready > 2) {
 		setTimeout(function () {
+			extension.checkNativeDarkSupport();
 			extension.checkDefaultTheme();
 			extension.filters();
 		}, 125);

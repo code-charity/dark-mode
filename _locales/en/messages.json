@@ -185,6 +185,9 @@
     "settings": {
         "message": "Settings"
     },
+    "skipNativeDarkMode": {
+        "message": "Skip sites with native dark mode"
+    },
     "softwareInformation": {
         "message": "Software information"
     },
