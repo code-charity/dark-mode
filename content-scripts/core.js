@@ -198,6 +198,10 @@ chrome.storage.onChanged.addListener(function (changes) {
 	for (var key in changes) {
 		var value = changes[key].newValue;
 
+		if (key === 'installed') {
+			extension.init();
+		}
+
 		extension.storage.data[key] = value;
 	}
 
