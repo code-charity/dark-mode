@@ -94,3 +94,15 @@ skeleton.header.sectionEnd.menu.on.click.schedule.on.click.timeTo = {
 	},
 	storage: 'time_to'
 };
+
+
+/*--------------------------------------------------------------
+# SKIP NATIVE DARK MODE
+--------------------------------------------------------------*/
+
+skeleton.header.sectionEnd.menu.on.click.schedule.on.click.skipNativeDarkMode = {
+	component: 'switch',
+	text: 'skipNativeDarkMode',
+	storage: 'skip_on_native_dark',
+	value: true
+};
