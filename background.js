@@ -154,7 +154,7 @@ function migration() {
 
 chrome.runtime.onInstalled.addListener(function (details) {
 	if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-		/*chrome.tabs.query({}, function (tabs) {
+		chrome.tabs.query({}, function (tabs) {
 			for (var i = 0, l = tabs.length; i < l; i++) {
 				var tab = tabs[i],
 					url = tab.url;
@@ -187,14 +187,20 @@ chrome.runtime.onInstalled.addListener(function (details) {
 						files: [
 							'/assets/satus/satus.js',
 							'/content-scripts/core.js',
-							'/content-scripts/dynamic-theme.js',
 							'/content-scripts/custom-css.js',
+							'/content-scripts/dynamic-theme.js',
 							'/content-scripts/filters.js'
 						]
 					});
+
+					setTimeout(function () {
+						chrome.storage.local.set({
+							installed: true
+						});
+					}, 250);
 				}
 			}
-		});*/
+		});
 	} else if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
 		migration();
 	}
