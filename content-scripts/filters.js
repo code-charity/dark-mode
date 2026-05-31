@@ -212,7 +212,7 @@ extension.checkDefaultTheme = function () {
 		colors.push(satus.css(document.documentElement, 'background-color'));
 		colors.push(satus.css(document.body, 'background-color'));
 
-		parse(document.body, 0, 3);
+		parse(document.body, 0, 8);
 
 		for (var i = 0, l = colors.length; i < l; i++) {
 			var color = colors[i];
@@ -248,14 +248,16 @@ extension.checkDefaultTheme = function () {
 			extension.disallowColors();
 		}
 
-		console.log(extension.hostname, 'default-dark', extension.websiteHasDarkTheme);
+//		console.log(extension.hostname, 'default-dark', extension.websiteHasDarkTheme);
 	}
 };
 
 extension.events.on('extension-loaded', function () {
 	extension.checkNativeDarkSupport();
+	if (extension.storage.website.theme !== 'dynamic') {
+		extension.allowColors();
+	}
 	extension.checkDefaultTheme();
-
 	extension.filters();
 });
 
